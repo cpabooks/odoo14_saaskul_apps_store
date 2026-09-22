@@ -1,30 +1,34 @@
-# -*- coding: utf-8 -*-
+## -*- coding: utf-8 -*-
 {
-    'name': "CPABooks Re-Sequences",
+    'name': 'CPA Books Re-Sequences',
 
-    'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+    'summary': 'Manage and re-sequence document numbers across Odoo applications',
 
     'description': """
-        Long description of module's purpose
+CPA Books Re-Sequences
+======================
+Manage and re-sequence document numbers across Accounting, Sales,
+Purchase, Inventory, Project and CRM in Odoo 14.
     """,
 
-    'author': "S. M. Emrul Bahar",
-    'website': "http://www.yourcompany.com",
+    'author': 'CPA Books',
+    'website': 'https://www.cpabooks.co',
 
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
-    'category': 'Uncategorized',
+    'category': 'Productivity',
     'version': '14.0.1.53',
+    'license': 'OPL-1',
 
-    # any module necessary for this one to work correctly
-    'depends': ['base', 'account', 'sale', 'stock', 'project', 'crm', 'sh_pdc'],
+    'depends': [
+        'base',
+        'account',
+        'sale',
+        'stock',
+        'project',
+        'crm',
+        'sh_pdc',
+    ],
 
-    # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
         'views/sequence_menu.xml',
@@ -34,13 +38,17 @@
         'views/stock_picking.xml',
         'views/set_company_prefix_vew.xml',
         'views/assets.xml',
-        # 'views/helpdesk_ticket.xml',
         'security/security.xml',
         'security/ir.model.access.csv',
         'data/create_sequences.xml',
     ],
-    # only loaded in demonstration mode
+
     'demo': [
         'demo/demo.xml',
     ],
+
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}
 }
