@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="account_move_extend" model="ir.ui.view">
+        <field name="name">account.move.extend</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+
+<!--                <field name="name" position="attributes">-->
+<!--                        <attribute name="readonly">1</attribute>-->
+<!--                </field>-->
+                <field name="name" position="attributes">
+                        <attribute name="attrs">{'readonly':[('system_admin','=',False)]}</attribute>
+                </field>
+            <field name="name" position="after">
+                <field name="system_admin" invisible="1"/>
+            </field>
+
+
+        </field>
+    </record>
+</odoo>
