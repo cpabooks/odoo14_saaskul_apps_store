@@ -51,4 +51,3 @@ Purchase, Inventory, Project and CRM in Odoo 14.
     'application': True,
     'auto_install': False,
 }
-}
