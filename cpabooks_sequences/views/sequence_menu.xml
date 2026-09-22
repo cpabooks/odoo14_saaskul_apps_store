@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="sequence_form_extend" model="ir.ui.view">
+
+        <field name="name">sequence.form.extend</field>
+
+        <field name="model">ir.sequence</field>
+
+        <field name="inherit_id" ref="base.sequence_view"/>
+
+        <field name="arch" type="xml">
+
+            <xpath expr="//sheet" position="before">
+                <div class="alert alert-warning text-center" role="alert"
+                     attrs="{'invisible': ['|', ('sequence_for', '=', False), ('cpabooks_sequence_locked', '=', False)]}">
+                    This document sequence is <strong>locked</strong>. Uncheck <strong>Locked</strong> or use
+                    <strong>Unlock</strong> on the Re-Sequences list to edit prefix / numbering.
+                </div>
+            </xpath>
+
+            <field name="implementation" position="after">
+                <field name="sequence_for"
+                       attrs="{'readonly': [('cpabooks_sequence_locked', '=', True), ('sequence_for', '!=', False)]}"/>
+                <field name="sequence_pattern"
+                       attrs="{'readonly': [('cpabooks_sequence_locked', '=', True), ('sequence_for', '!=', False)]}"/>
+                <field name="cpabooks_year_digits"
+                       attrs="{'readonly': [('cpabooks_sequence_locked', '=', True), ('sequence_for', '!=', False)]}"/>
+                <field name="cpabooks_sequence_locked"
+                       attrs="{'invisible': [('sequence_for', '=', False)]}"/>
+                <field name="cpabooks_start_new_sequence"
+                       attrs="{'invisible': [('sequence_for', '=', False)], 'readonly': [('cpabooks_sequence_locked', '=', True), ('sequence_for', '!=', False)]}"/>
+                <field name="sequence_pattern_example" readonly="1"/>
+                <field name="sequence_for_journals" invisible="1"/>
+            </field>
+
+            <field name="name" position="attributes">
+                <attribute name="attrs">{'readonly': [('sequence_for', '!=', False), ('cpabooks_sequence_locked', '=', True)]}</attribute>
+            </field>
+            <field name="implementation" position="attributes">
+                <attribute name="attrs">{'readonly': [('sequence_for', '!=', False), ('cpabooks_sequence_locked', '=', True)]}</attribute>
+            </field>
+            <field name="code" position="attributes">
+                <attribute name="attrs">{'readonly': [('sequence_for', '!=', False), ('cpabooks_sequence_locked', '=', True)]}</attribute>
+            </field>
+            <field name="active" position="attributes">
+                <attribute name="attrs">{'readonly': [('sequence_for', '!=', False), ('cpabooks_sequence_locked', '=', True)]}</attribute>
+            </field>
+            <field name="company_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('sequence_for', '!=', False), ('cpabooks_sequence_locked', '=', True)]}</attribute>
+            </field>
+
+            <field name="prefix" position="attributes">
+                <attribute name="attrs">{'readonly': [('sequence_for', '!=', False), ('cpabooks_sequence_locked', '=', True)]}</attribute>
+            </field>
+            <field name="suffix" position="attributes">
+                <attribute name="attrs">{'readonly': [('sequence_for', '!=', False), ('cpabooks_sequence_locked', '=', True)]}</attribute>
+            </field>
+            <field name="use_date_range" position="attributes">
+                <attribute name="attrs">{'readonly': [('sequence_for', '!=', False), ('cpabooks_sequence_locked', '=', True)]}</attribute>
+            </field>
+            <field name="padding" position="attributes">
+                <attribute name="attrs">{'readonly': [('sequence_for', '!=', False), ('cpabooks_sequence_locked', '=', True)]}</attribute>
+            </field>
+            <field name="number_increment" position="attributes">
+                <attribute name="attrs">{'readonly': [('sequence_for', '!=', False), ('cpabooks_sequence_locked', '=', True)]}</attribute>
+            </field>
+            <field name="number_next_actual" position="attributes">
+                <attribute name="attrs">{'readonly': [('sequence_for', '!=', False), ('cpabooks_sequence_locked', '=', True)], 'invisible': [('use_date_range', '=', True)]}</attribute>
+            </field>
+            <field name="date_range_ids" position="attributes">
+                <attribute name="attrs">{'readonly': [('sequence_for', '!=', False), ('cpabooks_sequence_locked', '=', True)], 'invisible': [('use_date_range', '=', False)]}</attribute>
+            </field>
+
+        </field>
+
+    </record>
+
+    <record id="sequence_tree_extend" model="ir.ui.view">
+
+        <field name="name">sequence.tree.extend</field>
+
+        <field name="model">ir.sequence</field>
+
+        <field name="inherit_id" ref="base.sequence_view_tree"/>
+
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='name']" position="attributes">
+
+                <attribute name="invisible">1</attribute>
+
+            </xpath>
+
+            <xpath expr="/tree" position="inside">
+
+                <header>
+
+                    <button name="action_cpabooks_toggle_lock"
+                            string="Lock"
+                            type="object"
+                            class="btn-secondary o_cpabooks_lock_toggle_btn"
+                            groups="base.group_system"/>
+
+                    <button name="set_prefix"
+
+                            string="Reset Company Prefix"
+
+                            class="oe_highlight o_cpabooks_reset_prefix_btn"
+
+                            type="object"
+
+                            groups="base.group_system"/>
+
+                </header>
+
+            </xpath>
+
+            <field name="code" position="before">
+
+                <field name="name"/>
+
+                <field name="cpabooks_sequence_locked" string="Locked"/>
+
+                <field name="sequence_for"/>
+
+                <field name="sequence_pattern"/>
+
+                <field name="sequence_pattern_example" string="Pattern Example" optional="show"/>
+
+                <field name="sequence_for_journals" invisible="1"/>
+
+            </field>
+
+        </field>
+
+    </record>
+
+
+
+    <record id="ir_sequence_form_extend" model="ir.actions.act_window">
+
+        <field name="name">Re-Sequences</field>
+
+        <field name="type">ir.actions.act_window</field>
+
+        <field name="res_model">ir.sequence</field>
+
+        <field name="view_id" ref="sequence_tree_extend"/>
+
+        <field name="context">{'active_test': False, 'cpabooks_resequence_list': True}</field>
+
+        <field name="domain">
+
+            [('sequence_for', '!=', False), '|', ('company_id', '=', False), ('company_id', 'in', allowed_company_ids)]
+
+        </field>
+
+    </record>
+
+
+
+    <menuitem id="menu_custom_sequence" name="Re-Sequences" parent="base.menu_users" sequence="5"
+
+              action="ir_sequence_form_extend"/>
+
+</odoo>
+
