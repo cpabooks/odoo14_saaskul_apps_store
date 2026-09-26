@@ -8,14 +8,14 @@ CPABooks Audited Financials (AFG)
 From trial balance to the full pack: Profit or Loss, Financial Position,
 Equity, Cash Flow, PPE schedule, notes and UAE Corporate Tax.
     """,
-    'version': '14.0.1.0.231',
+    'version': '14.0.1.0.232',
     'category': 'Accounting',
     'author': 'CPABooks',
     'website': 'https://www.cpabooks.co',
     'license': 'LGPL-3',
     'price': 590,
     'currency': 'USD',
-    'support': 'support@cpabooks.co',
+    'support': 'info@cpabooks.org',
     'images': [
         'static/description/banner_screenshot.jpg',
     ],
