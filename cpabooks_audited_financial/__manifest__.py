@@ -2,10 +2,22 @@
 {
     'name': 'CPABooks Audited Financials (AFG)',
     'summary': 'IFRS/FTA-style management financial statements and TB mapping',
-    'version': '14.0.1.0.223',
+    'description': """
+CPABooks Audited Financials (AFG)
+=================================
+From trial balance to the full pack: Profit or Loss, Financial Position,
+Equity, Cash Flow, PPE schedule, notes and UAE Corporate Tax.
+    """,
+    'version': '14.0.1.0.224',
     'category': 'Accounting',
     'author': 'CPABooks',
+    'website': 'https://www.cpabooks.co',
     'license': 'LGPL-3',
+    'price': 15.00,
+    'currency': 'USD',
+    'images': [
+        'static/description/banner_screenshot.png',
+    ],
     'depends': [
         'base',
         'account',
