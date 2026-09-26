@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_form_afg_group" model="ir.ui.view">
+        <field name="name">account.account.form.afg.group</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_form"/>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='options_group']" position="before">
+                <group string="Audited Financials" name="afg_mapping_group" col="4">
+                    <field name="afg_group_id"
+                           string="AFG group"
+                           readonly="0"
+                           force_save="1"
+                           options="{'no_create': True, 'no_open': True}"/>
+                    <field name="ctf_category" string="CT Filing"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_tree_afg_group" model="ir.ui.view">
+        <field name="name">account.account.tree.afg.group</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_list"/>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="afg_group_id" string="AFG group" optional="show"/>
+                <field name="ctf_category" string="CT Filing" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_search_afg_group" model="ir.ui.view">
+        <field name="name">account.account.search.afg.group</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="afg_group_id" string="AFG group"/>
+                <field name="ctf_category" string="CT Filing"/>
+            </xpath>
+            <xpath expr="//group" position="inside">
+                <filter name="groupby_afg" string="AFG group" context="{'group_by': 'afg_group_id'}"/>
+                <filter name="groupby_ctf" string="CT Filing" context="{'group_by': 'ctf_category'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

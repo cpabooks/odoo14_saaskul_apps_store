@@ -1,0 +1,19 @@
+.o_afg_child_row td.o_afg_child_cell {
+    padding-left: 2.5rem !important;
+    font-style: italic;
+    color: #c9a227;
+}
+.o_list_view.o_afg_ctf_group_list .o_data_row.text-success,
+.o_list_view.o_afg_ctf_group_list .o_data_row.decoration-success {
+    background-color: #1b4332 !important;
+    color: #d8f3dc !important;
+}
+.o_list_view.o_afg_ctf_group_list .o_data_row.text-muted,
+.o_list_view.o_afg_ctf_group_list .o_data_row.decoration-muted {
+    background-color: #2b2f36 !important;
+    color: #9aa3ad !important;
+}
+.o_list_view .o_afg_btn_expand,
+.o_list_view .o_afg_btn_collapse {
+    margin-left: 4px;
+}

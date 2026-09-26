@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_audited_financial_group_tree" model="ir.ui.view">
+        <field name="name">audited.financial.group.tree</field>
+        <field name="model">audited.financial.group</field>
+        <field name="arch" type="xml">
+            <tree string="Audited Financial Groups" js_class="afg_map_list">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="report_section"/>
+                <field name="sensitivity_category"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_audited_financial_group_form" model="ir.ui.view">
+        <field name="name">audited.financial.group.form</field>
+        <field name="model">audited.financial.group</field>
+        <field name="arch" type="xml">
+            <form string="Audited Financial Group">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="report_section"/>
+                            <field name="sequence"/>
+                            <field name="sensitivity_category"/>
+                            <field name="company_id"/>
+                        </group>
+                        <group>
+                            <field name="note" placeholder="Audit instructions for mappers..."/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Trial balance mapping" name="mapping">
+                            <div class="mb-2">
+                                <button name="action_open_add_ledgers"
+                                        type="object"
+                                        string="Add ledgers"
+                                        class="btn-primary"
+                                        help="Tick multiple unique ledger names, then Add."/>
+                            </div>
+                            <field name="line_ids" nolabel="1"
+                                     domain="[('company_id', 'in', allowed_company_ids)]"
+                                     context="{'default_group_id': active_id}">
+                                <tree editable="bottom" create="false">
+                                    <field name="ledger_caption"/>
+                                    <field name="account_id" invisible="1"/>
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="amount" sum="Total" decoration-bf="amount != 0"/>
+                                    <field name="group_code" invisible="1"/>
+                                    <field name="target_group_id"
+                                             string="Target / correct group"
+                                             options="{'no_create': True, 'no_create_edit': True}"
+                                             domain="[('id', '!=', parent.id), ('code', 'not in', ['AFG_UNGRP_PL', 'AFG_UNGRP_BS']), '|', ('company_id', '=', False), ('company_id', 'in', allowed_company_ids)]"
+                                             attrs="{'column_invisible': [('parent.code', 'not in', ['AFG_UNGRP_PL', 'AFG_UNGRP_BS'])]}"
+                                             context="{'default_report_section': parent.report_section}"/>
+                                    <field name="company_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_audited_financial_group_ledgers_popup" model="ir.ui.view">
+        <field name="name">audited.financial.group.ledgers.popup</field>
+        <field name="model">audited.financial.group</field>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <form string="Group ledgers">
+                <sheet>
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="code" readonly="1"/>
+                    </group>
+                    <div class="mb-2">
+                        <button name="action_open_add_ledgers" type="object"
+                                string="Add ledgers" class="btn-primary"/>
+                    </div>
+                    <field name="line_ids" nolabel="1"
+                             context="{'default_group_id': active_id, 'afg_skip_collapse': 1}">
+                        <tree editable="bottom" create="false" delete="1">
+                            <field name="ledger_caption"/>
+                            <field name="account_id" invisible="1"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="amount" sum="Total"/>
+                            <field name="company_id" invisible="1"/>
+                            <button name="action_remove_from_afg_group" type="object"
+                                    string="Remove" class="btn-link" icon="fa-times"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button string="Close" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_audited_financial_ctf_ledgers_form" model="ir.ui.view">
+        <field name="name">audited.financial.ctf.ledgers.form</field>
+        <field name="model">audited.financial.ctf.ledgers</field>
+        <field name="arch" type="xml">
+            <form string="CT Filing ledgers">
+                <sheet>
+                    <group>
+                        <field name="category"/>
+                    </group>
+                    <field name="account_ids" nolabel="1">
+                        <tree create="false" delete="false">
+                            <field name="name" string="Ledger"/>
+                            <field name="code" string="Code"/>
+                            <field name="user_type_id" string="Type"/>
+                            <field name="ctf_category" string="CT Filing"/>
+                            <button name="action_remove_from_ctf" type="object"
+                                    string="Remove" class="btn-link"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button string="Close" special="cancel" class="btn-secondary"/>
+                    <button name="action_open_add" type="object" string="Add ledgers" class="btn-primary"/>
+                    <button name="action_remove_from_category" type="object" string="Remove all" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_audited_financial_group_add_ledgers_form" model="ir.ui.view">
+        <field name="name">audited.financial.group.add.ledgers.form</field>
+        <field name="model">audited.financial.group.add.ledgers</field>
+        <field name="arch" type="xml">
+            <form string="Add ledgers">
+                <sheet>
+                    <group col="4">
+                        <field name="group_id" invisible="1"/>
+                        <field name="selected_account_ids" invisible="1"/>
+                        <field name="search_ledger"
+                               string="Search ledger"
+                               placeholder="Type name or code, then Apply"/>
+                        <field name="filter_type_id"
+                               string="Filter by Type"
+                               options="{'no_create': True, 'no_open': True}"/>
+                        <field name="filter_group_id"
+                               string="Filter by Group"
+                               options="{'no_create': True, 'no_open': True}"/>
+                        <field name="select_all"/>
+                    </group>
+                    <div>
+                        <button name="action_apply_ledger_filter"
+                                type="object"
+                                string="Apply search / Type filter"
+                                class="btn-primary"/>
+                        <button name="action_clear_ledger_filter"
+                                type="object"
+                                string="Show all"
+                                class="btn-secondary"/>
+                    </div>
+                    <field name="line_ids" nolabel="1">
+                        <tree editable="bottom" create="false" delete="false"
+                              default_order="user_type_id, ledger_name"
+                              default_group_by="user_type_id">
+                            <field name="selected" widget="boolean_toggle" string="Select"/>
+                            <field name="account_id" invisible="1"/>
+                            <field name="ledger_code" readonly="1" optional="hide"/>
+                            <field name="ledger_name" readonly="1"/>
+                            <field name="user_type_id" readonly="1"/>
+                            <field name="coa_group_id" readonly="1"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button string="Close" special="cancel" class="btn-secondary"/>
+                    <button name="action_add" type="object" string="Add" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_account_account_afg_unique_tree" model="ir.ui.view">
+        <field name="name">account.account.afg.unique.tree</field>
+        <field name="model">account.account</field>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <tree string="Ledgers">
+                <field name="name" string="Ledger"/>
+                <field name="user_type_id" string="Type"/>
+                <field name="group_id" string="Group"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_account_account_afg_unique_search" model="ir.ui.view">
+        <field name="name">account.account.afg.unique.search</field>
+        <field name="model">account.account</field>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <search string="Ledgers">
+                <field name="name" string="Ledger"/>
+                <field name="user_type_id" string="Type"/>
+                <field name="group_id" string="Group"/>
+                <group expand="0" string="Group By">
+                    <filter name="groupby_type" string="Type" context="{'group_by': 'user_type_id'}"/>
+                    <filter name="groupby_group" string="Group" context="{'group_by': 'group_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_audited_financial_group_line_reassign_tree" model="ir.ui.view">
+        <field name="name">audited.financial.group.line.reassign.tree</field>
+        <field name="model">audited.financial.group.line</field>
+        <field name="arch" type="xml">
+            <tree string="Reassign ungrouped ledgers" editable="bottom" create="false" delete="false">
+                <field name="ledger_caption"/>
+                <field name="account_id" invisible="1"/>
+                <field name="amount"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="target_group_id"
+                       string="Assign to AFG group"
+                       options="{'no_create': True, 'no_create_edit': True}"
+                       domain="[('code', 'not in', ['AFG_UNGRP_PL', 'AFG_UNGRP_BS']), '|', ('company_id', '=', False), ('company_id', 'in', allowed_company_ids)]"/>
+                <field name="company_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_audited_financial_coa_group_ledgers_form" model="ir.ui.view">
+        <field name="name">audited.financial.coa.group.ledgers.form</field>
+        <field name="model">audited.financial.coa.group.ledgers</field>
+        <field name="arch" type="xml">
+            <form string="Account group ledgers">
+                <sheet>
+                    <group>
+                        <field name="account_group_id"/>
+                    </group>
+                    <field name="account_ids" nolabel="1">
+                        <tree create="false" delete="false">
+                            <field name="name" string="Ledger"/>
+                            <field name="code" string="Code"/>
+                            <field name="user_type_id" string="Type"/>
+                            <button name="action_remove_from_coa_group" type="object"
+                                    string="Remove" class="btn-link"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button string="Close" special="cancel" class="btn-secondary"/>
+                    <button name="action_open_add" type="object" string="Add ledgers" class="btn-primary"/>
+                    <button name="action_remove_from_group" type="object" string="Remove all" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_account_tree_l1_ctf_map" model="ir.ui.view">
+        <field name="name">account.account.tree.l1.ctf.map.unused</field>
+        <field name="model">account.account</field>
+        <field name="priority">999</field>
+        <field name="active" eval="False"/>
+        <field name="arch" type="xml">
+            <tree string="Unused L1 CoA group-by">
+                <field name="code"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_account_group_afg_map_tree" model="ir.ui.view">
+        <field name="name">account.group.tree.afg.map</field>
+        <field name="model">account.group</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <tree string="L3_COA Groups" js_class="afg_map_list">
+                <field name="name"/>
+                <field name="parent_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_audited_financial_group" model="ir.actions.act_window">
+        <field name="name">L2_AFG Ledgers Group</field>
+        <field name="res_model">audited.financial.group</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'afg_map_list': 1, 'afg_map_mode': 'afg'}</field>
+    </record>
+
+    <record id="view_audited_financial_ctf_group_form" model="ir.ui.view">
+        <field name="name">audited.financial.ctf.group.form</field>
+        <field name="model">audited.financial.ctf.group</field>
+        <field name="arch" type="xml">
+            <form string="CT Filing group">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="parent_id"/>
+                        <field name="sequence"/>
+                        <field name="report_section"/>
+                        <field name="ctf_category"/>
+                        <field name="allocate"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_audited_financial_ctf_group_tree" model="ir.ui.view">
+        <field name="name">audited.financial.ctf.group.tree</field>
+        <field name="model">audited.financial.ctf.group</field>
+        <field name="arch" type="xml">
+            <tree string="L1_CTF Ledgers Group" js_class="afg_map_list" class="o_afg_ctf_group_list"
+                  decoration-success="has_ledgers" decoration-muted="not has_ledgers">
+                <field name="has_ledgers" invisible="1"/>
+                <field name="sequence" widget="handle"/>
+                <field name="indent_name" string="CTF line"/>
+                <field name="code"/>
+                <field name="report_section"/>
+                <field name="ctf_category"/>
+                <field name="allocate"/>
+                <field name="parent_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_afg_l1_ctf_ledgers_group" model="ir.actions.act_window">
+        <field name="name">L1_CTF Ledgers Group</field>
+        <field name="res_model">audited.financial.ctf.group</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_audited_financial_ctf_group_tree"/>
+        <field name="search_view_id" eval="False"/>
+        <field name="domain">[]</field>
+        <field name="context">{'afg_map_list': 1, 'afg_map_mode': 'ctf'}</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('view_audited_financial_ctf_group_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_audited_financial_ctf_group_form')})]"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">CT Filing groups — same lines as CTF P&amp;L / SOFP. Expand a line to see chart of accounts.</p>
+        </field>
+    </record>
+
+    <record id="action_afg_l3_coa_groups" model="ir.actions.act_window">
+        <field name="name">L3_COA Groups (Account Group)</field>
+        <field name="res_model">account.group</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_account_group_afg_map_tree"/>
+        <field name="context">{'afg_map_list': 1, 'afg_map_mode': 'coa_group'}</field>
+    </record>
+
+    <record id="view_account_tree_l4_coa_map" model="ir.ui.view">
+        <field name="name">account.account.tree.l4.coa.map</field>
+        <field name="model">account.account</field>
+        <field name="priority">21</field>
+        <field name="arch" type="xml">
+            <tree string="L4_COA Ledgers" js_class="afg_map_list">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="user_type_id"/>
+                <field name="group_id"/>
+                <field name="afg_group_id"/>
+                <field name="ctf_category"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_afg_chart_of_accounts" model="ir.actions.act_window">
+        <field name="name">Chart of Accounts</field>
+        <field name="res_model">account.account</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="account.view_account_search"/>
+        <field name="domain">[('company_id', 'in', allowed_company_ids)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Chart of accounts for this company. Set AFG group on each ledger when you need to remap the audited statements.</p>
+        </field>
+    </record>
+
+    <record id="action_afg_l4_coa_ledgers" model="ir.actions.act_window">
+        <field name="name">L4_COA Ledgers (chart of accounts)</field>
+        <field name="res_model">account.account</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_account_tree_l4_coa_map"/>
+        <field name="search_view_id" ref="account.view_account_search"/>
+        <field name="context">{'search_default_groupby_group': 1, 'group_by': ['group_id'], 'afg_map_list': 1, 'afg_map_mode': 'coa_group'}</field>
+    </record>
+
+    <record id="view_audited_financial_version_form" model="ir.ui.view">
+        <field name="name">audited.financial.version.form</field>
+        <field name="model">audited.financial.version</field>
+        <field name="arch" type="xml">
+            <form string="Audited Financials Version">
+                <header>
+                    <button name="action_load_default_data" string="Load default data" type="object" class="btn-primary"/>
+                    <button name="action_load_sample_data" string="Load sample data" type="object"/>
+                    <button name="action_clear_adjustments" string="Clear adjustments" type="object"/>
+                    <button name="action_reload_to_default_periods" string="Reload to default periods" type="object" class="btn-warning"/>
+                    <button name="action_export_csv" string="Export (CSV)" type="object"/>
+                    <button name="action_save_version" string="Save version" type="object" class="btn-secondary"/>
+                    <button name="action_toggle_edit" string="Toggle edit / view" type="object"/>
+                    <button name="action_open_sensitive_wizard" string="Sensitive adjustment" type="object" class="btn-secondary"/>
+                    <button name="action_open_ledger_merge_wizard" string="Merge Ledger" type="object" class="btn-warning"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,saved"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="Version name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="branch_company_id"/>
+                            <field name="company_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="report_column_company_ids" widget="many2many_tags"
+                                   domain="[('id', 'in', company_ids)]"
+                                   options="{'no_create': True}"
+                                   attrs="{'invisible': [('company_ids', '=', [])]}"/>
+                            <field name="currency_id"/>
+                        </group>
+                        <group>
+                            <field name="year_current"/>
+                            <field name="year_prior"/>
+                            <field name="date_from_current"/>
+                            <field name="date_to_current"/>
+                            <field name="date_from_prior"/>
+                            <field name="date_to_prior"/>
+                            <field name="data_state"/>
+                            <field name="edit_mode"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Report lines" name="lines">
+                            <field name="line_ids" nolabel="1" context="{'default_version_id': active_id}">
+                                <tree editable="bottom" default_order="report_section,sequence,id">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="report_section"/>
+                                    <field name="label"/>
+                                    <field name="note"/>
+                                    <field name="amount_prior" attrs="{'readonly': [('parent.edit_mode', '=', False)]}"/>
+                                    <field name="amount_current" attrs="{'readonly': [('parent.edit_mode', '=', False)]}"/>
+                                    <field name="source_amount_prior"/>
+                                    <field name="source_amount_current"/>
+                                    <field name="group_id" optional="hide"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Financial notes" name="notes">
+                            <field name="note_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="sequence"/>
+                                    <field name="title"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Alerts" name="alerts">
+                            <field name="alert_ids" nolabel="1">
+                                <tree create="false" delete="false" edit="false">
+                                    <field name="alert_type"/>
+                                    <field name="severity"/>
+                                    <field name="title"/>
+                                    <field name="message"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Internal notes" name="internal_notes">
+                            <field name="internal_action_notes" placeholder="Missing items and actions (not printed on official PDF)"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_audited_financial_version_tree" model="ir.ui.view">
+        <field name="name">audited.financial.version.tree</field>
+        <field name="model">audited.financial.version</field>
+        <field name="arch" type="xml">
+            <tree string="Audited financial versions">
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="year_current"/>
+                <field name="year_prior"/>
+                <field name="state"/>
+                <field name="write_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_audited_financial_version" model="ir.actions.act_window">
+        <field name="name">Audited Financial Versions</field>
+        <field name="res_model">audited.financial.version</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_audited_financials_dashboard_client" model="ir.actions.client">
+        <field name="name">Audited Financials</field>
+        <field name="tag">audited_financials_dashboard</field>
+        <field name="context" eval="{'afg_section': 'pl'}"/>
+    </record>
+    <record id="action_audited_financials_dashboard_pl" model="ir.actions.client">
+        <field name="name">Statement of Profit or Loss</field>
+        <field name="tag">audited_financials_dashboard</field>
+        <field name="context" eval="{'afg_section': 'pl'}"/>
+    </record>
+    <record id="action_audited_financials_dashboard_bs" model="ir.actions.client">
+        <field name="name">Balance Sheet</field>
+        <field name="tag">audited_financials_dashboard</field>
+        <field name="context" eval="{'afg_section': 'bs'}"/>
+    </record>
+    <record id="action_audited_financials_dashboard_fta" model="ir.actions.client">
+        <field name="name">CORPORATE TAX FILING- FTA</field>
+        <field name="tag">audited_financials_dashboard</field>
+        <field name="context" eval="{'afg_section': 'fta'}"/>
+    </record>
+    <record id="action_audited_financials_dashboard_equity" model="ir.actions.client">
+        <field name="name">Statement of Changes in Equity</field>
+        <field name="tag">audited_financials_dashboard</field>
+        <field name="context" eval="{'afg_section': 'equity'}"/>
+    </record>
+    <record id="action_audited_financials_dashboard_cashflow" model="ir.actions.client">
+        <field name="name">Cash Flow Statement</field>
+        <field name="tag">audited_financials_dashboard</field>
+        <field name="context" eval="{'afg_section': 'cashflow'}"/>
+    </record>
+    <record id="action_audited_financials_dashboard_notes" model="ir.actions.client">
+        <field name="name">Financial Notes</field>
+        <field name="tag">audited_financials_dashboard</field>
+        <field name="context" eval="{'afg_section': 'notes'}"/>
+    </record>
+    <record id="action_audited_financials_dashboard_fa" model="ir.actions.client">
+        <field name="name">Fixed Assets Schedule</field>
+        <field name="tag">audited_financials_dashboard</field>
+        <field name="context" eval="{'afg_section': 'fixed_assets'}"/>
+    </record>
+    <record id="action_audited_financials_dashboard_review" model="ir.actions.client">
+        <field name="name">IFRS / FTA Review Alerts</field>
+        <field name="tag">audited_financials_dashboard</field>
+        <field name="context" eval="{'afg_section': 'review'}"/>
+    </record>
+
+    <!-- Multico PL/BS client actions owned by project_dashboard_odoo (no duplicate eval refs). -->
+    <menuitem id="menu_audited_financials_root"
+              name="Audited Financial"
+              action="action_audited_financials_dashboard_client"
+              sequence="40"/>
+    <menuitem id="menu_audited_financials_home"
+              name="Overview"
+              parent="menu_audited_financials_root"
+              action="action_audited_financials_dashboard_client"
+              sequence="1"/>
+    <menuitem id="menu_audited_financials_configuration"
+              name="Configuration"
+              parent="menu_audited_financials_root"
+              sequence="5"/>
+    <delete model="ir.ui.menu" id="menu_audited_financials_setup"/>
+    <delete model="ir.ui.menu" id="menu_audited_financials_l3_coa_groups"/>
+    <delete model="ir.ui.menu" id="menu_audited_financials_l4_coa_ledgers"/>
+    <menuitem id="menu_audited_financials_mapping"
+              name="Chart of Accounts"
+              parent="menu_audited_financials_configuration"
+              action="action_afg_chart_of_accounts"
+              sequence="1"/>
+    <menuitem id="menu_audited_financials_reports"
+              name="Reports"
+              parent="menu_audited_financials_root"
+              sequence="20"/>
+    <menuitem id="menu_audited_financials_financial_reports"
+              name="Financial Reports"
+              parent="menu_audited_financials_root"
+              sequence="25"/>
+    <!-- Multico PL/BS menus wired in post_init_hook (project_dashboard_odoo may be stale on install). -->
+    <menuitem id="menu_audited_financials_versions"
+              name="Saved versions"
+              parent="menu_audited_financials_root"
+              action="action_audited_financial_version"
+              sequence="90"/>
+</odoo>
