@@ -1,1 +1,5 @@
 odoo.conf
+__pycache__/
+*.py[cod]
+*.pyc
+.Python
