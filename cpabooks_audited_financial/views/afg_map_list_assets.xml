@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" inherit_id="web.assets_backend" name="AFG map list assets">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/css" href="/cpabooks_audited_financial/static/src/css/afg_map_list.css"/>
+            <script type="text/javascript" src="/cpabooks_audited_financial/static/src/js/afg_map_list.js"/>
+        </xpath>
+    </template>
+</odoo>

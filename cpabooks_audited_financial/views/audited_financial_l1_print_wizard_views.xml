@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_audited_financial_l1_print_wizard_form" model="ir.ui.view">
+        <field name="name">audited.financial.l1.print.wizard.form</field>
+        <field name="model">audited.financial.l1.print.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Print blocked — fix or continue?">
+                <sheet>
+                    <div class="alert alert-warning" role="alert">
+                        <strong>L1 Official checks did not PASS.</strong>
+                        This is not a hard error — choose below.
+                    </div>
+                    <group>
+                        <field name="tip" nolabel="1" colspan="2"/>
+                        <field name="summary" widget="text" nolabel="1" colspan="2"/>
+                        <field name="version_id" invisible="1"/>
+                        <field name="export_pack" invisible="1"/>
+                        <field name="export_kind" invisible="1"/>
+                    </group>
+                    <separator string="Where it is stuck"/>
+                    <field name="line_ids" nolabel="1">
+                        <tree create="0" delete="0" edit="0">
+                            <field name="name"/>
+                            <field name="detail"/>
+                            <field name="gap_hint" optional="hide"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_yes_print_anyway" type="object"
+                            string="Yes — print anyway" class="btn-primary"/>
+                    <button name="action_open_fix_path" type="object"
+                            string="Fix path (open L4)" class="btn-secondary"/>
+                    <button name="action_no_cancel" type="object"
+                            string="No — cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

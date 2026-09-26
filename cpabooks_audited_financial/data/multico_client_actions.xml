@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Stable xmlids for sidebar/nav; context id filled by refresh_afg_menus on upgrade. -->
+    <record id="action_afg_multico_profit_loss" model="ir.actions.client">
+        <field name="name">Profit and Loss_x</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'model': 'account.financial.html.report', 'project_multicompany_no_session': True, 'project_multicompany_kind': 'pl'}"/>
+    </record>
+    <record id="action_afg_multico_balance_sheet" model="ir.actions.client">
+        <field name="name">Balance Sheet_x</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'model': 'account.financial.html.report', 'project_multicompany_no_session': True, 'project_multicompany_kind': 'bs'}"/>
+    </record>
+</odoo>
