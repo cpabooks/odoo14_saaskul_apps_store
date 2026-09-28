@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Dedicated create popup for CAFM: Email/Login optional (empty stays empty). -->
+    <record id="view_users_simple_form_cafm_optional_email" model="ir.ui.view">
+        <field name="name">res.users.simplified.form.cafm.optional.email</field>
+        <field name="model">res.users</field>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <form string="Users">
+                <sheet>
+                    <field name="id" invisible="1"/>
+                    <div class="alert alert-info text-center mb-3" attrs="{'invisible': [('id', '>', 0)]}" role="alert">
+                        You are inviting a new user.
+                    </div>
+                    <field name="image_1920" widget="image" class="oe_avatar" options='{"zoom": true, "preview_image": "image_128"}'/>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" required="1"/></h1>
+                        <field name="email" invisible="1"/>
+                        <label for="login" class="oe_edit_only" string="Email Address"/>
+                        <h2>
+                            <field name="login"
+                                    required="0"
+                                    placeholder="optional — leave empty if not needed"/>
+                        </h2>
+                        <label for="company_id" class="oe_edit_only" groups="base.group_multi_company"/>
+                        <field name="company_id" context="{'user_preference': 0}" groups="base.group_multi_company"/>
+                    </div>
+                    <group name="phone_numbers">
+                        <field name="phone" widget="phone" options="{'enable_sms': false}"/>
+                        <field name="mobile" widget="phone" options="{'enable_sms': false}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

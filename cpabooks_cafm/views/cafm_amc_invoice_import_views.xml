@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_cafm_amc_invoice_import_form" model="ir.ui.view">
+        <field name="name">cpabooks.cafm.amc.invoice.import.form</field>
+        <field name="model">cpabooks.cafm.amc.invoice.import</field>
+        <field name="arch" type="xml">
+            <form string="Import AMC Invoices">
+                <sheet>
+                    <div class="mb16">
+                        <span class="text-muted">
+                            Download the Excel template, fill rows matching your invoice table, then upload.
+                            Status can be one column (Waiting for KPI / Waiting for CSR / Not Submitted / Submitted)
+                            or split columns Invoice Status / KPI Status / CSR Status — import maps them into one Status.
+                            Match key: Ref. No. (update if exists, else create).
+                        </span>
+                    </div>
+                    <group>
+                        <group>
+                            <button name="action_download_template" type="object"
+                                    string="Download Excel Format" class="btn-primary mb16"/>
+                        </group>
+                        <group>
+                            <field name="file_name" invisible="1"/>
+                            <field name="file_data" filename="file_name" string="Select Excel File"/>
+                        </group>
+                    </group>
+                    <group>
+                        <div class="o_form_label">
+                            Accepted columns:
+                            Inv. Date, Ref. No., Project Name, Inv. Amount, UBS No.,
+                            Contract/LPO No., Due Day, Inv. Type, Follow up, Remarks,
+                            Status (or Invoice Status / KPI Status / CSR Status),
+                            optional L2 Level (Client Group), L3 Level (Project), Client Name.
+                            Project Name fills L3 + Client Name when those columns are empty (same as VAR).
+                        </div>
+                    </group>
+                    <footer>
+                        <button name="action_import_file" type="object"
+                                string="Upload &amp; Import" class="btn-primary"/>
+                        <button special="cancel" string="Close" class="btn-secondary"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_cafm_amc_invoice_import" model="ir.actions.act_window">
+        <field name="name">Import AMC Invoices</field>
+        <field name="res_model">cpabooks.cafm.amc.invoice.import</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

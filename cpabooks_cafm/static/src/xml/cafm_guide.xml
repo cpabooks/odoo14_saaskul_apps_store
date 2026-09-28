@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="CpabooksCafmHowItWorks">
+        <div class="o_cafm_how_root">
+            <div class="o_cafm_how_header text-center mb-3">
+                <h2 t-esc="widget.pageTitle"/>
+                <p class="text-muted mb-0">
+                    Vertical flowchart (top) and round process cycle (bottom). Click any step to open that screen.
+                </p>
+            </div>
+
+            <h3 class="o_cafm_how_section_title">Flow Chart (vertical)</h3>
+            <div class="o_cafm_flow_tree o_cafm_how_flow"/>
+
+            <hr class="o_cafm_how_divider"/>
+
+            <h3 class="o_cafm_how_section_title">Process Cycle (round)</h3>
+            <div class="o_cafm_cycle_viewport">
+                <div class="o_cafm_cycle_stage">
+                    <div class="o_cafm_cycle_center">
+                        <div class="o_cafm_cycle_center_title" t-esc="widget.centerTitle"/>
+                        <div class="o_cafm_cycle_center_sub">Full Process</div>
+                    </div>
+                    <div class="o_cafm_cycle_ring"/>
+                    <svg class="o_cafm_cycle_arrow_ring" viewBox="0 0 520 520" aria-hidden="true">
+                        <circle cx="260" cy="260" r="210" fill="none"
+                                stroke="rgba(255,255,255,0.12)" stroke-width="2"
+                                stroke-dasharray="8 10"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="o_cafm_cycle_legend row justify-content-center mt-3 mb-4">
+                <div class="col-auto"><span class="o_cafm_cycle_legend_dot o_cafm_theme_contract"/> Contract</div>
+                <div class="col-auto"><span class="o_cafm_cycle_legend_dot o_cafm_theme_ops"/> Operations</div>
+                <div class="col-auto"><span class="o_cafm_cycle_legend_dot o_cafm_theme_materials"/> Materials</div>
+                <div class="col-auto"><span class="o_cafm_cycle_legend_dot o_cafm_theme_billing"/> Billing</div>
+            </div>
+        </div>
+    </t>
+
+</templates>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_cpabooks_cafm_amc_import_form" model="ir.ui.view">
+            <field name="name">cpabooks.cafm.amc.import.form</field>
+            <field name="model">cpabooks.cafm.amc.import</field>
+            <field name="arch" type="xml">
+                <form string="Import AMC Contracts">
+                    <sheet>
+                        <div class="mb16">
+                            <span class="text-muted">
+                                Download the Excel template (two sheets), fill your rows, then upload.
+                                Sheet "AMC Tracking" matches the AMC Register spreadsheet (22 columns).
+                                Sheet "AMC Business Unit" is the alternate Business Unit format.
+                                Missing partners, projects, locations, and client groups are created automatically.
+                                Match key: Client UBS Number + Project, or Business Unit + Client + Project, else Project + Client.
+                            </span>
+                        </div>
+                        <group>
+                            <group>
+                                <button name="action_download_template" type="object"
+                                        string="Download Excel Format" class="btn-primary mb16"/>
+                            </group>
+                            <group>
+                                <field name="file_name" invisible="1"/>
+                                <field name="file_data" filename="file_name" string="Select Excel File"/>
+                            </group>
+                        </group>
+                        <group>
+                            <div class="o_form_label">
+                                AMC Tracking columns:
+                                SL, Type, Prjoect Name / Project Name, Client UBS Number, Client Name,
+                                Client group name, Inv. Freq., Last Invoiced, Next Invoice, Inv. Status,
+                                Inv. Verifying date, Project Location, Cont. in Yr, Total Cont. value,
+                                Yearly Value, Monthly Revenue, Invoice Amount,
+                                Cont. Start Date, Cont. Expiry Date, Cont. Renewal Date,
+                                Cont. Status (Live), Contract status (check &amp; verified / Auto Renewed…).
+                                Alternate sheet: SL, BUSINESS UNIT, Project Name, MAJOR GROUPS, Contract Value, Monthly Revenue.
+                            </div>
+                        </group>
+                        <footer>
+                            <button name="action_import_file" type="object"
+                                    string="Upload &amp; Import" class="btn-primary"/>
+                            <button special="cancel" string="Close" class="btn-secondary"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_cpabooks_cafm_amc_import" model="ir.actions.act_window">
+            <field name="name">Import AMC Contracts</field>
+            <field name="res_model">cpabooks.cafm.amc.import</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_cpabooks_cafm_amc_import"
+                  name="Import AMC Contracts"
+                  parent="menu_cpabooks_cafm_tools"
+                  action="action_cpabooks_cafm_amc_import"
+                  sequence="2"/>
+    </data>
+</odoo>

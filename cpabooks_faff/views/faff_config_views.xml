@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_faff_job_type_tree" model="ir.ui.view">
+        <field name="name">cpabooks.faff.job.type.tree</field>
+        <field name="model">cpabooks.faff.job.type</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_faff_job_type" model="ir.actions.act_window">
+        <field name="name">Job Types</field>
+        <field name="res_model">cpabooks.faff.job.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_faff_default_task_tree" model="ir.ui.view">
+        <field name="name">cpabooks.faff.default.task.tree</field>
+        <field name="model">cpabooks.faff.default.task</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="is_mandatory"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_faff_default_task" model="ir.actions.act_window">
+        <field name="name">Default Tasks</field>
+        <field name="res_model">cpabooks.faff.default.task</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

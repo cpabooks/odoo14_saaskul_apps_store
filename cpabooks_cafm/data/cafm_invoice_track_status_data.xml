@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="cafm_track_status_kp_pending" model="cpabooks.cafm.invoice.track.status">
+        <field name="name">Pending</field>
+        <field name="kind">kp</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="cafm_track_status_kp_submitted" model="cpabooks.cafm.invoice.track.status">
+        <field name="name">Submitted</field>
+        <field name="kind">kp</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="cafm_track_status_ppm_pending" model="cpabooks.cafm.invoice.track.status">
+        <field name="name">Pending</field>
+        <field name="kind">ppm</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="cafm_track_status_ppm_submitted" model="cpabooks.cafm.invoice.track.status">
+        <field name="name">Submitted</field>
+        <field name="kind">ppm</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="cafm_track_status_sr_pending" model="cpabooks.cafm.invoice.track.status">
+        <field name="name">Pending</field>
+        <field name="kind">sr</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="cafm_track_status_sr_submitted" model="cpabooks.cafm.invoice.track.status">
+        <field name="name">Submitted</field>
+        <field name="kind">sr</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="cafm_track_status_inv_pending" model="cpabooks.cafm.invoice.track.status">
+        <field name="name">Pending</field>
+        <field name="kind">invoice</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="cafm_track_status_inv_submitted" model="cpabooks.cafm.invoice.track.status">
+        <field name="name">Submitted</field>
+        <field name="kind">invoice</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="cafm_track_status_copy_mail" model="cpabooks.cafm.invoice.track.status">
+        <field name="name">Mail</field>
+        <field name="kind">received_copy</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="cafm_track_status_copy_whatsapp" model="cpabooks.cafm.invoice.track.status">
+        <field name="name">Whatsapp</field>
+        <field name="kind">received_copy</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="cafm_track_status_final_pending" model="cpabooks.cafm.invoice.track.status">
+        <field name="name">Pending</field>
+        <field name="kind">final</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="cafm_track_status_final_all_done" model="cpabooks.cafm.invoice.track.status">
+        <field name="name">All Done</field>
+        <field name="kind">final</field>
+        <field name="sequence">20</field>
+    </record>
+</odoo>

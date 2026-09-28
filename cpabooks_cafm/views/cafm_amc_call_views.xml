@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cafm_amc_call_form" model="ir.ui.view">
+        <field name="name">maintenance.request.amc.call.form</field>
+        <field name="model">maintenance.request</field>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <form string="AMC Call" class="o_cafm_tally_form">
+                <header>
+                    <field name="work_status" widget="statusbar" statusbar_visible="pending,work_ongoing,waiting_lpo,waiting_report,closed"/>
+                </header>
+                <sheet>
+                    <div class="o_cafm_tally_header">
+                        <span>AMC Call</span>
+                        <span class="o_cafm_tally_subtitle">CAFM Operations</span>
+                    </div>
+                    <div class="o_cafm_tally_title_block">AMC Call</div>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_var_works" type="object" class="oe_stat_button" icon="fa-wrench" attrs="{'invisible': [('var_work_count', '=', 0)]}">
+                            <field name="var_work_count" widget="statinfo" string="VAR"/>
+                        </button>
+                        <button name="action_open_stock_issues" type="object" class="oe_stat_button" icon="fa-cubes" attrs="{'invisible': [('stock_issue_count', '=', 0)]}">
+                            <field name="stock_issue_count" widget="statinfo" string="Stock"/>
+                        </button>
+                    </div>
+                    <group col="4">
+                        <group>
+                            <field name="call_no"/>
+                            <field name="call_no_tally"/>
+                            <field name="call_date"/>
+                            <field name="call_date_weekday" readonly="1"/>
+                            <field name="call_type"/>
+                        </group>
+                        <group>
+                            <field name="l2_level_id"/>
+                            <field name="l1_level_id"/>
+                            <field name="partner_id" string="Party Name"/>
+                            <field name="contract_expiry"/>
+                        </group>
+                        <group>
+                            <field name="contact_name"/>
+                            <field name="contract_no"/>
+                            <field name="cafm_unit_id" string="Flat / Villa"/>
+                            <field name="tenant_name"/>
+                        </group>
+                        <group>
+                            <field name="contact_no"/>
+                            <field name="contract_id"/>
+                            <field name="client_manager_id"/>
+                            <field name="priority_id"/>
+                        </group>
+                    </group>
+                    <group col="2">
+                        <group string="Problem">
+                            <field name="problem_reported_id"/>
+                            <field name="problem_description"/>
+                        </group>
+                        <group string="Work Detail">
+                            <field name="job_type_id"/>
+                            <field name="work_type_id"/>
+                            <field name="technician_id"/>
+                            <field name="required_materials"/>
+                            <field name="cafm_remark"/>
+                        </group>
+                    </group>
+                    <group col="3" string="Completion">
+                        <field name="work_completion_date"/>
+                        <field name="work_report_no"/>
+                        <field name="invoice_id"/>
+                        <field name="invoice_details" readonly="1"/>
+                    </group>
+                    <field name="ticket_no" invisible="1"/>
+                    <field name="work_type" invisible="1"/>
+                    <field name="problem" invisible="1"/>
+                    <field name="cafm_project_id" invisible="1"/>
+                    <field name="flat" invisible="1"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_cafm_amc_call_followup_tree" model="ir.ui.view">
+        <field name="name">maintenance.request.amc.followup.tree</field>
+        <field name="model">maintenance.request</field>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <tree string="AMC Call Follow Up" class="o_cafm_tally_tree" create="0">
+                <field name="call_no"/>
+                <field name="call_date"/>
+                <field name="partner_id" string="Party Name"/>
+                <field name="cafm_unit_id" string="Flat/Villa"/>
+                <field name="problem_description"/>
+                <field name="required_materials" string="Material Required"/>
+                <field name="work_status" string="Status"/>
+                <field name="technician_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_cafm_call_register_tree" model="ir.ui.view">
+        <field name="name">maintenance.request.call.register.tree</field>
+        <field name="model">maintenance.request</field>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <tree string="Call Register" class="o_cafm_tally_tree" create="0">
+                <field name="call_date"/>
+                <field name="partner_id" string="Party Name"/>
+                <field name="call_type"/>
+                <field name="call_no"/>
+                <field name="id" string="Master ID"/>
+                <field name="cafm_unit_id" string="Flat / Villa"/>
+                <field name="work_type_id" string="Type of Work"/>
+                <field name="problem_description"/>
+                <field name="duration_days"/>
+                <field name="required_materials" string="Material"/>
+                <field name="work_status" string="Status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_cafm_amc_call_search" model="ir.ui.view">
+        <field name="name">maintenance.request.amc.search</field>
+        <field name="model">maintenance.request</field>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <search string="AMC Calls">
+                <field name="call_no" string="Call Reg. No." filter_domain="[('call_no','ilike',self)]"/>
+                <field name="call_no_tally" string="Call No. (Tally)" filter_domain="[('call_no_tally','ilike',self)]"/>
+                <field name="partner_id"/>
+                <field name="cafm_unit_id"/>
+                <field name="technician_id"/>
+                <field name="work_status"/>
+                <filter name="filter_amc" string="AMC Calls" domain="[('call_type','=','amc')]"/>
+                <filter name="filter_pending" string="Pending" domain="[('work_status','=','pending')]"/>
+                <filter name="filter_month" string="This Month"
+                        domain="[('call_date','&gt;=', (context_today().strftime('%Y-%m-01')))]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_status" string="Status" context="{'group_by':'work_status'}"/>
+                    <filter name="group_work_type" string="Type of Work" context="{'group_by':'work_type_id'}"/>
+                    <filter name="group_technician" string="Technician" context="{'group_by':'technician_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_cafm_amc_call_form" model="ir.actions.act_window">
+        <field name="name">AMC Call Form</field>
+        <field name="res_model">maintenance.request</field>
+        <field name="view_mode">form,tree</field>
+        <field name="view_id" ref="view_cafm_amc_call_form"/>
+        <field name="search_view_id" ref="view_cafm_amc_call_search"/>
+        <field name="domain">[('call_type','=','amc')]</field>
+        <field name="context">{'default_call_type': 'amc', 'form_view_initial_mode': 'edit'}</field>
+    </record>
+
+    <record id="action_cafm_amc_call_followup" model="ir.actions.act_window">
+        <field name="name">AMC Call Follow Up</field>
+        <field name="res_model">maintenance.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('view_cafm_amc_call_followup_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_cafm_amc_call_form')})]"/>
+        <field name="search_view_id" ref="view_cafm_amc_call_search"/>
+        <field name="domain">[('call_type','=','amc')]</field>
+        <field name="context">{'search_default_filter_amc': 1}</field>
+    </record>
+
+    <record id="action_cafm_call_register" model="ir.actions.act_window">
+        <field name="name">Call Register</field>
+        <field name="res_model">maintenance.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('view_cafm_call_register_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_cafm_amc_call_form')})]"/>
+        <field name="search_view_id" ref="view_cafm_amc_call_search"/>
+        <field name="context">{}</field>
+    </record>
+</odoo>

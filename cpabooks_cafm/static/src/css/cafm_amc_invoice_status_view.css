@@ -1,0 +1,176 @@
+/* CAFM Invoice list — AMC Invoice Status grid */
+
+.o_cafm_invoice_status_action .o_content {
+    height: 100%;
+    overflow: auto;
+    padding: 12px 16px 24px;
+}
+
+.o_cafm_invoice_status_action {
+    background: #f4f7f6;
+}
+
+.o_cafm_invoice_status_toolbar {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.o_cafm_invoice_status_title {
+    color: #0f3d22;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.o_cafm_invoice_status_panel {
+    overflow-x: auto;
+}
+
+.o_cafm_invoice_status_table {
+    border-collapse: collapse;
+    font-size: 11px;
+    min-width: 1200px;
+    width: 100%;
+}
+
+.o_cafm_invoice_status_table th,
+.o_cafm_invoice_status_table td {
+    border: 1px solid #94a3b8;
+    padding: 4px 6px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.o_cafm_invoice_status_table thead th {
+    background: #4472c4;
+    color: #fff;
+    font-weight: 700;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    white-space: nowrap;
+}
+
+.o_cafm_invoice_status_banner th {
+    background: #000 !important;
+    color: #fff !important;
+    font-size: 13px;
+    text-align: center;
+    top: 0;
+}
+
+.o_cafm_invoice_status_table tbody tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+.o_cafm_invoice_status_sl {
+    text-align: center;
+    width: 40px;
+}
+
+.o_cafm_invoice_status_property {
+    min-width: 180px;
+}
+
+.o_cafm_invoice_status_period {
+    min-width: 150px;
+    white-space: nowrap;
+}
+
+.o_cafm_invoice_status_client {
+    font-weight: 600;
+    min-width: 70px;
+    text-align: center;
+}
+
+.o_cafm_invoice_status_client_lulu {
+    background: #ffc0cb !important;
+}
+
+.o_cafm_invoice_status_client_prea {
+    background: #fff2a8 !important;
+}
+
+.o_cafm_invoice_status_client_relaam {
+    background: #e0c8ff !important;
+}
+
+.o_cafm_invoice_status_client_pvt {
+    background: #b8d4f0 !important;
+}
+
+.o_cafm_invoice_status_amount {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.o_cafm_invoice_status_invoice_no a {
+    color: #0563c1;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.o_cafm_invoice_status_ok {
+    background: #92d050 !important;
+    color: #000;
+    font-weight: 600;
+}
+
+.o_cafm_invoice_status_danger {
+    color: #c00000 !important;
+    font-weight: 700;
+}
+
+.o_cafm_invoice_status_remarks {
+    min-width: 100px;
+}
+
+.o_cafm_invoice_status_empty {
+    color: #64748b;
+    font-style: italic;
+    padding: 24px !important;
+    text-align: center;
+}
+
+.o_cafm_invoice_status_total_row td {
+    background: #e2e8f0;
+    border-top: 2px solid #0f3d22;
+    font-weight: 700;
+}
+
+.o_cafm_invoice_status_total_label {
+    text-align: right;
+}
+
+.o_cpabooks_amc_yearly_view_hdr_btn.btn-success,
+.o_cpabooks_amc_invoice_status_view_btn.btn-success,
+.o_cpabooks_amc_invoice_yearly_btn.btn-success {
+    color: #fff !important;
+}
+
+body.o_cafm_amc_invoice_screen .o_control_panel .o_cp_searchview,
+body.o_cafm_amc_invoice_screen .o_control_panel .o_search_options {
+    display: none !important;
+}
+
+.o_cafm_invoice_ym_wrap {
+    gap: 4px;
+    vertical-align: middle;
+}
+.o_cafm_invoice_ym_wrap .o_cafm_invoice_ym_label {
+    font-weight: 600;
+    font-size: 13px;
+    white-space: nowrap;
+}
+.o_cafm_invoice_ym_wrap .custom-select {
+    width: auto;
+    min-width: 92px;
+    height: 31px;
+}
+
+.o_cafm_invoice_status_total_amount {
+    font-size: 12px;
+}

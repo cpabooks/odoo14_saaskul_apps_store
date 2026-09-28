@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="CAFM_CO_common_document" name="CAFM Contract Order Common Template">
+        <t t-if="o and 'company_id' in o">
+            <t t-set="company" t-value="o.company_id"/>
+        </t>
+        <t t-if="not o or not 'company_id' in o">
+            <t t-set="company" t-value="res_company"/>
+        </t>
+
+        <t t-set="background_clr" t-value="style.theme_color"/>
+        <t t-if="not o.show_theme_color">
+            <t t-set="background_clr" t-value=""/>
+        </t>
+        <t t-set="show_header_footer" t-value="style.show_header_footer(company, o)"/>
+        <t t-set="show_footer" t-value="show_header_footer"/>
+
+        <div class="header col-12 float-left"
+             t-attf-style="padding-left:0px; padding-right:0px; color:{{style.text_color}};font-size:{{int(style.header_font)}}px;font-family:{{style.font_family}};border-bottom:{{'1px solid ' + style.theme_color if show_header_footer else ''}}">
+            <t t-if="show_header_footer and not company.header_logo">
+                <div class="col-4 float-left" style="padding-left:0px;margin-top: 8px;margin-bottom:8px;">
+                    <span t-if="style.logo">
+                        <span itemprop="image" t-field="style.logo"
+                              t-options="{'widget': 'image', 'style': 'max-width: 300px; max-height: 140px;'}"/>
+                    </span>
+                    <span t-if="not style.logo and company.logo">
+                        <span itemprop="image" t-field="company.logo"
+                              t-options='{"widget": "image", "style": "float:right;max-width: 300px; max-height: 140px;"}'/>
+                    </span>
+                </div>
+                <div class="col-4 text-center" style="padding-left:0px;">
+                    <h4 t-field="o.project_title"
+                        t-attf-style="background-color:{{style.theme_color}};color:{{style.theme_txt_color}};"/>
+                </div>
+                <div class="col-4 mb8 float-right" style="padding-bottom:2px;padding-right:0px;">
+                    <div class="float-right" style="width:auto;padding-left:15px;padding-top:20px;">
+                        <t t-call="professional_templates_v1.company_address"/>
+                    </div>
+                </div>
+            </t>
+            <t t-if="show_header_footer and company.header_logo">
+                <div class="text-center" style="margin: 8px;">
+                    <span t-field="company.header_logo"
+                          t-options="{'widget': 'image', 'style': 'max-width: 1280px; max-height: 180px;'}"/>
+                </div>
+            </t>
+        </div>
+
+        <div id="article_id" class="article page"
+             t-attf-data-oe-model="cpabooks.cafm.contract.order" t-attf-data-oe-id="{{o.id}}"
+             t-attf-style="color:{{style.text_color}} !important;font-size:{{int(style.body_font)}}px !important;font-family:{{style.font_family}} !important;padding-bottom:18mm;">
+
+            <h2 class="text-center" t-attf-style="color:{{style.name_color}};margin-top:10px;margin-bottom:4px;" t-if="o.show_title">
+                <span t-if="o.state == 'draft'"><u>QUOTATION</u></span>
+                <span t-if="o.state == 'order'"><u>CONTRACT ORDER</u></span>
+                <span t-if="o.state == 'invoiced'"><u>CONTRACT ORDER</u></span>
+                <span t-if="o.state == 'cancelled'"><u>CANCELLED CONTRACT ORDER</u></span>
+            </h2>
+
+            <h5 class="text-center" style="margin-top:0;font-size:18px;margin-bottom:4px;" t-if="o.show_trn and o.company_id.vat">
+                <strong>TRN:</strong>
+                <span t-field="o.company_id.vat"/>
+            </h5>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-7" t-attf-style="border:1px solid black;">
+                        <div t-attf-style="display:inline;width:auto;padding:4px;color:{{style.text_color}};font-size:{{max(int(style.body_font)-2, 10)}}px;font-weight:400;">
+                            <span>Customer:</span>
+                        </div>
+                        <div name="partner_name" style="padding-left:3px;">
+                            <span t-field="o.partner_id.name"
+                                  t-attf-style="font-weight:bold !important;color:{{style.theme_color}};"/>
+                        </div>
+                        <div t-if="o.customer_trn" style="padding-left:3px;margin-top:2px;">
+                            <strong>TRN:</strong>
+                            <span t-field="o.customer_trn"/>
+                        </div>
+                        <div t-if="o.contact_person_id" style="padding-left:3px;margin-top:2px;">
+                            <strong>Contact Person:</strong>
+                            <span t-field="o.contact_person_id.name"/>
+                        </div>
+                        <div t-if="o.contact_no" style="padding-left:3px;margin-top:2px;">
+                            <strong>Contact No:</strong>
+                            <span t-field="o.contact_no"/>
+                        </div>
+                        <div t-if="o.client_manager_id" style="padding-left:3px;margin-top:2px;">
+                            <strong>Client Manager:</strong>
+                            <span t-field="o.client_manager_id.name"/>
+                        </div>
+                        <address t-field="o.partner_id"
+                                 t-if="o.partner_id.street or o.partner_id.street2 or o.partner_id.city or o.partner_id.state_id or o.partner_id.zip or o.partner_id.country_id or o.partner_id.phone or o.partner_id.email"
+                                 style="margin-bottom:0px;"
+                                 t-options='{"widget": "contact", "fields": ["address", "phone", "mobile", "email"], "no_marker": false}'/>
+                    </div>
+
+                    <div class="col-5" t-attf-style="border:1px solid black;background-color:{{background_clr}}; color:{{style.theme_txt_color}};">
+                        <t t-set="div_style" t-value="'color:{};font-size:{}px; width:100%;'.format(style.theme_txt_color,int(style.body_font)+2)"/>
+                        <div id="order_title" t-attf-style="{{div_style}};margin-top:2px !important;">
+                            <strong>Order No:</strong>
+                            <span t-field="o.name"/>
+                        </div>
+                        <div t-if="o.date_order" t-attf-style="{{div_style}}">
+                            <strong>Order Date:</strong>
+                            <span t-field="o.date_order"/>
+                        </div>
+                        <div t-if="o.invoice_date" t-attf-style="{{div_style}}">
+                            <strong>Invoice Date:</strong>
+                            <span t-field="o.invoice_date"/>
+                        </div>
+                        <div t-if="o.contract_id" t-attf-style="{{div_style}}">
+                            <strong>AMC Contract:</strong>
+                            <span t-field="o.contract_id.name"/>
+                        </div>
+                        <div t-if="o.period_label" t-attf-style="{{div_style}}">
+                            <strong>Period:</strong>
+                            <span t-field="o.period_label"/>
+                        </div>
+                        <div t-if="o.date_from and o.date_to" t-attf-style="{{div_style}}">
+                            <strong>Service Period:</strong>
+                            <span t-field="o.date_from"/> - <span t-field="o.date_to"/>
+                        </div>
+                        <div t-if="o.project_id" t-attf-style="{{div_style}}">
+                            <strong>Project:</strong>
+                            <span t-field="o.project_id.name"/>
+                        </div>
+                        <div t-if="o.unit_id" t-attf-style="{{div_style}}">
+                            <strong>Villa / Flat:</strong>
+                            <span t-field="o.unit_id.name"/>
+                        </div>
+                        <div t-if="o.project_location_id" t-attf-style="{{div_style}}">
+                            <strong>Location:</strong>
+                            <span t-field="o.project_location_id.name"/>
+                        </div>
+                        <div t-if="o.gfs_supervisor_id" t-attf-style="{{div_style}}">
+                            <strong>GFS Supervisor:</strong>
+                            <span t-field="o.gfs_supervisor_id.name"/>
+                        </div>
+                        <div t-if="o.gfs_admin_id" t-attf-style="{{div_style}}">
+                            <strong>GFS Admin:</strong>
+                            <span t-field="o.gfs_admin_id.name"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div t-if="o.project_title" class="col-12 text-center" style="margin-top:12px;margin-bottom:8px;"
+                 t-attf-style="color:{{style.theme_txt_color if not style.transparent else style.text_color}};">
+                <div t-attf-style="display:inline-block;background-color:{{style.theme_color if not style.transparent else 'transparent'}};padding:4px 10px;">
+                    <span t-field="o.project_title"
+                          t-attf-style="font-size:{{int(style.body_font)+4}}px;"/>
+                </div>
+            </div>
+
+            <table class="table table-sm" style="margin-top:12px;border-collapse:collapse;"
+                   t-attf-style="color:{{style.text_color}};border-left:1px solid #d9dde2 !important;border-right:1px solid #d9dde2 !important;">
+                <thead t-attf-style="color:{{style.theme_txt_color if not style.transparent else style.text_color}};">
+                    <tr t-attf-style="background-color:{{background_clr}};font-size:{{int(style.body_font)}}px;">
+                        <th style="border:1px solid #d9dde2 !important;width:40px;">#</th>
+                        <th style="border:1px solid #d9dde2 !important;">Description</th>
+                        <th class="text-right" style="border:1px solid #d9dde2 !important;width:80px;">Qty</th>
+                        <th class="text-right" style="border:1px solid #d9dde2 !important;width:120px;">Unit Price</th>
+                        <th class="text-right" style="border:1px solid #d9dde2 !important;width:120px;">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="border:1px solid #d9dde2 !important;">1</td>
+                        <td style="border:1px solid #d9dde2 !important;">
+                            <span t-field="o.report_line_description"/>
+                            <div t-if="o.notes" style="margin-top:4px;font-size:90%;">
+                                <span t-field="o.notes"/>
+                            </div>
+                        </td>
+                        <td class="text-right" style="border:1px solid #d9dde2 !important;">1</td>
+                        <td class="text-right" style="border:1px solid #d9dde2 !important;">
+                            <span t-field="o.amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                        </td>
+                        <td class="text-right" style="border:1px solid #d9dde2 !important;">
+                            <span t-field="o.amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="row" style="margin-top:8px;">
+                <div class="col-7"/>
+                <div class="col-5">
+                    <table class="table table-sm" style="margin-bottom:0;">
+                        <tr>
+                            <td><strong>Total</strong></td>
+                            <td class="text-right">
+                                <strong>
+                                    <span t-field="o.amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                </strong>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div t-if="o.num_word" style="margin-top:10px;">
+                <strong>Amount in Words:</strong>
+                <span t-field="o.num_word"/>
+            </div>
+
+            <div t-if="o.attention" style="margin-top:8px;">
+                <strong>Attention:</strong>
+                <span t-field="o.attention"/>
+            </div>
+        </div>
+
+        <t t-if="show_footer">
+            <div class="footer"
+                 t-attf-style="font-size:{{int(style.footer_font)}}px !important;font-family:{{style.font_family}} !important;color:#000000 !important;">
+                <t t-call="professional_templates_v1.company_footer"/>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_cafm_contract_order">
+        <t t-call="web.report_layout">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="cpabooks_force_image_header_footer"
+                   t-value="cpabooks_force_image_header_footer or env.context.get('cpabooks_force_image_header_footer')"/>
+                <t t-set="cpabooks_print_standard"
+                   t-value="cpabooks_print_standard or env.context.get('cpabooks_print_standard')"/>
+                <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang, cpabooks_force_image_header_footer=cpabooks_force_image_header_footer, cpabooks_print_standard=cpabooks_print_standard)"/>
+                <t t-set="style" t-value="o.style or res_company.df_style or env.ref('professional_templates_v1.df_style_for_all_reports')"/>
+                <t t-if="cpabooks_force_image_header_footer and not style.sudo().report_header_image and res_company.df_style and res_company.df_style.sudo().report_header_image">
+                    <t t-set="style" t-value="res_company.df_style"/>
+                </t>
+                <t t-set="style" t-value="style.with_context(cpabooks_force_image_header_footer=cpabooks_force_image_header_footer, cpabooks_print_standard=cpabooks_print_standard)"/>
+                <t t-call="cpabooks_cafm.CAFM_CO_common_document" t-lang="o.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_faff_completion_tree" model="ir.ui.view">
+        <field name="name">cpabooks.faff.completion.tree</field>
+        <field name="model">cpabooks.faff.completion</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="job_id"/>
+                <field name="completion_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_faff_completion_form" model="ir.ui.view">
+        <field name="name">cpabooks.faff.completion.form</field>
+        <field name="model">cpabooks.faff.completion</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm_completion" type="object" string="Confirm Completion"
+                            class="oe_highlight" states="draft"/>
+                    <button name="action_print_handover" type="object" string="Print Handover Note"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="job_id"/>
+                        <field name="partner_id"/>
+                        <field name="site_name"/>
+                        <field name="project_id"/>
+                        <field name="sale_order_id"/>
+                        <field name="completion_date"/>
+                    </group>
+                    <group>
+                        <field name="work_completed"/>
+                        <field name="material_delivered"/>
+                        <field name="testing_result"/>
+                        <field name="outstanding_items"/>
+                        <field name="warranty"/>
+                        <field name="remarks"/>
+                    </group>
+                    <group string="Customer Sign-off">
+                        <field name="customer_name"/>
+                        <field name="customer_designation"/>
+                        <field name="customer_signature" widget="signature"/>
+                        <field name="sign_date"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_faff_completion" model="ir.actions.act_window">
+        <field name="name">Completion / Handover</field>
+        <field name="res_model">cpabooks.faff.completion</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

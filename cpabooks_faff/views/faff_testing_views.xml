@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_faff_testing_tree" model="ir.ui.view">
+        <field name="name">cpabooks.faff.testing.tree</field>
+        <field name="model">cpabooks.faff.testing</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="job_id"/>
+                <field name="testing_date"/>
+                <field name="system_status"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_faff_testing_form" model="ir.ui.view">
+        <field name="name">cpabooks.faff.testing.form</field>
+        <field name="model">cpabooks.faff.testing</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_create_rectification_task" type="object"
+                            string="Create Rectification Task" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="job_id"/>
+                        <field name="testing_date"/>
+                        <field name="tested_by_id"/>
+                        <field name="system_status"/>
+                    </group>
+                    <group string="Checks">
+                        <field name="panel_tested"/>
+                        <field name="devices_tested"/>
+                        <field name="pump_tested"/>
+                        <field name="alarm_tested"/>
+                        <field name="cause_effect_tested"/>
+                        <field name="emergency_light_tested"/>
+                    </group>
+                    <group>
+                        <field name="remarks"/>
+                        <field name="defects_found"/>
+                        <field name="rectification_required"/>
+                        <field name="rectification_task_id"/>
+                        <field name="test_report_ids" widget="many2many_binary"/>
+                        <field name="before_photo_ids" widget="many2many_binary"/>
+                        <field name="after_photo_ids" widget="many2many_binary"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_faff_testing" model="ir.actions.act_window">
+        <field name="name">Testing &amp; Commissioning</field>
+        <field name="res_model">cpabooks.faff.testing</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

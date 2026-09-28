@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cafm_amc_invoice_reg_tree" model="ir.ui.view">
+        <field name="name">cpabooks.cafm.amc.invoice.reg.tree</field>
+        <field name="model">cpabooks.cafm.amc.invoice.reg</field>
+        <field name="arch" type="xml">
+            <tree string="AMC Invoices" class="o_cafm_tally_tree" js_class="cafm_tally_list"
+                  decoration-info="status=='waiting_kpi'"
+                  decoration-warning="status=='waiting_csr'"
+                  decoration-muted="status=='submitted'">
+                <field name="invoice_date" string="Inv. Date"/>
+                <field name="ref_no" string="ref. no (tally)"/>
+                <field name="project_name" string="Project Name"/>
+                <field name="l2_level_id" string="L2 Level (Client Group)"/>
+                <field name="l3_level_id" string="L3 Level (Project)"/>
+                <field name="partner_id" string="Client Name"/>
+                <field name="invoice_amount" sum="Total" string="Inv. Amount"/>
+                <field name="ubs_no" string="UBS No."/>
+                <field name="contract_lpo_no" string="Contract/LPO No."/>
+                <field name="due_days" string="Due Days"/>
+                <field name="invoice_type" string="Inv. Type"/>
+                <field name="follow_up_user_id" string="Follow up by"/>
+                <field name="remarks" string="Remarks"/>
+                <field name="status" string="Status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_cafm_amc_invoice_reg_form" model="ir.ui.view">
+        <field name="name">cpabooks.cafm.amc.invoice.reg.form</field>
+        <field name="model">cpabooks.cafm.amc.invoice.reg</field>
+        <field name="arch" type="xml">
+            <form string="AMC Invoice" class="o_cafm_tally_form">
+                <sheet>
+                    <div class="o_cafm_tally_header"><span>AMC Invoices</span></div>
+                    <div class="o_cafm_tally_title_block">AMC Invoice</div>
+                    <group col="4">
+                        <group>
+                            <field name="invoice_date"/>
+                            <field name="ref_no" string="ref. no (tally)"/>
+                            <field name="project_name"/>
+                            <field name="invoice_amount"/>
+                        </group>
+                        <group>
+                            <field name="l2_level_id" string="L2 Level (Client Group)"/>
+                            <field name="l3_level_id" string="L3 Level (Project)"/>
+                            <field name="partner_id" string="Client Name"/>
+                        </group>
+                        <group>
+                            <field name="ubs_no"/>
+                            <field name="contract_lpo_no"/>
+                            <field name="due_days" string="Due Days"/>
+                            <field name="due_day" string="Due Day (import)" groups="base.group_no_one"/>
+                            <field name="invoice_type"/>
+                            <field name="status"/>
+                        </group>
+                        <group>
+                            <field name="follow_up_user_id" string="Follow up by"/>
+                            <field name="follow_up" string="Follow up (text)" groups="base.group_no_one"/>
+                            <field name="remarks"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Additional Files" name="attachments">
+                            <field name="attachment_ids" widget="many2many_binary" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_cafm_amc_invoice_reg_search" model="ir.ui.view">
+        <field name="name">cpabooks.cafm.amc.invoice.reg.search</field>
+        <field name="model">cpabooks.cafm.amc.invoice.reg</field>
+        <field name="arch" type="xml">
+            <search string="AMC Invoices">
+                <field name="ref_no" string="ref. no (tally)"/>
+                <field name="project_name"/>
+                <field name="partner_id" string="Client Name"/>
+                <field name="l2_level_id" string="L2 Level (Client Group)"/>
+                <field name="l3_level_id" string="L3 Level (Project)"/>
+                <field name="ubs_no"/>
+                <field name="contract_lpo_no"/>
+                <field name="follow_up_user_id" string="Follow up by"/>
+                <field name="follow_up"/>
+                <field name="remarks"/>
+                <separator/>
+                <filter name="waiting_kpi" string="Waiting for KPI" domain="[('status','=','waiting_kpi')]"/>
+                <filter name="waiting_csr" string="Waiting for CSR" domain="[('status','=','waiting_csr')]"/>
+                <filter name="not_submitted" string="Not Submitted" domain="[('status','=','not_submitted')]"/>
+                <filter name="submitted" string="Submitted" domain="[('status','=','submitted')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="groupby_status" string="Status" context="{'group_by': 'status'}"/>
+                    <filter name="groupby_partner" string="Client Name" context="{'group_by': 'partner_id'}"/>
+                    <filter name="groupby_l2" string="L2 Level (Client Group)" context="{'group_by': 'l2_level_id'}"/>
+                    <filter name="groupby_l3" string="L3 Level (Project)" context="{'group_by': 'l3_level_id'}"/>
+                    <filter name="groupby_invoice_year" string="Inv. Year" context="{'group_by': 'invoice_date:year'}"/>
+                    <filter name="groupby_invoice_month" string="Inv. Month" context="{'group_by': 'invoice_date:month'}"/>
+                    <filter name="groupby_follow_up_user" string="Follow up by" context="{'group_by': 'follow_up_user_id'}"/>
+                    <filter name="groupby_follow_up" string="Follow up (text)" context="{'group_by': 'follow_up'}"/>
+                    <filter name="groupby_invoice_date" string="Inv. Date" context="{'group_by': 'invoice_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_cafm_amc_invoice_waiting_kpi" model="ir.actions.act_window">
+        <field name="name">Invoices waiting for KPI</field>
+        <field name="res_model">cpabooks.cafm.amc.invoice.reg</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_cafm_amc_invoice_reg_search"/>
+        <field name="context">{'search_default_waiting_kpi': 1, 'group_by': ['invoice_date:year', 'invoice_date:month']}</field>
+    </record>
+
+    <record id="action_cafm_amc_invoice_waiting_csr" model="ir.actions.act_window">
+        <field name="name">Invoices waiting for CSR</field>
+        <field name="res_model">cpabooks.cafm.amc.invoice.reg</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_cafm_amc_invoice_reg_search"/>
+        <field name="context">{'search_default_waiting_csr': 1, 'group_by': ['invoice_date:year', 'invoice_date:month']}</field>
+    </record>
+
+    <record id="action_cafm_amc_invoice_not_submitted" model="ir.actions.act_window">
+        <field name="name">Invoices not submitted</field>
+        <field name="res_model">cpabooks.cafm.amc.invoice.reg</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_cafm_amc_invoice_reg_search"/>
+        <field name="context">{'search_default_not_submitted': 1, 'group_by': ['invoice_date:year', 'invoice_date:month']}</field>
+    </record>
+
+    <record id="action_cafm_amc_invoice_submitted" model="ir.actions.act_window">
+        <field name="name">Invoices submitted</field>
+        <field name="res_model">cpabooks.cafm.amc.invoice.reg</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_cafm_amc_invoice_reg_search"/>
+        <field name="context">{'search_default_submitted': 1, 'group_by': ['invoice_date:year', 'invoice_date:month']}</field>
+    </record>
+
+    <record id="action_cafm_amc_invoice_all" model="ir.actions.act_window">
+        <field name="name">AMC Invoices (All)</field>
+        <field name="res_model">cpabooks.cafm.amc.invoice.reg</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_cafm_amc_invoice_reg_search"/>
+        <field name="context">{'group_by': ['invoice_date:year', 'invoice_date:month']}</field>
+    </record>
+</odoo>

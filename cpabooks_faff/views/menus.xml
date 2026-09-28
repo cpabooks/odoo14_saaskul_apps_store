@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="menu_faff_root"
+              name="FAFF"
+              web_icon="cpabooks_faff,static/description/icon.png"
+              action="action_faff_dashboard_client"
+              sequence="25"
+              groups="cpabooks_faff.group_faff_user"/>
+
+    <menuitem id="menu_faff_dashboard_folder"
+              name="Dashboard"
+              parent="menu_faff_root"
+              sequence="1"/>
+
+    <menuitem id="menu_faff_dashboard"
+              name="Operations Dashboard"
+              parent="menu_faff_dashboard_folder"
+              action="action_faff_dashboard_client"
+              sequence="1"/>
+
+    <menuitem id="menu_faff_process_flow"
+              name="Process Flow"
+              parent="menu_faff_dashboard_folder"
+              action="action_faff_process_flow"
+              sequence="2"/>
+
+    <menuitem id="menu_faff_new_job"
+              name="New FAFF Job"
+              parent="menu_faff_root"
+              action="action_faff_job_wizard"
+              sequence="2"/>
+
+    <menuitem id="menu_faff_crm"
+              name="1. CRM"
+              parent="menu_faff_root"
+              action="action_faff_crm"
+              sequence="10"/>
+
+    <menuitem id="menu_faff_inspections"
+              name="2. Site Visit / Inspection"
+              parent="menu_faff_root"
+              action="action_faff_visit"
+              sequence="11"/>
+
+    <menuitem id="menu_faff_estimations"
+              name="3. Estimation"
+              parent="menu_faff_root"
+              action="action_faff_estimate"
+              sequence="12"/>
+
+    <menuitem id="menu_faff_quotations"
+              name="4. Quotation"
+              parent="menu_faff_root"
+              action="action_faff_quotations"
+              sequence="13"/>
+
+    <menuitem id="menu_faff_confirmed"
+              name="5. Confirm Quotation"
+              parent="menu_faff_root"
+              action="action_faff_confirmed_orders"
+              sequence="14"/>
+
+    <menuitem id="menu_faff_projects"
+              name="6. Project + Tasks"
+              parent="menu_faff_root"
+              action="action_faff_projects"
+              sequence="15"/>
+
+    <menuitem id="menu_faff_tasks"
+              name="Tasks"
+              parent="menu_faff_root"
+              action="action_faff_tasks"
+              sequence="16"/>
+
+    <menuitem id="menu_faff_materials"
+              name="7. Material Arrangement"
+              parent="menu_faff_root"
+              action="action_faff_material"
+              sequence="17"/>
+
+    <menuitem id="menu_faff_purchases"
+              name="Purchase"
+              parent="menu_faff_root"
+              action="action_faff_purchases"
+              sequence="18"/>
+
+    <menuitem id="menu_faff_execution"
+              name="8. Execution"
+              parent="menu_faff_root"
+              action="action_faff_execution_jobs"
+              sequence="19"/>
+
+    <menuitem id="menu_faff_testing"
+              name="9. Testing"
+              parent="menu_faff_root"
+              action="action_faff_testing"
+              sequence="20"/>
+
+    <menuitem id="menu_faff_completion"
+              name="10. Delivery / Completion"
+              parent="menu_faff_root"
+              action="action_faff_completion"
+              sequence="21"/>
+
+    <menuitem id="menu_faff_invoices"
+              name="11. Invoice"
+              parent="menu_faff_root"
+              action="action_faff_invoices"
+              sequence="22"/>
+
+    <menuitem id="menu_faff_payments"
+              name="12. Payment"
+              parent="menu_faff_root"
+              action="action_faff_payments"
+              sequence="23"/>
+
+    <menuitem id="menu_faff_closed"
+              name="13. Job Closing"
+              parent="menu_faff_root"
+              action="action_faff_job_closed"
+              sequence="24"/>
+
+    <menuitem id="menu_faff_jobs"
+              name="All Jobs"
+              parent="menu_faff_root"
+              action="action_faff_job"
+              sequence="30"/>
+
+    <menuitem id="menu_faff_my_jobs"
+              name="My Jobs"
+              parent="menu_faff_root"
+              action="action_faff_job_my"
+              sequence="31"/>
+
+    <menuitem id="menu_faff_reports"
+              name="MIS Reports"
+              parent="menu_faff_root"
+              sequence="80"/>
+
+    <menuitem id="menu_faff_mis_analysis"
+              name="FAFF Analysis"
+              parent="menu_faff_reports"
+              sequence="10"/>
+    <menuitem id="menu_faff_report_jobs"
+              name="Jobs Analysis"
+              parent="menu_faff_mis_analysis"
+              action="action_faff_mis_jobs_analysis"
+              sequence="10"/>
+    <menuitem id="menu_faff_mis_profit_summary"
+              name="Profitability Summary"
+              parent="menu_faff_mis_analysis"
+              action="action_faff_mis_profit_summary"
+              sequence="20"/>
+    <menuitem id="menu_faff_mis_profit_detail"
+              name="Profitability Detail"
+              parent="menu_faff_mis_analysis"
+              action="action_faff_mis_profit_detail"
+              sequence="30"/>
+    <menuitem id="menu_faff_mis_comparison_summary"
+              name="Comparison Summary"
+              parent="menu_faff_mis_analysis"
+              action="action_faff_mis_comparison_summary"
+              sequence="40"/>
+    <menuitem id="menu_faff_mis_comparison_detail"
+              name="Comparison Detail"
+              parent="menu_faff_mis_analysis"
+              action="action_faff_mis_comparison_detail"
+              sequence="50"/>
+    <menuitem id="menu_faff_mis_daily"
+              name="Daily Job Activity"
+              parent="menu_faff_mis_analysis"
+              action="action_faff_mis_daily"
+              sequence="60"/>
+    <menuitem id="menu_faff_mis_print"
+              name="Print MIS Report"
+              parent="menu_faff_mis_analysis"
+              action="action_faff_mis_print_wizard"
+              sequence="90"/>
+
+    <menuitem id="menu_faff_mis_operations"
+              name="Operations Reports"
+              parent="menu_faff_reports"
+              sequence="20"/>
+    <menuitem id="menu_faff_mis_inspections"
+              name="Inspections"
+              parent="menu_faff_mis_operations"
+              action="action_faff_visit"
+              sequence="10"/>
+    <menuitem id="menu_faff_mis_estimations"
+              name="Estimations / BOQ"
+              parent="menu_faff_mis_operations"
+              action="action_faff_estimate"
+              sequence="20"/>
+    <menuitem id="menu_faff_mis_quotations"
+              name="Quotations / Orders"
+              parent="menu_faff_mis_operations"
+              action="action_faff_mis_sale_orders"
+              sequence="30"/>
+    <menuitem id="menu_faff_mis_materials"
+              name="Material Requirements"
+              parent="menu_faff_mis_operations"
+              action="action_faff_material"
+              sequence="40"/>
+    <menuitem id="menu_faff_mis_issues"
+              name="Material Issues"
+              parent="menu_faff_mis_operations"
+              action="action_faff_mis_pickings"
+              sequence="50"/>
+    <menuitem id="menu_faff_mis_testing"
+              name="Testing"
+              parent="menu_faff_mis_operations"
+              action="action_faff_testing"
+              sequence="60"/>
+    <menuitem id="menu_faff_mis_handover"
+              name="Handover / Delivery"
+              parent="menu_faff_mis_operations"
+              action="action_faff_completion"
+              sequence="70"/>
+
+    <menuitem id="menu_faff_mis_financial"
+              name="Financial Reports"
+              parent="menu_faff_reports"
+              sequence="30"/>
+    <menuitem id="menu_faff_mis_invoices"
+              name="FAFF Invoices"
+              parent="menu_faff_mis_financial"
+              action="action_faff_mis_invoices"
+              sequence="10"/>
+    <menuitem id="menu_faff_mis_receivable"
+              name="Outstanding Receivable"
+              parent="menu_faff_mis_financial"
+              action="action_faff_mis_receivable"
+              sequence="20"/>
+    <menuitem id="menu_faff_mis_payments"
+              name="Customer Payments"
+              parent="menu_faff_mis_financial"
+              action="account.action_account_payments"
+              sequence="30"/>
+    <menuitem id="menu_faff_mis_sales_analysis"
+              name="Sales Analysis"
+              parent="menu_faff_mis_financial"
+              action="sale.action_order_report_all"
+              sequence="40"/>
+    <menuitem id="menu_faff_mis_invoice_analysis"
+              name="Invoice Analysis"
+              parent="menu_faff_mis_financial"
+              action="account.action_account_invoice_report_all"
+              sequence="50"/>
+    <menuitem id="menu_faff_mis_purchase_analysis"
+              name="Purchase Analysis"
+              parent="menu_faff_mis_financial"
+              action="purchase.action_purchase_order_report_all"
+              sequence="60"/>
+    <menuitem id="menu_faff_mis_po"
+              name="FAFF Purchase Orders"
+              parent="menu_faff_mis_financial"
+              action="action_faff_mis_purchase_orders"
+              sequence="70"/>
+
+    <menuitem id="menu_faff_mis_inventory"
+              name="Inventory"
+              parent="menu_faff_reports"
+              sequence="40"/>
+    <menuitem id="menu_faff_mis_stock_moves"
+              name="Stock Moves"
+              parent="menu_faff_mis_inventory"
+              action="stock.stock_move_action"
+              sequence="10"/>
+    <menuitem id="menu_faff_mis_stock_qty"
+              name="Inventory Quantities"
+              parent="menu_faff_mis_inventory"
+              action="stock.action_view_quants"
+              sequence="20"/>
+    <menuitem id="menu_faff_mis_traceability"
+              name="Stock Traceability"
+              parent="menu_faff_mis_inventory"
+              action="stock.action_stock_report"
+              sequence="30"/>
+
+    <menuitem id="menu_faff_mis_project_dash"
+              name="Project / Company Dashboards"
+              parent="menu_faff_reports"
+              sequence="50"/>
+    <menuitem id="menu_faff_mis_pd_project"
+              name="Project Dashboard"
+              parent="menu_faff_mis_project_dash"
+              action="action_faff_bridge_project_dashboard"
+              sequence="10"/>
+    <menuitem id="menu_faff_mis_pd_financial"
+              name="Financial Dashboard"
+              parent="menu_faff_mis_project_dash"
+              action="action_faff_bridge_financial_dashboard"
+              sequence="20"/>
+    <menuitem id="menu_faff_mis_pd_pl"
+              name="Multi-level Profit &amp; Loss"
+              parent="menu_faff_mis_project_dash"
+              action="action_faff_bridge_pl"
+              sequence="30"/>
+    <menuitem id="menu_faff_mis_pd_bs"
+              name="Balance Sheet"
+              parent="menu_faff_mis_project_dash"
+              action="action_faff_bridge_bs"
+              sequence="40"/>
+    <menuitem id="menu_faff_mis_pd_apar"
+              name="AP &amp; AR Control"
+              parent="menu_faff_mis_project_dash"
+              action="action_faff_bridge_ap_ar"
+              sequence="50"/>
+    <menuitem id="menu_faff_mis_pd_result"
+              name="Project Result Control"
+              parent="menu_faff_mis_project_dash"
+              action="action_faff_bridge_result"
+              sequence="60"/>
+    <menuitem id="menu_faff_mis_pd_activities"
+              name="Activities Control"
+              parent="menu_faff_mis_project_dash"
+              action="action_faff_bridge_activities"
+              sequence="70"/>
+
+    <menuitem id="menu_faff_config"
+              name="Configuration"
+              parent="menu_faff_root"
+              sequence="90"
+              groups="cpabooks_faff.group_faff_manager"/>
+
+    <menuitem id="menu_faff_job_types"
+              name="Job Types"
+              parent="menu_faff_config"
+              action="action_faff_job_type"
+              sequence="10"/>
+
+    <menuitem id="menu_faff_default_tasks"
+              name="Default Tasks"
+              parent="menu_faff_config"
+              action="action_faff_default_task"
+              sequence="20"/>
+
+    <menuitem id="menu_faff_load_demo"
+              name="Load Demo Data"
+              parent="menu_faff_config"
+              action="action_faff_load_demo"
+              sequence="90"
+              groups="cpabooks_faff.group_faff_manager"/>
+
+    <menuitem id="menu_faff_clean_demo"
+              name="Clean Demo Data"
+              parent="menu_faff_config"
+              action="action_faff_clean_demo"
+              sequence="91"
+              groups="cpabooks_faff.group_faff_manager"/>
+</odoo>

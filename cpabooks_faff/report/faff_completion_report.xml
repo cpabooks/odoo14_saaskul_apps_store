@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_report_faff_completion" model="ir.actions.report">
+        <field name="name">FAFF Completion / Handover Note</field>
+        <field name="model">cpabooks.faff.completion</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">cpabooks_faff.report_faff_completion_document</field>
+        <field name="report_file">cpabooks_faff.report_faff_completion_document</field>
+        <field name="binding_model_id" ref="model_cpabooks_faff_completion"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

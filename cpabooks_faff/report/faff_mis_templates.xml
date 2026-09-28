@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_faff_mis_summary_document">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>FAFF Comparison Summary</h2>
+                    <p class="text-muted">Estimated vs Actual vs Invoice</p>
+                    <table class="table table-sm table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Job</th>
+                                <th>Customer</th>
+                                <th>Type</th>
+                                <th>Stage</th>
+                                <th class="text-right">Est. Cost</th>
+                                <th class="text-right">Actual Cost</th>
+                                <th class="text-right">Cost Var.</th>
+                                <th class="text-right">Selling</th>
+                                <th class="text-right">Invoice</th>
+                                <th class="text-right">Est. Profit</th>
+                                <th class="text-right">Act. Profit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="job">
+                                <tr>
+                                    <td><span t-field="job.name"/></td>
+                                    <td><span t-field="job.partner_id"/></td>
+                                    <td><span t-field="job.job_type_id"/></td>
+                                    <td><span t-field="job.stage"/></td>
+                                    <td class="text-right"><span t-field="job.estimated_cost"/></td>
+                                    <td class="text-right"><span t-field="job.actual_total_cost"/></td>
+                                    <td class="text-right"><span t-field="job.cost_variance"/></td>
+                                    <td class="text-right"><span t-field="job.selling_amount"/></td>
+                                    <td class="text-right"><span t-field="job.invoice_amount"/></td>
+                                    <td class="text-right"><span t-field="job.expected_profit"/></td>
+                                    <td class="text-right"><span t-field="job.actual_profit"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_faff_mis_detail_document">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>FAFF Comparison Detail</h2>
+                    <p class="text-muted">BOQ lines vs material issued / purchased</p>
+                    <table class="table table-sm table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Job</th>
+                                <th>Product / Description</th>
+                                <th class="text-right">Est. Qty</th>
+                                <th class="text-right">Issued</th>
+                                <th class="text-right">Purchased</th>
+                                <th class="text-right">Est. Cost</th>
+                                <th class="text-right">Actual Mat.</th>
+                                <th class="text-right">Variance</th>
+                                <th class="text-right">Selling</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="line">
+                                <tr>
+                                    <td><span t-field="line.job_id"/></td>
+                                    <td>
+                                        <span t-field="line.product_id"/>
+                                        <span t-if="line.name" t-field="line.name"/>
+                                    </td>
+                                    <td class="text-right"><span t-field="line.qty_estimated"/></td>
+                                    <td class="text-right"><span t-field="line.qty_issued"/></td>
+                                    <td class="text-right"><span t-field="line.qty_purchased"/></td>
+                                    <td class="text-right"><span t-field="line.estimated_cost"/></td>
+                                    <td class="text-right"><span t-field="line.actual_material_cost"/></td>
+                                    <td class="text-right"><span t-field="line.cost_variance"/></td>
+                                    <td class="text-right"><span t-field="line.selling_amount"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_faff_mis_daily_document">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>FAFF Daily Activity</h2>
+                    <table class="table table-sm table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Job</th>
+                                <th>Customer</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>User</th>
+                                <th>Override</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="line">
+                                <tr>
+                                    <td><span t-field="line.change_date"/></td>
+                                    <td><span t-field="line.job_id"/></td>
+                                    <td><span t-field="line.partner_id"/></td>
+                                    <td><span t-field="line.from_stage"/></td>
+                                    <td><span t-field="line.to_stage"/></td>
+                                    <td><span t-field="line.user_id"/></td>
+                                    <td><span t-field="line.is_override"/></td>
+                                    <td><span t-field="line.remarks"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
