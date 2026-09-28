@@ -1,0 +1,170 @@
+.o_faff_flow_root {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 20px 18px 40px;
+    color: #0f172a;
+}
+
+.o_faff_flow_header {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+}
+
+.o_faff_flow_kicker {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #64748b;
+}
+
+.o_faff_flow_header h1 {
+    font-size: 1.7rem;
+    font-weight: 800;
+    margin: 2px 0 6px;
+}
+
+.o_faff_flow_sub {
+    margin: 0;
+    color: #64748b;
+}
+
+.o_faff_flow_badges {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-end;
+}
+
+.o_faff_flow_badge {
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+    color: #9f1239;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 12px;
+}
+
+.o_faff_flow_board {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 18px 14px 22px;
+}
+
+.o_faff_flow_row {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.o_faff_flow_arrow,
+.o_faff_flow_down {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    font-size: 18px;
+    min-width: 18px;
+}
+
+.o_faff_flow_down {
+    margin: 8px 0;
+}
+
+.o_faff_flow_card {
+    flex: 1 1 180px;
+    max-width: 220px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-top: 5px solid var(--faff-step, #2563eb);
+    border-radius: 10px;
+    padding: 10px 12px 12px;
+    text-decoration: none !important;
+    color: inherit !important;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+    min-height: 220px;
+}
+
+.o_faff_flow_card:hover {
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+    transform: translateY(-2px);
+}
+
+.o_faff_flow_card_top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.o_faff_flow_icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--faff-step, #2563eb);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.o_faff_flow_num {
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: var(--faff-step, #2563eb);
+}
+
+.o_faff_flow_card_title {
+    font-weight: 700;
+    font-size: 0.92rem;
+    line-height: 1.25;
+    margin-bottom: 8px;
+    min-height: 2.4em;
+}
+
+.o_faff_flow_card ul {
+    margin: 0 0 10px;
+    padding-left: 16px;
+    font-size: 12px;
+    color: #475569;
+}
+
+.o_faff_flow_sys {
+    margin-top: auto;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--faff-step, #2563eb);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.o_faff_flow_hint {
+    margin-top: 14px;
+    font-size: 12px;
+}
+
+body.o_faff_dark_shell .o_faff_flow_root {
+    color: #e2e8f0;
+}
+
+body.o_faff_dark_shell .o_faff_flow_board {
+    background: #111827;
+    border-color: #334155;
+}
+
+body.o_faff_dark_shell .o_faff_flow_card {
+    background: #1f2937;
+    border-color: #334155;
+    color: #e2e8f0 !important;
+}
+
+body.o_faff_dark_shell .o_faff_flow_card ul {
+    color: #cbd5e1;
+}

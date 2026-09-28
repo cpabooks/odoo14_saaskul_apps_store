@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="location_mbz_city" model="cpabooks.cafm.location">
+            <field name="name">MBZ City</field>
+        </record>
+        <record id="location_abu_dhabi_city" model="cpabooks.cafm.location">
+            <field name="name">Abu Dhabi City</field>
+        </record>
+        <record id="location_khalifa_city" model="cpabooks.cafm.location">
+            <field name="name">Khalif City</field>
+        </record>
+
+        <record id="customer_group_khalifa_city" model="cpabooks.cafm.customer.group">
+            <field name="name">KHALIFA CITY GROUP</field>
+        </record>
+        <record id="customer_group_mjs_re" model="cpabooks.cafm.customer.group">
+            <field name="name">MJS RE GROUP</field>
+        </record>
+        <record id="customer_group_modon_holding" model="cpabooks.cafm.customer.group">
+            <field name="name">MODON HOLDING GROUP</field>
+        </record>
+        <record id="customer_group_prea" model="cpabooks.cafm.customer.group">
+            <field name="name">PREA GROUP</field>
+        </record>
+        <record id="customer_group_shnoline" model="cpabooks.cafm.customer.group">
+            <field name="name">SHNOLINE GROUP</field>
+        </record>
+        <record id="customer_group_abu_dhabi_city" model="cpabooks.cafm.customer.group">
+            <field name="name">ABU DHABI CITY GROUP</field>
+        </record>
+        <record id="customer_group_al_batteen" model="cpabooks.cafm.customer.group">
+            <field name="name">AL BATTEEN GROUP</field>
+        </record>
+        <record id="customer_group_al_faheem" model="cpabooks.cafm.customer.group">
+            <field name="name">AL FAHEEM GROUP</field>
+        </record>
+        <record id="customer_group_al_kindi" model="cpabooks.cafm.customer.group">
+            <field name="name">AL KINDI GROUP</field>
+        </record>
+        <record id="customer_group_al_mazrui" model="cpabooks.cafm.customer.group">
+            <field name="name">AL MAZRUI GROUP</field>
+        </record>
+        <record id="customer_group_dubai" model="cpabooks.cafm.customer.group">
+            <field name="name">DUBAI GROUP</field>
+        </record>
+        <record id="customer_group_fab" model="cpabooks.cafm.customer.group">
+            <field name="name">FAB GROUP</field>
+        </record>
+        <record id="customer_group_shikha_fatima" model="cpabooks.cafm.customer.group">
+            <field name="name">GROUP OF SHIKHA FATIMA</field>
+        </record>
+    </data>
+</odoo>

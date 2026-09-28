@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_cpabooks_cafm_amc_invoice_tree" model="ir.ui.view">
+            <field name="name">account.move.cafm.amc.invoice.tree</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_invoice_tree"/>
+            <field name="priority">99</field>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="project_title" optional="show"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_cafm_amc_customer_invoice_tree" model="ir.ui.view">
+            <field name="name">account.move.cafm.customer.invoice.tree</field>
+            <field name="model">account.move</field>
+            <field name="priority">16</field>
+            <field name="arch" type="xml">
+                <tree string="Invoice" sample="1">
+                    <field name="cafm_invoice_sr" readonly="1"/>
+                    <field name="name" decoration-bf="1" readonly="1"/>
+                    <field name="project_title" string="Property Name" readonly="1"/>
+                    <field name="cafm_invoice_period" readonly="1"/>
+                    <field name="partner_id" readonly="1"/>
+                    <field name="amount_total_signed" string="Total" sum="Total" readonly="1"/>
+                    <field name="invoice_date" optional="hide" readonly="1"/>
+                    <field name="amount_untaxed_signed" string="Tax Excluded" sum="Tax Excluded" optional="hide" readonly="1"/>
+                    <field name="amount_residual_signed" string="Amount Due" sum="Amount Due" optional="hide" readonly="1"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="company_id" groups="base.group_multi_company" optional="hide" readonly="1"/>
+                    <field name="invoice_date_due" optional="hide" readonly="1"/>
+                    <field name="activity_ids" widget="list_activity" optional="hide"/>
+                    <field name="state" widget="badge" optional="hide" decoration-info="state == 'draft'" decoration-success="state == 'posted'" readonly="1"/>
+                    <field name="payment_state" widget="badge" optional="hide" decoration-danger="payment_state == 'not_paid'" decoration-warning="payment_state in ('partial', 'in_payment')" decoration-success="payment_state in ('paid', 'reversed')" readonly="1"/>
+                    <field name="cafm_track_month" readonly="1"/>
+                    <field name="cafm_track_kp_id" options="{'no_quick_create': False}"/>
+                    <field name="cafm_track_ppm_id" options="{'no_quick_create': False}"/>
+                    <field name="cafm_track_sr_id" options="{'no_quick_create': False}"/>
+                    <field name="cafm_track_invoice_status_id" options="{'no_quick_create': False}"/>
+                    <field name="cafm_inv_sub_date"/>
+                    <field name="cafm_invoice_submitted_by"/>
+                    <field name="cafm_received_copy_status_id" options="{'no_quick_create': False}"/>
+                    <field name="cafm_track_remarks"/>
+                    <field name="cafm_final_status_id" options="{'no_quick_create': False}"/>
+                    <field name="move_type" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_cafm_invoice_track_status_tree" model="ir.ui.view">
+            <field name="name">cpabooks.cafm.invoice.track.status.tree</field>
+            <field name="model">cpabooks.cafm.invoice.track.status</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="sequence" widget="handle"/>
+                    <field name="kind"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_cafm_invoice_track_status" model="ir.actions.act_window">
+            <field name="name">Invoice Track Status Names</field>
+            <field name="res_model">cpabooks.cafm.invoice.track.status</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <record id="action_cpabooks_cafm_amc_invoice_status" model="ir.actions.client">
+            <field name="name">AMC Invoice Status</field>
+            <field name="tag">cpabooks_cafm_amc_invoice_status</field>
+            <field name="target">current</field>
+        </record>
+
+        <record id="action_cpabooks_cafm_amc_invoices" model="ir.actions.act_window">
+            <field name="name">Invoice</field>
+            <field name="res_model">account.move</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_cafm_amc_customer_invoice_tree"/>
+            <field name="domain">['&amp;', '|', ('cafm_contract_order_ids', '!=', False), ('cafm_amc_call_ids', '!=', False), ('move_type', 'in', ('out_invoice', 'out_refund'))]</field>
+            <field name="context">{'default_move_type': 'out_invoice', 'cafm_amc_invoice_list': 1}</field>
+            <field name="target">current</field>
+        </record>
+
+        <record id="action_cpabooks_cafm_amc_invoices_open" model="ir.actions.server">
+            <field name="name">Invoice</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="state">code</field>
+            <field name="code">action = env['account.move'].action_cafm_open_invoice_list()</field>
+        </record>
+
+        <menuitem id="menu_cpabooks_cafm_amc_invoices"
+                  name="Invoice"
+                  parent="menu_cpabooks_cafm_amc"
+                  action="action_cpabooks_cafm_amc_invoices_open"
+                  sequence="22"/>
+    </data>
+</odoo>

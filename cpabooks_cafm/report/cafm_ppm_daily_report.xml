@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_cafm_ppm_daily_list_document">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <h3 class="mt0">Technician PPM list</h3>
+                <p class="text-muted mb16">
+                    Month:
+                    <span t-field="docs.report_date" t-options="{'widget': 'date'}"/>
+                    <t t-if="docs.supervisor_id">
+                        — Supervisor:
+                        <span t-field="docs.supervisor_id"/>
+                    </t>
+                </p>
+                <table class="table table-sm table-bordered o_main_table">
+                    <thead>
+                        <tr>
+                            <th>Project</th>
+                            <th>Unit</th>
+                            <th>Client</th>
+                            <th>Area</th>
+                            <th>Supervisor</th>
+                            <th>PPM activity</th>
+                            <th>Month</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="lines" t-as="line">
+                            <td><span t-esc="line['project'].name"/></td>
+                            <td><span t-esc="line['unit_name']"/></td>
+                            <td><span t-esc="line['client']"/></td>
+                            <td><span t-esc="line['area']"/></td>
+                            <td><span t-esc="line['supervisor']"/></td>
+                            <td><span t-esc="line['ppm'].name"/></td>
+                            <td>
+                                <span t-esc="line['month_label']"/>
+                            </td>
+                        </tr>
+                        <tr t-if="not lines">
+                            <td colspan="7" class="text-center text-muted">No planned PPM visits for this month.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_cafm_ppm_daily_list">
+        <t t-call="web.html_container">
+            <t t-call="cpabooks_cafm.report_cafm_ppm_daily_list_document"/>
+        </t>
+    </template>
+
+    <report
+        id="action_report_cafm_ppm_daily_list"
+        model="cafm.ppm.daily.list.wizard"
+        string="Technician PPM list"
+        report_type="qweb-pdf"
+        name="cpabooks_cafm.report_cafm_ppm_daily_list"
+        file="cpabooks_cafm.report_cafm_ppm_daily_list"
+        print_report_name="'PPM_list_%s' % (object.report_date)"
+    />
+</odoo>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_cpabooks_cafm_ppm_root"
+              name="PPM"
+              parent="menu_cpabooks_cafm_root"
+              sequence="15"/>
+
+    <menuitem id="menu_cpabooks_cafm_ppm_fm_auh"
+              name="Facilities — Abu Dhabi"
+              parent="menu_cpabooks_cafm_ppm_root"
+              sequence="10"/>
+
+    <menuitem id="menu_cpabooks_cafm_ppm_register"
+              name="PPM register"
+              parent="menu_cpabooks_cafm_ppm_fm_auh"
+              action="action_cpabooks_cafm_ppm"
+              sequence="10"/>
+
+    <menuitem id="menu_cpabooks_cafm_ppm_bulk_setup"
+              name="PPM setup"
+              parent="menu_cpabooks_cafm_ppm_fm_auh"
+              action="action_cafm_ppm_setup_wizard"
+              sequence="12"/>
+
+    <menuitem id="menu_cpabooks_cafm_ppm_generate"
+              name="Generate PPM"
+              parent="menu_cpabooks_cafm_ppm_fm_auh"
+              action="action_cafm_ppm_generate_wizard"
+              sequence="15"/>
+
+    <menuitem id="menu_cpabooks_cafm_ppm_slots"
+              name="PPM month slots"
+              parent="menu_cpabooks_cafm_ppm_fm_auh"
+              action="action_cpabooks_cafm_ppm_slot"
+              sequence="18"/>
+
+    <menuitem id="menu_cpabooks_cafm_ppm_monthly_table"
+              name="Monthly PPM table"
+              parent="menu_cpabooks_cafm_ppm_fm_auh"
+              action="cafm_ppm_monthly_grid_full_server"
+              sequence="30"/>
+
+    <menuitem id="menu_cpabooks_cafm_ppm_monthly_pending"
+              name="Monthly PPM — pending"
+              parent="menu_cpabooks_cafm_ppm_fm_auh"
+              action="cafm_ppm_monthly_grid_pending_server"
+              sequence="35"/>
+
+    <menuitem id="menu_cpabooks_cafm_ppm_daily_pdf"
+              name="Technician daily list (PDF)"
+              parent="menu_cpabooks_cafm_ppm_fm_auh"
+              action="action_cafm_ppm_daily_list_wizard"
+              sequence="40"/>
+</odoo>

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Active contracts only — Client SOA single project picker -->
+    <record id="view_cafm_client_soa_contract_tree" model="ir.ui.view">
+        <field name="name">cpabooks.cafm.contract.client.soa.tree</field>
+        <field name="model">cpabooks.cafm.contract</field>
+        <field name="arch" type="xml">
+            <tree string="Client SOA - Single Project"
+                  create="0" delete="0"
+                  decoration-success="contract_status == 'active'"
+                  class="o_cafm_client_soa_tree">
+                <field name="name"/>
+                <field name="client_id"/>
+                <field name="project_id"/>
+                <field name="ubs_no" optional="show"/>
+                <field name="unit_id" optional="show"/>
+                <field name="location" optional="show"/>
+                <field name="contract_date"/>
+                <field name="contract_expiry"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="total_contract_value" widget="monetary" optional="show"/>
+                <field name="contract_status"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <button name="action_print_client_soa"
+                        type="object"
+                        string="Print SOA"
+                        icon="fa-print"
+                        class="btn-link"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_cafm_client_soa_contract_search" model="ir.ui.view">
+        <field name="name">cpabooks.cafm.contract.client.soa.search</field>
+        <field name="model">cpabooks.cafm.contract</field>
+        <field name="arch" type="xml">
+            <search string="Client SOA">
+                <field name="name"/>
+                <field name="client_id"/>
+                <field name="project_id"/>
+                <field name="ubs_no"/>
+                <filter name="filter_active_status" string="Active"
+                        domain="[('contract_status', '=', 'active')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_client" string="Client" context="{'group_by': 'client_id'}"/>
+                    <filter name="group_project" string="Project" context="{'group_by': 'project_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_cafm_client_soa_single_project" model="ir.actions.act_window">
+        <field name="name">Client SOA - Single Project</field>
+        <field name="res_model">cpabooks.cafm.contract</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('contract_status', '=', 'active'), ('active', '=', True)]</field>
+        <field name="context">{'search_default_filter_active_status': 1}</field>
+        <field name="search_view_id" ref="view_cafm_client_soa_contract_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No active contracts found.
+            </p>
+            <p>
+                Only contracts with status Active are listed. Open a row and click Print SOA
+                for the Green City style Statement of Accounts (single project).
+            </p>
+        </field>
+    </record>
+
+    <record id="action_cafm_client_soa_single_project_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_cafm_client_soa_contract_tree"/>
+        <field name="act_window_id" ref="action_cafm_client_soa_single_project"/>
+    </record>
+
+    <record id="action_cafm_client_soa_single_project_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_cpabooks_cafm_amc_form"/>
+        <field name="act_window_id" ref="action_cafm_client_soa_single_project"/>
+    </record>
+
+    <!-- Print from form header as well -->
+    <record id="view_cafm_contract_form_client_soa_button" model="ir.ui.view">
+        <field name="name">cpabooks.cafm.contract.form.client.soa.button</field>
+        <field name="model">cpabooks.cafm.contract</field>
+        <field name="inherit_id" ref="view_cpabooks_cafm_amc_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_print_client_soa"
+                        type="object"
+                        string="Print Client SOA"
+                        class="btn-secondary"
+                        attrs="{'invisible': [('contract_status', '!=', 'active')]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Paper format: A4 portrait, minimal margins for letter layout -->
+    <record id="paperformat_cafm_client_soa_a4" model="report.paperformat">
+        <field name="name">CAFM Client SOA A4</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">8</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_cafm_client_soa" model="ir.actions.report">
+        <field name="name">Client SOA - Single Project</field>
+        <field name="model">cpabooks.cafm.contract</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">cpabooks_cafm.report_cafm_client_soa_template</field>
+        <field name="report_file">cpabooks_cafm.report_cafm_client_soa_template</field>
+        <field name="print_report_name">'Client_SOA_%s' % (object.name or 'Statement')</field>
+        <!-- SOA print stays on Client SOA list/form buttons; avoid dead Print menu on AMC form -->
+        <field name="binding_model_id" eval="False"/>
+        <field name="paperformat_id" ref="paperformat_cafm_client_soa_a4"/>
+    </record>
+
+    <template id="report_cafm_client_soa_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="soa" t-value="payloads.get(doc.id) or doc.get_cafm_client_soa_data()"/>
+                <div class="page" style="font-family: Arial, Helvetica, sans-serif; font-size: 11px; color: #000;">
+                    <!-- Top green bar -->
+                    <div style="height: 4px; background: #1a6b2c; margin: -4px -4px 8px -4px;"/>
+
+                    <!-- Header: EN name | logo | AR name -->
+                    <table style="width: 100%; border: none; margin-bottom: 6px;">
+                        <tr>
+                            <td style="width: 38%; vertical-align: middle; border: none;">
+                                <div style="color: #1a6b2c; font-size: 18px; font-weight: 700; line-height: 1.15;">
+                                    <t t-esc="soa.get('company_name_main') or soa['company'].name"/>
+                                </div>
+                                <div t-if="soa.get('company_name_sub')" style="font-size: 12px; font-weight: 600; margin-top: 2px;">
+                                    <t t-esc="soa.get('company_name_sub')"/>
+                                </div>
+                            </td>
+                            <td style="width: 24%; text-align: center; vertical-align: middle; border: none;">
+                                <img t-if="soa.get('logo')"
+                                     t-att-src="image_data_uri(soa.get('logo'))"
+                                     style="max-height: 70px; max-width: 90px;"/>
+                            </td>
+                            <td style="width: 38%; text-align: right; vertical-align: middle; border: none; color: #1a6b2c; font-size: 14px; font-weight: 700; direction: rtl;">
+                                <t t-esc="soa.get('arabic_name') or ''"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div style="text-align: center; font-size: 18px; font-weight: 700; letter-spacing: 0.5px; margin: 8px 0 4px 0;">
+                        STATEMENT OF ACCOUNTS
+                    </div>
+                    <div style="text-align: center; font-size: 12px; margin-bottom: 4px;">
+                        For <t t-esc="soa.get('project_label')"/> / Customer ID :
+                        <t t-esc="soa.get('customer_id_label')"/>
+                    </div>
+                    <div style="text-align: right; margin-bottom: 10px;">
+                        Date : <t t-esc="soa.get('statement_date_display')"/>
+                    </div>
+
+                    <div style="margin-bottom: 8px;">
+                        <div>To,</div>
+                        <t t-foreach="soa.get('recipient_lines') or []" t-as="line">
+                            <div><t t-esc="line"/></div>
+                        </t>
+                    </div>
+
+                    <div style="margin: 10px 0 12px 0;">
+                        Dear Sir,<br/>
+                        Please find the outstanding Statement of accounts for
+                        <t t-esc="soa.get('project_label')"/>.
+                    </div>
+
+                    <!-- Lines table -->
+                    <table style="width: 100%; border-collapse: collapse; border: 1px solid #000; font-size: 10px;">
+                        <thead>
+                            <tr style="background: #efefef;">
+                                <th style="border: 1px solid #000; padding: 4px; text-align: left; width: 11%;">Inv.No.</th>
+                                <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 10%;">Date</th>
+                                <th style="border: 1px solid #000; padding: 4px; text-align: left;">Work Description</th>
+                                <th style="border: 1px solid #000; padding: 4px; text-align: right; width: 12%;">Amount</th>
+                                <th style="border: 1px solid #000; padding: 4px; text-align: right; width: 12%;">Balance</th>
+                                <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 10%;">LPO No.</th>
+                                <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 8%;">Age Days</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="soa.get('lines') or []" t-as="line">
+                                <td style="border: 1px solid #000; padding: 3px 4px;"><t t-esc="line.get('inv_no')"/></td>
+                                <td style="border: 1px solid #000; padding: 3px 4px; text-align: center;">
+                                    <t t-esc="line.get('inv_date_display')"/>
+                                </td>
+                                <td style="border: 1px solid #000; padding: 3px 4px;"><t t-esc="line.get('description')"/></td>
+                                <td style="border: 1px solid #000; padding: 3px 4px; text-align: right;">
+                                    <t t-esc="line.get('amount_display')"/>
+                                </td>
+                                <td style="border: 1px solid #000; padding: 3px 4px; text-align: right;">
+                                    <t t-esc="line.get('balance_display')"/>
+                                </td>
+                                <td style="border: 1px solid #000; padding: 3px 4px; text-align: center;">
+                                    <t t-esc="line.get('lpo_no') or ''"/>
+                                </td>
+                                <td style="border: 1px solid #000; padding: 3px 4px; text-align: center;">
+                                    <t t-esc="line.get('age_days')"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #000; padding: 4px;" colspan="2"/>
+                                <td style="border: 1px solid #000; padding: 4px; font-weight: 700;">Total</td>
+                                <td style="border: 1px solid #000; padding: 4px; text-align: right; font-weight: 700;">
+                                    <t t-esc="soa.get('total_display')"/>
+                                </td>
+                                <td style="border: 1px solid #000; padding: 4px;" colspan="3"/>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div style="margin-top: 12px; font-weight: 700; font-size: 12px;">
+                        <t t-esc="soa.get('total_outstanding_label')"/>
+                    </div>
+                    <div style="margin-top: 4px;">
+                        <t t-esc="soa.get('amount_words')"/>
+                    </div>
+                    <div style="margin-top: 8px;">
+                        We request you to release the payment at the earliest, Thanking you in advance for your kind cooperation.
+                    </div>
+
+                    <!-- Bank box -->
+                    <t t-set="bank" t-value="soa.get('bank') or {}"/>
+                    <table style="width: 100%; border-collapse: collapse; border: 1px solid #000; margin-top: 12px; font-size: 10px;">
+                        <tr>
+                            <td style="border: none; padding: 6px 8px; width: 55%; vertical-align: top;">
+                                <div>Account Name :
+                                    <t t-esc="bank.get('account_name')"/>
+                                </div>
+                                <div>Bank Name :
+                                    <t t-esc="bank.get('bank_name')"/>
+                                </div>
+                                <div>A/c No. :
+                                    <t t-esc="bank.get('acc_no')"/>
+                                </div>
+                                <div>IBAN :
+                                    <t t-esc="bank.get('iban')"/>
+                                </div>
+                            </td>
+                            <td style="border: none; padding: 6px 8px; width: 45%; vertical-align: top;">
+                                <div>Branch :
+                                    <t t-esc="bank.get('branch')"/>
+                                </div>
+                                <div>SWIFT Code :
+                                    <t t-esc="bank.get('swift')"/>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- Sign-off + stamp -->
+                    <table style="width: 100%; border: none; margin-top: 16px;">
+                        <tr>
+                            <td style="width: 55%; border: none; vertical-align: top;">
+                                <div>Yours Sincerely</div>
+                                <div style="margin-top: 4px;">For, <t t-esc="soa['company'].name"/></div>
+                            </td>
+                            <td style="width: 45%; border: none; text-align: center; vertical-align: top;">
+                                <img t-if="soa.get('stamp')"
+                                     t-att-src="image_data_uri(soa.get('stamp'))"
+                                     style="max-height: 95px; max-width: 120px;"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div style="margin-top: 14px; font-size: 9px; text-align: justify;">
+                        Note: This is an electronically generated report, hence does not require signature.
+                        If you have any concerns over the above statement, please call our account dept. on
+                        Tel No: <t t-esc="soa['company'].phone or ''"/> Within 7 days of receiving this statement, otherwise the balance will be considered as correct.
+                    </div>
+
+                    <div style="height: 1px; background: #000; margin: 12px 0 6px 0;"/>
+                    <table style="width: 100%; border: none; font-size: 9px;">
+                        <tr>
+                            <td style="border: none; width: 70%; vertical-align: top;">
+                                <t t-if="soa['company'].street"><t t-esc="soa['company'].street"/><br/></t>
+                                <t t-if="soa['company'].street2"><t t-esc="soa['company'].street2"/><br/></t>
+                                <t t-if="soa['company'].city or soa['company'].country_id">
+                                    <t t-esc="soa['company'].city or ''"/>
+                                    <t t-if="soa['company'].country_id">, <t t-esc="soa['company'].country_id.name"/></t>
+                                    <br/>
+                                </t>
+                                <t t-if="soa['company'].phone">Tel: <t t-esc="soa['company'].phone"/><br/></t>
+                                <t t-if="soa['company'].partner_id and soa['company'].partner_id.mobile">
+                                    Mobile: <t t-esc="soa['company'].partner_id.mobile"/><br/>
+                                </t>
+                                <t t-if="soa['company'].email">Email: <t t-esc="soa['company'].email"/><br/></t>
+                                <t t-if="soa['company'].website">Website: <t t-esc="soa['company'].website"/></t>
+                            </td>
+                            <td style="border: none; width: 30%; text-align: right; vertical-align: bottom;">
+                                <t t-if="'report_footer_image' in soa['company']._fields and soa['company'].report_footer_image">
+                                    <img t-att-src="image_data_uri(soa['company'].report_footer_image)"
+                                         style="max-height: 42px; max-width: 180px;"/>
+                                </t>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- Bottom brand bar -->
+                    <table style="width: 100%; border: none; margin-top: 8px; border-collapse: collapse;">
+                        <tr>
+                            <td style="width: 55%; height: 10px; background: #1a6b2c; border: none;"/>
+                            <td style="width: 45%; height: 10px; background: #e6b800; border: none;"/>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

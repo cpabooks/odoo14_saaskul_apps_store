@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_faff_material_tree" model="ir.ui.view">
+        <field name="name">cpabooks.faff.material.plan.tree</field>
+        <field name="model">cpabooks.faff.material.plan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="job_id"/>
+                <field name="product_id"/>
+                <field name="qty_required"/>
+                <field name="qty_available"/>
+                <field name="issue_qty"/>
+                <field name="purchase_qty"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_faff_material_form" model="ir.ui.view">
+        <field name="name">cpabooks.faff.material.plan.form</field>
+        <field name="model">cpabooks.faff.material.plan</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_suggest_split" type="object" string="Suggest Split"/>
+                    <button name="action_issue_from_store" type="object" string="Issue from Store" class="oe_highlight"/>
+                    <button name="action_create_purchase_rfq" type="object" string="Create Purchase RFQ"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="job_id"/>
+                        <field name="product_id"/>
+                        <field name="name"/>
+                        <field name="product_uom_id"/>
+                        <field name="qty_required"/>
+                        <field name="qty_available"/>
+                        <field name="qty_reserved"/>
+                        <field name="issue_qty"/>
+                        <field name="purchase_qty"/>
+                        <field name="material_cost"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+                    <group>
+                        <field name="picking_ids" widget="many2many_tags"/>
+                        <field name="purchase_order_ids" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_faff_material" model="ir.actions.act_window">
+        <field name="name">Material Requirements</field>
+        <field name="res_model">cpabooks.faff.material.plan</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

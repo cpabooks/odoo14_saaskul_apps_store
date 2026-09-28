@@ -1,0 +1,407 @@
+/* FAFF left sidebar shell — hides top menu sections while FAFF app is active. */
+
+body.o_faff_dark_shell {
+    background: #0c0a09;
+    color: #f5f5f4;
+}
+
+body.o_faff_dark_shell .o_main_navbar {
+    background: linear-gradient(90deg, #7f1d1d 0%, #450a0a 46%, #0c0a09 100%) !important;
+    border-bottom: 1px solid rgba(248, 113, 113, 0.28);
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.38);
+}
+
+body.o_faff_dark_shell .o_main_navbar .o_menu_sections {
+    display: none !important;
+}
+
+body.o_faff_dark_shell .o_main_navbar .o_menu_brand {
+    max-width: none;
+    pointer-events: none;
+}
+
+body.o_faff_dark_shell .o_action_manager,
+body.o_faff_dark_shell .o_content,
+body.o_faff_dark_shell .o_form_view {
+    background: #0c0a09 !important;
+}
+
+body.o_faff_dark_shell .o_action_manager {
+    margin-left: 318px;
+    margin-right: 0;
+}
+
+body.o_faff_apps_launcher_open .o_faff_services_sidebar {
+    display: none !important;
+}
+
+body.o_faff_dark_shell.o_faff_apps_launcher_open .o_action_manager {
+    margin-left: 0;
+}
+
+.o_faff_services_sidebar {
+    --faff-sidebar-accent: #f87171;
+    --faff-sidebar-sky: #fecaca;
+    position: fixed;
+    z-index: 250;
+    top: 46px;
+    left: 0;
+    bottom: 0;
+    width: 292px;
+    overflow-y: auto;
+    padding: 14px 12px 22px;
+    background: linear-gradient(180deg, #3f1212 0%, #0c0a09 100%);
+    border-right: 1px solid rgba(248, 113, 113, 0.28);
+    box-shadow: 18px 0 38px rgba(0, 0, 0, 0.35);
+}
+
+@media (max-width: 1180px) {
+    body.o_faff_dark_shell .o_action_manager {
+        margin-left: 292px;
+    }
+}
+
+@media (max-width: 992px) {
+    body.o_faff_dark_shell .o_action_manager {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        min-width: 0;
+    }
+
+    body.o_faff_dark_shell.o_faff_sidebar_drawer_open {
+        overflow: hidden;
+    }
+
+    .o_faff_services_sidebar {
+        width: min(300px, 88vw);
+        transform: translate3d(-105%, 0, 0);
+        transition: transform 0.28s ease;
+    }
+
+    body.o_faff_dark_shell.o_faff_sidebar_drawer_open .o_faff_services_sidebar {
+        transform: translate3d(0, 0, 0);
+        box-shadow: 12px 0 40px rgba(0, 0, 0, 0.55);
+    }
+
+    .o_faff_sidebar_backdrop {
+        background: rgba(0, 0, 0, 0.5);
+        bottom: 0;
+        display: block;
+        left: 0;
+        opacity: 0;
+        pointer-events: none;
+        position: fixed;
+        right: 0;
+        top: 46px;
+        transition: opacity 0.22s ease;
+        z-index: 240;
+    }
+
+    body.o_faff_sidebar_drawer_open .o_faff_sidebar_backdrop {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    body.o_faff_dark_shell .o_faff_services_sidebar .o_faff_sidebar_header {
+        padding: 2px 44px 14px 10px;
+        position: relative;
+    }
+
+    .o_faff_sidebar_close {
+        align-items: center;
+        background: rgba(148, 163, 184, 0.12);
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        border-radius: 8px;
+        color: #e8eef6;
+        cursor: pointer;
+        display: inline-flex;
+        height: 34px;
+        justify-content: center;
+        padding: 0;
+        position: absolute;
+        right: 4px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 34px;
+    }
+
+    .o_faff_sidebar_toggle {
+        align-items: center;
+        color: #f8fafc !important;
+        display: inline-flex !important;
+        font-size: 18px;
+        justify-content: center;
+        min-height: 38px;
+        min-width: 38px;
+        padding: 6px 10px !important;
+    }
+}
+
+@media (min-width: 993px) {
+    .o_faff_sidebar_close,
+    .o_faff_sidebar_backdrop,
+    #o_faff_sidebar_toggle {
+        display: none !important;
+    }
+}
+
+.o_faff_sidebar_nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.o_faff_sidebar_item_flat {
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.o_faff_sidebar_header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 44px;
+    padding: 2px 10px 14px;
+    color: var(--faff-sidebar-accent);
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+}
+
+.o_faff_sidebar_logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    color: #450a0a;
+    background: linear-gradient(135deg, #f87171 0%, #dc2626 100%);
+    border: 1px solid rgba(248, 113, 113, 0.45);
+    border-radius: 8px;
+}
+
+.o_faff_sidebar_group {
+    border-top: 1px solid rgba(148, 163, 184, 0.14);
+    padding: 8px 0;
+}
+
+.o_faff_sidebar_group summary {
+    display: grid;
+    grid-template-columns: 26px 1fr 18px;
+    align-items: center;
+    gap: 8px;
+    min-height: 36px;
+    color: var(--faff-sidebar-sky);
+    cursor: pointer;
+    list-style: none;
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.o_faff_sidebar_group summary::-webkit-details-marker {
+    display: none;
+}
+
+.o_faff_sidebar_group_items {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 4px 0 2px 8px;
+}
+
+.o_faff_sidebar_item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 34px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    color: #e7e5e4 !important;
+    text-decoration: none !important;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.o_faff_sidebar_item i {
+    font-size: 8px;
+    opacity: 0.65;
+}
+
+.o_faff_sidebar_item:hover,
+.o_faff_sidebar_item.active {
+    background: rgba(248, 113, 113, 0.16);
+    color: #fff !important;
+}
+
+.o_faff_sidebar_item.active {
+    border-left: 3px solid var(--faff-sidebar-accent);
+}
+
+/* Dark theme: list / kanban / chrome */
+body.o_faff_dark_shell.o_faff_ui_dark,
+body.o_faff_dark_shell.o_faff_ui_dark .o_web_client {
+    background: #0c0a09 !important;
+    color: #f5f5f4 !important;
+}
+
+body.o_faff_dark_shell.o_faff_ui_dark .o_action_manager,
+body.o_faff_dark_shell.o_faff_ui_dark .o_content,
+body.o_faff_dark_shell.o_faff_ui_dark .o_view_controller,
+body.o_faff_dark_shell.o_faff_ui_dark .o_view_controller .o_content {
+    background-color: #0c0a09 !important;
+    color: #f5f5f4 !important;
+}
+
+body.o_faff_dark_shell.o_faff_ui_dark .o_control_panel {
+    background: #1c1917 !important;
+    border-bottom: 1px solid rgba(248, 113, 113, 0.22);
+    color: #f5f5f4 !important;
+}
+
+body.o_faff_dark_shell.o_faff_ui_dark .o_control_panel .breadcrumb,
+body.o_faff_dark_shell.o_faff_ui_dark .o_control_panel .o_cp_title .breadcrumb-item,
+body.o_faff_dark_shell.o_faff_ui_dark .o_control_panel .o_cp_title .breadcrumb-item a,
+body.o_faff_dark_shell.o_faff_ui_dark .o_control_panel .o_breadcrumb .active {
+    color: #e7e5e4 !important;
+}
+
+body.o_faff_dark_shell.o_faff_ui_dark .o_control_panel .o_cp_buttons .btn-secondary,
+body.o_faff_dark_shell.o_faff_ui_dark .o_list_buttons .btn-secondary {
+    background-color: #292524 !important;
+    color: #f5f5f4 !important;
+    border-color: rgba(168, 162, 158, 0.35) !important;
+}
+
+body.o_faff_dark_shell.o_faff_ui_dark .o_searchview {
+    background-color: #1c1917 !important;
+    border-color: rgba(168, 162, 158, 0.28) !important;
+    color: #f5f5f4 !important;
+}
+
+body.o_faff_dark_shell.o_faff_ui_dark .o_searchview .o_searchview_input {
+    color: #f5f5f4 !important;
+}
+
+body.o_faff_dark_shell.o_faff_ui_dark .o_list_view .o_list_table,
+body.o_faff_dark_shell.o_faff_ui_dark .o_list_view .o_list_table.table {
+    background: #1c1917 !important;
+    color: #f5f5f4 !important;
+}
+
+body.o_faff_dark_shell.o_faff_ui_dark .o_list_view .o_list_table thead th {
+    background: #292524 !important;
+    color: #e7e5e4 !important;
+    border-color: rgba(168, 162, 158, 0.2) !important;
+}
+
+body.o_faff_dark_shell.o_faff_ui_dark .o_list_view .o_list_table tbody td,
+body.o_faff_dark_shell.o_faff_ui_dark .o_list_view .o_data_cell {
+    background: #1c1917 !important;
+    color: #f5f5f4 !important;
+    border-color: rgba(168, 162, 158, 0.15) !important;
+}
+
+body.o_faff_dark_shell.o_faff_ui_dark .o_list_view .o_list_table tbody tr:nth-child(odd) td {
+    background: #221f1c !important;
+}
+
+body.o_faff_dark_shell.o_faff_ui_dark .o_list_view .o_list_table tbody tr:hover td {
+    background: #3f1212 !important;
+}
+
+body.o_faff_dark_shell.o_faff_ui_dark .o_kanban_view .o_kanban_record {
+    background: #1c1917 !important;
+    border-color: rgba(168, 162, 158, 0.25) !important;
+    color: #f5f5f4 !important;
+}
+
+body.o_faff_dark_shell.o_faff_ui_dark .o_form_view .o_form_sheet_bg {
+    background: #0c0a09 !important;
+}
+
+body.o_faff_dark_shell.o_faff_ui_dark .o_form_view .o_form_sheet {
+    background: #1c1917 !important;
+    border-color: rgba(168, 162, 158, 0.25) !important;
+    color: #f5f5f4 !important;
+}
+
+body.o_faff_dark_shell.o_faff_ui_dark .o_form_view .o_form_label,
+body.o_faff_dark_shell.o_faff_ui_dark .o_form_view label {
+    color: #a8a29e !important;
+}
+
+body.o_faff_dark_shell.o_faff_ui_dark .o_form_view .o_field_widget input,
+body.o_faff_dark_shell.o_faff_ui_dark .o_form_view .o_field_widget select,
+body.o_faff_dark_shell.o_faff_ui_dark .o_form_view .o_field_widget textarea,
+body.o_faff_dark_shell.o_faff_ui_dark .o_form_view .o_input {
+    background: #292524 !important;
+    border-color: rgba(168, 162, 158, 0.35) !important;
+    color: #f5f5f4 !important;
+}
+
+body.o_faff_dark_shell.o_faff_ui_dark .o_form_view .o_notebook .nav-link {
+    color: #a8a29e !important;
+}
+
+body.o_faff_dark_shell.o_faff_ui_dark .o_form_view .o_notebook .nav-link.active {
+    background: #1c1917 !important;
+    color: #f87171 !important;
+    border-color: rgba(168, 162, 158, 0.25) !important;
+}
+
+body.o_faff_dark_shell.o_faff_ui_dark .modal-content {
+    background: #1c1917 !important;
+    color: #f5f5f4 !important;
+}
+
+body.o_faff_dark_shell.o_faff_ui_dark .dropdown-menu {
+    background: #1c1917 !important;
+    border-color: rgba(168, 162, 158, 0.3) !important;
+}
+
+body.o_faff_dark_shell.o_faff_ui_dark .dropdown-item {
+    color: #f5f5f4 !important;
+}
+
+body.o_faff_dark_shell.o_faff_ui_dark .dropdown-item:hover {
+    background: #3f1212 !important;
+    color: #fff !important;
+}
+
+/* Navbar Dark / Default toggle */
+.o_main_navbar .o_cpa_faff_navbar_theme {
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    display: inline-flex;
+    gap: 2px;
+    margin-left: 12px;
+    padding: 2px;
+}
+
+.o_main_navbar .o_cpa_faff_navbar_theme .cpa-faff-theme-btn {
+    background: transparent;
+    border: 0;
+    border-radius: 6px;
+    color: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 11px;
+    font-weight: 600;
+    gap: 5px;
+    line-height: 1.2;
+    padding: 4px 10px;
+}
+
+.o_main_navbar .o_cpa_faff_navbar_theme .cpa-faff-theme-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+.o_main_navbar .o_cpa_faff_navbar_theme .cpa-faff-theme-btn.active {
+    background: #fff;
+    color: #0f172a;
+}

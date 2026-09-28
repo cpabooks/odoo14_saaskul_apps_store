@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_cafm_mis_amc_contract_register" model="ir.actions.act_window">
+        <field name="name">AMC Contract Register</field>
+        <field name="res_model">cpabooks.cafm.contract</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="domain">[('amc_contract_type','=','amc')]</field>
+    </record>
+
+    <record id="action_cafm_mis_project_pl" model="ir.actions.act_window">
+        <field name="name">Project-wise Profit &amp; Loss A/c</field>
+        <field name="res_model">cpabooks.cafm.contract</field>
+        <field name="view_mode">pivot,graph,tree</field>
+        <field name="context">{'pivot_measures': ['total_contract_value', 'monthly_revenue'], 'group_by': ['project_id']}</field>
+    </record>
+
+    <record id="action_cafm_mis_l2_pl" model="ir.actions.act_window">
+        <field name="name">L2-wise Profit &amp; Loss A/c</field>
+        <field name="res_model">cpabooks.cafm.contract</field>
+        <field name="view_mode">pivot,graph,tree</field>
+        <field name="context">{'group_by': ['customer_group_id']}</field>
+    </record>
+
+    <record id="action_cafm_mis_report" model="ir.actions.act_window">
+        <field name="name">MIS Report</field>
+        <field name="res_model">maintenance.request</field>
+        <field name="view_mode">pivot,graph,tree</field>
+        <field name="context">{'group_by': ['work_status', 'work_type_id']}</field>
+    </record>
+
+    <record id="action_cafm_mis_outstanding_receivable" model="ir.actions.act_window">
+        <field name="name">Outstanding Receivable</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('move_type','=','out_invoice'),('state','=','posted'),('amount_residual','>',0)]</field>
+    </record>
+
+    <record id="action_cafm_mis_po_pending" model="ir.actions.act_window">
+        <field name="name">Purchase Order Pending with Call Closed</field>
+        <field name="res_model">cpabooks.cafm.var.work</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('status','=','waiting_lpo')]</field>
+    </record>
+
+    <record id="action_cafm_mis_journal_allocation" model="ir.actions.act_window">
+        <field name="name">Journal Allocation Report</field>
+        <field name="res_model">account.move.line</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('move_id.state','=','posted')]</field>
+    </record>
+
+    <record id="action_cafm_mis_accounting_allocation" model="ir.actions.act_window">
+        <field name="name">Accounting Allocation Report</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state','=','posted')]</field>
+    </record>
+</odoo>

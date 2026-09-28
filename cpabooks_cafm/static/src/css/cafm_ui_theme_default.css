@@ -1,0 +1,348 @@
+/* CAFM Default (light) theme — applies to ALL shell screens (list/form/report), not only dashboard. */
+
+body.o_cafm_dark_shell.o_cafm_ui_default {
+    background: #f1f5f9 !important;
+    color: #1e293b !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_web_client {
+    background: #f1f5f9 !important;
+    color: #1e293b !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_main_navbar {
+    background: #166534 !important;
+    border-bottom: 1px solid #14532d !important;
+    box-shadow: 0 1px 4px rgba(15, 23, 42, 0.12) !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_action_manager,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_content,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_form_view,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_view_controller,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_view_controller .o_content {
+    background: #f1f5f9 !important;
+    color: #1e293b !important;
+}
+
+/* Sidebar — light */
+body.o_cafm_dark_shell.o_cafm_ui_default .o_cafm_services_sidebar {
+    background: #ffffff !important;
+    border-right: 1px solid #e2e8f0 !important;
+    box-shadow: 4px 0 16px rgba(15, 23, 42, 0.06) !important;
+    color: #1e293b !important;
+    --cafm-sidebar-gold: #15803d;
+    --cafm-sidebar-sky: #166534;
+    --cafm-sidebar-sky-soft: #16a34a;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_cafm_sidebar_header {
+    color: #166534 !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_cafm_sidebar_logo {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%) !important;
+    border-color: #86efac !important;
+    color: #fff !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_cafm_sidebar_group {
+    border-top-color: #e2e8f0 !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_cafm_sidebar_group summary,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_cafm_sidebar_group summary strong {
+    color: #64748b !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_cafm_sidebar_group summary .fa:first-child,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_cafm_sidebar_group summary .o_cafm_group_arrow {
+    color: #94a3b8 !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_cafm_sidebar_item {
+    color: #334155 !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_cafm_sidebar_item .fa {
+    color: #16a34a !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_cafm_sidebar_item:hover,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_cafm_sidebar_item:focus,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_cafm_sidebar_item.active {
+    background: #f0fdf4 !important;
+    color: #14532d !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_cafm_sidebar_item.active {
+    border-left-color: #16a34a !important;
+}
+
+/* Control panel / search */
+body.o_cafm_dark_shell.o_cafm_ui_default .o_control_panel {
+    background: #ffffff !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    color: #1e293b !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_control_panel .breadcrumb,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_control_panel .o_cp_title .breadcrumb-item,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_control_panel .o_cp_title .breadcrumb-item a,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_control_panel .o_breadcrumb .active {
+    color: #334155 !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_control_panel .o_cp_buttons .btn-secondary,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_list_buttons .btn-secondary {
+    background: #fff !important;
+    border-color: #cbd5e1 !important;
+    color: #334155 !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_searchview {
+    background: #fff !important;
+    border-color: #cbd5e1 !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_searchview .o_searchview_input {
+    color: #1e293b !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_searchview .o_searchview_facet {
+    background: #f1f5f9 !important;
+    color: #334155 !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_search_panel {
+    background: #fff !important;
+    border-color: #e2e8f0 !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_search_panel .o_search_panel_label,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_search_panel .list-group-item {
+    color: #334155 !important;
+    background: transparent !important;
+}
+
+/* List / kanban / form sheet */
+body.o_cafm_dark_shell.o_cafm_ui_default .o_list_view,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_list_view .o_list_table,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_list_view .o_list_table.table {
+    background: #fff !important;
+    color: #1e293b !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_list_view .o_list_table thead th {
+    background: #f8fafc !important;
+    color: #334155 !important;
+    border-color: #e2e8f0 !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_list_view .o_list_table tbody td,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_list_view .o_data_cell {
+    background: #fff !important;
+    color: #1e293b !important;
+    border-color: #e2e8f0 !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_list_view .o_list_table tbody tr:nth-child(odd) td,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_list_view tbody tr:nth-child(odd) .o_data_cell {
+    background: #f8fafc !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_list_view .o_list_table tbody tr:hover td,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_list_view .o_list_table tbody tr.o_list_row_focus td {
+    background: #f0fdf4 !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_list_view .o_field_widget,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_list_view .o_field_widget span,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_list_view a:not(.btn) {
+    color: #1e293b !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_list_view a:not(.btn) {
+    color: #15803d !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_kanban_view {
+    background: #f1f5f9 !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_kanban_view .o_kanban_record,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_kanban_view .o_kanban_record_has_image_fill {
+    background: #fff !important;
+    border-color: #e2e8f0 !important;
+    color: #1e293b !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_kanban_view .o_kanban_record_title,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_kanban_view .o_kanban_record_subtitle {
+    color: #1e293b !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_form_view .o_form_sheet_bg {
+    background: #f1f5f9 !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_form_view .o_form_sheet {
+    background: #fff !important;
+    border: 1px solid #e2e8f0 !important;
+    color: #1e293b !important;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06) !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_group,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_notebook,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_form_view .o_group.o_inner_group {
+    background: transparent !important;
+    color: #1e293b !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_form_view .o_form_label,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_form_view label {
+    color: #475569 !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_form_view .o_field_widget input,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_form_view .o_field_widget select,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_form_view .o_field_widget textarea,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_form_view .o_input,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_form_view .o_field_many2one .o_input_dropdown > input {
+    background: #fff !important;
+    border-color: #cbd5e1 !important;
+    color: #1e293b !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_form_view .o_notebook .nav-tabs {
+    background: transparent !important;
+    border-bottom-color: #e2e8f0 !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_form_view .o_notebook .nav-link {
+    color: #64748b !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_form_view .o_notebook .nav-link.active {
+    background: #fff !important;
+    color: #166534 !important;
+    border-color: #e2e8f0 #e2e8f0 #fff !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_form_view .o_notebook .tab-content {
+    background: #fff !important;
+    color: #1e293b !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_form_view .o_field_x2many .o_list_view .o_list_table tbody td,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_form_view .o_field_one2many .o_list_view .o_list_table tbody td {
+    background: #fff !important;
+    color: #1e293b !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_form_view .o_field_x2many .o_list_view .o_list_table thead th,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_form_view .o_field_one2many .o_list_view .o_list_table thead th {
+    background: #f8fafc !important;
+    color: #334155 !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_field_html,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_field_html strong {
+    color: #1e293b !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_field_html table,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_field_html .table th,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_field_html .table td {
+    background: #fff !important;
+    color: #1e293b !important;
+    border-color: #e2e8f0 !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .modal-content {
+    background: #fff !important;
+    color: #1e293b !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .modal-header,
+body.o_cafm_dark_shell.o_cafm_ui_default .modal-footer {
+    background: #f8fafc !important;
+    border-color: #e2e8f0 !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .modal-body {
+    color: #1e293b !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .dropdown-menu {
+    background: #fff !important;
+    border-color: #e2e8f0 !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .dropdown-item,
+body.o_cafm_dark_shell.o_cafm_ui_default .dropdown-header {
+    color: #1e293b !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .dropdown-item:hover,
+body.o_cafm_dark_shell.o_cafm_ui_default .dropdown-item:focus {
+    background: #f0fdf4 !important;
+    color: #14532d !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .ui-autocomplete,
+body.o_cafm_dark_shell.o_cafm_ui_default .ui-menu .ui-menu-item > a {
+    background: #fff !important;
+    color: #1e293b !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_pivot table,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_pivot .table-bordered th,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_pivot .table-bordered td {
+    background: #fff !important;
+    color: #1e293b !important;
+    border-color: #e2e8f0 !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_graph_container,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_graph .chart-container {
+    background: #fff !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .oe_stat_button {
+    background: #fff !important;
+    color: #1e293b !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_form_view .oe_button_box .btn.oe_stat_button .o_stat_info .o_stat_text {
+    color: #64748b !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_Chatter,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_chatter {
+    background: #fff !important;
+    color: #1e293b !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_composer_text,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_composer .note-editor {
+    background: #fff !important;
+    color: #1e293b !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_setting_box {
+    background: #fff !important;
+    color: #1e293b !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_ui_default .o_setting_left_pane,
+body.o_cafm_dark_shell.o_cafm_ui_default .o_form_view .text-muted {
+    color: #64748b !important;
+}
+
+/* Navbar theme toggle on light shell */
+body.o_cafm_dark_shell.o_cafm_ui_default .o_main_navbar .o_cpa_cafm_navbar_theme {
+    background: rgba(0, 0, 0, 0.15);
+    border-color: rgba(255, 255, 255, 0.25);
+}
