@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_cafm_invoice_tally_a4" model="report.paperformat">
+        <field name="name">CAFM Invoice Tally A4</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">8</field>
+        <field name="margin_bottom">8</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_cafm_invoice_tally" model="ir.actions.report">
+        <field name="name">Print Invoice (Tally Format)</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">cpabooks_cafm.report_cafm_invoice_tally_template</field>
+        <field name="report_file">cpabooks_cafm.report_cafm_invoice_tally_template</field>
+        <field name="print_report_name">'INV_Tally_%s' % (object.name or 'Invoice')</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_cafm_invoice_tally_a4"/>
+    </record>
+
+    <template id="report_cafm_invoice_tally_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="inv" t-value="payloads.get(doc.id) or doc.get_cafm_tally_invoice_data()"/>
+                <div class="page" style="font-family: Arial, Helvetica, sans-serif; font-size: 11px; color: #000;">
+
+                    <table style="width: 100%; border: none; margin-bottom: 4px;">
+                        <tr>
+                            <td style="width: 38%; vertical-align: middle; border: none;">
+                                <div style="color: #1a6b2c; font-size: 16px; font-weight: 700; line-height: 1.15;">
+                                    <t t-esc="inv.get('company_name_main') or inv['company'].name"/>
+                                </div>
+                                <div t-if="inv.get('company_name_sub')" style="font-size: 12px; font-weight: 700; margin-top: 1px;">
+                                    <t t-esc="inv.get('company_name_sub')"/>
+                                </div>
+                            </td>
+                            <td style="width: 24%; text-align: center; vertical-align: middle; border: none;">
+                                <img t-if="inv.get('logo')"
+                                     t-att-src="image_data_uri(inv.get('logo'))"
+                                     style="max-height: 68px; max-width: 88px;"/>
+                            </td>
+                            <td style="width: 38%; text-align: right; vertical-align: middle; border: none; color: #1a6b2c; font-size: 13px; font-weight: 700; direction: rtl;">
+                                <t t-esc="inv.get('arabic_name') or ''"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div style="border: 1px solid #000; text-align: center; padding: 4px 6px; margin: 4px 0 8px 0;">
+                        <div style="font-size: 16px; font-weight: 800; letter-spacing: 1px;">TAX INVOICE</div>
+                        <div style="font-size: 11px; margin-top: 2px;">TRN : <t t-esc="inv.get('trn') or ''"/></div>
+                    </div>
+
+                    <table style="width: 100%; border-collapse: collapse; border: 1px solid #000; margin-bottom: 0;">
+                        <tr>
+                            <td style="width: 52%; border-right: 1px solid #000; vertical-align: top; padding: 6px 8px;">
+                                <div style="font-weight: 700;">Bill To :</div>
+                                <t t-foreach="inv.get('bill_to_lines') or []" t-as="bline">
+                                    <div><t t-esc="bline"/></div>
+                                </t>
+                                <div style="margin-top: 6px;">TRN: <t t-esc="inv.get('partner_trn') or ''"/></div>
+                            </td>
+                            <td style="width: 48%; vertical-align: top; padding: 6px 8px;">
+                                <table style="width: 100%; border: none;">
+                                    <tr>
+                                        <td style="border: none; width: 42%; vertical-align: top;">
+                                            Contact Person:
+                                            <div><t t-esc="inv.get('contact_person') or ''"/></div>
+                                        </td>
+                                        <td style="border: none; width: 58%; vertical-align: top;">
+                                            <div>INV. NO. : <t t-esc="inv.get('inv_no')"/></div>
+                                            <div>DATE : <t t-esc="inv.get('inv_date')"/></div>
+                                            <div>L.P.O. NO. : <t t-esc="inv.get('lpo') or ''"/></div>
+                                            <div>TERMS : <t t-esc="inv.get('terms') or ''"/></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table style="width: 100%; border-collapse: collapse; border: 1px solid #000; margin-top: -1px;">
+                        <thead>
+                            <tr>
+                                <th style="border: 1px solid #000; padding: 5px; width: 10%; text-align: center;">Sl. No.</th>
+                                <th style="border: 1px solid #000; padding: 5px; text-align: left;">Description</th>
+                                <th style="border: 1px solid #000; padding: 5px; width: 18%; text-align: right;">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="inv.get('lines') or []" t-as="line">
+                                <td style="border: 1px solid #000; padding: 8px 5px; text-align: center; vertical-align: top;">
+                                    <t t-esc="line.get('serial')"/>
+                                </td>
+                                <td style="border: 1px solid #000; padding: 8px 6px; vertical-align: top; line-height: 1.45;">
+                                    <t t-foreach="line.get('blocks') or []" t-as="block">
+                                        <div>
+                                            <t t-if="block_index">• </t>
+                                            <t t-esc="block"/>
+                                        </div>
+                                    </t>
+                                </td>
+                                <td style="border: 1px solid #000; padding: 8px 6px; text-align: right; vertical-align: top;">
+                                    <t t-esc="line.get('amount_display')"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #000; padding: 6px;" colspan="2">
+                                    <span style="font-weight: 700;"><t t-esc="inv.get('amount_words')"/></span>
+                                </td>
+                                <td style="border: 1px solid #000; padding: 0; vertical-align: top;">
+                                    <table style="width: 100%; border-collapse: collapse;">
+                                        <tr>
+                                            <td style="border-bottom: 1px solid #000; padding: 4px 6px;">Sub Total</td>
+                                            <td style="border-bottom: 1px solid #000; padding: 4px 6px; text-align: right;">
+                                                <t t-esc="inv.get('amount_untaxed_display')"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border-bottom: 1px solid #000; padding: 4px 6px;">
+                                                <t t-esc="inv.get('vat_label')"/>
+                                            </td>
+                                            <td style="border-bottom: 1px solid #000; padding: 4px 6px; text-align: right;">
+                                                <t t-esc="inv.get('amount_tax_display')"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 4px 6px; font-weight: 800;">Total</td>
+                                            <td style="padding: 4px 6px; text-align: right; font-weight: 800;">
+                                                <t t-esc="inv.get('amount_total_display')"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div style="margin-top: 10px;">
+                        Kindly issue cheque in the name of <b><t t-esc="inv.get('cheque_name')"/></b>
+                    </div>
+
+                    <t t-set="bank" t-value="inv.get('bank') or {}"/>
+                    <table style="width: 100%; border-collapse: collapse; border: 1px solid #000; margin-top: 8px; font-size: 10px;">
+                        <tr>
+                            <td style="border: 1px solid #000; padding: 4px 8px; width: 22%;">Bank Name :</td>
+                            <td style="border: 1px solid #000; padding: 4px 8px; background: #cfe8ff;">
+                                <t t-esc="bank.get('bank_name')"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #000; padding: 4px 8px;">Branch :</td>
+                            <td style="border: 1px solid #000; padding: 4px 8px;"><t t-esc="bank.get('branch')"/></td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #000; padding: 4px 8px;">A/c No. :</td>
+                            <td style="border: 1px solid #000; padding: 4px 8px;"><t t-esc="bank.get('acc_no')"/></td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #000; padding: 4px 8px;">SWIFT Code :</td>
+                            <td style="border: 1px solid #000; padding: 4px 8px;"><t t-esc="bank.get('swift')"/></td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #000; padding: 4px 8px;">IBAN :</td>
+                            <td style="border: 1px solid #000; padding: 4px 8px;"><t t-esc="bank.get('iban')"/></td>
+                        </tr>
+                    </table>
+
+                    <div style="margin-top: 8px; font-size: 10px;">
+                        If you have any questions concerning the invoice, contact
+                        <t t-esc="inv.get('email') or ''"/>
+                        within 30 days.
+                    </div>
+
+                    <table style="width: 100%; border: none; margin-top: 18px;">
+                        <tr>
+                            <td style="width: 55%; border: none; vertical-align: top;">
+                                For, <t t-esc="inv.get('cheque_name') or inv['company'].name"/>
+                                <div t-if="inv.get('stamp')" style="margin-top: 6px;">
+                                    <img t-att-src="image_data_uri(inv.get('stamp'))"
+                                         style="max-height: 70px; max-width: 110px;"/>
+                                </div>
+                            </td>
+                            <td style="width: 45%; border: none; text-align: right; vertical-align: top;">
+                                Receiver Name &amp; Signature
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div style="height: 1px; background: #000; margin: 14px 0 6px 0;"/>
+                    <table style="width: 100%; border: none; font-size: 9px;">
+                        <tr>
+                            <td style="border: none; width: 72%; vertical-align: top;">
+                                <t t-if="inv.get('street')">P.O. Box: <t t-esc="inv.get('street')"/>
+                                    <t t-if="inv.get('city')"> | <t t-esc="inv.get('city')"/></t>
+                                    <t t-if="inv.get('country')"> | <t t-esc="inv.get('country')"/></t>
+                                    <br/>
+                                </t>
+                                <t t-if="inv.get('phone')">Tel.: <t t-esc="inv.get('phone')"/><br/></t>
+                                <t t-if="inv.get('email')">Email: <t t-esc="inv.get('email')"/></t>
+                                <t t-if="inv.get('website')"> | <t t-esc="inv.get('website')"/></t>
+                            </td>
+                            <td style="border: none; width: 28%; text-align: right; vertical-align: bottom;">
+                                <img t-if="inv.get('footer_image')"
+                                     t-att-src="image_data_uri(inv.get('footer_image'))"
+                                     style="max-height: 42px; max-width: 180px;"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table style="width: 100%; border: none; margin-top: 6px; border-collapse: collapse;">
+                        <tr>
+                            <td style="width: 55%; height: 8px; background: #1a6b2c; border: none;"/>
+                            <td style="width: 45%; height: 8px; background: #e6b800; border: none;"/>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

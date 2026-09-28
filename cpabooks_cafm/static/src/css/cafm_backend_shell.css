@@ -1,0 +1,973 @@
+/* CAFM-only backend shell (independent from cpabooks_erp_services). */
+
+body.o_cafm_dark_shell {
+    background: #041008;
+    color: #e8f5ec;
+}
+
+body.o_cafm_dark_shell .o_main_navbar {
+    background: linear-gradient(90deg, #14532d 0%, #0f3d22 46%, #041008 100%) !important;
+    border-bottom: 1px solid rgba(74, 222, 128, 0.22);
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.38);
+}
+
+body.o_cafm_dark_shell.o_cafm_nav_sidebar .o_main_navbar .o_menu_sections,
+body.o_cafm_nav_sidebar .o_main_navbar .o_menu_sections {
+    display: none !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_nav_topbar .o_main_navbar .o_menu_sections,
+body.o_cafm_nav_topbar .o_main_navbar .o_menu_sections,
+body.o_cafm_dark_shell:not(.o_cafm_nav_sidebar) .o_main_navbar .o_menu_sections {
+    display: flex !important;
+}
+
+body.o_cafm_nav_sidebar .o_cafm_services_sidebar {
+    display: block !important;
+    visibility: visible !important;
+}
+
+/* Topbar layout — show Odoo menus, hide left sidebar offset */
+body.o_cafm_dark_shell.o_cafm_nav_topbar .o_main_navbar .o_menu_sections {
+    display: flex !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_nav_topbar .o_action_manager {
+    margin-left: 0 !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_nav_topbar .o_cafm_services_sidebar,
+body.o_cafm_dark_shell.o_cafm_nav_topbar .o_cafm_sidebar_backdrop,
+body.o_cafm_dark_shell.o_cafm_nav_topbar .o_cafm_sidebar_toggle {
+    display: none !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_nav_topbar .o_main_navbar .o_menu_brand {
+    pointer-events: auto;
+}
+
+body.o_cafm_dark_shell .o_main_navbar .o_menu_brand {
+    max-width: none;
+    pointer-events: none;
+}
+
+body.o_cafm_dark_shell .o_action_manager,
+body.o_cafm_dark_shell .o_content,
+body.o_cafm_dark_shell .o_form_view {
+    background: #041008 !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_nav_sidebar .o_action_manager {
+    margin-left: 318px;
+    margin-right: 0;
+    transition: none;
+}
+
+body.o_cafm_apps_launcher_open .o_cafm_services_sidebar {
+    display: none !important;
+}
+
+body.o_cafm_dark_shell.o_cafm_apps_launcher_open .o_action_manager {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.o_cafm_services_sidebar {
+    --cafm-sidebar-gold: #4ade80;
+    --cafm-sidebar-sky: #86efac;
+    --cafm-sidebar-sky-soft: #bbf7d0;
+    position: fixed;
+    z-index: 250;
+    top: 46px;
+    left: 0;
+    bottom: 0;
+    width: 292px;
+    overflow-y: auto;
+    padding: 14px 12px 22px;
+    background: linear-gradient(180deg, #0a2418 0%, #041008 100%);
+    border-right: 1px solid rgba(74, 222, 128, 0.22);
+    box-shadow: 18px 0 38px rgba(0, 0, 0, 0.35);
+}
+
+@media (max-width: 1180px) {
+    body.o_cafm_dark_shell .o_action_manager {
+        margin-left: 292px;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Narrow screens: drawer nav — full-width content; sidebar off-canvas (toggle).
+   Without this, margin-left ~318px plus fixed ~292px sidebar leaves ~0px for UI.
+   -------------------------------------------------------------------------- */
+@media (max-width: 992px) {
+    body.o_cafm_dark_shell .o_action_manager {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        min-width: 0;
+    }
+
+    body.o_cafm_dark_shell.o_cafm_sidebar_drawer_open {
+        overflow: hidden;
+    }
+
+    .o_cafm_services_sidebar {
+        width: min(300px, 88vw);
+        transform: translate3d(-105%, 0, 0);
+        transition: transform 0.28s ease;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    body.o_cafm_dark_shell.o_cafm_sidebar_drawer_open .o_cafm_services_sidebar {
+        transform: translate3d(0, 0, 0);
+        box-shadow: 12px 0 40px rgba(0, 0, 0, 0.55);
+    }
+
+    .o_cafm_sidebar_backdrop {
+        background: rgba(0, 0, 0, 0.5);
+        bottom: 0;
+        display: block;
+        left: 0;
+        opacity: 0;
+        pointer-events: none;
+        position: fixed;
+        right: 0;
+        top: 46px;
+        transition: opacity 0.22s ease;
+        z-index: 240;
+    }
+
+    body.o_cafm_sidebar_drawer_open .o_cafm_sidebar_backdrop {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    body.o_cafm_dark_shell .o_cafm_services_sidebar .o_cafm_sidebar_header {
+        padding: 2px 44px 14px 10px;
+        position: relative;
+    }
+
+    .o_cafm_sidebar_close {
+        align-items: center;
+        background: rgba(148, 163, 184, 0.12);
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        border-radius: 8px;
+        color: #e8eef6;
+        cursor: pointer;
+        display: inline-flex;
+        height: 34px;
+        justify-content: center;
+        padding: 0;
+        position: absolute;
+        right: 4px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 34px;
+    }
+
+    .o_cafm_sidebar_close:hover,
+    .o_cafm_sidebar_close:focus {
+        background: rgba(168, 85, 247, 0.22);
+        color: #fff;
+        outline: none;
+    }
+
+    .o_cafm_sidebar_toggle {
+        align-items: center;
+        color: #f8fafc !important;
+        display: inline-flex !important;
+        font-size: 18px;
+        justify-content: center;
+        line-height: 1;
+        min-height: 38px;
+        min-width: 38px;
+        opacity: 0.95;
+        padding: 6px 10px !important;
+    }
+
+    .o_cafm_sidebar_toggle:hover,
+    .o_cafm_sidebar_toggle:focus {
+        color: #fff !important;
+        opacity: 1;
+    }
+}
+
+@media (min-width: 993px) {
+    .o_cafm_sidebar_close {
+        display: none !important;
+    }
+
+    .o_cafm_sidebar_backdrop {
+        display: none !important;
+    }
+
+    #o_cafm_sidebar_toggle {
+        display: none !important;
+    }
+}
+
+.o_cafm_sidebar_nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.o_cafm_sidebar_item_flat {
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.o_cafm_sidebar_header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 44px;
+    padding: 2px 10px 14px;
+    color: var(--cafm-sidebar-gold);
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+}
+
+.o_cafm_sidebar_logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    color: #06152f;
+    background: linear-gradient(135deg, var(--cafm-sidebar-gold) 0%, #c9901a 100%);
+    border: 1px solid rgba(231, 185, 61, 0.45);
+    border-radius: 8px;
+}
+
+.o_cafm_sidebar_group {
+    border-top: 1px solid rgba(148, 163, 184, 0.14);
+    padding: 8px 0;
+}
+
+.o_cafm_sidebar_group summary {
+    display: grid;
+    grid-template-columns: 26px 1fr 18px;
+    align-items: center;
+    gap: 8px;
+    min-height: 36px;
+    color: var(--cafm-sidebar-sky);
+    cursor: pointer;
+    list-style: none;
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.o_cafm_sidebar_group summary strong {
+    color: var(--cafm-sidebar-sky);
+    font-weight: 800;
+}
+
+.o_cafm_sidebar_group summary::-webkit-details-marker {
+    display: none;
+}
+
+.o_cafm_sidebar_group summary .fa:first-child {
+    color: var(--cafm-sidebar-sky-soft);
+}
+
+.o_cafm_sidebar_group summary .o_cafm_group_arrow {
+    color: rgba(94, 184, 245, 0.75);
+}
+
+.o_cafm_sidebar_group:not([open]) .o_cafm_group_arrow {
+    transform: rotate(-90deg);
+}
+
+.o_cafm_sidebar_group_items {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 2px 0 4px 30px;
+}
+
+.o_cafm_sidebar_item {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    align-items: center;
+    gap: 8px;
+    min-height: 28px;
+    padding: 4px 8px;
+    color: var(--cafm-sidebar-gold);
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.o_cafm_sidebar_item:hover,
+.o_cafm_sidebar_item:focus,
+.o_cafm_sidebar_item.active {
+    color: #fff7d6;
+    background: rgba(94, 184, 245, 0.14);
+    text-decoration: none;
+}
+
+.o_cafm_sidebar_item.active {
+    border-left: 3px solid var(--cafm-sidebar-sky);
+    padding-left: 5px;
+}
+
+.o_cafm_sidebar_item .fa {
+    color: rgba(231, 185, 61, 0.72);
+    font-size: 10px;
+}
+
+body.o_cafm_dark_shell .o_form_view .o_form_sheet_bg {
+    background: radial-gradient(circle at top left, rgba(20, 184, 166, 0.08), transparent 30%), #070d13 !important;
+    padding: 28px 28px 36px;
+}
+
+body.o_cafm_dark_shell .o_form_view .o_form_sheet {
+    max-width: none;
+    margin: 0;
+    padding: 28px 32px 32px;
+    color: #dbe3ee;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
+body.o_cafm_dark_shell .o_group,
+body.o_cafm_dark_shell .o_notebook {
+    color: #dbe3ee;
+}
+
+body.o_cafm_dark_shell .o_form_view .o_group.o_inner_group {
+    background: rgba(15, 23, 32, 0.82);
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    border-radius: 8px;
+    padding: 14px 16px;
+}
+
+body.o_cafm_dark_shell .o_form_view .o_notebook .nav-tabs {
+    border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+}
+
+body.o_cafm_dark_shell .o_form_view .o_notebook .nav-link {
+    color: #cbd5e1;
+    background: transparent;
+    border: 1px solid transparent;
+}
+
+body.o_cafm_dark_shell .o_form_view .o_notebook .nav-link.active {
+    color: #ffffff;
+    background: rgba(168, 85, 247, 0.18);
+    border-color: rgba(216, 180, 254, 0.28);
+}
+
+body.o_cafm_dark_shell .o_form_view .o_notebook .tab-content {
+    background: rgba(15, 23, 32, 0.78);
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    border-top: 0;
+    border-radius: 0 0 8px 8px;
+    padding: 16px;
+}
+
+body.o_cafm_dark_shell .o_field_html,
+body.o_cafm_dark_shell .o_field_html strong {
+    color: #e5edf6;
+}
+
+body.o_cafm_dark_shell .o_field_html table {
+    color: #dbe3ee;
+    background: rgba(12, 20, 28, 0.85);
+}
+
+body.o_cafm_dark_shell .o_field_html .table th,
+body.o_cafm_dark_shell .o_field_html .table td {
+    border-color: rgba(148, 163, 184, 0.18);
+}
+
+/* --------------------------------------------------------------------------
+   Dark theme: list / kanban / chrome (fix light text on white rows)
+   Odoo + Bootstrap often force white table backgrounds; body text stays light.
+   -------------------------------------------------------------------------- */
+
+body.o_cafm_dark_shell,
+body.o_cafm_dark_shell .o_web_client {
+    background: #070d13 !important;
+    color: #e8eef6;
+}
+
+body.o_cafm_dark_shell .o_action_manager,
+body.o_cafm_dark_shell .o_content,
+body.o_cafm_dark_shell .o_view_controller,
+body.o_cafm_dark_shell .o_view_controller .o_content {
+    background-color: #070d13 !important;
+    color: #e8eef6 !important;
+}
+
+/* Control panel & search */
+body.o_cafm_dark_shell .o_control_panel {
+    background: #0b1219 !important;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+    color: #e8eef6 !important;
+}
+
+body.o_cafm_dark_shell .o_control_panel .breadcrumb,
+body.o_cafm_dark_shell .o_control_panel .o_cp_title .breadcrumb-item,
+body.o_cafm_dark_shell .o_control_panel .o_cp_title .breadcrumb-item a,
+body.o_cafm_dark_shell .o_control_panel .o_breadcrumb .active {
+    color: #cbd5e1 !important;
+}
+
+body.o_cafm_dark_shell .o_control_panel .o_cp_buttons .btn-secondary,
+body.o_cafm_dark_shell .o_list_buttons .btn-secondary {
+    background-color: #1e293b !important;
+    color: #e8eef6 !important;
+    border-color: rgba(148, 163, 184, 0.35) !important;
+}
+
+/* AMC Register: Create next to title + keep primary create visible */
+body.o_cafm_dark_shell .o_control_panel .o_list_button_add,
+body.o_cafm_dark_shell .o_control_panel .o_cpabooks_amc_title_create_btn,
+body.o_cafm_dark_shell .o_list_buttons .o_list_button_add {
+    display: inline-block !important;
+    visibility: visible !important;
+    background-color: #6d4c9f !important;
+    color: #ffffff !important;
+    border-color: #6d4c9f !important;
+}
+
+body.o_cafm_dark_shell .o_control_panel .o_cp_left {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+}
+
+body.o_cafm_dark_shell .o_control_panel .o_cpabooks_amc_title_create_btn {
+    margin-left: 10px !important;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+body.o_cafm_dark_shell .o_searchview {
+    background-color: #111b2a !important;
+    border-color: rgba(148, 163, 184, 0.28) !important;
+    color: #e8eef6 !important;
+}
+
+body.o_cafm_dark_shell .o_searchview .o_searchview_input {
+    background-color: transparent !important;
+    color: #f1f5f9 !important;
+}
+
+body.o_cafm_dark_shell .o_searchview .o_searchview_facet {
+    border-color: rgba(148, 163, 184, 0.35) !important;
+}
+
+body.o_cafm_dark_shell .o_search_panel {
+    background: #0b1219 !important;
+    border-right: 1px solid rgba(148, 163, 184, 0.2) !important;
+    color: #e8eef6 !important;
+}
+
+body.o_cafm_dark_shell .o_search_panel .o_search_panel_label,
+body.o_cafm_dark_shell .o_search_panel .list-group-item {
+    background: transparent !important;
+    color: #e8eef6 !important;
+    border-color: rgba(148, 163, 184, 0.15) !important;
+}
+
+/* List / tree */
+body.o_cafm_dark_shell .o_list_view,
+body.o_cafm_dark_shell .o_list_view .o_list_table,
+body.o_cafm_dark_shell .o_list_view .o_list_table.table {
+    background-color: #0f1724 !important;
+    color: #f1f5f9 !important;
+}
+
+body.o_cafm_dark_shell .o_list_view .o_list_table thead th {
+    background-color: #111b2a !important;
+    color: #e2e8f0 !important;
+    border-color: rgba(148, 163, 184, 0.28) !important;
+}
+
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr:not(.o_group_header) > td {
+    background-color: #0f1724 !important;
+    color: #f1f5f9 !important;
+    border-color: rgba(148, 163, 184, 0.2) !important;
+}
+
+/* Group/summary bridge rows: full-row fill on every cell (name + empty + amount) */
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_group_header[data-group-level="0"],
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_group_header:not([data-group-level]),
+body.o_cafm_dark_shell .o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="0"],
+body.o_cafm_dark_shell .o_cafm_tally_tree .o_list_table tbody tr.o_group_header:not([data-group-level]) {
+    background: #9ccc65 !important;
+    background-color: #9ccc65 !important;
+}
+
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_group_header[data-group-level="0"] > th,
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_group_header[data-group-level="0"] > td,
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_group_header:not([data-group-level]) > th,
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_group_header:not([data-group-level]) > td,
+body.o_cafm_dark_shell .o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="0"] > th,
+body.o_cafm_dark_shell .o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="0"] > td,
+body.o_cafm_dark_shell .o_cafm_tally_tree .o_list_table tbody tr.o_group_header:not([data-group-level]) > th,
+body.o_cafm_dark_shell .o_cafm_tally_tree .o_list_table tbody tr.o_group_header:not([data-group-level]) > td {
+    background: #9ccc65 !important;
+    background-color: #9ccc65 !important;
+    color: #000000 !important;
+    border-color: #7cb342 !important;
+}
+
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_group_header[data-group-level="1"],
+body.o_cafm_dark_shell .o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="1"] {
+    background: #dfbbb4 !important;
+    background-color: #dfbbb4 !important;
+}
+
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_group_header[data-group-level="1"] > th,
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_group_header[data-group-level="1"] > td,
+body.o_cafm_dark_shell .o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="1"] > th,
+body.o_cafm_dark_shell .o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="1"] > td {
+    background: #dfbbb4 !important;
+    background-color: #dfbbb4 !important;
+    color: #000000 !important;
+    border-color: #c99a92 !important;
+}
+
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_group_header[data-group-level="2"],
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_group_header[data-group-level="3"],
+body.o_cafm_dark_shell .o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="2"],
+body.o_cafm_dark_shell .o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="3"] {
+    background: #d4a59c !important;
+    background-color: #d4a59c !important;
+}
+
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_group_header[data-group-level="2"] > th,
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_group_header[data-group-level="2"] > td,
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_group_header[data-group-level="3"] > th,
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_group_header[data-group-level="3"] > td,
+body.o_cafm_dark_shell .o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="2"] > th,
+body.o_cafm_dark_shell .o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="2"] > td,
+body.o_cafm_dark_shell .o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="3"] > th,
+body.o_cafm_dark_shell .o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="3"] > td {
+    background: #d4a59c !important;
+    background-color: #d4a59c !important;
+    color: #000000 !important;
+}
+
+/* Nested widgets/spans only — never punch td.o_list_number (aggregate amount is the td). */
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_group_header .o_group_name,
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_group_header .o_field_widget,
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_group_header span {
+    color: inherit !important;
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* Inv. Amount / sum cells share the bridge row color (beat dark table bleed-through). */
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_group_header[data-group-level="0"] > td.o_list_number,
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_group_header:not([data-group-level]) > td.o_list_number,
+body.o_cafm_dark_shell .o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="0"] > td.o_list_number,
+body.o_cafm_dark_shell .o_cafm_tally_tree .o_list_table tbody tr.o_group_header:not([data-group-level]) > td.o_list_number {
+    background: #9ccc65 !important;
+    background-color: #9ccc65 !important;
+    color: #000000 !important;
+}
+
+/* AMC Register amount list: keep all four amount columns readable when grouped */
+body.o_cafm_dark_shell .o_cafm_amc_amount_list .o_list_table,
+.o_cafm_amc_amount_list .o_list_table {
+    table-layout: fixed !important;
+    width: 100% !important;
+}
+.o_cafm_amc_amount_list .o_list_table thead th,
+.o_cafm_amc_amount_list .o_list_table tbody td {
+    display: table-cell !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+.o_cafm_amc_amount_list .o_list_table th[data-name="name"],
+.o_cafm_amc_amount_list .o_list_table td[data-name="name"] {
+    width: 14% !important;
+    min-width: 7rem !important;
+}
+.o_cafm_amc_amount_list .o_list_table th[data-name="client_id"],
+.o_cafm_amc_amount_list .o_list_table td[data-name="client_id"],
+.o_cafm_amc_amount_list .o_list_table th[data-name="project_id"],
+.o_cafm_amc_amount_list .o_list_table td[data-name="project_id"] {
+    width: 16% !important;
+    min-width: 8rem !important;
+}
+.o_cafm_amc_amount_list .o_list_table th[data-name="yearly_contract_amount"],
+.o_cafm_amc_amount_list .o_list_table td[data-name="yearly_contract_amount"],
+.o_cafm_amc_amount_list .o_list_table th[data-name="monthly_revenue"],
+.o_cafm_amc_amount_list .o_list_table td[data-name="monthly_revenue"],
+.o_cafm_amc_amount_list .o_list_table th[data-name="invoicing_value"],
+.o_cafm_amc_amount_list .o_list_table td[data-name="invoicing_value"],
+.o_cafm_amc_amount_list .o_list_table th[data-name="total_contract_value"],
+.o_cafm_amc_amount_list .o_list_table td[data-name="total_contract_value"] {
+    width: 12% !important;
+    min-width: 7.5rem !important;
+    white-space: nowrap !important;
+}
+
+/* Sticky header only (no footer totals on Register) */
+.o_cafm_amc_register_tree .o_list_table thead th {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 4 !important;
+}
+body.o_cafm_dark_shell .o_cafm_amc_register_tree .o_list_table thead th {
+    background: #111b2a !important;
+    background-color: #111b2a !important;
+    box-shadow: inset 0 -1px 0 rgba(148, 163, 184, 0.28);
+}
+/* Hide any leftover aggregate footer row */
+.o_cafm_amc_register_tree .o_list_table tfoot {
+    display: none !important;
+}
+
+/* AMC Register: force readable black text on green Next Invoice group bars */
+body.o_cafm_dark_shell .o_cafm_amc_register_tree .o_list_table tbody tr.o_group_header,
+body.o_cafm_dark_shell .o_cafm_amc_register_tree .o_list_table tbody tr.o_group_header > th,
+body.o_cafm_dark_shell .o_cafm_amc_register_tree .o_list_table tbody tr.o_group_header > td,
+body.o_cafm_dark_shell .o_cafm_amc_register_tree .o_list_table tbody tr.o_group_header .o_group_name,
+body.o_cafm_dark_shell .o_cafm_amc_register_tree .o_list_table tbody tr.o_group_header span,
+body.o_cafm_dark_shell .o_cafm_amc_register_tree .o_list_table tbody tr.o_group_header a,
+body.o_cafm_dark_shell .o_cafm_amc_register_tree .o_list_table tbody tr.o_group_header .o_list_number {
+    color: #000000 !important;
+}
+
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_group_header[data-group-level="1"] > td.o_list_number,
+body.o_cafm_dark_shell .o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="1"] > td.o_list_number {
+    background: #dfbbb4 !important;
+    background-color: #dfbbb4 !important;
+    color: #000000 !important;
+}
+
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_group_header[data-group-level="2"] > td.o_list_number,
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_group_header[data-group-level="3"] > td.o_list_number,
+body.o_cafm_dark_shell .o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="2"] > td.o_list_number,
+body.o_cafm_dark_shell .o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="3"] > td.o_list_number {
+    background: #d4a59c !important;
+    background-color: #d4a59c !important;
+    color: #000000 !important;
+}
+
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr:nth-child(odd):not(.o_group_header) td {
+    background-color: #0c141f !important;
+}
+
+/* Odd-row dark fill must not punch holes in group bridges — level colors win above */
+
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr:hover:not(.o_group_header) td,
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_list_row_focus:not(.o_group_header) td {
+    background-color: rgba(168, 85, 247, 0.14) !important;
+}
+
+body.o_cafm_dark_shell .o_list_view .o_list_table tbody tr.o_list_row_checked:not(.o_group_header) td {
+    background-color: rgba(20, 184, 166, 0.12) !important;
+}
+
+body.o_cafm_dark_shell .o_list_view .o_field_widget,
+body.o_cafm_dark_shell .o_list_view .o_field_widget span,
+body.o_cafm_dark_shell .o_list_view .o_field_char,
+body.o_cafm_dark_shell .o_list_view .o_field_text,
+body.o_cafm_dark_shell .o_list_view .o_field_float,
+body.o_cafm_dark_shell .o_list_view .o_field_integer,
+body.o_cafm_dark_shell .o_list_view .o_field_monetary,
+body.o_cafm_dark_shell .o_list_view .o_field_many2one,
+body.o_cafm_dark_shell .o_list_view .o_field_date,
+body.o_cafm_dark_shell .o_list_view .o_field_datetime {
+    color: #f1f5f9 !important;
+}
+
+body.o_cafm_dark_shell .o_list_view a:not(.btn),
+body.o_cafm_dark_shell .o_list_view .o_field_widget a {
+    color: #7dd3fc !important;
+}
+
+body.o_cafm_dark_shell .o_list_view a:not(.btn):hover {
+    color: #bae6fd !important;
+}
+
+body.o_cafm_dark_shell .o_list_view .text-muted,
+body.o_cafm_dark_shell .o_list_view .o_list_number {
+    color: #94a3b8 !important;
+}
+
+body.o_cafm_dark_shell .o_list_view .table-responsive {
+    background: #0f1724 !important;
+}
+
+/* Kanban */
+body.o_cafm_dark_shell .o_kanban_view {
+    background: #070d13 !important;
+    color: #e8eef6 !important;
+}
+
+body.o_cafm_dark_shell .o_kanban_view .o_kanban_record,
+body.o_cafm_dark_shell .o_kanban_view .o_kanban_record_has_image_fill {
+    background: #111b2a !important;
+    border-color: rgba(148, 163, 184, 0.25) !important;
+    color: #e8eef6 !important;
+}
+
+body.o_cafm_dark_shell .o_kanban_view .o_kanban_record_title,
+body.o_cafm_dark_shell .o_kanban_view .o_kanban_record_subtitle {
+    color: #e8eef6 !important;
+}
+
+/* Form generic fields (outside notebook blocks already styled) */
+body.o_cafm_dark_shell .o_form_view .o_form_label,
+body.o_cafm_dark_shell .o_form_view label {
+    color: #cbd5e1 !important;
+}
+
+body.o_cafm_dark_shell .o_form_view .o_field_widget input,
+body.o_cafm_dark_shell .o_form_view .o_field_widget select,
+body.o_cafm_dark_shell .o_form_view .o_field_widget textarea,
+body.o_cafm_dark_shell .o_form_view .o_input {
+    background-color: #111b2a !important;
+    color: #f1f5f9 !important;
+    border-color: rgba(148, 163, 184, 0.3) !important;
+}
+
+body.o_cafm_dark_shell .o_form_view .o_field_many2one .o_input_dropdown > input {
+    color: #f1f5f9 !important;
+}
+
+body.o_cafm_dark_shell .o_form_view .o_group.o_group_col_6,
+body.o_cafm_dark_shell .o_form_view .o_inner_group > tbody > tr > td {
+    color: #e8eef6 !important;
+}
+
+/* Modals & dropdowns */
+body.o_cafm_dark_shell .modal-content {
+    background: #111b2a !important;
+    color: #e8eef6 !important;
+    border: 1px solid rgba(148, 163, 184, 0.28);
+}
+
+body.o_cafm_dark_shell .modal-header,
+body.o_cafm_dark_shell .modal-footer {
+    border-color: rgba(148, 163, 184, 0.22) !important;
+}
+
+body.o_cafm_dark_shell .modal-body {
+    color: #e8eef6 !important;
+}
+
+body.o_cafm_dark_shell .dropdown-menu {
+    background: #111b2a !important;
+    color: #e8eef6 !important;
+    border: 1px solid rgba(148, 163, 184, 0.28);
+}
+
+body.o_cafm_dark_shell .dropdown-item,
+body.o_cafm_dark_shell .dropdown-header {
+    color: #e8eef6 !important;
+}
+
+body.o_cafm_dark_shell .dropdown-item:hover,
+body.o_cafm_dark_shell .dropdown-item:focus {
+    background: rgba(168, 85, 247, 0.18) !important;
+    color: #ffffff !important;
+}
+
+body.o_cafm_dark_shell .ui-autocomplete,
+body.o_cafm_dark_shell .ui-menu .ui-menu-item > a {
+    background: #111b2a !important;
+    color: #e8eef6 !important;
+}
+
+body.o_cafm_dark_shell .ui-menu .ui-menu-item > a.ui-state-active,
+body.o_cafm_dark_shell .ui-menu .ui-menu-item > a:hover {
+    background: rgba(168, 85, 247, 0.25) !important;
+    color: #ffffff !important;
+}
+
+/* Pivot / graph (common report-style views) */
+body.o_cafm_dark_shell .o_pivot table,
+body.o_cafm_dark_shell .o_pivot .table-bordered th,
+body.o_cafm_dark_shell .o_pivot .table-bordered td {
+    background-color: #0f1724 !important;
+    color: #f1f5f9 !important;
+    border-color: rgba(148, 163, 184, 0.22) !important;
+}
+
+body.o_cafm_dark_shell .o_graph_container,
+body.o_cafm_dark_shell .o_graph .chart-container {
+    background: #0f1724 !important;
+}
+
+/* Stat buttons & ribbons */
+body.o_cafm_dark_shell .oe_stat_button {
+    color: #e8eef6 !important;
+    border-color: rgba(148, 163, 184, 0.22) !important;
+}
+
+body.o_cafm_dark_shell .oe_stat_button:hover,
+body.o_cafm_dark_shell .oe_stat_button:focus {
+    background: rgba(168, 85, 247, 0.12) !important;
+}
+
+body.o_cafm_dark_shell .o_form_view .oe_button_box .btn.oe_stat_button .o_stat_info .o_stat_text {
+    color: #e8eef6 !important;
+}
+
+/* Notebook list / x2many embedded trees */
+body.o_cafm_dark_shell .o_form_view .o_field_x2many .o_list_view .o_list_table tbody td,
+body.o_cafm_dark_shell .o_form_view .o_field_one2many .o_list_view .o_list_table tbody td {
+    background-color: #0c141f !important;
+    color: #f1f5f9 !important;
+}
+
+body.o_cafm_dark_shell .o_form_view .o_field_x2many .o_list_view .o_list_table thead th,
+body.o_cafm_dark_shell .o_form_view .o_field_one2many .o_list_view .o_list_table thead th {
+    background-color: #111b2a !important;
+    color: #e2e8f0 !important;
+}
+
+/* Odoo 14 list cells (o_data_cell on <td>) */
+body.o_cafm_dark_shell .o_list_view .o_data_cell {
+    background-color: #0f1724 !important;
+    color: #f1f5f9 !important;
+}
+
+body.o_cafm_dark_shell .o_list_view tbody tr:nth-child(odd) .o_data_cell {
+    background-color: #0c141f !important;
+}
+
+/* Embedded HTML reports (e.g. Monthly PPM grid, billing wizards) */
+body.o_cafm_dark_shell .o_field_html .ppm_wrap {
+    background: #0b1219 !important;
+    border-radius: 8px;
+}
+
+body.o_cafm_dark_shell .o_field_html .ppm_table {
+    background: transparent !important;
+}
+
+body.o_cafm_dark_shell .o_field_html .ppm_table th {
+    background: #1e293b !important;
+    color: #f1f5f9 !important;
+    border-color: rgba(148, 163, 184, 0.3) !important;
+}
+
+body.o_cafm_dark_shell .o_field_html .ppm_table td {
+    color: #e8eef6 !important;
+    border-color: rgba(148, 163, 184, 0.22) !important;
+}
+
+body.o_cafm_dark_shell .o_field_html .ppm_cell_pending {
+    background: rgba(234, 179, 8, 0.22) !important;
+    color: #fffbeb !important;
+}
+
+body.o_cafm_dark_shell .o_field_html .ppm_cell_done {
+    background: rgba(34, 197, 94, 0.2) !important;
+    color: #ecfdf5 !important;
+}
+
+body.o_cafm_dark_shell .o_field_html .ppm_cell_planned {
+    background: rgba(56, 189, 248, 0.12) !important;
+}
+
+body.o_cafm_dark_shell .o_field_html .ppm_cell_future {
+    background: rgba(30, 41, 59, 0.6) !important;
+    color: #94a3b8 !important;
+}
+
+body.o_cafm_dark_shell .o_field_html .ppm_empty {
+    color: #94a3b8 !important;
+}
+
+/* Mail chatter */
+body.o_cafm_dark_shell .o_Chatter,
+body.o_cafm_dark_shell .o_chatter {
+    background: transparent !important;
+    color: #e8eef6 !important;
+}
+
+body.o_cafm_dark_shell .o_thread_message .o_thread_message_core,
+body.o_cafm_dark_shell .o_mail_thread .o_thread_message {
+    color: #e8eef6 !important;
+}
+
+body.o_cafm_dark_shell .o_composer_text,
+body.o_cafm_dark_shell .o_composer .note-editor {
+    background: #111b2a !important;
+    color: #f1f5f9 !important;
+}
+
+/* Settings-style forms */
+body.o_cafm_dark_shell .o_setting_box {
+    background: rgba(17, 27, 42, 0.55) !important;
+    border-color: rgba(148, 163, 184, 0.22) !important;
+}
+
+body.o_cafm_dark_shell .o_setting_left_pane,
+body.o_cafm_dark_shell .o_form_view .text-muted {
+    color: #94a3b8 !important;
+}
+
+/* CAFM dashboard client action (align with dark shell) */
+body.o_cafm_dark_shell .cfd_root {
+    --cfd-paper: #0b1219;
+    --cfd-card: #111b2a;
+    --cfd-line: rgba(148, 163, 184, 0.22);
+    --cfd-text: #e8eef6;
+    --cfd-muted: #94a3b8;
+    --cfd-accent: #fb923c;
+    --cfd-accent-2: #2dd4bf;
+    --cfd-accent-3: #38bdf8;
+    --cfd-good: rgba(34, 197, 94, 0.16);
+    --cfd-warn: rgba(234, 179, 8, 0.2);
+    --cfd-bad: rgba(248, 113, 113, 0.16);
+    background: linear-gradient(180deg, #070d13 0%, #0b1219 45%, #070d13 100%);
+    color: var(--cfd-text);
+}
+
+body.o_cafm_dark_shell .cfd_title {
+    color: #f1f5f9;
+}
+
+body.o_cafm_dark_shell .cfd_card {
+    border-color: rgba(148, 163, 184, 0.18);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.38);
+}
+
+body.o_cafm_dark_shell .cfd_card_head h2 {
+    color: #f1f5f9;
+}
+
+body.o_cafm_dark_shell .cfd_kpi_value {
+    color: #f1f5f9;
+}
+
+body.o_cafm_dark_shell .cfd_kpi_icon {
+    background: rgba(30, 41, 59, 0.95);
+    border-color: rgba(148, 163, 184, 0.22);
+    color: #e8eef6;
+}
+
+body.o_cafm_dark_shell .cfd_tone_default,
+body.o_cafm_dark_shell .cfd_tone_good,
+body.o_cafm_dark_shell .cfd_tone_warn,
+body.o_cafm_dark_shell .cfd_tone_bad {
+    background: var(--cfd-card);
+}
+
+body.o_cafm_dark_shell .cfd_table tbody td {
+    border-bottom-color: rgba(148, 163, 184, 0.16);
+    color: var(--cfd-text);
+}
+
+body.o_cafm_dark_shell .cfd_table tbody tr:hover {
+    background: rgba(168, 85, 247, 0.08);
+}

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ticket_tree" model="ir.ui.view">
+        <field name="name">cpahelpdesk.ticket.tree</field>
+        <field name="model">crm.gcl</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="tenant" string="Tenant Name"/>
+                <field name="mobile"/>
+                <field name="email"/>
+                <field name="building"/>
+                <field name="flat"/>
+                <field name="problem"/>
+                <field name="address"/>
+            </tree>
+        </field>
+    </record>
+	
+	<record id="view_crm_gcl_form" model="ir.ui.view">
+		<field name="name">view.crm.gcl.form</field>
+		<field name="model">crm.gcl</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<form>
+						<sheet>
+							<group>
+								<group>
+									<field name="tenant"/>
+									<field name="mobile"/>
+									<field name="email"/>
+									<field name="building"/>
+									<field name="flat"/>
+									<field name="problem"/>
+									<field name="address"/>
+								</group>
+							</group>
+						</sheet>
+					</form>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+
+    <record id="action_ticket" model="ir.actions.act_window">
+        <field name="name">Tickets</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">crm.gcl</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new ticket!
+            </p>
+        </field>
+    </record>
+
+<!--    <menuitem id="cpahelpdesk_root"-->
+<!--              name="CPA HelpDesk"-->
+<!--              sequence="10"/>-->
+
+    <menuitem id="cpahelpdesk_helpdesk_root"
+              name="HelpDesk"
+              parent="maintenance.menu_maintenance_title"
+              sequence="10"/>
+
+    <menuitem id="cpahelpdesk_helpdesk"
+              name="Tickets"
+              parent="cpahelpdesk_helpdesk_root"
+              action="action_ticket"
+              sequence="10"/>
+
+
+</odoo>

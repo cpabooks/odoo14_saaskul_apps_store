@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View -->
+    <record id="view_cpabooks_var_print_wizard_form" model="ir.ui.view">
+        <field name="name">cpabooks.var.print.wizard.form</field>
+        <field name="model">cpabooks.var.print.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Print VAR Work Statement">
+                <group string="Filter Options">
+                    <group col="1">
+                        <field name="partner_id" options="{'no_create': True, 'no_open': True}"/>
+                    </group>
+                    <group col="1">
+                        <field name="as_of_date"/>
+                    </group>
+                </group>
+                
+                <separator string="Select Columns to Display"/>
+                <div class="row">
+                    <div class="col-6">
+                        <group>
+                            <field name="col_date"/>
+                            <field name="col_party_name"/>
+                            <field name="col_call_no"/>
+                            <field name="col_call_no_tally"/>
+                            <field name="col_opened_by"/>
+                            <field name="col_l2_level"/>
+                            <field name="col_l3_level"/>
+                            <field name="col_flat_villa"/>
+                            <field name="col_qt_no"/>
+                        </group>
+                    </div>
+                    <div class="col-6">
+                        <group>
+                            <field name="col_qt_no_tally"/>
+                            <field name="col_qt_date"/>
+                            <field name="col_work_type"/>
+                            <field name="col_problem_description"/>
+                            <field name="col_work_completion_date"/>
+                            <field name="col_qt_amount"/>
+                            <field name="col_work_approved_amount"/>
+                            <field name="col_status"/>
+                        </group>
+                    </div>
+                </div>
+
+                <footer>
+                    <button name="action_print_pdf" string="Print (PDF)" type="object" class="btn-primary"/>
+                    <button name="action_export_excel" string="Export to Excel" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Paper format -->
+    <record id="paperformat_a4_landscape" model="report.paperformat">
+        <field name="name">A4 Landscape</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <!-- Report Action -->
+    <record id="action_report_var_followup" model="ir.actions.report">
+        <field name="name">VAR Work Statement</field>
+        <field name="model">cpabooks.var.print.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">cpabooks_cafm.report_var_followup_template</field>
+        <field name="report_file">cpabooks_cafm.report_var_followup_template</field>
+        <field name="print_report_name">'VAR_Work_Statement'</field>
+        <field name="paperformat_id" ref="paperformat_a4_landscape"/>
+    </record>
+
+    <!-- Report Template -->
+    <template id="report_var_followup_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 11px;">
+                    <div style="width: 100%; border-bottom: 2px solid #1a4d2e; padding-bottom: 5px; margin-bottom: 10px;">
+                        <h2 style="font-weight: bold; margin: 0; color: #1a4d2e;">VAR WORK STATEMENT - BY YEAR/MONTH</h2>
+                        <h5 style="margin: 5px 0 0 0; color: #555; font-style: italic;">as of <t t-esc="doc.as_of_date.strftime('%d %B %Y')"/></h5>
+                    </div>
+                    
+                    <t t-set="records" t-value="doc._get_filtered_records()"/>
+                    <t t-set="groups" t-value="doc._get_grouped_data(records)"/>
+                    <t t-set="active_cols" t-value="doc._get_active_columns()"/>
+                    
+                    <table class="table table-sm table-bordered" style="width: 100%; border-collapse: collapse; border: 1px solid #1a4d2e;">
+                        <thead>
+                            <tr style="background-color: #1a4d2e; color: #ffffff;">
+                                <th style="width: 40px; text-align: center; border: 1px solid #0f2f1c; padding: 5px;">S.No</th>
+                                <t t-foreach="active_cols" t-as="col">
+                                    <th style="border: 1px solid #0f2f1c; padding: 5px;"><t t-esc="col['label']"/></th>
+                                </t>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="serial_no" t-value="1"/>
+                            <t t-foreach="groups" t-as="year_group">
+                                <!-- Year Row -->
+                                <tr style="background-color: #ebdcb9; font-weight: bold; font-size: 13px;">
+                                    <td t-att-colspan="len(active_cols) + 1" style="border: 1px solid #1a4d2e; padding: 6px;">
+                                        YEAR <t t-esc="year_group['year']"/>
+                                    </td>
+                                </tr>
+                                <t t-foreach="year_group['months']" t-as="month_group">
+                                    <!-- Month Row -->
+                                    <tr style="background-color: #dfbbb4; font-weight: bold; font-size: 11px;">
+                                        <td t-att-colspan="len(active_cols) + 1" style="border: 1px solid #1a4d2e; padding: 5px;">
+                                            <t t-esc="month_group['name']"/>
+                                        </td>
+                                    </tr>
+                                    <!-- Data Rows -->
+                                    <t t-foreach="month_group['records']" t-as="rec">
+                                        <tr style="background-color: #eaf3dc;">
+                                            <td style="text-align: center; border: 1px solid #CCCCCC; padding: 4px;">
+                                                <t t-esc="serial_no"/>
+                                                <t t-set="serial_no" t-value="serial_no + 1"/>
+                                            </td>
+                                            <t t-foreach="active_cols" t-as="col">
+                                                <td style="border: 1px solid #CCCCCC; padding: 4px;">
+                                                    <t t-set="val" t-value="doc.get_field_val(rec, col['field_name'])"/>
+                                                    <t t-if="col['label'] in ('Qt. Amount', 'Work Appr. Amt', 'Work App. Amt')">
+                                                        <span style="float: right;"><t t-esc="'%.2f' % val if val else '0.00'"/></span>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span t-esc="val"/>
+                                                    </t>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

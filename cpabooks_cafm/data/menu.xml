@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_cpabooks_cafm_root"
+                  name="CAFM"
+                  sequence="20"
+                  web_icon="cpabooks_cafm,static/description/icon.png"/>
+
+        <menuitem id="menu_cpabooks_cafm_operations"
+                  name="Operations"
+                  parent="menu_cpabooks_cafm_root"
+                  sequence="10"/>
+
+        <menuitem id="menu_cpabooks_cafm_configuration"
+                  name="Configuration"
+                  parent="menu_cpabooks_cafm_root"
+                  sequence="20"/>
+
+        <menuitem id="menu_cpabooks_cafm_tools"
+                  name="Tools"
+                  parent="menu_cpabooks_cafm_root"
+                  sequence="30"/>
+
+    </data>
+</odoo>

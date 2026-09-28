@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="module_category_cpabooks_cafm" model="ir.module.category">
+            <field name="name">CAFM</field>
+            <field name="sequence">20</field>
+        </record>
+
+        <record id="group_cafm_user" model="res.groups">
+            <field name="name">CAFM User</field>
+            <field name="category_id" ref="module_category_cpabooks_cafm"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_cafm_manager" model="res.groups">
+            <field name="name">CAFM Manager</field>
+            <field name="category_id" ref="module_category_cpabooks_cafm"/>
+            <field name="implied_ids" eval="[(4, ref('group_cafm_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+        </record>
+
+        <record id="access_cpabooks_cafm_contract_document" model="ir.model.access">
+            <field name="name">access_cpabooks_cafm_contract_document</field>
+            <field name="model_id" search="[('model', '=', 'cpabooks.cafm.contract.document')]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <function model="res.users" name="_cpabooks_cafm_assign_manager_group"/>
+    </data>
+</odoo>

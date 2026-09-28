@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_cpabooks_cafm_pending_cont_order_wizard_form" model="ir.ui.view">
+        <field name="name">cpabooks.cafm.pending.cont.order.wizard.form</field>
+        <field name="model">cpabooks.cafm.pending.cont.order.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Create Pending Cont. Orders">
+                <sheet>
+                    <div class="mb16">
+                        <span class="text-muted">
+                            Create contract orders for the period you set (Start → Until).
+                            Leave Client / Project / Client Group empty to include all.
+                            Default period is the current calendar year; change as needed (e.g. Until Dec 2028).
+                            <br/><br/>
+                            <b>Live + valid today:</b> treat as valid for ordering through the Until date —
+                            do not stop at mid-term contract expiry; contract start/expiry fields stay unchanged
+                            (no renew just to fill the wizard period).
+                            <br/>
+                            <b>Create New Orders</b> — only contracts with no orders yet.
+                            <br/>
+                            <b>Create Missed Orders</b> — all matching contracts: keep existing, fill gaps,
+                            continue frequency periods through Until.
+                            <br/><br/>
+                            Live contracts already expired as of yesterday are auto-renewed once
+                            (Auto Renewed - No Cont. Copy). Non Live contracts stay limited to their expiry.
+                        </span>
+                    </div>
+                    <group>
+                        <group string="Filters (empty = All)">
+                            <field name="partner_id" options="{'no_create': True}"/>
+                            <field name="project_id" options="{'no_create': True}"/>
+                            <field name="customer_group_id" options="{'no_create': True}"/>
+                        </group>
+                        <group string="Creation Period">
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_create_new_orders" type="object"
+                                string="Create New Orders" class="btn-primary"/>
+                        <button name="action_create_missed_orders" type="object"
+                                string="Create Missed Orders" class="btn-primary"/>
+                        <button special="cancel" string="Cancel" class="btn-secondary"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_cpabooks_cafm_pending_cont_order_wizard" model="ir.actions.act_window">
+        <field name="name">Create Pending Cont. Orders</field>
+        <field name="res_model">cpabooks.cafm.pending.cont.order.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_cpabooks_cafm_pending_cont_order_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Above Invoice (seq 21); Monitoring moved to 19 -->
+    <menuitem id="menu_cpabooks_cafm_pending_cont_orders"
+              name="Create Pending Cont. Orders"
+              parent="menu_cpabooks_cafm_amc"
+              action="action_cpabooks_cafm_pending_cont_order_wizard"
+              sequence="20"/>
+</odoo>

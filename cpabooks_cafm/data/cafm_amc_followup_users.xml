@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Ensure AMC follow-up users exist (Nihil / Ragesh) and link imported text. -->
+    <function model="cpabooks.cafm.amc.invoice.reg" name="ensure_amc_follow_up_users"/>
+</odoo>

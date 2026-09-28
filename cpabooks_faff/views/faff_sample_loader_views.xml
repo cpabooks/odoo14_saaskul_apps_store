@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_faff_sample_loader_form" model="ir.ui.view">
+        <field name="name">cpabooks.faff.sample.loader.form</field>
+        <field name="model">cpabooks.faff.sample.loader</field>
+        <field name="arch" type="xml">
+            <form string="FAFF Demo Data">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>FAFF Demo / Sample Data</h1>
+                    </div>
+                    <field name="note" nolabel="1" widget="html"/>
+                    <field name="mode" invisible="1"/>
+                </sheet>
+                <footer>
+                    <button string="Load Demo Data"
+                            type="object"
+                            name="action_load_demo_data"
+                            class="btn-primary"/>
+                    <button string="Clean Demo Data"
+                            type="object"
+                            name="action_clean_demo_data"
+                            class="btn-secondary"/>
+                    <button special="cancel" string="Close" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_faff_load_demo" model="ir.actions.act_window">
+        <field name="name">Load Demo Data</field>
+        <field name="res_model">cpabooks.faff.sample.loader</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_mode': 'load'}</field>
+    </record>
+
+    <record id="action_faff_clean_demo" model="ir.actions.act_window">
+        <field name="name">Clean Demo Data</field>
+        <field name="res_model">cpabooks.faff.sample.loader</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_mode': 'clean'}</field>
+    </record>
+</odoo>

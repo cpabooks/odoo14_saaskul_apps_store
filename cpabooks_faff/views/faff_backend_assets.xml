@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="assets_backend" inherit_id="web.assets_backend" name="FAFF Backend Shell Assets">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/css" href="/cpabooks_faff/static/src/css/faff_backend_shell.css"/>
+            <link rel="stylesheet" type="text/css" href="/cpabooks_faff/static/src/css/faff_ui_theme_default.css"/>
+            <link rel="stylesheet" type="text/css" href="/cpabooks_faff/static/src/css/faff_dashboard.css"/>
+            <link rel="stylesheet" type="text/css" href="/cpabooks_faff/static/src/css/faff_process_wizard.css"/>
+            <link rel="stylesheet" type="text/css" href="/cpabooks_faff/static/src/css/faff_process_flow.css"/>
+            <script type="text/javascript" src="/cpabooks_faff/static/src/js/faff_ui_theme.js"/>
+            <script type="text/javascript" src="/cpabooks_faff/static/src/js/faff_shell_sidebar.js"/>
+            <script type="text/javascript" src="/cpabooks_faff/static/src/js/faff_dashboard.js"/>
+            <script type="text/javascript" src="/cpabooks_faff/static/src/js/faff_process_flow.js"/>
+            <script type="text/javascript" src="/cpabooks_faff/static/src/js/faff_wizard_progress_html.js"/>
+        </xpath>
+    </template>
+</odoo>

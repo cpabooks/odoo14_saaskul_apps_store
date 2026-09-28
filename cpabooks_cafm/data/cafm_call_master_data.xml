@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="priority_normal" model="cpabooks.cafm.priority">
+            <field name="name">Normal</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="priority_high" model="cpabooks.cafm.priority">
+            <field name="name">High</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="priority_urgent" model="cpabooks.cafm.priority">
+            <field name="name">Urgent</field>
+            <field name="sequence">30</field>
+        </record>
+
+        <record id="work_type_carpentry" model="cpabooks.cafm.work.type"><field name="name">Carpentry</field></record>
+        <record id="work_type_checkin" model="cpabooks.cafm.work.type"><field name="name">Check-in Works</field></record>
+        <record id="work_type_checkout" model="cpabooks.cafm.work.type"><field name="name">Check-Out Works</field></record>
+        <record id="work_type_civil" model="cpabooks.cafm.work.type"><field name="name">Civil</field></record>
+        <record id="work_type_cleaning" model="cpabooks.cafm.work.type"><field name="name">Cleaning</field></record>
+        <record id="work_type_electrical" model="cpabooks.cafm.work.type"><field name="name">Electrical</field></record>
+        <record id="work_type_hvac" model="cpabooks.cafm.work.type"><field name="name">HVAC</field></record>
+        <record id="work_type_landscaping" model="cpabooks.cafm.work.type"><field name="name">Landscaping</field></record>
+        <record id="work_type_material_request" model="cpabooks.cafm.work.type"><field name="name">Material Request</field></record>
+        <record id="work_type_others" model="cpabooks.cafm.work.type"><field name="name">Others</field></record>
+        <record id="work_type_painting" model="cpabooks.cafm.work.type"><field name="name">Painting</field></record>
+        <record id="work_type_pest_control" model="cpabooks.cafm.work.type"><field name="name">Pest Control</field></record>
+        <record id="work_type_plumbing" model="cpabooks.cafm.work.type"><field name="name">Plumbing</field></record>
+
+        <record id="job_type_amc" model="cpabooks.cafm.job.type"><field name="name">AMC</field></record>
+        <record id="job_type_var" model="cpabooks.cafm.job.type"><field name="name">VAR</field></record>
+        <record id="job_type_ppm" model="cpabooks.cafm.job.type"><field name="name">PPM</field></record>
+    </data>
+</odoo>
