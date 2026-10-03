@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="CpabooksCafmDashboard">
+        <div class="cfd_root o_cfd_dashboard_main cpa-cafm-theme-default">
+            <div class="o_cfd_dashboard_root">
+                <section class="o_cfd_dash_header">
+                    <div class="o_cfd_dash_header_row">
+                        <div class="o_cfd_dash_header_left">
+                            <div class="cfd_eyebrow" id="cfd_eyebrow">CAFM</div>
+                            <h1 class="o_cfd_dash_title" id="cfd_title">CAFM Operations Dashboard</h1>
+                            <p class="o_cfd_dash_subtitle" id="cfd_subtitle"></p>
+                        </div>
+                        <div class="o_cfd_dash_header_actions">
+                            <div class="cpa-cafm-theme-toggle" role="group" aria-label="Dashboard theme">
+                                <button type="button" class="cpa-cafm-theme-btn" data-theme="dark" title="Dark theme">
+                                    <i class="fa fa-moon-o"/> Dark
+                                </button>
+                                <button type="button" class="cpa-cafm-theme-btn active" data-theme="default" title="Default (light) theme">
+                                    <i class="fa fa-sun-o"/> Default
+                                </button>
+                            </div>
+                            <button type="button" class="btn btn-sm o_cfd_open_main_menu" title="Open apps menu">
+                                <i class="fa fa-th"/> Main Menu
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="cfd_loading" id="cfd_loading">Loading dashboard…</div>
+                <div class="cfd_load_error" id="cfd_load_error" style="display:none;"/>
+
+                <section class="o_cfd_analytics_panel">
+                    <div class="o_cfd_completion_head">
+                        <div>
+                            <h2 class="o_cfd_analytics_title" id="cfd_completion_title">Call completion</h2>
+                            <p class="o_cfd_analytics_hint" id="cfd_completion_hint"></p>
+                        </div>
+                    </div>
+                    <div class="o_cfd_completion_kpis" id="cfd_completion_kpis"/>
+
+                    <div class="o_cfd_charts_grid">
+                        <article class="o_cfd_chart_card">
+                            <div class="o_cfd_chart_head">
+                                <h3 class="o_cfd_chart_title" id="cfd_chart_month_title">Last Month vs Current Month</h3>
+                                <p class="o_cfd_chart_subtitle" id="cfd_chart_month_subtitle"></p>
+                            </div>
+                            <div class="o_cfd_chart_canvas_wrap">
+                                <canvas id="cfd_chart_month"/>
+                            </div>
+                        </article>
+                        <article class="o_cfd_chart_card">
+                            <div class="o_cfd_chart_head">
+                                <h3 class="o_cfd_chart_title" id="cfd_chart_year_title">Last Year vs Current Year</h3>
+                                <p class="o_cfd_chart_subtitle" id="cfd_chart_year_subtitle"></p>
+                            </div>
+                            <div class="o_cfd_chart_canvas_wrap">
+                                <canvas id="cfd_chart_year"/>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <div class="o_cfd_dash_kpis"/>
+
+                <div class="o_cfd_dash_workflow"/>
+            </div>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- AFG dashboard drill: click a line → opens journal entry / voucher -->
+    <record id="view_afg_account_move_line_tree" model="ir.ui.view">
+        <field name="name">account.move.line.tree.afg.drill</field>
+        <field name="model">account.move.line</field>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <tree string="Journal items" create="0" edit="0" delete="0"
+                  decoration-muted="parent_state != 'posted'">
+                <field name="date"/>
+                <field name="move_id" string="Journal Entry"/>
+                <field name="journal_id" optional="hide"/>
+                <field name="account_id"/>
+                <field name="partner_id" optional="show"/>
+                <field name="name" string="Label"/>
+                <field name="debit" sum="Total Debit"/>
+                <field name="credit" sum="Total Credit"/>
+                <field name="balance" optional="hide"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="parent_state" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

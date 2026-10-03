@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="CpabooksCafmAmcInvoiceStatusView">
+        <div class="o_cafm_invoice_status_root">
+            <div class="o_cafm_invoice_status_mount"/>
+        </div>
+    </t>
+</templates>

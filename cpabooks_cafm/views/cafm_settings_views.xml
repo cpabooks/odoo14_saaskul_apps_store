@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cpabooks_cafm_settings_form" model="ir.ui.view">
+        <field name="name">res.config.settings.cafm.form</field>
+        <field name="model">res.config.settings</field>
+        <!-- Inherit primary Settings form (not base_setup) so company_id / CRM context validates. -->
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <field name="company_id" invisible="1"/>
+            </xpath>
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="CAFM" string="CAFM">
+                    <h2>CAFM Settings</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="cafm_company_title"/>
+                                <field name="cafm_company_title"/>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="cafm_default_priority_id"/>
+                                <field name="cafm_default_priority_id"/>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <field name="cafm_enable_department_security"/>
+                                <label for="cafm_enable_department_security"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_cpabooks_cafm_var_import_form" model="ir.ui.view">
+            <field name="name">cpabooks.cafm.var.import.form</field>
+            <field name="model">cpabooks.cafm.var.import</field>
+            <field name="arch" type="xml">
+                <form string="Import VAR Work">
+                    <sheet>
+                        <div class="mb16">
+                            <span class="text-muted">Download the Excel template format first, fill in your data, and upload it below to import VAR Work records.</span>
+                        </div>
+                        <group>
+                            <group>
+                                <button name="action_download_template" type="object" string="Download Excel Format" class="btn-primary mb16"/>
+                            </group>
+                            <group>
+                                <field name="file_name" invisible="1"/>
+                                <field name="file_data" filename="file_name" string="Select Excel File"/>
+                            </group>
+                        </group>
+                        <group attrs="{'invisible': [('missing_preview', '=', False)]}">
+                            <field name="missing_preview" nolabel="1" widget="text"/>
+                            <field name="allow_create_missing"/>
+                        </group>
+                        <group>
+                            <div class="o_form_label">
+                                <strong>Required Columns:</strong> QT.No (Tally) <br/>
+                                <strong>Accepted Columns (left→right):</strong> SLNo, QT.No (Tally), QT.Date, Call No. (Tally), Call Dt., Work Appr.By., Work Appr.Dt., Work App. Amt, LPO No., LPO Dt., LPO Amount, Work Comp.Dt., Report Date, Inv. No., Inv. Dt., Inv. Amt, Open By, L2 Level, L3 Level, Flat / Villa, Problem Description, Status.
+                                <br/>Upload uses <em>Tally</em> columns. Creating in Odoo uses <em>QT.No</em> + <em>Call No.</em> (auto / linked call).
+                                <br/>If L2/L3 (or other related) names are new, the system asks confirmation before creating them.
+                            </div>
+                        </group>
+                        <footer>
+                            <button name="action_import_file" type="object" string="Upload &amp; Import" class="btn-primary"/>
+                            <button special="cancel" string="Close" class="btn-secondary"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_cpabooks_cafm_var_import" model="ir.actions.act_window">
+            <field name="name">Import VAR Work</field>
+            <field name="res_model">cpabooks.cafm.var.import</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cafm_var_work_tree" model="ir.ui.view">
+        <field name="name">cpabooks.cafm.var.work.tree</field>
+        <field name="model">cpabooks.cafm.var.work</field>
+        <field name="arch" type="xml">
+            <tree string="VAR Work Report" class="o_cafm_tally_tree" js_class="cafm_tally_list" decoration-muted="status=='cancelled'">
+                <!-- Excel left→right first; then Odoo QT.No / Call No. (create-here) -->
+                <field name="qt_no_tally" string="QT.No (Tally)"/>
+                <field name="qt_date" string="QT.Date"/>
+                <field name="call_no_tally" string="Call No. (Tally)"/>
+                <field name="call_dt" string="Call Dt."/>
+                <field name="qt_no" string="QT.No"/>
+                <field name="call_no" string="Call No."/>
+                <field name="work_approved_by" string="Work Appr.By."/>
+                <field name="work_approval_date" string="Work Appr.Dt."/>
+                <field name="work_approved_amount" sum="Total" string="Work App. Amt"/>
+                <field name="lpo_no" string="LPO No."/>
+                <field name="lpo_date" string="LPO Dt."/>
+                <field name="lpo_amount" sum="Total" string="LPO Amount"/>
+                <field name="work_completion_date" string="Work Comp.Dt."/>
+                <field name="report_date" string="Report Date"/>
+                <field name="invoice_no" string="Inv. No."/>
+                <field name="invoice_date" string="Inv. Dt."/>
+                <field name="invoice_amount" sum="Total" string="Inv. Amt"/>
+                <field name="opened_by" string="Open By"/>
+                <field name="partner_id" string="Client Name"/>
+                <field name="l2_level_id" string="L2 Level (Client Group)"/>
+                <field name="l3_level_id" string="L3 Level (Project)"/>
+                <field name="flat_villa" string="Flat / Villa"/>
+                <field name="problem_description" string="Problem Description"/>
+                <field name="remarks_last_update" string="Remarks (last update)"/>
+                <field name="status" string="Status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_cafm_var_work_form" model="ir.ui.view">
+        <field name="name">cpabooks.cafm.var.work.form</field>
+        <field name="model">cpabooks.cafm.var.work</field>
+        <field name="arch" type="xml">
+            <form string="VAR Work" class="o_cafm_tally_form">
+                <header>
+                    <field name="status" widget="statusbar" options="{'clickable': '1'}"/>
+                </header>
+                <sheet>
+                    <div class="o_cafm_tally_header"><span>VAR Work</span></div>
+                    <div class="o_cafm_tally_title_block">VAR Work Report</div>
+                    <group col="4">
+                        <group>
+                            <field name="qt_no_tally"/>
+                            <field name="qt_no"/>
+                            <field name="qt_date"/>
+                            <field name="call_no_tally"/>
+                            <field name="call_no"/>
+                            <field name="call_id"/>
+                            <field name="call_dt"/>
+                            <field name="work_date"/>
+                            <field name="qt_amount"/>
+                        </group>
+                        <group>
+                            <field name="flat_villa"/>
+                            <field name="l2_level_id" string="L2 Level (Client Group)"/>
+                            <field name="l3_level_id" string="L3 Level (Project)"/>
+                            <field name="partner_id" string="Client Name"/>
+                        </group>
+                        <group>
+                            <field name="work_type_id"/>
+                            <field name="technician_id"/>
+                            <field name="work_approved_by"/>
+                            <field name="work_approval_date"/>
+                            <field name="work_approved_amount"/>
+                        </group>
+                        <group>
+                            <field name="lpo_no"/>
+                            <field name="lpo_date"/>
+                            <field name="lpo_amount"/>
+                            <field name="work_completion_date"/>
+                            <field name="report_date"/>
+                            <field name="invoice_id"/>
+                            <field name="invoice_no"/>
+                            <field name="invoice_date"/>
+                            <field name="invoice_amount"/>
+                            <field name="status" string="Status"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="problem_description"/>
+                        <field name="remarks_last_update" placeholder="Type latest remark and Save — history appears in the Remarks tab"/>
+                        <field name="opened_by"/>
+                    </group>
+                    <notebook>
+                        <page string="Remarks history" name="remarks">
+                            <field name="remark_ids" readonly="1" nolabel="1">
+                                <tree create="0" delete="0" edit="0" default_order="sr asc">
+                                    <field name="sr" string="Sr."/>
+                                    <field name="name" string="Remark"/>
+                                    <field name="user_id" string="Updated By"/>
+                                    <field name="remark_date" string="Date"/>
+                                    <field name="source" string="Source"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_cafm_var_work_search" model="ir.ui.view">
+        <field name="name">cpabooks.cafm.var.work.search</field>
+        <field name="model">cpabooks.cafm.var.work</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="qt_no"/>
+                <field name="qt_no_tally"/>
+                <field name="call_no"/>
+                <field name="call_no_tally"/>
+                <field name="partner_id"/>
+                <field name="remarks_last_update"/>
+                <filter name="waiting_approval" string="VAR Work Approval" domain="[('status','=','waiting_approval')]"/>
+                <filter name="work_ongoing" string="Work Ongoing" domain="[('status','=','work_ongoing')]"/>
+                <filter name="waiting_lpo" string="Waiting for LPO" domain="[('status','=','waiting_lpo')]"/>
+                <filter name="waiting_report" string="Waiting for Report Completion" domain="[('status','=','waiting_report')]"/>
+                <filter name="invoiced" string="VAR work - Invoiced" domain="[('status','=','invoiced')]"/>
+                <filter name="no_status" string="No Status Found" domain="[('status','=','no_status')]"/>
+                <filter name="closed" string="Closed" domain="[('status','=','closed')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="groupby_partner" string="Client Name" context="{'group_by': 'partner_id'}"/>
+                    <filter name="groupby_l2" string="L2 Level (Client Group)" context="{'group_by': 'l2_level_id'}"/>
+                    <filter name="groupby_l3" string="L3 Level (Project)" context="{'group_by': 'l3_level_id'}"/>
+                    <filter name="groupby_opened_by" string="Open by" context="{'group_by': 'opened_by'}"/>
+                    <filter name="groupby_work_year" string="Year" context="{'group_by': 'work_date:year'}"/>
+                    <filter name="groupby_work_month" string="Month" context="{'group_by': 'work_date:month'}"/>
+                    <filter name="groupby_work_date" string="Date" context="{'group_by': 'work_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_cafm_var_work_approval" model="ir.actions.act_window">
+        <field name="name">VAR Work Approval</field>
+        <field name="res_model">cpabooks.cafm.var.work</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_waiting_approval': 1, 'group_by': []}</field>
+    </record>
+    <record id="action_cafm_var_work_ongoing" model="ir.actions.act_window">
+        <field name="name">Work Ongoing</field>
+        <field name="res_model">cpabooks.cafm.var.work</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_work_ongoing': 1, 'group_by': []}</field>
+    </record>
+    <record id="action_cafm_var_waiting_lpo" model="ir.actions.act_window">
+        <field name="name">Waiting for LPO</field>
+        <field name="res_model">cpabooks.cafm.var.work</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_waiting_lpo': 1, 'group_by': []}</field>
+    </record>
+    <record id="action_cafm_var_waiting_report" model="ir.actions.act_window">
+        <field name="name">Waiting for Report Completion</field>
+        <field name="res_model">cpabooks.cafm.var.work</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_waiting_report': 1, 'group_by': []}</field>
+    </record>
+    <record id="action_cafm_var_work_invoiced" model="ir.actions.act_window">
+        <field name="name">VAR work - Invoiced</field>
+        <field name="res_model">cpabooks.cafm.var.work</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_invoiced': 1, 'group_by': []}</field>
+    </record>
+    <record id="action_cafm_var_work_report" model="ir.actions.act_window">
+        <field name="name">VAR Work Report</field>
+        <field name="res_model">cpabooks.cafm.var.work</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'group_by': ['partner_id', 'work_date:year', 'work_date:month']}</field>
+    </record>
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="FaffDashboard">
+        <div class="o_faff_dashboard_root">
+            <div class="o_faff_dash_header">
+                <div class="o_faff_dash_header_row">
+                    <div>
+                        <h1 class="o_faff_dash_title">FAFF Dashboard</h1>
+                        <p class="o_faff_dash_subtitle text-muted"/>
+                    </div>
+                </div>
+            </div>
+            <div class="o_faff_dash_kpis"/>
+            <div class="o_faff_dash_workflow"/>
+        </div>
+    </t>
+</templates>

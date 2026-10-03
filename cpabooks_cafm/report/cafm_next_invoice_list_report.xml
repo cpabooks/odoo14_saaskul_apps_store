@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_cafm_next_invoice_list" model="ir.actions.report">
+        <field name="name">AMC Contracts To be Invoiced</field>
+        <field name="model">cpabooks.cafm.contract</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">cpabooks_cafm.report_cafm_next_invoice_list_template</field>
+        <field name="report_file">cpabooks_cafm.report_cafm_next_invoice_list_template</field>
+        <field name="print_report_name">'AMC_Contracts_To_be_Invoiced'</field>
+        <field name="binding_model_id" eval="False"/>
+        <field name="paperformat_id" ref="paperformat_a4_landscape"/>
+    </record>
+
+    <template id="report_cafm_next_invoice_list_template">
+        <t t-call="web.html_container">
+            <t t-set="company" t-value="res_company"/>
+            <t t-set="month_label" t-value="(data or {}).get('month_label') or ''"/>
+            <t t-set="client_name" t-value="(data or {}).get('client_name') or ''"/>
+            <t t-set="customer_group_name" t-value="(data or {}).get('customer_group_name') or ''"/>
+            <t t-set="project_name" t-value="(data or {}).get('project_name') or ''"/>
+            <div class="page" style="font-family: Arial, Helvetica, sans-serif; font-size: 9px; color: #111;">
+                <table style="width: 100%; border: none; margin-bottom: 8px;">
+                    <tr>
+                        <td style="border: none; width: 70%; vertical-align: top;">
+                            <div style="font-size: 18px; font-weight: 700; color: #14532d; letter-spacing: 0.2px;">
+                                AMC Contracts To be Invoiced
+                            </div>
+                            <div style="font-size: 12px; font-weight: 700; margin-top: 2px;">
+                                For the month of
+                                <t t-esc="month_label or '—'"/>
+                            </div>
+                            <div style="margin-top: 3px; color: #333;">
+                                Company: <t t-esc="(data or {}).get('company_name') or company.name"/>
+                                <t t-if="client_name"> | Client: <t t-esc="client_name"/></t>
+                                <t t-if="customer_group_name"> | Client Group: <t t-esc="customer_group_name"/></t>
+                                <t t-if="project_name"> | Project: <t t-esc="project_name"/></t>
+                            </div>
+                        </td>
+                        <td style="border: none; width: 30%; text-align: right; vertical-align: top;">
+                            <div>Printed: <span t-esc="time.strftime('%d-%m-%Y %H:%M')"/></div>
+                            <div>Total contracts: <t t-esc="len(docs)"/></div>
+                        </td>
+                    </tr>
+                </table>
+
+                <table style="width: 100%; border-collapse: collapse; table-layout: fixed;">
+                    <thead>
+                        <tr style="background: #14532d; color: #fff;">
+                            <th style="border: 1px solid #0f3d22; padding: 4px; width: 3%;">Sr</th>
+                            <th style="border: 1px solid #0f3d22; padding: 4px; width: 9%;">Contract No.</th>
+                            <th style="border: 1px solid #0f3d22; padding: 4px; width: 11%;">Client Name</th>
+                            <th style="border: 1px solid #0f3d22; padding: 4px; width: 10%;">Client Group</th>
+                            <th style="border: 1px solid #0f3d22; padding: 4px; width: 14%;">Project</th>
+                            <th style="border: 1px solid #0f3d22; padding: 4px; width: 7%;">UBS No.</th>
+                            <th style="border: 1px solid #0f3d22; padding: 4px; width: 7%;">Next Inv.</th>
+                            <th style="border: 1px solid #0f3d22; padding: 4px; width: 6%;">Freq.</th>
+                            <th style="border: 1px solid #0f3d22; padding: 4px; width: 8%; text-align: right;">Invoice Amt</th>
+                            <th style="border: 1px solid #0f3d22; padding: 4px; width: 7%;">Last Invoiced</th>
+                            <th style="border: 1px solid #0f3d22; padding: 4px; width: 7%;">Location</th>
+                            <th style="border: 1px solid #0f3d22; padding: 4px; width: 5%;">Status</th>
+                            <th style="border: 1px solid #0f3d22; padding: 4px; width: 6%;">Comment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="sr" t-value="1"/>
+                        <t t-set="total_amt" t-value="0.0"/>
+                        <t t-set="pending_cnt" t-value="0"/>
+                        <t t-set="invoiced_cnt" t-value="0"/>
+                        <tr t-foreach="docs" t-as="doc">
+                            <t t-set="is_invoiced" t-value="doc.invoice_update_status == 'updated'"/>
+                            <t t-set="comment" t-value="'Invoiced' if is_invoiced else 'To be invoiced'"/>
+                            <t t-set="total_amt" t-value="total_amt + (doc.invoicing_value or 0.0)"/>
+                            <t t-if="is_invoiced" t-set="invoiced_cnt" t-value="invoiced_cnt + 1"/>
+                            <t t-if="not is_invoiced" t-set="pending_cnt" t-value="pending_cnt + 1"/>
+                            <td style="border: 1px solid #333; padding: 3px; text-align: center;"><t t-esc="sr"/></td>
+                            <td style="border: 1px solid #333; padding: 3px;"><span t-field="doc.name"/></td>
+                            <td style="border: 1px solid #333; padding: 3px;"><span t-field="doc.client_id"/></td>
+                            <td style="border: 1px solid #333; padding: 3px;"><span t-field="doc.customer_group_id"/></td>
+                            <td style="border: 1px solid #333; padding: 3px;"><span t-field="doc.project_id"/></td>
+                            <td style="border: 1px solid #333; padding: 3px;"><span t-field="doc.ubs_no"/></td>
+                            <td style="border: 1px solid #333; padding: 3px; text-align: center;">
+                                <t t-esc="month_label or doc.next_invoice_month or ''"/>
+                            </td>
+                            <td style="border: 1px solid #333; padding: 3px; text-align: center;"><span t-field="doc.invoice_frequency"/></td>
+                            <td style="border: 1px solid #333; padding: 3px; text-align: right;">
+                                <span t-field="doc.invoicing_value"/>
+                            </td>
+                            <td style="border: 1px solid #333; padding: 3px; text-align: center;">
+                                <span t-field="doc.last_invoiced_date"/>
+                            </td>
+                            <td style="border: 1px solid #333; padding: 3px;">
+                                <t t-esc="doc.location or (doc.project_location_id.display_name if doc.project_location_id else '')"/>
+                            </td>
+                            <td style="border: 1px solid #333; padding: 3px; text-align: center;">
+                                <span t-field="doc.contract_status"/>
+                            </td>
+                            <td t-att-style="'border: 1px solid #333; padding: 3px; font-weight: 700; color: %s;' % ('#0a7a28' if is_invoiced else '#9a3412')">
+                                <t t-esc="comment"/>
+                            </td>
+                            <t t-set="sr" t-value="sr + 1"/>
+                        </tr>
+                        <tr style="background: #f3f4f6;">
+                            <td colspan="8" style="border: 1px solid #333; padding: 4px; text-align: right; font-weight: 700;">
+                                Total Invoice Amount
+                            </td>
+                            <td style="border: 1px solid #333; padding: 4px; text-align: right; font-weight: 700;">
+                                <t t-esc="'{:,.2f}'.format(total_amt)"/>
+                            </td>
+                            <td colspan="4" style="border: 1px solid #333; padding: 4px;">
+                                To be invoiced: <t t-esc="pending_cnt"/>
+                                | Already invoiced: <t t-esc="invoiced_cnt"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="margin-top: 8px; font-size: 8px; color: #444;">
+                    Comment <b>Invoiced</b> = Inv. Status is Updated.
+                    <b>To be invoiced</b> = still pending for the selected Next Invoice month.
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

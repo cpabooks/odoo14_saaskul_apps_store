@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- AFG mapping lines follow company switcher (shared presets hold all CosA). -->
+    <record id="audited_financial_group_line_company_rule" model="ir.rule">
+        <field name="name">AFG mapping lines: allowed companies only</field>
+        <field name="model_id" ref="model_audited_financial_group_line"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="global" eval="True"/>
+    </record>
+</odoo>

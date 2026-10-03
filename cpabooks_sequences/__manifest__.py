@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-
+## -*- coding: utf-8 -*-
 {
     'name': 'CPA Books Re-Sequences',
 
@@ -8,26 +7,22 @@
     'description': """
 CPA Books Re-Sequences
 ======================
-
 Manage and re-sequence document numbers across Accounting, Sales,
 Purchase, Inventory, Project and CRM in Odoo 14.
-
-Features:
----------
-* Manage multiple document sequences from one place
-* Reset sequence prefixes
-* Configure yearly or monthly sequences
-* Change sequence number digits
-* Multi-company sequence management
-* Bulk update multiple sequences
     """,
 
     'author': 'CPA Books',
     'website': 'https://www.cpabooks.co',
 
     'category': 'Productivity',
-    'version': '14.0.1.53',
+    'version': '14.0.1.58',
     'license': 'OPL-1',
+    'price': 1.00,
+    'currency': 'USD',
+
+    'images': [
+        'static/description/banner_screenshot.jpg',
+    ],
 
     'depends': [
         'base',
@@ -62,3 +57,4 @@ Features:
     'application': True,
     'auto_install': False,
 }
+
