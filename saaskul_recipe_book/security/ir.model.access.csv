@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+recipe_user,recipe user,model_saaskul_recipe,saaskul_recipe_book.group_recipe_user,1,0,0,0
+recipe_manager,recipe manager,model_saaskul_recipe,saaskul_recipe_book.group_recipe_manager,1,1,1,1
+recipe_line_manager,line manager,model_saaskul_recipe_line,saaskul_recipe_book.group_recipe_manager,1,1,1,1
+prep_manager,prep manager,model_saaskul_prep_recipe,saaskul_recipe_book.group_recipe_manager,1,1,1,1
+prep_line_manager,prep line manager,model_saaskul_prep_recipe_line,saaskul_recipe_book.group_recipe_manager,1,1,1,1
+closing_user,closing user,model_saaskul_recipe_closing,saaskul_recipe_book.group_recipe_user,1,1,1,0
+consumption_user,consumption user,model_saaskul_recipe_consumption,saaskul_recipe_book.group_recipe_user,1,0,0,0
+wizard_user,wizard user,model_saaskul_recipe_closing_wizard,saaskul_recipe_book.group_recipe_user,1,1,1,1
