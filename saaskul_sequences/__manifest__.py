@@ -15,7 +15,7 @@ Purchase, Inventory, Project and CRM in Odoo 14.
     'website': 'https://www.saaskul.co',
 
     'category': 'Productivity',
-    'version': '14.0.1.59',
+    'version': '14.0.1.60',
     'license': 'OPL-1',
 
     'images': [
@@ -26,10 +26,10 @@ Purchase, Inventory, Project and CRM in Odoo 14.
         'base',
         'account',
         'sale',
+        'purchase',
         'stock',
         'project',
         'crm',
-        'sh_pdc',
     ],
 
     'data': [

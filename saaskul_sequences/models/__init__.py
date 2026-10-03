@@ -11,7 +11,6 @@ from . import account_payment
 # from . import crm
 from . import project
 # from . import quality_chk
-from . import pdc_voucher
 from . import res_company
 from . import set_company_prefix
 # from . import helpdesk_ticket

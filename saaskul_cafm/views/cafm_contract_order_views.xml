@@ -139,7 +139,6 @@
                         </group>
                         <group>
                             <field name="invoice_id" invisible="1"/>
-                            <field name="style" groups="base.group_no_one"/>
                             <field name="docs_status"/>
                             <field name="notes"/>
                         </group>

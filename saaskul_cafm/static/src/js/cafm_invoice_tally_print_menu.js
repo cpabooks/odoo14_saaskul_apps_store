@@ -1,7 +1,6 @@
 odoo.define("saaskul_cafm.invoice_tally_print_menu", function (require) {
     "use strict";
 
-    require("professional_templates_v1.saaskul_print_menu");
     var ActionMenus = require("web.ActionMenus");
 
     var previousSetPrintItems = ActionMenus.prototype._setPrintItems;
