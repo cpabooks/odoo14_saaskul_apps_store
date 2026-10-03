@@ -15,10 +15,8 @@ Purchase, Inventory, Project and CRM in Odoo 14.
     'website': 'https://www.saaskul.co',
 
     'category': 'Productivity',
-    'version': '14.0.1.58',
+    'version': '14.0.1.59',
     'license': 'OPL-1',
-    'price': 1.00,
-    'currency': 'USD',
 
     'images': [
         'static/description/banner_screenshot.jpg',
