@@ -10,7 +10,7 @@
     'category': 'Services/Facility Management',
     'website': 'https://www.parimaldbz.com',
     'license': 'LGPL-3',
-    'images': ['static/description/icon.png'],
+    'images': ['static/description/banner.png'],
     'depends': [
         'maintenance',
         'project',
