@@ -6,11 +6,6 @@ from odoo import api, fields, models, _
 class CafmContractOrderReport(models.Model):
     _inherit = 'saaskul.cafm.contract.order'
 
-    style = fields.Many2one(
-        'report.template.settings',
-        string='Report Style',
-        help='Professional template style used when printing this contract order.',
-    )
     project_title = fields.Char(
         string='Project Title',
         compute='_compute_project_title',
@@ -25,16 +20,6 @@ class CafmContractOrderReport(models.Model):
         string='Report Line Description',
         compute='_compute_report_line_description',
     )
-
-    @api.model
-    def _get_default_report_style(self):
-        company = self.env.company
-        if company.df_style:
-            return company.df_style
-        return self.env.ref(
-            'professional_templates_v1.df_style_for_all_reports',
-            raise_if_not_found=False,
-        ) or self.env['report.template.settings'].sudo().search([], limit=1)
 
     @api.depends('contract_id', 'contract_id.project_id', 'contract_id.name', 'name')
     def _compute_project_title(self):
@@ -75,20 +60,6 @@ class CafmContractOrderReport(models.Model):
                 order.num_word = str(
                     order.currency_id.amount_to_text(order.amount)
                 ).replace('And', 'and')
-
-    @api.onchange('partner_id')
-    def onchange_partner_style(self):
-        default_style = self._get_default_report_style()
-        for rec in self:
-            rec.style = rec.style or default_style or rec.partner_id.style
-
-    @api.model_create_multi
-    def create(self, vals_list):
-        default_style = self._get_default_report_style()
-        for vals in vals_list:
-            if not vals.get('style') and default_style:
-                vals['style'] = default_style.id
-        return super().create(vals_list)
 
     def _get_report_title(self):
         self.ensure_one()

@@ -19,5 +19,4 @@ class AccountPaymentInheritance(models.Model):
             else:
                 raise ValidationError(_("Sequence is not set for PDC Payment voucher"))
         res.name = get_sequence or _('/')
-        print(get_sequence)
         return res
