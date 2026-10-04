@@ -19,7 +19,7 @@ Purchase, Inventory, Project and CRM in Odoo 14.
     'license': 'OPL-1',
 
     'images': [
-        'static/description/banner_screenshot.jpg',
+        'static/description/banner.png',
     ],
 
     'depends': [
