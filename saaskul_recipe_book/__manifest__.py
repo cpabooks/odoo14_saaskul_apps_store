@@ -12,6 +12,6 @@
    'views/recipe_views.xml','views/consumption_views.xml','views/dashboard_views.xml','views/menu.xml',
    'wizard/closing_stock_wizard_views.xml'
  ],
- 'images': ['static/description/menu_sample.png'],
+ 'images': ['static/description/banner.png'],
  'application': True, 'installable': True,
 }
