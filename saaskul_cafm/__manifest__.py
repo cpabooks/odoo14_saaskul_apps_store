@@ -3,12 +3,13 @@
 # After adding or replacing that file: Apps > Update Apps List (developer mode).
 {
     'name': 'Saaskul CAFM',
-    'version': '14.0.1.1.161',
+    'version': '14.0.1.1.162',
     'summary': 'CAFM, AMC, PPM, projects, units, and facility service calls',
     'sequence': -100,
     'description': """Saaskul CAFM for UAE facilities management operations.""",
     'category': 'Services/Facility Management',
-    'website': 'https://www.parimaldbz.com',
+    'author': 'Saaskul',
+    'website': 'https://www.saaskul.co',
     'license': 'LGPL-3',
     'images': ['static/description/banner.png'],
     'depends': [
