@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Saaskul FAFF',
-    'version': '14.0.1.0.15',
+    'version': '14.0.1.0.16',
     'summary': 'Fire Alarm & Fire Fighting job management (CRM to Payment)',
     'sequence': -95,
     'description': """
@@ -10,9 +10,10 @@ CRM → Inspection → Estimate → Quotation → Project → Materials →
 Execute → Test → Handover → Invoice → Payment.
     """,
     'category': 'Services/Fire Safety',
-    'website': 'https://www.parimaldbz.com',
+    'author': 'Saaskul',
+    'website': 'https://www.saaskul.co',
     'license': 'LGPL-3',
-    'images': ['static/description/icon.png'],
+    'images': ['static/description/banner.png'],
     'depends': [
         'crm',
         'sale_management',
