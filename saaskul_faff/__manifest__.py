@@ -13,7 +13,7 @@ Execute → Test → Handover → Invoice → Payment.
     'author': 'Saaskul',
     'website': 'https://www.saaskul.co',
     'license': 'LGPL-3',
-    'images': ['static/description/icon.png'],
+    'images': ['static/description/banner.png'],
     'depends': [
         'crm',
         'sale_management',
