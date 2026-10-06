@@ -12,10 +12,10 @@ Purchase, Inventory, Project and CRM in Odoo 14.
     """,
 
     'author': 'Saaskul',
-    'website': 'https://www.saaskul.co',
+    'website': 'https://saaskul.com/apps/saaskul-re-sequences',
 
     'category': 'Productivity',
-    'version': '14.0.1.60',
+    'version': '14.0.1.61',
     'license': 'OPL-1',
 
     'images': [
