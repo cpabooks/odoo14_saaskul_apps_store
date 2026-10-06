@@ -8,10 +8,10 @@ Saaskul Audited Financials (AFG)
 From trial balance to the full pack: Profit or Loss, Financial Position,
 Equity, Cash Flow, PPE schedule, notes and UAE Corporate Tax.
     """,
-    'version': '14.0.1.0.233',
+    'version': '14.0.1.0.234',
     'category': 'Accounting',
     'author': 'Saaskul',
-    'website': 'https://www.saaskul.co',
+    'website': 'https://saaskul.com/apps/saaskul-audited-financials',
     'license': 'LGPL-3',
     'support': 'info@saaskul.org',
     'images': [
