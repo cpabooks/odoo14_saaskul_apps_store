@@ -9,7 +9,7 @@
     'description': """Saaskul CAFM for UAE facilities management operations.""",
     'category': 'Services/Facility Management',
     'author': 'Saaskul',
-    'website': 'https://saaskul.com/apps/saaskul-cafm',
+    'website': 'https://saaskul.com',
     'license': 'LGPL-3',
     'images': ['static/description/banner.png'],
     'depends': [

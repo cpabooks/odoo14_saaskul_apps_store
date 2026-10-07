@@ -11,7 +11,7 @@ Execute → Test → Handover → Invoice → Payment.
     """,
     'category': 'Services/Fire Safety',
     'author': 'Saaskul',
-    'website': 'https://saaskul.com/apps/saaskul-faff',
+    'website': 'https://saaskul.com',
     'license': 'LGPL-3',
     'images': ['static/description/banner.png'],
     'depends': [

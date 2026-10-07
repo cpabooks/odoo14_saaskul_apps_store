@@ -11,7 +11,7 @@ Equity, Cash Flow, PPE schedule, notes and UAE Corporate Tax.
     'version': '14.0.1.0.234',
     'category': 'Accounting',
     'author': 'Saaskul',
-    'website': 'https://saaskul.com/apps/saaskul-audited-financials',
+    'website': 'https://saaskul.com',
     'license': 'LGPL-3',
     'support': 'info@saaskul.org',
     'images': [
