@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <function model="ir.ui.view" name="cpabooks_unlink_views_by_xmlid">
+            <value eval="['view_fsm_project_task_form_field_stage_colors']"/>
+        </function>
+
+        <record id="view_fsm_project_task_form_workflow_ui" model="ir.ui.view">
+            <field name="name">fsm.project.task.form.workflow.ui</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="field_service_saaskul.view_fsm_project_task_form_view_inherit"/>
+            <field name="priority">30</field>
+            <field name="arch" type="xml">
+
+                <xpath expr="//sheet" position="inside">
+                    <field name="is_fsm" invisible="1"/>
+                    <field name="check_fsm" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//sheet" position="attributes">
+                    <attribute name="class" add=" cpabooks_fsm_form_with_sidebar" separator=" "/>
+                </xpath>
+
+                <xpath expr="//header" position="inside">
+                    <field name="fsm_ui_active_stage" invisible="1"/>
+                    <field name="fsm_workflow_edit_mode" invisible="1"/>
+                    <field name="fsm_crn_form" invisible="1"/>
+                    <!-- FULL EDIT lives under control-panel EDIT (JS). Hide header duplicate. -->
+                    <button name="action_fsm_workflow_full_edit"
+                            type="object"
+                            string="FULL EDIT"
+                            class="btn-secondary cpabooks_fsm_header_full_edit"
+                            invisible="1"/>
+                </xpath>
+
+                <xpath expr="//button[@name='action_fsm_validate'][hasclass('btn-primary')]" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', '|', ('display_mark_as_done_primary', '=', False), ('is_fsm', '=', True), ('check_fsm', '=', True)]}</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_fsm_validate'][hasclass('btn-secondary')]" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', '|', ('display_mark_as_done_secondary', '=', False), ('is_fsm', '=', True), ('check_fsm', '=', True)]}</attribute>
+                </xpath>
+
+                <xpath expr="//div[@name='cpabooks_fsm_document_button_box']" position="after">
+                    <div class="cpabooks_fsm_next_prominent" attrs="{'invisible': ['&amp;', ('is_fsm', '=', False), ('check_fsm', '=', False)]}">
+                        <field name="fsm_workflow_pending_serials_display" invisible="1"/>
+                        <field name="fsm_pending_banner_html" invisible="1"/>
+                        <div class="cpabooks_fsm_ribbon_row cpabooks_fsm_ribbon_row_main">
+                            <span class="cpabooks_fsm_ribbon_progress_label">Progress</span>
+                            <div class="cpabooks_fsm_ribbon_progress_wrap">
+                                <field name="fsm_stage_progress"
+                                       nolabel="1"
+                                       widget="progressbar"
+                                       readonly="1"
+                                       class="cpabooks_fsm_top_progress cpabooks_fsm_top_progress_wide"/>
+                            </div>
+                            <field name="fsm_workflow_pending_ribbon_text"
+                                   nolabel="1"
+                                   readonly="1"
+                                   class="cpabooks_fsm_ribbon_pending_list"/>
+                        </div>
+                    </div>
+                    <field name="fsm_workflow_progress_html" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//div[@class='cpabooks_fsm_nav_panel']" position="attributes">
+                    <attribute name="class">cpabooks_fsm_nav_panel d-none</attribute>
+                </xpath>
+
+                <xpath expr="//sheet" position="inside">
+                    <div class="cpabooks_fsm_sidebar" attrs="{'invisible': ['&amp;', ('is_fsm', '=', False), ('check_fsm', '=', False)]}">
+                        <field name="fsm_action_nav_html"
+                               widget="fsm_readonly_html"
+                               nolabel="1"
+                               readonly="1"/>
+                    </div>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

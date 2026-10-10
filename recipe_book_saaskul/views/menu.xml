@@ -1,0 +1,9 @@
+<odoo>
+<menuitem id="menu_recipe_root" name="Recipe Book" sequence="35" web_icon="recipe_book_saaskul,static/description/icon.png" groups="recipe_book_saaskul.group_recipe_user"/>
+<menuitem id="menu_dashboard" parent="menu_recipe_root" name="Dashboard" action="action_dashboard" sequence="1"/>
+<menuitem id="menu_book" parent="menu_recipe_root" name="Menu Book" action="action_recipe" sequence="10"/>
+<menuitem id="menu_prep" parent="menu_recipe_root" name="Prep &amp; Sub-Recipes" action="action_prep" sequence="20"/>
+<menuitem id="menu_analysis" parent="menu_recipe_root" name="Consumption Analysis" action="action_consumption" sequence="30"/>
+<menuitem id="menu_close_start" parent="menu_recipe_root" name="Start Daily Closing" action="action_closing_wizard" sequence="40"/>
+<menuitem id="menu_close" parent="menu_recipe_root" name="Closing Stock &amp; Variance" action="action_closing" sequence="41"/>
+</odoo>

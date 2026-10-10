@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="fsm_project_task_tree_inherit" model="ir.ui.view">
+            <field name="name">fsm.project.task.tree.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="industry_fsm.project_task_view_list_fsm"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="default_order">write_date desc, create_date desc, id desc</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="write_date" invisible="1"/>
+                    <field name="create_date" string="Create Date" widget="date"
+                           invisible="not context.get('fsm_mode', False)"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="task_seq" string="CRN No" invisible="not context.get('fsm_mode', False)"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="complaint_details_short" string="Details"
+                           class="o_crn_complaint_details_list"
+                           invisible="not context.get('fsm_mode', False)" optional="show"/>
+                    <field name="client_person" invisible="not context.get('fsm_mode', False)" optional="hide"/>
+                    <field name="client_contact" invisible="not context.get('fsm_mode', False)" optional="hide"/>
+                    <field name="client_email" invisible="not context.get('fsm_mode', False)" optional="hide"/>
+                    <field name="complaint_type" invisible="not context.get('fsm_mode', False)" optional="hide"/>
+                    <field name="fsm_stage_group" string="CRN Stage" invisible="not context.get('fsm_mode', False)"/>
+                    <field name="fsm_stage_progress" string="Progress %" widget="progressbar"
+                           invisible="not context.get('fsm_mode', False)" optional="show"/>
+                    <field name="age_days" invisible="not context.get('fsm_mode', False)"/>
+                    <field name="material_cost_total" invisible="not context.get('fsm_mode', False)" optional="show"/>
+                    <field name="timesheet_cost_total" invisible="not context.get('fsm_mode', False)" optional="show"/>
+                    <field name="total_service_cost" invisible="not context.get('fsm_mode', False)" optional="hide"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="site_location" invisible="not context.get('fsm_mode', False)"/>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="before">
+                    <field name="approved_by" invisible="not context.get('fsm_mode', False)"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Remove stale extensions before parent reload (old approval xpaths break upgrade). -->
+        <function model="ir.ui.view" name="cpabooks_unlink_views_by_xmlid">
+            <value eval="[
+                'view_fsm_crn_stage7_layout',
+                'view_fsm_project_task_form_customer_parts',
+                'view_fsm_project_task_form_material_return',
+                'view_fsm_project_task_form_action_navigation_duplicate_fields',
+                'view_fsm_project_task_form_workflow_ui',
+                'view_fsm_project_task_form_remove_duplicate_next_action',
+            ]"/>
+        </function>
+
+        <record id="view_fsm_project_task_form_view_inherit" model="ir.ui.view">
+            <field name="name">view.fsm.project.task.form.view.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="industry_fsm.view_task_form2_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <field name="fsm_all_quotation_count" invisible="1"/>
+                    <button name="action_fsm_create_quotation"
+                            type="object"
+                            string="Create Quotation"
+                            class="btn-primary"
+                            groups="sales_team.group_sale_salesman"
+                            attrs="{'invisible': ['|', '&amp;', ('is_fsm', '=', False), ('check_fsm', '=', False), ('fsm_all_quotation_count', '>', 0)]}"/>
+                    <field name="next_action" invisible="1"/>
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="registered,site_visited,qty_issued,qty_approved,in_progress,waiting_for_invoice,job_completed,job_completed_invoiced,approved"
+                           invisible="not context.get('fsm_mode', False)"/>
+                </xpath>
+
+                <xpath expr="//header/field[@name='stage_id']" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode', False)</attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='action_assign_to_me']" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode', False)</attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='action_subtask']" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode', False)</attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='action_recurring_tasks']" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode', False)</attribute>
+                </xpath>
+
+                <xpath expr="//div[@name='button_box']" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode', False)</attribute>
+                </xpath>
+
+                <xpath expr="//sheet" position="attributes">
+                    <attribute name="class" add=" cpabooks_fsm_task_sheet" separator=" "/>
+                </xpath>
+
+                <xpath expr="//sheet/group[1]" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode', False)</attribute>
+                </xpath>
+
+                <xpath expr="//sheet/group[1]" position="after">
+                    <div class="oe_button_box" name="cpabooks_fsm_document_button_box"
+                         invisible="not context.get('fsm_mode', False)">
+                        <field name="fsm_all_quotation_count" invisible="1"/>
+                        <field name="fsm_all_delivery_count" invisible="1"/>
+                        <field name="fsm_all_invoice_count" invisible="1"/>
+                        <button name="action_fsm_create_quotation"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-file-text-o"
+                                groups="sales_team.group_sale_salesman"
+                                attrs="{'invisible': [('fsm_all_quotation_count', '>', 0)]}">
+                            <span class="o_stat_text">Create Quotation</span>
+                        </button>
+                        <button name="action_fsm_view_all_related_quotations"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-file-text-o"
+                                attrs="{'invisible': [('fsm_all_quotation_count', '=', 0)]}">
+                            <field name="fsm_all_quotation_count" widget="statinfo" string="Quotation"/>
+                        </button>
+                        <button name="action_fsm_view_all_related_invoices"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-pencil-square-o"
+                                attrs="{'invisible': [('fsm_all_invoice_count', '=', 0)]}">
+                            <field name="fsm_all_invoice_count" widget="statinfo" string="Invoice"/>
+                        </button>
+                        <button name="action_fsm_view_all_related_deliveries"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-truck"
+                                attrs="{'invisible': [('fsm_all_delivery_count', '=', 0)]}">
+                            <field name="fsm_all_delivery_count" widget="statinfo" string="DO"/>
+                        </button>
+                    </div>
+                    <group class="cpabooks_fsm_overview"
+                           invisible="not context.get('fsm_mode', False)"
+                           attrs="{'invisible': ['&amp;', ('is_fsm', '=', False), ('check_fsm', '=', False)]}">
+                        <field name="is_fsm" invisible="1"/>
+                        <field name="check_fsm" invisible="1"/>
+                        <field name="fsm_crn_form" invisible="1"/>
+                        <field name="fsm_ui_active_stage" invisible="1"/>
+                        <field name="remaining_hours" invisible="1"/>
+                        <group class="cpabooks_fsm_overview_fields">
+                            <field name="stage" invisible="1"/>
+                            <field name="name" invisible="1"/>
+                            <field name="available_invoice_ids" invisible="1"/>
+                            <field name="show_invoice_line" invisible="1"/>
+                            <field name="available_invoice_line_ids" invisible="1"/>
+                            <field name="available_quotation_ids" invisible="1"/>
+                            <field name="invoice_project_ids" invisible="1"/>
+                            <field name="user_id" invisible="1"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="fsm_stage_0_readonly" invisible="1"/>
+                            <field name="fsm_stage_1_readonly" invisible="1"/>
+                            <field name="fsm_stage_2_readonly" invisible="1"/>
+                            <field name="fsm_stage_3_readonly" invisible="1"/>
+                            <field name="fsm_stage_4_readonly" invisible="1"/>
+                            <field name="fsm_stage_5_readonly" invisible="1"/>
+                            <field name="fsm_stage_6_readonly" invisible="1"/>
+
+                            <group class="cpabooks_fsm_stage_box cpabooks_fsm_stage_box_orange cpabooks_fsm_stage_panel cpabooks_fsm_stage_panel_0">
+                                <separator string="STAGE 1 — REGISTRATION" class="cpabooks_fsm_stage_sep_title cpabooks_fsm_stage_title_orange"/>
+                                <field name="task_seq" string="1. CRN Number" readonly="1"/>
+                                <field name="create_date" string="2. Create Date" readonly="1" widget="date"/>
+                                <field name="fsm_creator_uid" string="3. Created By" readonly="1"/>
+                                <field name="partner_id"
+                                       string="4. Customer"
+                                       widget="res_partner_many2one"
+                                       class="o_task_customer_field"
+                                       options="{'always_reload': True}"
+                                       context="{'show_address': False}"
+                                       attrs="{'required': [('is_fsm', '=', True)]}"/>
+                                <field name="site_location" string="5. Site Location"/>
+                                <field name="client_person" string="6. Contact Person"/>
+                                <field name="client_contact" string="7. Contact Number" widget="phone"/>
+                                <field name="client_email" string="8. Email ID" widget="email"/>
+                                <field name="complaint_type" string="9. Complaint Type"/>
+                                <field name="invoice_id"
+                                       string="10. Reference Invoice Number"
+                                       domain="[('id', 'in', available_invoice_ids)]"/>
+                                <field name="qt_no"
+                                       string="11. Reference Quotations Number"
+                                       domain="[('id', 'in', available_quotation_ids)]"
+                                       options="{'no_create': True, 'no_create_edit': True, 'no_quick_create': True}"/>
+                                <field name="qt_no_text"
+                                       string="11. Reference Quotations Number"
+                                       placeholder="Enter quotation reference"/>
+                                <field name="item_des"
+                                       string="12. Invoice Line"
+                                       domain="[('id', 'in', available_invoice_line_ids)]"/>
+                                <field name="invoice_line_notice"
+                                       readonly="1"
+                                       nolabel="1"/>
+                                <field name="invoice_type" string="13. Invoice Type" readonly="1"/>
+                                <field name="crn_done_before" string="14. CRN Done Before"/>
+                                <field name="project_id"
+                                       string="15. Project"
+                                       context="{'default_is_fsm': context.get('fsm_mode')}"
+                                       domain="['|', ('id', 'in', invoice_project_ids), ('is_fsm', '=', True)]"
+                                       required="0"/>
+                                <field name="complaint_title"
+                                       string="16. Complaint Title"
+                                       options="{'no_create_edit': False}"/>
+                                <field name="complaint_details"
+                                       string="17. Complaint Details"
+                                       attrs="{'invisible': [('fsm_crn_form', '=', True)]}"/>
+                                <field name="deadline" string="18. Date Deadline"/>
+                                <field name="importance" string="19. Priority"/>
+                                <field name="total_print_row" string="20. Total Print Row"/>
+                            </group>
+
+                            <group class="cpabooks_fsm_stage_box cpabooks_fsm_stage_box_green cpabooks_fsm_stage_panel cpabooks_fsm_stage_panel_1">
+                                <separator string="STAGE 2 — SITE VISIT" class="cpabooks_fsm_stage_sep_title cpabooks_fsm_stage_title_green"/>
+                                <field name="visited_by"
+                                       string="21. Visited By"
+                                       widget="many2one_avatar_employee"
+                                       context="{'fsm_employee_picker': True}"
+                                       options="{'no_create': True, 'no_create_edit': True}"
+                                       domain="[('active', '=', True)]"/>
+                                <field name="visited_date" string="22. Visited Date"/>
+                                <field name="site_visit" string="23. Site Visit Remarks"/>
+                                <field name="next_action"
+                                       string="24. Next Action"
+                                       attrs="{'readonly': [('fsm_stage_1_readonly', '=', True)]}"/>
+                            </group>
+
+                            <group class="cpabooks_fsm_stage_box cpabooks_fsm_stage_box_blue cpabooks_fsm_stage_panel cpabooks_fsm_stage_panel_2">
+                                <separator string="STAGE 3 — QUOTATION ISSUED" class="cpabooks_fsm_stage_sep_title cpabooks_fsm_stage_title_blue"/>
+                                <field name="fsm_all_quotation_count" invisible="1"/>
+                                <field name="fsm_quotation_status" invisible="1"/>
+                                <field name="fsm_quotation_id"
+                                       string="25. Quotation Issued"
+                                       readonly="1"
+                                       attrs="{'invisible': [('fsm_quotation_id', '=', False)]}"/>
+                            </group>
+
+                            <group class="cpabooks_fsm_stage_box cpabooks_fsm_stage_box_purple cpabooks_fsm_stage_panel cpabooks_fsm_stage_panel_3">
+                                <separator string="STAGE 4 — QUOTATION APPROVED" class="cpabooks_fsm_stage_sep_title cpabooks_fsm_stage_title_purple"/>
+                                <field name="fsm_quotation_approval_status"
+                                       string="26. Quotation Approved"
+                                       readonly="1"
+                                       class="cpabooks_fsm_quotation_approved"
+                                       attrs="{'invisible': [('fsm_quotation_approval_status', '=', False)]}"/>
+                            </group>
+
+                            <group class="cpabooks_fsm_stage_box cpabooks_fsm_stage_box_teal cpabooks_fsm_stage_panel cpabooks_fsm_stage_panel_4">
+                                <separator string="STAGE 5 — WORK IN PROGRESS" class="cpabooks_fsm_stage_sep_title cpabooks_fsm_stage_title_teal"/>
+                                <field name="fsm_assigned_employee_id"
+                                       string="28. Assigned to"
+                                       widget="many2one_avatar_employee"
+                                       context="{'fsm_employee_picker': True}"
+                                       options="{'no_create': True, 'no_create_edit': True}"
+                                       domain="[('active', '=', True)]"
+                                       attrs="{'readonly': [('fsm_stage_2_readonly', '=', True)]}"/>
+                                <field name="assign_date"
+                                       string="28. Assign Date"
+                                       attrs="{'readonly': [('fsm_stage_2_readonly', '=', True)]}"/>
+                                <field name="date_end"
+                                       string="29. End Date"
+                                       attrs="{'readonly': [('fsm_stage_3_readonly', '=', True)]}"/>
+                            </group>
+
+                            <group class="cpabooks_fsm_stage_box cpabooks_fsm_stage_box_yellow cpabooks_fsm_stage_panel cpabooks_fsm_stage_panel_5">
+                                <separator string="STAGE 6 — INVOICE" class="cpabooks_fsm_stage_sep_title cpabooks_fsm_stage_title_yellow"/>
+                                <field name="select_invoice" invisible="1"/>
+                                <field name="fsm_invoice_progress_tone" invisible="1"/>
+                                <field name="fsm_invoice_progress_status"
+                                       string="30. Invoice Status"
+                                       readonly="1"
+                                       class="cpabooks_fsm_invoice_status"/>
+                                <field name="fsm_invoice_number_display"
+                                       string="30. Invoice No."
+                                       readonly="1"
+                                       class="cpabooks_fsm_invoice_number"
+                                       attrs="{'invisible': [('fsm_invoice_number_display', '=', False)]}"/>
+                            </group>
+
+                            <group class="cpabooks_fsm_stage_box cpabooks_fsm_stage_box_pink cpabooks_fsm_stage_panel cpabooks_fsm_stage_panel_6">
+                                <separator string="STAGE 7 — APPROVAL / CLOSE" class="cpabooks_fsm_stage_sep_title cpabooks_fsm_stage_title_pink"/>
+                                <field name="fsm_stage7_job_complete" invisible="1"/>
+                                <field name="fsm_stage7_approval_tone" invisible="1"/>
+                                <field name="fsm_stage7_approval_status"
+                                       string="31. Approval Status"
+                                       readonly="1"
+                                       class="cpabooks_fsm_stage7_approval_status"
+                                       attrs="{'invisible': [('fsm_stage7_job_complete', '=', False)]}"/>
+                                <separator string="COST SUMMARY" class="cpabooks_fsm_stage_sep_title cpabooks_fsm_stage_title_cost_summary"/>
+                                <field name="material_cost_total" string="32. Material Cost" readonly="1"/>
+                                <field name="timesheet_cost_total" string="33. Timesheet Cost" readonly="1"/>
+                                <field name="total_service_cost" string="36. Total Actual + Estimated Cost" readonly="1"/>
+                                <field name="closing_remarks"
+                                       string="37. Closing Remarks"
+                                       attrs="{'readonly': [('fsm_stage_6_readonly', '=', True)]}"/>
+                            </group>
+                        </group>
+                    </group>
+                </xpath>
+
+                <xpath expr="//div[hasclass('oe_title') and hasclass('pr-0')]/h1" position="attributes">
+                    <attribute name="class" add=" cpabooks_fsm_title" separator=" "/>
+                </xpath>
+
+                <xpath expr="//div[hasclass('oe_title') and hasclass('pr-0')]//field[@name='name']" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode', False)</attribute>
+                </xpath>
+
+                <xpath expr="//sheet/group[1]//field[@name='partner_id']" position="attributes">
+                    <attribute name="string">Customer</attribute>
+                    <attribute name="invisible">context.get('fsm_mode', False)</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='partner_email']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='partner_phone']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='parent_id']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('allow_subtasks', '=', False), ('check_fsm', '=', True)]}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='recurring_task']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('allow_recurring_tasks', '=', False), ('check_fsm',
+                        '=',
+                        True)]}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//sheet/group[1]//field[@name='tag_ids']" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode', False)</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="string">Assigned to</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='date_deadline']" position="attributes">
+                    <attribute name="string">Date Deadline</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='timesheet_ids']" position="attributes">
+                    <attribute name="context">{'default_project_id': project_id, 'default_task_id': id, 'default_company_id': company_id, 'default_name': '', 'fsm_employee_picker': True, 'fsm_mode': context.get('fsm_mode')}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='timesheet_ids']/tree/field[@name='employee_id']" position="before">
+                    <field name="project_id" invisible="1"/>
+                    <field name="task_id" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='timesheet_ids']/form//group" position="inside">
+                    <field name="project_id" invisible="1"/>
+                    <field name="task_id" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//notebook/page[@name='extra_info']" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode', False)</attribute>
+                </xpath>
+
+                <xpath expr="//notebook/page[@name='description_page']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('fsm_crn_form', '=', True)]}</attribute>
+                </xpath>
+
+                <xpath expr="//notebook/page[@name='description_page']" position="after">
+                    <page name="fsm_extra_info" string="Extra Info"
+                          attrs="{'invisible': [('fsm_crn_form', '=', False)]}">
+                        <group>
+                            <group>
+                                <field name="parent_id" attrs="{'invisible': [('allow_subtasks', '=', False)]}"/>
+                                <field name="recurring_task"
+                                       attrs="{'invisible': [('allow_recurring_tasks', '=', False)]}"/>
+                                <field name="active"/>
+                                <field name="planned_hours" string="Hours Forecast"/>
+                                <field name="approved_by" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="remarks"/>
+                                <field name="tag_ids"
+                                       string="Tags"
+                                       widget="many2many_tags"
+                                       options="{'color_field': 'color', 'no_create_edit': True}"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+                <xpath expr="//field[@name='partner_email']" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode',False)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_phone']" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode',False)</attribute>
+                </xpath>
+                <!--                <xpath expr="//field[@name='project_id']" position="attributes">-->
+                <!--                    <attribute name="invisible">context.get('fsm_mode',False)</attribute>-->
+                <!--                </xpath>-->
+                <xpath expr="//field[@name='project_id']" position="attributes">
+                    <attribute name="required">0</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_fsm_project_task_form_timesheet_inherit" model="ir.ui.view">
+            <field name="name">view.fsm.project.task.form.timesheet.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="field_service_saaskul.view_fsm_project_task_form_view_inherit"/>
+            <field name="priority">55</field>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@id='timesheets_tab']" position="replace"/>
+
+                <xpath expr="//notebook/page[@name='description_page']" position="after">
+                    <page string="TMC Internal" id="timesheets_tab"
+                          attrs="{'invisible': [('fsm_crn_form', '=', False)]}">
+                        <field name="fsm_crn_form" invisible="1"/>
+                        <notebook>
+                            <page string="Timesheet" name="internal_timesheet">
+                                <group>
+                                    <div class="o_td_label">
+                                        <label for="planned_hours" string="Initially Planned Hours"
+                                               attrs="{'invisible': [('encode_uom_in_days', '=', True)]}"/>
+                                        <label for="planned_hours" string="Initially Planned Days"
+                                               attrs="{'invisible': [('encode_uom_in_days', '=', False)]}"/>
+                                    </div>
+                                    <field name="planned_hours" widget="timesheet_uom_no_toggle" nolabel="1"/>
+                                    <div class="o_td_label" groups="project.group_subtask_project"
+                                         attrs="{'invisible': ['|', ('allow_subtasks', '=', False), ('subtask_count', '=', 0)]}">
+                                        <label for="subtask_planned_hours" string="Sub-tasks Planned Hours"
+                                               attrs="{'invisible': [('encode_uom_in_days', '=', True)]}"/>
+                                        <label for="subtask_planned_hours" string="Sub-tasks Planned Days"
+                                               attrs="{'invisible': [('encode_uom_in_days', '=', False)]}"/>
+                                    </div>
+                                    <field name="subtask_planned_hours" widget="timesheet_uom_no_toggle" nolabel="1"
+                                           groups="project.group_subtask_project"
+                                           attrs="{'invisible': ['|', ('allow_subtasks', '=', False), ('subtask_count', '=', 0)]}"/>
+                                </group>
+                                <group name="timesheet_error" attrs="{'invisible': [('analytic_account_active', '!=', False)]}">
+                                    <div class="alert alert-warning" role="alert">
+                                        You cannot log timesheets on this project since it is linked to an inactive analytic
+                                        account. Please change this account, or reactivate the current one to timesheet on the
+                                        project.
+                                    </div>
+                                </group>
+                                <field name="analytic_account_id" invisible="1"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="timesheet_ids"
+                                       mode="tree,kanban"
+                                       attrs="{'invisible': [('analytic_account_active', '=', False)]}"
+                                       context="{'default_project_id': project_id, 'default_task_id': id, 'default_account_id': analytic_account_id, 'default_company_id': company_id, 'default_name': site_visit or '/'}">
+                                    <tree editable="bottom" string="Timesheet Activities" class="cpabooks_fsm_timesheet_lines" default_order="date desc">
+                                        <field name="date"/>
+                                        <field name="user_id" invisible="1"/>
+                                        <field name="employee_id" required="1" widget="many2one_avatar_employee"/>
+                                        <field name="name" required="0"/>
+                                        <field name="unit_amount" widget="timesheet_uom"
+                                               decoration-danger="unit_amount &gt; 24"/>
+                                        <field name="project_id" invisible="1" readonly="1"/>
+                                        <field name="task_id" invisible="1" readonly="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                    <kanban class="o_kanban_mobile">
+                                        <field name="date"/>
+                                        <field name="user_id"/>
+                                        <field name="employee_id" widget="many2one_avatar_employee"/>
+                                        <field name="name"/>
+                                        <field name="unit_amount" decoration-danger="unit_amount &gt; 24"/>
+                                        <field name="project_id"/>
+                                        <field name="task_id" invisible="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <strong>
+                                                                <span>
+                                                                    <t t-esc="record.employee_id.value"/>
+                                                                </span>
+                                                            </strong>
+                                                        </div>
+                                                        <div class="col-6 pull-right text-right">
+                                                            <strong>
+                                                                <t t-esc="record.date.value"/>
+                                                            </strong>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-8 text-muted">
+                                                            <span>
+                                                                <t t-esc="record.name.value"/>
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <span class="pull-right text-right">
+                                                                <field name="unit_amount" widget="float_time"/>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                    <form string="Timesheet Activities">
+                                        <group>
+                                            <group>
+                                                <field name="date"/>
+                                                <field name="employee_id" required="1"/>
+                                                <field name="unit_amount" widget="timesheet_uom"/>
+                                            </group>
+                                            <group>
+                                                <field name="name"/>
+                                                <field name="project_id" readonly="1"/>
+                                                <field name="task_id" readonly="1"/>
+                                                <field name="company_id" invisible="1"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                                <group attrs="{'invisible': [('analytic_account_active', '=', False)]}">
+                                    <group class="oe_subtotal_footer oe_right" name="project_hours">
+                                        <span>
+                                            <label class="font-weight-bold" for="effective_hours" string="Hours Spent"
+                                                   attrs="{'invisible': [('encode_uom_in_days', '=', True)]}"/>
+                                            <label class="font-weight-bold" for="effective_hours" string="Days Spent"
+                                                   attrs="{'invisible': [('encode_uom_in_days', '=', False)]}"/>
+                                        </span>
+                                        <field name="effective_hours" widget="timesheet_uom" nolabel="1"/>
+                                        <button name="action_view_subtask_timesheet" type="object"
+                                                class="o_td_label o_form_label o_form_subtask_button oe_inline oe_link mr-0"
+                                                attrs="{'invisible' : ['|', ('allow_subtasks', '=', False), ('subtask_effective_hours', '=', 0.0)]}">
+                                            <span class="text-nowrap"
+                                                  attrs="{'invisible' : [('encode_uom_in_days', '=', True)]}">
+                                                Sub-tasks Hours Spent
+                                            </span>
+                                            <span class="text-nowrap"
+                                                  attrs="{'invisible' : [('encode_uom_in_days', '=', False)]}">
+                                                Sub-tasks Days Spent
+                                            </span>
+                                        </button>
+                                        <field name="subtask_effective_hours"
+                                               class="mt-2"
+                                               widget="timesheet_uom"
+                                               attrs="{'invisible' : ['|', ('allow_subtasks', '=', False), ('subtask_effective_hours', '=', 0.0)]}"
+                                               nolabel="1"/>
+                                        <span>
+                                            <label class="font-weight-bold" for="total_hours_spent" string="Total Hours"
+                                                   attrs="{'invisible': ['|', '|', ('allow_subtasks', '=', False), ('subtask_effective_hours', '=', 0.0), ('encode_uom_in_days', '=', True)]}"/>
+                                            <label class="font-weight-bold" for="total_hours_spent" string="Total Days"
+                                                   attrs="{'invisible': ['|', '|', ('allow_subtasks', '=', False), ('subtask_effective_hours', '=', 0.0), ('encode_uom_in_days', '=', False)]}"/>
+                                        </span>
+                                        <field name="total_hours_spent"
+                                               widget="timesheet_uom"
+                                               class="oe_subtotal_footer_separator"
+                                               nolabel="1"
+                                               attrs="{'invisible': ['|', ('allow_subtasks', '=', False), ('subtask_effective_hours', '=', 0.0)]}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Material Request" name="material_request"
+                                  attrs="{'invisible': [('fsm_crn_form', '=', False)]}">
+                                <group>
+                                    <field name="material_line_ids" nolabel="1">
+                                        <tree editable="bottom">
+                                            <field name="product_id"/>
+                                            <field name="description"/>
+                                            <field name="quantity"/>
+                                            <field name="quantity_done"/>
+                                            <field name="amount_done"/>
+                                        </tree>
+                                    </field>
+                                    <group class="oe_subtotal_footer oe_right">
+                                        <field name="material_amount_done_total" readonly="1"/>
+                                        <field name="material_cost_total" readonly="1"/>
+                                        <field name="timesheet_cost_total" readonly="1"/>
+                                        <field name="total_service_cost" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- TREE -->
+        <record id="industry_fsm.project_task_action_fsm_view_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="5"/>
+        </record>
+
+        <record id="industry_fsm.project_task_action_fsm_view_kanban" model="ir.actions.act_window.view">
+            <field name="sequence" eval="10"/>
+        </record>
+
+        <record id="industry_fsm.project_task_action_fsm_view_map" model="ir.actions.act_window.view">
+            <field name="sequence" eval="15"/>
+        </record>
+
+        <record id="industry_fsm.project_task_action_fsm_view_calendar" model="ir.actions.act_window.view">
+            <field name="sequence" eval="20"/>
+        </record>
+
+        <record id="industry_fsm.project_task_action_fsm_view_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="30"/>
+        </record>
+
+        <record id="project_task_view_form_timesheet_cleanup" model="ir.ui.view">
+            <field name="name">project.task.form.timesheet.cleanup</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="hr_timesheet.view_task_form2_inherited"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='planned_hours']" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode', False)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='subtask_planned_hours']" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode', False)</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="project_task_view_form_hide_mark_as_done" model="ir.ui.view">
+            <field name="name">project.task.form.hide.mark.as.done</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="industry_fsm.view_task_form2_inherit"/>
+            <field name="priority">300</field>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_fsm_validate']" position="replace"/>
+            </field>
+        </record>
+
+        <record id="project_task_view_form_fsm_sale_inherit" model="ir.ui.view">
+            <field name="name">project.task.tree.fsm.sale.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="industry_fsm_sale.view_task_form2_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_fsm_create_quotation']" position="before">
+                    <field name="stage" invisible="1"/>
+                    <field name="next_action" invisible="1"/>
+                </xpath>
+                <!-- Hide only enterprise header "New Quotation" (btn-secondary); keep our Create Quotation. -->
+                <xpath expr="//button[@name='action_fsm_create_quotation'][hasclass('btn-secondary')][not(hasclass('oe_stat_button'))]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="project_task_view_form_fsm_report_inherit" model="ir.ui.view">
+            <field name="name">project.task.tree.fsm.sale.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="industry_fsm_report.view_task_form2_inherit"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='worksheet_template_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="project_task_view_form_sale_timesheet_inherit" model="ir.ui.view">
+            <field name="name">project.task.form.sale.timesheet.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="sale_timesheet.project_task_view_form_inherit_sale_timesheet"/>
+            <field name="arch" type="xml">
+                <!-- Only target nodes present on both old and new sale_timesheet arches.
+                     remaining_hours_so / remaining_hours_so_label exist only after a
+                     newer sale_timesheet view sync; xpath on them breaks upgrades. -->
+                <xpath expr="//field[@name='timesheet_product_id']" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode', False)</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="project_task_view_form_timesheet_grid_inherit" model="ir.ui.view">
+            <field name="name">project.task.form.timesheet.grid.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="timesheet_grid.project_task_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//button[@name='action_timer_start']" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode',False)</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_fsm_project_task_form_hide_stat_buttons" model="ir.ui.view">
+            <field name="name">view.fsm.project.task.form.hide.stat.buttons</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="industry_fsm_sale.view_task_form2_inherit"/>
+            <field name="priority">300</field>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_fsm_view_material']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_fsm_project_task_form_hide_timesheet_button" model="ir.ui.view">
+            <field name="name">view.fsm.project.task.form.hide.timesheet.button</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="industry_fsm.view_task_form2_inherit"/>
+            <field name="priority">300</field>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_view_timesheets']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_fsm_project_task_form_hide_forecast_button" model="ir.ui.view">
+            <field name="name">view.fsm.project.task.form.hide.forecast.button</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project_forecast.project_task_view_form"/>
+            <field name="priority">300</field>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_get_project_forecast_by_user']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_fsm_project_task_form_hide_worksheet_button" model="ir.ui.view">
+            <field name="name">view.fsm.project.task.form.hide.worksheet.button</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="industry_fsm_report.view_task_form2_inherit"/>
+            <field name="priority">300</field>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_fsm_worksheet']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_fsm_project_task_form_show_cost_summary" model="ir.ui.view">
+            <field name="name">view.fsm.project.task.form.show.cost.summary</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="view_fsm_project_task_form_view_inherit"/>
+            <field name="priority">350</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='tag_ids']" position="after">
+                    <label for="material_cost_total" invisible="not context.get('fsm_mode', False)"/>
+                    <div class="o_row" invisible="not context.get('fsm_mode', False)">
+                        <field name="material_cost_total" string="Total Material Cost" readonly="1" nolabel="1"/>
+                    </div>
+                    <label for="timesheet_cost_total" invisible="not context.get('fsm_mode', False)"/>
+                    <div class="o_row" invisible="not context.get('fsm_mode', False)">
+                        <field name="timesheet_cost_total" readonly="1" nolabel="1"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_project_task_fsm_quick_create_partner_unrestricted_field_service" model="ir.ui.view">
+            <field name="name">project.task.fsm.quick.create.partner.unrestricted.field.service</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="industry_fsm.quick_create_task_form_fsm"/>
+            <field name="priority">2500</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                    <attribute name="required">0</attribute>
+                    <attribute name="attrs">{}</attribute>
+                    <attribute name="domain">[]</attribute>
+                    <attribute name="options">{'always_reload': True, 'no_create_edit': False, 'no_create': False, 'no_open': False}</attribute>
+                    <attribute name="context">{'show_address': 1}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <template id="assets_fsm_task_form" inherit_id="web.assets_backend" name="FSM Task Form assets">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/field_service_saaskul/static/src/css/fsm_task_form.css"/>
+                <script type="text/javascript" src="/field_service_saaskul/static/src/js/fsm_task_form.js"/>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

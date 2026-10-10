@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_fsm_project_task_form_material_return" model="ir.ui.view">
+            <field name="name">view.fsm.project.task.form.material.return</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="field_service_saaskul.view_fsm_project_task_form_view_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='fsm_extra_info']" position="before">
+                    <page string="Material Return"
+                          attrs="{'invisible': [('fsm_crn_form', '=', False)]}">
+                        <button name="action_view_material_returns"
+                                type="object"
+                                string="Open Material Returns"
+                                class="oe_highlight"/>
+                        <group>
+                            <field name="material_return_move_ids" nolabel="1" readonly="1">
+                                <tree string="Material Returns" create="0" edit="0" delete="0">
+                                    <field name="product_id"/>
+                                    <field name="name" string="Description"/>
+                                    <field name="product_uom_qty" string="Quantity"/>
+                                    <field name="quantity_done" string="Done Quantity"/>
+                                    <field name="amount" string="Amount Done"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="issue_tree_show_material_return" model="ir.ui.view">
+            <field name="name">issue.tree.show.material.return</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="field_service_saaskul.issue_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="is_material_return" string="Material Return" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_material_return" model="ir.actions.act_window">
+            <field name="name">Material Return</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.picking</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('field_service_saaskul.issue_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('field_service_saaskul.issue_form')})]"/>
+            <field name="domain">[('issue_project_task_id', '!=', False), ('is_material_return', '=', True)]</field>
+            <field name="context">{'show_task_seq': True, 'show_crn_number': True}</field>
+        </record>
+
+        <menuitem id="menu_material_return"
+                  name="Material Return"
+                  parent="stock.menu_stock_warehouse_mgmt"
+                  action="action_material_return"
+                  sequence="10"/>
+    </data>
+</odoo>
