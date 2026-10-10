@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_mrp_bom_custom" inherit_id="mrp.report_mrp_bom">
+        <xpath expr="//h6" position="after">
+            <div class="oe_mt16 oe_mb16">
+                <table class="table table-condensed oe_mt16 oe_mb16">
+                    <tr>
+                        <td>
+                            <strong>Estimation Reference :</strong>
+                        </td>
+                        <td>
+                            <t t-esc="data['estimate_reference']"/>
+                        </td>
+
+                        <td>
+                            <strong>Job Order :</strong>
+                        </td>
+                        <td>
+                            <t t-esc="data['project_id']"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Customer :</strong>
+                        </td>
+                        <td>
+                            <t t-esc="data['partner_id']"/>
+                        </td>
+
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </xpath>
+    </template>
+</odoo>

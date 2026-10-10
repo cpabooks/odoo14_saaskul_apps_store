@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="test_type_passfail" model="switchgear.quality.test.type">
+            <field name="name">Pass - Fail</field>
+            <field name="technical_name">passfail</field>
+        </record>
+
+        <record id="quality_alert_stage_new" model="switchgear.quality.alert.stage">
+            <field name="name">New</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="quality_alert_stage_progress" model="switchgear.quality.alert.stage">
+            <field name="name">In Progress</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="quality_alert_stage_done" model="switchgear.quality.alert.stage">
+            <field name="name">Resolved</field>
+            <field name="sequence">90</field>
+            <field name="folded" eval="True"/>
+            <field name="done" eval="True"/>
+        </record>
+
+        <record id="quality_team_default" model="switchgear.quality.team">
+            <field name="name">Main Quality Team</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

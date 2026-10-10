@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_fsm_project_task_form_timesheet_cost" model="ir.ui.view">
+            <field name="name">view.fsm.project.task.form.timesheet.cost</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="saaskul_field_service.view_fsm_project_task_form_timesheet_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='timesheet_ids']/tree/field[@name='unit_amount']" position="after">
+                    <field name="fsm_employee_timesheet_cost" string="Timesheet Cost" readonly="1"/>
+                </xpath>
+                <xpath expr="//field[@name='timesheet_ids']/form//field[@name='unit_amount']" position="after">
+                    <field name="fsm_employee_timesheet_cost" string="Timesheet Cost" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

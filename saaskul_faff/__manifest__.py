@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Saaskul FAFF',
-    'version': '14.0.1.0.18',
+    'version': '14.0.1.0.19',
     'summary': 'Fire Alarm & Fire Fighting job management (CRM to Payment)',
     'sequence': -95,
     'description': """
@@ -12,6 +12,7 @@ Execute → Test → Handover → Invoice → Payment.
     'category': 'Services/Fire Safety',
     'author': 'Saaskul',
     'website': 'https://saaskul.com',
+    'support': 'info.cpabooks@gmail.com',
     'license': 'OPL-1',
     'images': ['static/description/banner.png'],
     'depends': [

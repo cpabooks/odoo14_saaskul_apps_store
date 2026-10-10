@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="invoice_type_amc" model="invoice.type">
+            <field name="name">AMC</field>
+        </record>
+        <record id="invoice_type_others" model="invoice.type">
+            <field name="name">Others</field>
+        </record>
+        <record id="invoice_type_warranty_service" model="invoice.type">
+            <field name="name">Warranty</field>
+        </record>
+        <record id="invoice_type_service" model="invoice.type">
+            <field name="name">Service</field>
+        </record>
+        <record id="invoice_type_new_installation" model="invoice.type">
+            <field name="name">New Installation</field>
+        </record>
+        <record id="invoice_type_new_inquiry" model="invoice.type">
+            <field name="name">New Inquiry</field>
+        </record>
+        <record id="invoice_type_site_visit" model="invoice.type">
+            <field name="name">Site Visit</field>
+        </record>
+    </data>
+</odoo>

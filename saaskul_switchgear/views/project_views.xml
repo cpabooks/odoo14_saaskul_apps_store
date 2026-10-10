@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="edit_project_inherit_switchgear_custom" model="ir.ui.view">
+        <field name="name">project.project.form.inherit.switchgear_custom</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="%(saaskul_switchgear.action_job_estimate_from_project)d" type="action" class="oe_stat_button" icon="fa-file-text-o">
+                    <field name="estimate_count" widget="statinfo" string="Estimations"/>
+                </button>
+                <button name="%(saaskul_switchgear.action_mrp_bom_from_project)d" type="action" class="oe_stat_button" icon="fa-cubes">
+                    <field name="bom_count" widget="statinfo" string="BoMs"/>
+                </button>
+                <button name="%(saaskul_switchgear.action_mrp_production_from_project)d" type="action" class="oe_stat_button" icon="fa-wrench">
+                    <field name="mo_count" widget="statinfo" string="Manufacturing Orders"/>
+                </button>
+                <button name="%(saaskul_switchgear.action_qc_from_project)d" type="action" class="oe_stat_button" icon="fa-check">
+                    <field name="qc_count" widget="statinfo" string="Quality Checks"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

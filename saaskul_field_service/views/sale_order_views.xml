@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Load order-line inherit first: it references task_id in attrs and must
+         define the field before sibling inherits are validated on upgrade. -->
+    <record id="view_order_form_fsm_crn_order_line_controls" model="ir.ui.view">
+        <field name="name">sale.order.form.fsm.crn.order.line.controls</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="priority" eval="200"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="before">
+                <!-- Single CRN field (avoid duplicate task_id without context — that
+                     made the dropdown fall back to complaint titles). -->
+                <field name="task_id"
+                       string="CRN No"
+                       domain="[('task_seq', '=like', 'CRN%')]"
+                       context="{'fsm_mode': True, 'show_task_seq': True, 'show_crn_number': True}"
+                       options="{'no_create': True, 'no_create_edit': True}"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']" position="attributes">
+                <attribute name="widget">section_and_note_one2many</attribute>
+                <attribute name="mode">tree,form</attribute>
+                <attribute name="attrs">{'readonly': ['|', ('state', '=', 'cancel'), '&amp;', ('task_id', '=', False), ('state', '=', 'done')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree" position="attributes">
+                <attribute name="editable">bottom</attribute>
+                <attribute name="create">1</attribute>
+                <attribute name="edit">1</attribute>
+                <attribute name="delete">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/control" position="replace">
+                <control>
+                    <create name="add_product_control" string="Add a line"/>
+                    <create name="add_section_control" string="Add a section"
+                            context="{'default_display_type': 'line_section'}"/>
+                    <create name="add_note_control" string="Add a note"
+                            context="{'default_display_type': 'line_note'}"/>
+                </control>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_form_inherit_fsm_crn" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.fsm.crn</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_quotation_send']" position="attributes">
+                <attribute name="attrs">{'invisible': ['&amp;', ('task_id', '!=', False), ('state', 'not in', ('sale', 'done'))]}</attribute>
+            </xpath>
+            <!-- Show Create Invoice on confirmed SO even when Lock Confirmed Sales
+                 auto-locks to state=done (standard Odoo only allows state=sale). -->
+            <xpath expr="(//button[@name='%(sale.action_view_sale_advance_payment_inv)d'])[2]" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('invoice_status', '!=', 'no'), ('state', 'not in', ['sale', 'done'])]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_fsm_task_form_quotation_stat_label" model="ir.ui.view">
+        <field name="name">fsm.task.form.quotation.stat.label</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="saaskul_field_service.view_fsm_project_task_form_view_inherit"/>
+        <field name="priority" eval="250"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='cpabooks_fsm_document_button_box']/button[@name='action_fsm_view_all_related_quotations']/field[@name='fsm_all_quotation_count']" position="replace">
+                <div class="o_stat_info">
+                    <span class="o_stat_value">
+                        <field name="fsm_all_quotation_count"/>
+                    </span>
+                    <span class="o_stat_text">Quotation</span>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_bom_form_view_inherit_switchgear_custom" model="ir.ui.view">
+        <field name="name">mrp.bom.form.inherit.switchgear_custom</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="action_create_mo" string="Create MO" type="object" class="btn btn-primary"/>
+                </header>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" name="%(saaskul_switchgear.action_mrp_production)d" type="action" icon="fa-wrench">
+                    <field string="Manufacturing Orders" name="mo_count" widget="statinfo" />
+                </button>
+            </xpath>
+            <!--This *name* field go into cpabooks_sequences because sequence module common for whole system but switchgear is not
+            <xpath expr="//div[@name='button_box']" position="after">
+                <div class="oe_title">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                </div>
+            </xpath>-->
+            <xpath expr="//field[@name='code']" position="after">
+                <field name="estimate_reference"/>
+                <field name="project_id"/>
+                <field name="partner_id"/>
+                <field name="estimate_id" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//notebook" position="before">
+                <group name="product_variant">
+                    <group><field name="create_product_variant_id"/></group>
+                    <group></group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_mrp_bom_from_sale" model="ir.actions.act_window">
+        <field name="name">Bill of Materials</field>
+        <field name="res_model">mrp.bom</field>
+        <field name="domain">[('sale_order_id', '=', active_id)]</field>
+        <field name="context">{'default_sale_order_id': active_id, 'search_default_sale_order_id': active_id}</field>
+    </record>
+
+    <record id="action_mrp_bom_from_job_estimation" model="ir.actions.act_window">
+        <field name="name">Bill of Materials</field>
+        <field name="res_model">mrp.bom</field>
+        <field name="domain">[('estimate_id', '=', active_id)]</field>
+        <field name="context">{'default_estimate_id': active_id, 'search_default_estimate_id': active_id}</field>
+    </record>
+
+    <!--Action for Bill of Materials-->
+    <record id="action_mrp_bom_from_project" model="ir.actions.act_window">
+        <field name="name">Bill of Materials</field>
+        <field name="res_model">mrp.bom</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="domain">[('project_id', '=', active_id)]</field>
+        <field name="context">{'default_project_id': active_id}</field>
+    </record>
+</odoo>

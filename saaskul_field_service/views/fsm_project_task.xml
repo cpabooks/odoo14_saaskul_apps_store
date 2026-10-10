@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_fsm_project_task_list_view_inherit" model="ir.ui.view">
+            <field name="name">view.fsm.project.task.list.view.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="industry_fsm.project_task_view_list_fsm"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="inside">
+                    <field name="fsm_stage_group" string="Stage" optional="hide"/>
+                    <field name="age_days" optional="hide"/>
+                    <field name="importance" optional="hide"/>
+                </xpath>
+
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="decoration-danger">
+                        fsm_stage_group in ('registered', 'qty_issued') and age_days &gt;= 7
+                    </attribute>
+
+                    <attribute name="decoration-warning">
+                        importance == 'urgent' or fsm_stage_group == 'waiting_for_invoice'
+                    </attribute>
+
+                    <attribute name="decoration-info">
+                        fsm_stage_group in ('site_visited', 'in_progress')
+                    </attribute>
+
+                    <attribute name="decoration-success">
+                        fsm_stage_group in ('job_completed', 'job_completed_invoiced', 'approved')
+                    </attribute>
+
+                    <attribute name="decoration-primary">
+                        importance == 'emergency'
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='planned_date_begin']" position="replace">
+                    <field name="date_start" optional="hide"/>
+                </xpath>
+                <xpath expr="//field[@name='planned_date_end']" position="replace">
+                    <field name="date_end" optional="hide"/>
+                </xpath>
+                <xpath expr="//field[@name='stage_id']" position="attributes">
+                    <attribute name="string">Activity</attribute>
+                </xpath>
+                <xpath expr="//field[@name='stage_id']" position="after">
+                    <field name="state" readonly="1" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="project_task_view_search_fsm_inherit_admin" model="ir.ui.view">
+            <field name="name">project.task.search.fsm.inherit.admin</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="industry_fsm.project_task_view_search_fsm"/>
+            <field name="arch" type="xml">
+                <!-- Enter / keyword: search CRN No, title, customer, assignee together. -->
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Keyword</attribute>
+                    <attribute name="filter_domain">['|', '|', '|', ('task_seq', 'ilike', self), ('name', 'ilike', self), ('partner_id', 'ilike', self), ('user_id', 'ilike', self)]</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="task_seq" string="CRN No"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="string">Customer</attribute>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="string">Assigned to</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='my_tasks']" position="replace">
+                    <filter string="My CRNs (I Created)"
+                            name="my_tasks"
+                            domain="[('fsm_creator_uid', '=', uid)]"/>
+                    <filter string="Assigned to Me"
+                            name="assigned_to_me"
+                            domain="[('user_id', '=', uid)]"/>
+                </xpath>
+                <xpath expr="//filter[@name='planned_today']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='planned_future']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='planned_future']" position="after">
+                    <filter string="To Quotation Issue"
+                            name="to_quotation_issue"
+                            domain="[('next_action', '=', 'issue'), ('fsm_stage_group', '=', 'site_visited')]"/>
+                    <filter string="To Invoice"
+                            name="to_invoice"
+                            domain="[('fsm_stage_group', '=', 'waiting_for_invoice')]"/>
+                    <filter string="Waiting For Approval"
+                            name="job_completed_invoiced"
+                            domain="[('fsm_stage_group', '=', 'job_completed_invoiced')]"
+                    />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="industry_fsm.project_task_action_fsm" model="ir.actions.act_window">
+            <field name="name">My CRNs</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">['|', '|', ('project_id.is_fsm', '=', True), ('check_fsm', '=', True), ('task_seq', '=like', 'CRN%'), ('fsm_creator_uid', '=', uid), '|', ('project_id', '=', False), ('project_id.is_internal_project', '!=', True)]</field>
+            <field name="context">{
+                'fsm_mode': True,
+                'default_is_fsm': True,
+                'default_check_fsm': True,
+                'show_address': True,
+                'show_task_seq': True,
+                'show_crn_number': True,
+                'search_default_my_tasks': False,
+                'search_default_planned_future': False,
+                'search_default_planned_today': False,
+                'fsm_task_kanban_whole_date': False,
+                }
+            </field>
+        </record>
+
+        <record id="industry_fsm.project_task_action_fsm_map" model="ir.actions.act_window">
+            <field name="domain">['|', '|', ('project_id.is_fsm', '=', True), ('check_fsm', '=', True), ('task_seq', '=like', 'CRN%'), ('fsm_creator_uid', '=', uid), '|', ('project_id', '=', False), ('project_id.is_internal_project', '!=', True)]</field>
+            <field name="context">{
+                'fsm_mode': True,
+                'default_is_fsm': True,
+                'default_check_fsm': True,
+                'show_address': True,
+                'show_task_seq': True,
+                'show_crn_number': True,
+                'search_default_my_tasks': False,
+                'search_default_planned_future': False,
+                'search_default_planned_today': False,
+                'fsm_task_kanban_whole_date': False,
+                }
+            </field>
+        </record>
+
+        <record id="action_fsm_project_task_to_quotation_issue" model="ir.actions.act_window">
+            <field name="name">To Quotation Issue</field>
+            <field name="res_model">project.task</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="industry_fsm.project_task_view_search_fsm"/>
+            <field name="domain">['|', '|', ('project_id.is_fsm', '=', True), ('check_fsm', '=', True), ('task_seq', '=like', 'CRN%'), ('next_action', '=', 'issue'), ('fsm_stage_group', '=', 'site_visited')]</field>
+            <field name="context">{
+                'fsm_mode': True,
+                'show_address': True,
+                'search_default_my_tasks': False,
+                'search_default_planned_future': False,
+                'search_default_planned_today': False,
+                'fsm_task_kanban_whole_date': False,
+                }
+            </field>
+        </record>
+
+        <menuitem id="menu_fsm_project_task_to_quotation_issue"
+                  name="To Quotation Issue"
+                  parent="industry_fsm.fsm_tasks_menu"
+                  action="action_fsm_project_task_to_quotation_issue"
+                  sequence="18"/>
+
+        <record id="action_fsm_project_task_to_invoice" model="ir.actions.act_window">
+            <field name="name">To Invoice</field>
+            <field name="res_model">project.task</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="industry_fsm.project_task_view_search_fsm"/>
+            <field name="domain">['|', '|', ('project_id.is_fsm', '=', True), ('check_fsm', '=', True), ('task_seq', '=like', 'CRN%'), ('fsm_stage_group', '=', 'waiting_for_invoice')]</field>
+            <field name="context">{
+                'fsm_mode': True,
+                'show_address': True,
+                'search_default_my_tasks': False,
+                'search_default_planned_future': False,
+                'search_default_planned_today': False,
+                'fsm_task_kanban_whole_date': False,
+                }
+            </field>
+        </record>
+
+        <menuitem id="menu_fsm_project_task_to_invoice"
+                  name="To Invoice"
+                  parent="industry_fsm.fsm_tasks_menu"
+                  action="action_fsm_project_task_to_invoice"
+                  sequence="19"/>
+
+        <record id="industry_fsm.fsm_menu_planning" model="ir.ui.menu">
+            <field name="active" eval="False"/>
+        </record>
+
+        <record id="industry_fsm.fsm_menu_all_tasks_schedule" model="ir.ui.menu">
+            <field name="active" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

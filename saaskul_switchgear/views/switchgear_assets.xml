@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_switchgear" name="Switchgear sidebar assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/saaskul_switchgear/static/src/js/switchgear_app_shell.js"/>
+            <script type="text/javascript" src="/saaskul_switchgear/static/src/js/switchgear_dashboard_action.js"/>
+            <script type="text/javascript" src="/saaskul_switchgear/static/src/js/switchgear_processing_cycle_action.js"/>
+            <script type="text/javascript" src="/saaskul_switchgear/static/src/js/switchgear_tutorial_progress_html.js"/>
+            <link rel="stylesheet" href="/saaskul_switchgear/static/src/css/switchgear_app_shell.css"/>
+            <link rel="stylesheet" href="/saaskul_switchgear/static/src/css/switchgear_dashboard.css"/>
+            <link rel="stylesheet" href="/saaskul_switchgear/static/src/css/switchgear_processing_cycle.css"/>
+            <link rel="stylesheet" href="/saaskul_switchgear/static/src/css/switchgear_tutorial_wizard.css"/>
+            <link rel="stylesheet" href="/saaskul_switchgear/static/src/css/cpabooks_progress_status.css"/>
+        </xpath>
+    </template>
+</odoo>

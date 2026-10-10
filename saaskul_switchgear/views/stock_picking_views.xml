@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_form_inherit_switchgear_custom" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit.switchgear_custom</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_cancel']" position="after">
+                <button name="action_create_qc_from_picking" string="Create Quality Check" type="object" class="btn-primary"/>
+            </xpath>
+<!--            <xpath expr="//field[@name='origin']" position="after">-->
+<!--                <field name="project_id" string="Project/Job"/>-->
+<!--            </xpath>-->
+            <xpath expr="//page[@name='detailed_operations_shown']" position="attributes">
+                <attribute name="string">Delivery Order</attribute>
+            </xpath>
+<!--            <xpath expr="//page[@name='operations']" position="attributes">-->
+<!--                <attribute name="string">Delivery</attribute>-->
+<!--            </xpath>-->
+        </field>
+    </record>
+</odoo>

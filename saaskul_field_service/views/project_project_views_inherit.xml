@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="project_view_form_inherit_from_industry_sale" model="ir.ui.view">
+        <field name="name">project.view.form.inherit.from.industry.sale</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="sale_timesheet.project_project_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='allow_billable_container']" position="after">
+                <div class="col-lg-6 o_setting_box" attrs="{'invisible': [('is_fsm', '=', False)]}">
+                    <div class="o_setting_left_pane">
+                        <field name="allow_timesheets"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="allow_timesheets"/>
+                        <div class="text-muted">
+                            Allow engineers to log service timesheets on FSM tasks.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 o_setting_box" attrs="{'invisible': [('is_fsm', '=', False)]}">
+                    <div class="o_setting_left_pane">
+                        <field name="allow_worksheets"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="allow_worksheets"/>
+                        <div class="text-muted">
+                            Enable worksheets and service reports for FSM jobs.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 o_setting_box" attrs="{'invisible': [('allow_worksheets', '=', False)]}">
+                    <div class="o_setting_left_pane">
+                        <field name="worksheet_template_id"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="worksheet_template_id"/>
+                        <div class="text-muted">
+                            Select the default worksheet template for field service tasks.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 o_setting_box"
+                     attrs="{'invisible': [('is_fsm', '=', False)]}"
+                     groups="industry_fsm_sale.group_fsm_quotation_from_task">
+                    <div class="o_setting_left_pane">
+                        <field name="allow_quotations"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="allow_quotations"/>
+                        <div class="text-muted">
+                            Create new quotations directly from field service tasks.
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Menus: Task → CRN (Field Service is call-center CRN management, not project tasks). -->
+        <record id="industry_fsm.fsm_tasks_menu" model="ir.ui.menu">
+            <field name="name">My CRNs</field>
+        </record>
+        <record id="industry_fsm.fsm_menu_tasks_kanban" model="ir.ui.menu">
+            <field name="name">CRNs</field>
+        </record>
+        <record id="industry_fsm.fsm_menu_all_tasks_root" model="ir.ui.menu">
+            <field name="name">All CRNs</field>
+        </record>
+        <record id="industry_fsm.fsm_menu_all_tasks_todo" model="ir.ui.menu">
+            <field name="name">All CRNs</field>
+        </record>
+        <record id="industry_fsm.fsm_menu_reporting_task_analysis" model="ir.ui.menu">
+            <field name="name">CRN Analysis</field>
+        </record>
+
+        <!-- Actions -->
+        <record id="industry_fsm.project_task_action_all_fsm" model="ir.actions.act_window">
+            <field name="name">All CRNs</field>
+            <field name="domain">['|', '|', ('project_id.is_fsm', '=', True), ('check_fsm', '=', True), ('task_seq', '=like', 'CRN%'), '|', ('project_id', '=', False), ('project_id.is_internal_project', '!=', True)]</field>
+            <field name="context">{
+                'fsm_mode': True,
+                'default_is_fsm': True,
+                'default_check_fsm': True,
+                'show_address': True,
+                'show_task_seq': True,
+                'show_crn_number': True,
+            }</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">No CRNs found. Let's create one!</p>
+                <p>Manage all call-center complaint registrations (CRNs) from here.</p>
+            </field>
+        </record>
+        <record id="industry_fsm.project_task_action_fsm" model="ir.actions.act_window">
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">No CRNs found. Let's create one!</p>
+                <p>Manage your call-center complaint registrations (CRNs) from here.</p>
+            </field>
+        </record>
+
+        <record id="industry_fsm.project_task_action_fsm_map" model="ir.actions.act_window">
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">No CRNs found. Let's create one!</p>
+                <p>Find here your itinerary for today's CRNs.</p>
+            </field>
+        </record>
+
+        <record id="view_fsm_project_task_list_crn_labels" model="ir.ui.view">
+            <field name="name">project.task.tree.fsm.crn.labels</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="industry_fsm.project_task_view_list_fsm"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="string">CRNs</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_fsm_project_task_search_crn_labels" model="ir.ui.view">
+            <field name="name">project.task.search.fsm.crn.labels</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="industry_fsm.project_task_view_search_fsm"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="attributes">
+                    <attribute name="string">Search CRNs</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Keyword</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='my_tasks']" position="attributes">
+                    <attribute name="string">My CRNs</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_fsm_project_task_calendar_crn_labels" model="ir.ui.view">
+            <field name="name">project.task.calendar.fsm.crn.labels</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="industry_fsm.project_task_view_calendar_fsm"/>
+            <field name="arch" type="xml">
+                <xpath expr="//calendar" position="attributes">
+                    <attribute name="string">CRNs</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_fsm_project_task_kanban_crn_labels" model="ir.ui.view">
+            <field name="name">project.task.kanban.fsm.crn.labels</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="industry_fsm.project_task_view_kanban_fsm"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="string">CRNs</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

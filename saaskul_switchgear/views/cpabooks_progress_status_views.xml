@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_cpabooks_progress_status_wizard_form" model="ir.ui.view">
+        <field name="name">cpabooks.progress.status.wizard.form</field>
+        <field name="model">cpabooks.progress.status.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Progress Status" class="o_cpabooks_progress_wizard">
+                <sheet>
+                    <field name="res_model" invisible="1"/>
+                    <field name="res_id" invisible="1"/>
+                    <field name="progress_html" nolabel="1" readonly="1"/>
+                </sheet>
+                <footer>
+                    <button string="Close" class="btn-primary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Shared header button on Switchgear vouchers -->
+    <record id="crm_lead_form_progress_status" model="ir.ui.view">
+        <field name="name">crm.lead.form.progress.status</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_cpabooks_open_progress_status" type="object"
+                        string="Progress Status" class="btn-secondary o_cpabooks_progress_status_btn"
+                        icon="fa-tasks"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sale_order_form_progress_status" model="ir.ui.view">
+        <field name="name">sale.order.form.progress.status</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_cpabooks_open_progress_status" type="object"
+                        string="Progress Status" class="btn-secondary o_cpabooks_progress_status_btn"
+                        icon="fa-tasks"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mrp_production_form_progress_status" model="ir.ui.view">
+        <field name="name">mrp.production.form.progress.status</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_cpabooks_open_progress_status" type="object"
+                        string="Progress Status" class="btn-secondary o_cpabooks_progress_status_btn"
+                        icon="fa-tasks"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="purchase_order_form_progress_status" model="ir.ui.view">
+        <field name="name">purchase.order.form.progress.status</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_cpabooks_open_progress_status" type="object"
+                        string="Progress Status" class="btn-secondary o_cpabooks_progress_status_btn"
+                        icon="fa-tasks"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_picking_form_progress_status" model="ir.ui.view">
+        <field name="name">stock.picking.form.progress.status</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_cpabooks_open_progress_status" type="object"
+                        string="Progress Status" class="btn-secondary o_cpabooks_progress_status_btn"
+                        icon="fa-tasks"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

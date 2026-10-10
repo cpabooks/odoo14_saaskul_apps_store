@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+      Hide Switchgear secondary menus from the top navbar permanently.
+      Left sidebar (switchgear_app_shell.js) is the only in-app navigation.
+      Actions remain callable via xml_id from the sidebar.
+    -->
+    <record id="menu_flowchart_kanban" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="menu_switchgear_processing_cycle" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="menu_switchgear_tutorial_wizard" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="menu_switchgear_projects_root" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="menu_switchgear_activities_root" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="menu_switchgear_configuration" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+</odoo>

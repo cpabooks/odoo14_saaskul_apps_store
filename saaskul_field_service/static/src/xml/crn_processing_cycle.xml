@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="CrnProcessingCycle">
+        <div class="o_crn_processing_cycle_root">
+            <div class="o_crn_cycle_header text-center mb-3">
+                <h2>CRN Processing Cycle</h2>
+                <p class="text-muted mb-0">
+                    Click any step to open CRNs at that stage. Flow runs clockwise from registration through approval.
+                </p>
+            </div>
+            <div class="o_crn_cycle_viewport">
+                <div class="o_crn_cycle_stage">
+                    <div class="o_crn_cycle_center">
+                        <div class="o_crn_cycle_center_title">CRN</div>
+                        <div class="o_crn_cycle_center_sub">Full Process</div>
+                    </div>
+                    <div class="o_crn_cycle_ring"/>
+                    <svg class="o_crn_cycle_arrow_ring" viewBox="0 0 520 520" aria-hidden="true">
+                        <circle cx="260" cy="260" r="210" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2" stroke-dasharray="8 10"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="o_crn_cycle_legend row justify-content-center mt-4">
+                <div class="col-auto"><span class="o_crn_cycle_legend_dot o_crn_cycle_theme_intake"/> Registration</div>
+                <div class="col-auto"><span class="o_crn_cycle_legend_dot o_crn_cycle_theme_quotation"/> Quotation</div>
+                <div class="col-auto"><span class="o_crn_cycle_legend_dot o_crn_cycle_theme_execution"/> Execution</div>
+                <div class="col-auto"><span class="o_crn_cycle_legend_dot o_crn_cycle_theme_billing"/> Billing</div>
+            </div>
+        </div>
+    </t>
+
+</templates>

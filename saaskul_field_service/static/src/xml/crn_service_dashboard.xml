@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="CrnServiceDashboard">
+        <div class="o_crn_dashboard_root">
+            <div class="o_crn_dash_header">
+                <div class="o_crn_dash_header_row">
+                    <div>
+                        <h1 class="o_crn_dash_title">Complaint Registration Management</h1>
+                        <p class="o_crn_dash_subtitle text-muted"/>
+                    </div>
+                    <button type="button" class="btn btn-sm o_crn_open_main_menu" title="Open apps menu">
+                        <i class="fa fa-th"/> Main Menu
+                    </button>
+                </div>
+            </div>
+            <div class="o_crn_dash_kpis row"/>
+            <div class="o_crn_dash_workflow row"/>
+        </div>
+    </t>
+
+</templates>

@@ -2,9 +2,9 @@
 {
  'name': 'Saaskul Recipe Book',
  'summary': 'Restaurant recipe, theoretical food cost, consumption and closing stock control',
- 'version': '14.0.1.0.2',
+ 'version': '14.0.1.0.3',
  'category': 'Operations/Restaurant',
- 'author': 'Saaskul', 'website': 'https://saaskul.com',
+ 'author': 'Saaskul', 'website': 'https://saaskul.com', 'support': 'info.cpabooks@gmail.com',
  'license': 'OPL-1',
  'depends': ['base','product','sale_management','stock','purchase'],
  'data': [
