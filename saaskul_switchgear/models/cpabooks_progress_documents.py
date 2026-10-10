@@ -9,8 +9,8 @@ class CrmLeadProgress(models.Model):
 
 
 class JobEstimateProgress(models.Model):
-    _name = 'job.estimate'
-    _inherit = ['job.estimate', 'cpabooks.document.progress.mixin']
+    _name = 'switchgear.estimate'
+    _inherit = ['switchgear.estimate', 'cpabooks.document.progress.mixin']
 
 
 class SaleOrderProgress(models.Model):
@@ -39,8 +39,8 @@ class StockPickingProgress(models.Model):
 
 
 class QualityCheckProgress(models.Model):
-    _name = 'quality.check'
-    _inherit = ['quality.check', 'cpabooks.document.progress.mixin']
+    _name = 'switchgear.quality.check'
+    _inherit = ['switchgear.quality.check', 'cpabooks.document.progress.mixin']
 
 
 class SwitchgearDesignDocumentProgress(models.Model):

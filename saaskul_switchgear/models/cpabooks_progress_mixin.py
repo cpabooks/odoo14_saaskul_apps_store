@@ -69,7 +69,7 @@ class CpabooksDocumentProgressMixin(models.AbstractModel):
         self.ensure_one()
         if self._name == 'crm.lead':
             return self
-        if self._name == 'job.estimate' and 'opportunity_id' in self._fields:
+        if self._name == 'switchgear.estimate' and 'opportunity_id' in self._fields:
             return self.opportunity_id
         if self._name == 'sale.order' and 'opportunity_id' in self._fields:
             return self.opportunity_id
@@ -89,7 +89,7 @@ class CpabooksDocumentProgressMixin(models.AbstractModel):
             if sale and sale.opportunity_id:
                 return sale.opportunity_id
             if self.project_id:
-                estimate = self.env['job.estimate'].sudo().search([
+                estimate = self.env['switchgear.estimate'].sudo().search([
                     ('project_id', '=', self.project_id.id),
                     ('opportunity_id', '!=', False),
                 ], limit=1, order='id desc')
@@ -111,10 +111,10 @@ class CpabooksDocumentProgressMixin(models.AbstractModel):
                     return mo._cpabooks_switchgear_pipeline_lead()
         if self._name == 'stock.picking' and self.sale_id:
             return self.sale_id.opportunity_id
-        if self._name == 'quality.check' and self.production_id:
+        if self._name == 'switchgear.quality.check' and self.production_id:
             return self.production_id._cpabooks_switchgear_pipeline_lead()
-        if self._name == 'material.purchase.requisition' and self.project_id:
-            estimate = self.env['job.estimate'].sudo().search([
+        if self._name == 'switchgear.purchase.requisition' and self.project_id:
+            estimate = self.env['switchgear.estimate'].sudo().search([
                 ('project_id', '=', self.project_id.id),
                 ('opportunity_id', '!=', False),
             ], limit=1, order='id desc')
@@ -140,7 +140,7 @@ class CpabooksDocumentProgressMixin(models.AbstractModel):
         """Flags that are true for the document currently open (merge over pipeline)."""
         self.ensure_one()
         checks = {}
-        if self._name == 'job.estimate':
+        if self._name == 'switchgear.estimate':
             checks['cycle_estimate_created'] = True
             if self.state in ('confirmed', 'approved', 'done'):
                 checks['cycle_estimate_confirmed'] = True
@@ -168,11 +168,11 @@ class CpabooksDocumentProgressMixin(models.AbstractModel):
                 checks['cycle_po_draft'] = True
             if self.state in ('purchase', 'done'):
                 checks['cycle_po_confirmed'] = True
-        elif self._name == 'quality.check':
+        elif self._name == 'switchgear.quality.check':
             checks['cycle_qc_created'] = True
             if self.quality_state == 'pass':
                 checks['cycle_qc_passed'] = True
-        elif self._name == 'material.purchase.requisition':
+        elif self._name == 'switchgear.purchase.requisition':
             checks['cycle_pr_created'] = True
         elif self._name == 'stock.picking':
             if self.picking_type_code == 'incoming':

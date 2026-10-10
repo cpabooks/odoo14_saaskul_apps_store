@@ -9,13 +9,13 @@ var _t = core._t;
 
 var CYCLE_STEPS = [
     {step: 1, label: 'Enquiry (CRM)', xmlid: 'crm.crm_lead_action_pipeline', theme: 'customer'},
-    {step: 2, label: 'Estimation', xmlid: 'cost_estimate_customer_ld.action_job_estimate', theme: 'customer'},
+    {step: 2, label: 'Estimation', xmlid: 'saaskul_switchgear.action_job_estimate', theme: 'customer'},
     {step: 3, label: 'Quotation', xmlid: 'sale.action_quotations_with_onboarding', theme: 'customer'},
     {step: 4, label: 'Design Documents', xmlid: 'saaskul_switchgear.action_switchgear_design_document', theme: 'engineering'},
     {step: 5, label: 'Bill of Material', xmlid: 'mrp.mrp_bom_form_action', theme: 'engineering'},
     {step: 6, label: 'Manuf. Order (MO)', xmlid: 'mrp.mrp_production_action', theme: 'engineering'},
-    {step: 7, label: 'Purchase Requisition', xmlid: 'bi_material_purchase_requisitions.action_material_purchase_requisition', theme: 'engineering'},
-    {step: 8, label: 'Quality Control', xmlid: 'cpabooks_quality_community.quality_alert_team_action', theme: 'engineering'},
+    {step: 7, label: 'Purchase Requisition', xmlid: 'saaskul_switchgear.action_material_purchase_requisition', theme: 'engineering'},
+    {step: 8, label: 'Quality Control', xmlid: 'saaskul_switchgear.quality_alert_team_action', theme: 'engineering'},
     {step: 9, label: 'Stock Check', xmlid: 'stock.stock_picking_type_action', theme: 'purchase'},
     {step: 10, label: 'LPO (Purchase)', xmlid: 'purchase.purchase_rfq', theme: 'purchase'},
     {step: 11, label: 'GRN', xmlid: 'saaskul_switchgear.action_switchgear_stock_incoming', theme: 'purchase'},

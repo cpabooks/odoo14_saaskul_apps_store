@@ -14,7 +14,7 @@ class SwitchgearDesignDocument(models.Model):
     partner_id = fields.Many2one('res.partner', string='Customer', tracking=True)
     project_id = fields.Many2one('project.project', string='Job Order')
     sale_order_id = fields.Many2one('sale.order', string='Quotation')
-    job_estimate_id = fields.Many2one('job.estimate', string='Estimation')
+    job_estimate_id = fields.Many2one('switchgear.estimate', string='Estimation')
     company_id = fields.Many2one(
         'res.company',
         string='Company',
@@ -41,7 +41,7 @@ class SwitchgearDesignDocument(models.Model):
     )
     sent_count = fields.Integer(compute='_compute_counts')
     received_count = fields.Integer(compute='_compute_counts')
-    attachment_count = fields.Integer(compute='_compute_counts')
+    attachment_count = fields.Integer(string='Document Files', compute='_compute_counts')
 
     @api.depends('sent_line_ids', 'received_line_ids')
     def _compute_counts(self):

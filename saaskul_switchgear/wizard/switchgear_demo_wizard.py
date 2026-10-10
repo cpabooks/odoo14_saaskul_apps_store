@@ -44,17 +44,6 @@ class SwitchgearDemoWizard(models.TransientModel):
         help='Schedule demo activities on CRM, estimates, sales, projects, MRP, purchase, and accounting documents.',
     )
 
-    @api.model
-    def default_get(self, fields_list):
-        res = super().default_get(fields_list)
-        if 'voucher_count' in fields_list and 'cpabooks.demo.config' in self.env:
-            config = self.env['cpabooks.demo.config'].sudo().search([
-                ('company_id', '=', self.env.company.id),
-            ], limit=1)
-            if config and config.default_voucher_count:
-                res['voucher_count'] = config.default_voucher_count
-        return res
-
     def _check_admin(self):
         if not self.env.user.has_group('base.group_system'):
             raise UserError(_('Only Settings / Administrator users can manage switchgear demo data.'))

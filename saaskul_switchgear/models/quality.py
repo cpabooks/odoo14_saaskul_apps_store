@@ -5,9 +5,8 @@ from odoo.exceptions import UserError
 
 
 class QualityCheck(models.Model):
-    _inherit = 'quality.check'
+    _inherit = 'switchgear.quality.check'
 
-    project_id = fields.Many2one('project.project', string='Project')
     delivery_picking_id = fields.Many2one(
         'stock.picking',
         string='Delivery Order',

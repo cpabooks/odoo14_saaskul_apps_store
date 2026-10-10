@@ -1,55 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
-    <!-- FORM VIEW  -->
-
-    <record id="view_transientmodel_wizard_form" model="ir.ui.view">
-        <field name="name">pr.transient.form</field>
-        <field name="model">create.pr</field>
+    <record id="view_mo_purchase_wizard_form" model="ir.ui.view">
+        <field name="name">switchgear.mo.purchase.wizard.form</field>
+        <field name="model">switchgear.mo.purchase.wizard</field>
         <field name="arch" type="xml">
-            <form string="Purchase Order">
-                <p class="oe_grey"> </p>
+            <form string="Create Purchase Order">
                 <group>
                     <group>
-                        <field name="partner_id" />
+                        <field name="production_id" force_save="1"/>
+                        <field name="partner_id"/>
                     </group>
-<!--                    <group>-->
-<!--                        <field name="date_order" />-->
-<!--                    </group>-->
                 </group>
-                <group>
-                    <field name="new_order_line_ids" nolabel ="1" >
+                <field name="line_ids" nolabel="1">
                     <tree editable="bottom" create="false">
-                        <field name="product_id" />
-                        <field name="name" />
-                        <field name="product_qty" />
-                        <field name="product_uom" options="{'no_open':True, 'no_create':True, 'no_create_edit':True}" readonly="1" force_save="1"/>
-                        <field name="price_unit" />
-<!--                        <field name="tax_id" options="{'no_open':True, 'no_create':True, 'no_create_edit':True}" widget="many2many_tags"/>-->
-                        <field name="product_subtotal" />
+                        <field name="product_id"/>
+                        <field name="name"/>
+                        <field name="product_qty"/>
+                        <field name="product_uom" readonly="1" force_save="1"/>
+                        <field name="price_unit"/>
+                        <field name="product_subtotal" sum="Total"/>
                         <field name="qty_on_hand" optional="hide"/>
-
                     </tree>
-                    </field>
-                </group>
-
+                </field>
                 <footer>
-                    <button name="action_create_pr" string="Create PR" type="object" class="btn-primary"/>
-                    <button string="Cancel" class="btn-default" special="cancel"/>
+                    <button name="action_create_purchase_order" string="Create Purchase Order" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>
         </field>
     </record>
 
-
-    <!-- ACTION     -->
-
-    <record id="action_transientmodel_wizard" model="ir.actions.act_window">
-        <field name="name">Create PR</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">create.pr</field>
+    <record id="action_mo_purchase_wizard" model="ir.actions.act_window">
+        <field name="name">Create Purchase Order</field>
+        <field name="res_model">switchgear.mo.purchase.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
-
 </odoo>

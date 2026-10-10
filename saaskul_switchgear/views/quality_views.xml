@@ -1,51 +1,306 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="quality_check_view_form_inherit_switchgear_custom" model="ir.ui.view">
-        <field name="name">quality.check.view.form.inherit.switchgear_custom</field>
-        <field name="model">quality.check</field>
-        <field name="inherit_id" ref="cpabooks_quality_community.quality_check_view_form"/>
+    <record id="quality_check_view_tree" model="ir.ui.view">
+        <field name="name">switchgear.quality.check.tree</field>
+        <field name="model">switchgear.quality.check</field>
         <field name="arch" type="xml">
-            <xpath expr="//header/button[@name='do_alert'][1]" position="before">
-                <button name="action_deliver_product" type="object"
-                        string="Deliver Product"
-                        class="btn-primary"
-                        attrs="{'invisible': [('can_deliver', '=', False)]}"
-                        confirm="Validate the customer delivery order for this product?"/>
-                <button name="action_open_delivery" type="object"
-                        string="Open Delivery"
-                        attrs="{'invisible': ['|', ('delivery_picking_id', '=', False), ('can_deliver', '=', True)]}"/>
-            </xpath>
-            <xpath expr="//div[@name='button_box']" position="inside">
-                <button name="action_open_delivery" type="object"
-                        class="oe_stat_button" icon="fa-truck"
-                        attrs="{'invisible': [('delivery_picking_id', '=', False)]}">
-                    <div class="o_field_widget o_stat_info">
-                        <span class="o_stat_text">Delivery</span>
-                    </div>
-                </button>
-            </xpath>
-            <xpath expr="//field[@name='alert_ids']" position="after">
-                <field name="project_id"/>
-                <field name="delivery_picking_id" invisible="1"/>
-                <field name="can_deliver" invisible="1"/>
-                <field name="delivery_done" invisible="1"/>
-            </xpath>
+            <tree decoration-success="quality_state == 'pass'" decoration-danger="quality_state == 'fail'">
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="production_id"/>
+                <field name="project_id" optional="show"/>
+                <field name="team_id" optional="show"/>
+                <field name="user_id" optional="hide"/>
+                <field name="control_date" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+                <field name="quality_state" widget="badge" decoration-success="quality_state == 'pass'"
+                       decoration-danger="quality_state == 'fail'" decoration-info="quality_state == 'none'"/>
+            </tree>
         </field>
     </record>
 
-    <!--Action for Quality Checks-->
+    <record id="quality_check_view_form" model="ir.ui.view">
+        <field name="name">switchgear.quality.check.form</field>
+        <field name="model">switchgear.quality.check</field>
+        <field name="arch" type="xml">
+            <form string="Quality Check">
+                <header>
+                    <button name="do_pass" type="object" string="Pass" class="btn-primary"
+                            attrs="{'invisible': [('quality_state', '!=', 'none')]}"/>
+                    <button name="do_fail" type="object" string="Fail"
+                            attrs="{'invisible': [('quality_state', '!=', 'none')]}"/>
+                    <button name="action_deliver_product" type="object"
+                            string="Deliver Product"
+                            class="btn-primary"
+                            attrs="{'invisible': [('can_deliver', '=', False)]}"
+                            confirm="Validate the customer delivery order for this product?"/>
+                    <button name="action_open_delivery" type="object"
+                            string="Open Delivery"
+                            attrs="{'invisible': ['|', ('delivery_picking_id', '=', False), ('can_deliver', '=', True)]}"/>
+                    <button name="do_alert" type="object" string="Quality Alert"
+                            attrs="{'invisible': [('quality_state', '=', 'none')]}"/>
+                    <button name="action_cpabooks_open_progress_status" type="object"
+                            string="Progress Status" class="btn-secondary o_cpabooks_progress_status_btn"
+                            icon="fa-tasks"/>
+                    <field name="quality_state" widget="statusbar" statusbar_visible="none,pass,fail"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_alerts" type="object" class="oe_stat_button" icon="fa-bell"
+                                attrs="{'invisible': [('alert_count', '=', 0)]}">
+                            <field name="alert_count" widget="statinfo" string="Alerts"/>
+                        </button>
+                        <button name="action_open_delivery" type="object"
+                                class="oe_stat_button" icon="fa-truck"
+                                attrs="{'invisible': [('delivery_picking_id', '=', False)]}">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Delivery</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="product_id"/>
+                            <field name="production_id"/>
+                            <field name="picking_id"/>
+                            <field name="partner_id"/>
+                            <field name="project_id"/>
+                            <field name="delivery_picking_id" invisible="1"/>
+                            <field name="can_deliver" invisible="1"/>
+                            <field name="delivery_done" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="team_id"/>
+                            <field name="test_type_id"/>
+                            <field name="user_id"/>
+                            <field name="control_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="note" placeholder="Inspection notes..."/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="quality_check_view_search" model="ir.ui.view">
+        <field name="name">switchgear.quality.check.search</field>
+        <field name="model">switchgear.quality.check</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="production_id"/>
+                <field name="picking_id"/>
+                <field name="project_id"/>
+                <filter name="todo" string="To Do" domain="[('quality_state', '=', 'none')]"/>
+                <filter name="passed" string="Passed" domain="[('quality_state', '=', 'pass')]"/>
+                <filter name="failed" string="Failed" domain="[('quality_state', '=', 'fail')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_state" string="Status" context="{'group_by': 'quality_state'}"/>
+                    <filter name="group_team" string="Team" context="{'group_by': 'team_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="quality_alert_view_tree" model="ir.ui.view">
+        <field name="name">switchgear.quality.alert.tree</field>
+        <field name="model">switchgear.quality.alert</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="check_id" optional="show"/>
+                <field name="project_id" optional="show"/>
+                <field name="team_id"/>
+                <field name="user_id" optional="show"/>
+                <field name="stage_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="quality_alert_view_kanban" model="ir.ui.view">
+        <field name="name">switchgear.quality.alert.kanban</field>
+        <field name="model">switchgear.quality.alert</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="stage_id" class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="user_id"/>
+                <field name="stage_id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <strong><field name="name"/></strong>
+                            <div><field name="product_id"/></div>
+                            <div class="text-muted"><field name="project_id"/></div>
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left"><field name="team_id"/></div>
+                                <div class="oe_kanban_bottom_right">
+                                    <field name="user_id" widget="many2one_avatar_user"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="quality_alert_view_form" model="ir.ui.view">
+        <field name="name">switchgear.quality.alert.form</field>
+        <field name="model">switchgear.quality.alert</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="stage_id" widget="statusbar" options="{'clickable': '1'}"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Alert title"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="product_id"/>
+                            <field name="check_id"/>
+                            <field name="production_id"/>
+                            <field name="picking_id"/>
+                        </group>
+                        <group>
+                            <field name="team_id"/>
+                            <field name="user_id"/>
+                            <field name="project_id"/>
+                            <field name="partner_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="description" placeholder="Describe the defect and the corrective action..."/>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="quality_team_view_kanban" model="ir.ui.view">
+        <field name="name">switchgear.quality.team.kanban</field>
+        <field name="model">switchgear.quality.team</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_dashboard" create="true">
+                <field name="name"/>
+                <field name="check_count"/>
+                <field name="todo_count"/>
+                <field name="alert_count"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_card_header">
+                                <div class="o_kanban_card_header_title">
+                                    <div class="o_primary"><field name="name"/></div>
+                                </div>
+                            </div>
+                            <div class="container o_kanban_card_content">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button class="btn btn-primary" name="action_open_todo_checks" type="object">
+                                            <t t-esc="record.todo_count.value"/> To Do
+                                        </button>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <div><a name="action_open_checks" type="object">All checks (<t t-esc="record.check_count.value"/>)</a></div>
+                                        <div><a name="action_open_alerts" type="object">Open alerts (<t t-esc="record.alert_count.value"/>)</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="quality_team_view_tree" model="ir.ui.view">
+        <field name="name">switchgear.quality.team.tree</field>
+        <field name="model">switchgear.quality.team</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="quality_alert_stage_view_tree" model="ir.ui.view">
+        <field name="name">switchgear.quality.alert.stage.tree</field>
+        <field name="model">switchgear.quality.alert.stage</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="folded"/>
+                <field name="done"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="quality_check_action_main" model="ir.actions.act_window">
+        <field name="name">Quality Checks</field>
+        <field name="res_model">switchgear.quality.check</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="quality_check_view_search"/>
+    </record>
+
+    <record id="quality_check_action_mo" model="ir.actions.act_window">
+        <field name="name">Quality Checks</field>
+        <field name="res_model">switchgear.quality.check</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="quality_alert_team_action" model="ir.actions.act_window">
+        <field name="name">Quality Overview</field>
+        <field name="res_model">switchgear.quality.team</field>
+        <field name="view_mode">kanban,tree</field>
+        <field name="view_id" ref="quality_team_view_kanban"/>
+    </record>
+
+    <record id="quality_alert_action" model="ir.actions.act_window">
+        <field name="name">Quality Alerts</field>
+        <field name="res_model">switchgear.quality.alert</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <record id="quality_alert_stage_action" model="ir.actions.act_window">
+        <field name="name">Quality Alert Stages</field>
+        <field name="res_model">switchgear.quality.alert.stage</field>
+        <field name="view_mode">tree</field>
+    </record>
+
     <record id="action_qc_from_project" model="ir.actions.act_window">
         <field name="name">Quality Checks</field>
-        <field name="res_model">quality.check</field>
+        <field name="res_model">switchgear.quality.check</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('project_id', '=', active_id)]</field>
         <field name="context">{'default_project_id': active_id}</field>
     </record>
 
-    <!--Action for Quality Checks from Picking-->
     <record id="action_qc_from_picking" model="ir.actions.act_window">
         <field name="name">Quality Checks</field>
-        <field name="res_model">quality.check</field>
+        <field name="res_model">switchgear.quality.check</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('picking_id', '=', active_id)]</field>
         <field name="context">{'search_default_picking_id': active_id, 'default_picking_id': active_id}</field>

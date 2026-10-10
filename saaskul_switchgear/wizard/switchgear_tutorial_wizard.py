@@ -67,13 +67,13 @@ class SwitchgearTutorialWizard(models.TransientModel):
     # --- carried documents ---
     partner_id = fields.Many2one('res.partner', string='Customer')
     lead_id = fields.Many2one('crm.lead', string='Enquiry', readonly=True)
-    estimate_id = fields.Many2one('job.estimate', string='Estimate', readonly=True)
+    estimate_id = fields.Many2one('switchgear.estimate', string='Estimate', readonly=True)
     sale_id = fields.Many2one('sale.order', string='Sales Order', readonly=True)
     design_id = fields.Many2one('switchgear.design.document', string='Design', readonly=True)
     bom_id = fields.Many2one('mrp.bom', string='BoM', readonly=True)
     mo_id = fields.Many2one('mrp.production', string='MO', readonly=True)
-    pr_id = fields.Many2one('material.purchase.requisition', string='PR', readonly=True)
-    qc_id = fields.Many2one('quality.check', string='Quality Check', readonly=True)
+    pr_id = fields.Many2one('switchgear.purchase.requisition', string='PR', readonly=True)
+    qc_id = fields.Many2one('switchgear.quality.check', string='Quality Check', readonly=True)
     po_id = fields.Many2one('purchase.order', string='Purchase Order', readonly=True)
     grn_id = fields.Many2one('stock.picking', string='GRN', readonly=True)
     delivery_id = fields.Many2one('stock.picking', string='Delivery', readonly=True)
@@ -303,11 +303,11 @@ class SwitchgearTutorialWizard(models.TransientModel):
                 'description': self.material_product_id.display_name,
             })],
         }
-        if 'opportunity_id' in self.env['job.estimate']._fields and self.lead_id:
+        if 'opportunity_id' in self.env['switchgear.estimate']._fields and self.lead_id:
             vals['opportunity_id'] = self.lead_id.id
-        if 'bom_product_id' in self.env['job.estimate']._fields:
+        if 'bom_product_id' in self.env['switchgear.estimate']._fields:
             vals['bom_product_id'] = self.finished_product_id.id
-        estimate = self.env['job.estimate'].sudo().create(vals)
+        estimate = self.env['switchgear.estimate'].sudo().create(vals)
         try:
             if hasattr(estimate, 'action_job_confirm'):
                 estimate.action_job_confirm()
@@ -459,64 +459,39 @@ class SwitchgearTutorialWizard(models.TransientModel):
     def _apply_pr(self):
         if self.pr_id:
             return _('PR already created: %s') % self.pr_id.display_name
-        if 'material.purchase.requisition' not in self.env:
-            return _('Purchase Requisition app missing — skipped.')
         employee = self.env['hr.employee'].sudo().search([
             ('user_id', '=', self.env.user.id),
             '|', ('company_id', '=', False), ('company_id', '=', self.company_id.id),
         ], limit=1)
-        if not employee:
-            employee = self.env['hr.employee'].sudo().search([
-                '|', ('company_id', '=', False), ('company_id', '=', self.company_id.id),
-            ], limit=1)
-        if not employee or not employee.department_id:
-            return _(
-                'Skipped PR: need an Employee with Department. '
-                'Continue — you can create PR later from Manufacturing.'
-            )
         component = self.material_product_id
         if not component:
             raise UserError(_('Select Material / component.'))
-        Requisition = self.env['material.purchase.requisition'].sudo()
-        vals = {
+        pr = self.env['switchgear.purchase.requisition'].sudo().create({
             'employee_id': employee.id,
             'department_id': employee.department_id.id,
             'requisition_date': fields.Date.context_today(self),
             'company_id': self.company_id.id,
+            'production_id': self.mo_id.id,
             'reason_for_requisition': _('Tutorial Wizard — materials for MO %s') % (
                 self.mo_id.display_name if self.mo_id else ''
             ),
             'requisition_line_ids': [(0, 0, {
                 'product_id': component.id,
                 'qty': self.pr_qty or 1.0,
-                'uom_id': component.uom_id.id,
+                'uom_id': component.uom_po_id.id,
                 'description': component.display_name,
-            })] if 'requisition.line' in self.env else [],
-        }
-        # picking_type required — use default from model if possible
-        try:
-            pr = Requisition.create(vals)
-        except Exception as exc:
-            return _('Skipped PR (%s). Continue to next step.') % exc
+            })],
+        })
         self.pr_id = pr
         return _('Created Purchase Requisition: %s') % pr.display_name
 
     def _apply_qc(self):
         if self.qc_id:
             return _('Quality Check already created: %s') % self.qc_id.display_name
-        if 'quality.check' not in self.env:
-            return _('Quality app missing — skipped.')
         if not self.mo_id:
             return _('No MO yet — skipped QC.')
-        team = self.env['quality.alert.team'].sudo().search([
-            '|', ('company_id', '=', False), ('company_id', '=', self.company_id.id),
-        ], limit=1)
-        if not team:
-            team = self.env['quality.alert.team'].sudo().create({
-                'name': 'Tutorial QC Team',
-                'company_id': self.company_id.id,
-            })
-        test_type = self.env.ref('cpabooks_quality_community.test_type_passfail', raise_if_not_found=False)
+        team = self.env['switchgear.quality.team'].sudo()._get_default_team(self.company_id)
+        test_type = self.env.ref('saaskul_switchgear.test_type_passfail', raise_if_not_found=False)
         vals = {
             'product_id': self.finished_product_id.id or self.mo_id.product_id.id,
             'production_id': self.mo_id.id,
@@ -525,7 +500,7 @@ class SwitchgearTutorialWizard(models.TransientModel):
         }
         if test_type:
             vals['test_type_id'] = test_type.id
-        qc = self.env['quality.check'].sudo().create(vals)
+        qc = self.env['switchgear.quality.check'].sudo().create(vals)
         self.qc_id = qc
         return _('Created Quality Check: %s') % qc.display_name
 

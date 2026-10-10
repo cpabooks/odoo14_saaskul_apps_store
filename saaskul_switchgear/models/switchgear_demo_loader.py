@@ -62,14 +62,7 @@ class SwitchgearDemoLoader(models.AbstractModel):
         if count < 1 or count > 100:
             raise UserError(_('Voucher count must be between 1 and 100.'))
 
-        settings = self.env['res.config.settings'].sudo()
-        if hasattr(settings, '_ensure_quality_control_test_types'):
-            settings._ensure_quality_control_test_types()
-        else:
-            self._ensure_quality_control_test_types_fallback()
-        self._ensure_quality_alert_team(company)
-
-        self._ensure_company_sequences(company)
+        self.env['switchgear.quality.team'].sudo()._get_default_team(company)
         catalog = self.with_company(company)._ensure_demo_catalog(profile, company)
         created = {
             'partners': [],
@@ -117,7 +110,7 @@ class SwitchgearDemoLoader(models.AbstractModel):
             if stack.get('enquiry_lead'):
                 created['leads'].append(stack['enquiry_lead'])
             for model_name in (
-                'crm.lead', 'job.estimate', 'sale.order',
+                'crm.lead', 'switchgear.estimate', 'sale.order',
                 'mrp.production', 'stock.picking', 'project.project',
             ):
                 if model_name in self.env:
@@ -128,78 +121,12 @@ class SwitchgearDemoLoader(models.AbstractModel):
         return created
 
     @api.model
-    def _ensure_quality_control_test_types_fallback(self):
-        """Recreate pass/fail QC types when customize settings helper is unavailable."""
-        if 'quality.point.test_type' not in self.env:
-            return
-        TestType = self.env['quality.point.test_type'].sudo()
-        IMD = self.env['ir.model.data'].sudo()
-        for xml_name, name, technical_name in (
-            ('test_type_passfail', 'Pass - Fail', 'passfail'),
-            ('test_type_measure', 'Measure', 'measure'),
-        ):
-            if self.env.ref('cpabooks_quality_community.%s' % xml_name, raise_if_not_found=False):
-                continue
-            if self.env.ref('quality_control.%s' % xml_name, raise_if_not_found=False):
-                continue
-            rec = TestType.search([('technical_name', '=', technical_name)], limit=1)
-            if not rec:
-                rec = TestType.create({
-                    'name': name,
-                    'technical_name': technical_name,
-                })
-            if not IMD.search([
-                ('module', '=', 'cpabooks_quality_community'),
-                ('name', '=', xml_name),
-            ], limit=1):
-                IMD.create({
-                    'name': xml_name,
-                    'module': 'cpabooks_quality_community',
-                    'model': 'quality.point.test_type',
-                    'res_id': rec.id,
-                    'noupdate': True,
-                })
-
-    @api.model
-    def _ensure_quality_alert_team(self, company):
-        if 'quality.alert.team' not in self.env:
-            return
-        Team = self.env['quality.alert.team'].sudo()
-        team = Team.search([
-            '|', ('company_id', '=', False), ('company_id', '=', company.id),
-        ], limit=1)
-        if not team:
-            Team.create({
-                'name': 'Demo Quality Team',
-                'company_id': company.id,
-            })
-
-    @api.model
     def _company_has_usable_accounts(self, company):
         return self.env['account.account'].sudo().search_count([
             ('company_id', '=', company.id),
             ('deprecated', '=', False),
         ]) >= 2
 
-    @api.model
-    def _ensure_company_sequences(self, company):
-        """Ensure CPABooks document sequences exist so estimates/SO/MO can be numbered."""
-        company = company.sudo()
-        prefix = (company.cpabooks_sequence_prefix or '').strip()
-        if not prefix and company.name:
-            prefix = ''.join(part[0] for part in company.name.split() if part)[:4].upper()
-        if not prefix:
-            prefix = 'DEMO'
-        if 'set.company.prefix' in self.env:
-            try:
-                self.env['set.company.prefix'].sudo().apply_prefix_for_company(
-                    company, prefix, create_missing=True,
-                    update_existing=False, update_company_settings=False,
-                )
-            except Exception as exc:
-                _logger.warning(
-                    'Switchgear demo: could not apply company sequences: %s', exc,
-                )
     @api.model
     def _profile_label(self, profile, index):
         labels = {
@@ -368,8 +295,7 @@ class SwitchgearDemoLoader(models.AbstractModel):
             'description': 'Auto-loaded %s demo estimate' % profile,
         }
         estimate_vals.update(self._estimate_line_vals(catalog, index))
-        estimate = self.env['job.estimate'].sudo().create(estimate_vals)
-        self._finalize_estimate_lines(estimate)
+        estimate = self.env['switchgear.estimate'].sudo().create(estimate_vals)
         extra_estimates = []
         with self._demo_savepoint():
             draft_est = self._create_draft_estimate_sample(
@@ -432,7 +358,6 @@ class SwitchgearDemoLoader(models.AbstractModel):
                         'product_qty': 1.0,
                         'product_uom_id': estimate.bom_product_id.uom_id.id,
                     })
-                self._ensure_bom_final_products(bom)
                 with self._demo_savepoint():
                     bom.sudo().with_company(company).action_create_mo()
                 mo = self.env['mrp.production'].sudo().search([
@@ -469,7 +394,7 @@ class SwitchgearDemoLoader(models.AbstractModel):
                                 'Switchgear demo: QC skipped for MO %s: %s',
                                 mo.id, exc,
                             )
-                        qc = self.env['quality.check'].sudo().search([
+                        qc = self.env['switchgear.quality.check'].sudo().search([
                             ('production_id', '=', mo.id),
                         ], limit=1, order='id desc')
                         if qc and 'project_id' in qc._fields:
@@ -480,10 +405,6 @@ class SwitchgearDemoLoader(models.AbstractModel):
                     self._maybe_create_demo_requisition(
                         project, partner, catalog, company, index,
                     )
-
-        if create_job_orders and sale_order and 'quotation.job.order' in self.env:
-            with self._demo_optional():
-                self._maybe_create_job_order(sale_order, project, lead, partner, company, index)
 
         task = self._create_demo_project_task(
             project, label, company,
@@ -592,7 +513,7 @@ class SwitchgearDemoLoader(models.AbstractModel):
         self, record, summary, days_offset=0, kind='todo',
         project=None, task=None, company=None,
     ):
-        """Schedule one mail.activity on a document (CPA activity management)."""
+        """Schedule one mail.activity on a document."""
         if not self._record_supports_activities(record):
             return False
         if 'mail.activity' not in self.env:
@@ -602,7 +523,7 @@ class SwitchgearDemoLoader(models.AbstractModel):
             return False
         deadline = fields.Date.today() + timedelta(days=days_offset)
         vals = {
-            'res_model': record._name,
+            'res_model_id': self.env['ir.model']._get_id(record._name),
             'res_id': record.id,
             'activity_type_id': activity_type.id,
             'summary': summary,
@@ -610,7 +531,7 @@ class SwitchgearDemoLoader(models.AbstractModel):
             'date_deadline': deadline,
             'user_id': self._demo_user_for_company(company),
         }
-        if company:
+        if company and 'company_id' in self.env['mail.activity']._fields:
             vals['company_id'] = company.id
         if project and 'project_id' in self.env['mail.activity']._fields:
             vals['project_id'] = project.id
@@ -633,7 +554,7 @@ class SwitchgearDemoLoader(models.AbstractModel):
 
     @api.model
     def _create_demo_activities_for_stack(self, stack, company, index):
-        """Create scheduled activities on CPA cycle vouchers for demo dashboards."""
+        """Create scheduled activities on cycle documents for demo dashboards."""
         project = stack.get('project')
         task = stack.get('task')
         plans = [
@@ -659,16 +580,6 @@ class SwitchgearDemoLoader(models.AbstractModel):
             ):
                 created += 1
         return created
-
-    @api.model
-    def _line_subtotal(self, quantity, price_unit, discount=0.0, hours=None):
-        qty = quantity or 0.0
-        price = price_unit or 0.0
-        if hours is not None:
-            base = qty * price * (hours or 0.0)
-        else:
-            base = qty * price
-        return base * (1.0 - (discount or 0.0) / 100.0)
 
     @api.model
     def _demo_move_line_vals(
@@ -720,11 +631,9 @@ class SwitchgearDemoLoader(models.AbstractModel):
             qty = 1.0 + (line_idx % 4)
             price = product.standard_price
             material_lines.append((0, 0, {
-                'bom_product_id': catalog['finished'].id,
                 'product_id': product.id,
                 'quantity': qty,
                 'price_unit': price,
-                'subtotal': self._line_subtotal(qty, price),
                 'uom_id': product.uom_id.id,
                 'description': product.display_name,
             }))
@@ -741,40 +650,15 @@ class SwitchgearDemoLoader(models.AbstractModel):
                 'quantity': lab_qty,
                 'hours': lab_hours,
                 'price_unit': lab_price,
-                'subtotal': self._line_subtotal(lab_qty, lab_price, hours=lab_hours),
                 'uom_id': catalog['labour'].uom_id.id,
             })],
             'overhead_estimation_ids': [(0, 0, {
                 'product_id': catalog['overhead'].id,
                 'quantity': ovh_qty,
                 'price_unit': ovh_price,
-                'subtotal': self._line_subtotal(ovh_qty, ovh_price),
                 'uom_id': catalog['overhead'].uom_id.id,
             })],
         }
-
-    @api.model
-    def _finalize_estimate_lines(self, estimate):
-        """Set line subtotals and final-product rows when created via code (no UI onchange)."""
-        estimate = estimate.sudo()
-        for line in estimate.material_estimation_ids:
-            line.subtotal = self._line_subtotal(
-                line.quantity, line.price_unit, line.discount,
-            )
-        for line in estimate.labour_estimation_ids:
-            line.subtotal = self._line_subtotal(
-                line.quantity, line.price_unit, line.discount, hours=line.hours,
-            )
-        for line in estimate.overhead_estimation_ids:
-            line.subtotal = self._line_subtotal(
-                line.quantity, line.price_unit, line.discount,
-            )
-        if hasattr(estimate, '_cpabooks_sync_final_products_from_lines'):
-            estimate._cpabooks_sync_final_products_from_lines()
-        elif hasattr(estimate, '_compute_final_job_estimate'):
-            estimate._compute_final_job_estimate()
-        elif hasattr(estimate, '_compute_total_job_estimate'):
-            estimate._compute_total_job_estimate()
 
     @api.model
     def _create_demo_quotation_draft(self, partner, project, analytic, estimate, catalog, company, index):
@@ -824,8 +708,7 @@ class SwitchgearDemoLoader(models.AbstractModel):
             'description': 'Demo estimate awaiting approval %s' % index,
         }
         vals.update(self._estimate_line_vals(catalog, index))
-        estimate = self.env['job.estimate'].sudo().create(vals)
-        self._finalize_estimate_lines(estimate)
+        estimate = self.env['switchgear.estimate'].sudo().create(vals)
         estimate.action_job_confirm()
         return estimate
 
@@ -844,8 +727,7 @@ class SwitchgearDemoLoader(models.AbstractModel):
             'description': 'Draft pipeline sample %s' % index,
         }
         vals.update(self._estimate_line_vals(catalog, index))
-        estimate = self.env['job.estimate'].sudo().create(vals)
-        self._finalize_estimate_lines(estimate)
+        estimate = self.env['switchgear.estimate'].sudo().create(vals)
         return estimate
 
     @api.model
@@ -1035,8 +917,8 @@ class SwitchgearDemoLoader(models.AbstractModel):
     def _demo_project_contract_amount(self, lead, estimate, sale_order, index):
         if sale_order:
             return sale_order.amount_untaxed or sale_order.amount_total or 0.0
-        if estimate and getattr(estimate, 'final_total_job_estimation', 0.0):
-            return estimate.final_total_job_estimation
+        if estimate and estimate.total_job_estimate:
+            return estimate.total_job_estimate
         if lead and lead.expected_revenue:
             return lead.expected_revenue
         return 12000.0 + (int(index or 0) * 500)
@@ -1059,7 +941,7 @@ class SwitchgearDemoLoader(models.AbstractModel):
         changed = False
         partner = project.partner_id
         Lead = self.env['crm.lead'].sudo()
-        Estimate = self.env['job.estimate'].sudo()
+        Estimate = self.env['switchgear.estimate'].sudo()
         Move = self.env['account.move'].sudo()
 
         lead = project.crm_id if 'crm_id' in project._fields else False
@@ -1235,36 +1117,19 @@ class SwitchgearDemoLoader(models.AbstractModel):
 
     @api.model
     def _maybe_create_quality_alert(self, project, partner, company, index, product=None):
-        if 'quality.alert' not in self.env:
-            return False
-        team = self.env['quality.alert.team'].sudo().search([
-            '|', ('company_id', '=', False), ('company_id', '=', company.id),
-        ], limit=1)
-        if not team:
-            team = self.env['quality.alert.team'].sudo().search([], limit=1)
-        if not team:
-            return False
+        team = self.env['switchgear.quality.team'].sudo()._get_default_team(company)
         vals = {
             'name': 'Demo QC alert %s' % index,
             'team_id': team.id,
             'partner_id': partner.id,
             'company_id': company.id,
+            'project_id': project.id,
         }
         if product:
             vals['product_id'] = product.id
-        if 'project_id' in self.env['quality.alert']._fields:
-            vals['project_id'] = project.id
         try:
             with self._demo_savepoint():
-                alert = self.env['quality.alert'].sudo().create(vals)
-                if 'stage_id' in alert._fields and team:
-                    stage = self.env['quality.alert.stage'].sudo().search([
-                        ('team_ids', 'in', team.id),
-                        ('done', '=', False),
-                    ], limit=1, order='sequence')
-                    if stage:
-                        alert.stage_id = stage.id
-                return alert
+                return self.env['switchgear.quality.alert'].sudo().create(vals)
         except Exception as exc:
             _logger.info('Switchgear demo: quality alert skipped: %s', exc)
             return False
@@ -1470,7 +1335,7 @@ class SwitchgearDemoLoader(models.AbstractModel):
     def _stack_from_existing_lead(self, lead, partner, company, index, profile):
         """Reuse an already-loaded demo stack (safe on repeat demo load)."""
         Lead = self.env['crm.lead'].sudo()
-        Estimate = self.env['job.estimate'].sudo()
+        Estimate = self.env['switchgear.estimate'].sudo()
         estimates = Estimate.search([('opportunity_id', '=', lead.id)], order='id desc')
         estimate = estimates[:1]
         if estimate and len(estimate.material_estimation_ids) < 4:
@@ -1484,7 +1349,6 @@ class SwitchgearDemoLoader(models.AbstractModel):
                 ]
                 if new_lines:
                     estimate.write({'material_estimation_ids': new_lines})
-                    self._finalize_estimate_lines(estimate)
         sale_order = lead.order_ids.filtered(
             lambda o: o.state not in ('cancel',),
         )[:1]
@@ -1509,7 +1373,7 @@ class SwitchgearDemoLoader(models.AbstractModel):
         po = self.env['purchase.order'].sudo()
         if mo and 'mo_id' in po._fields:
             po = po.search([('mo_id', '=', mo.id)], limit=1, order='id desc')
-        qc = self.env['quality.check'].sudo()
+        qc = self.env['switchgear.quality.check'].sudo()
         if mo:
             qc = qc.search([('production_id', '=', mo.id)], limit=1, order='id desc')
         enquiry_lead = Lead.search([
@@ -1579,40 +1443,6 @@ class SwitchgearDemoLoader(models.AbstractModel):
         return po
 
     @api.model
-    def _maybe_create_job_order(self, sale_order, project, lead, partner, company, index):
-        JobOrder = self.env['quotation.job.order'].sudo()
-        existing = JobOrder.search([('quotation_no', '=', sale_order.id)], limit=1)
-        if existing:
-            return existing
-        lines = []
-        JobLine = self.env['quotation.job.order.line']
-        for sol in sale_order.order_line:
-            line_vals = {
-                'product_id': sol.product_id.id,
-                'name': sol.name,
-                'product_uom_qty': sol.product_uom_qty,
-                'product_uom': sol.product_uom.id,
-                'quotation_line_id': sol.id,
-            }
-            if 'price_unit' in JobLine._fields:
-                line_vals['price_unit'] = sol.price_unit
-            lines.append((0, 0, line_vals))
-        if not lines:
-            return False
-        return JobOrder.create({
-            'quotation_no': sale_order.id,
-            'partner_id': partner.id,
-            'project_id': project.id,
-            'enquiry_number': lead.enquiry_number if lead else False,
-            'company_id': company.id,
-            'sale_person': self.env.user.id,
-            'job_order_date': fields.Date.today(),
-            'subject': 'Demo job order %s' % index,
-            'order_line': lines,
-            'state': 'confirmed',
-        })
-
-    @api.model
     def _create_demo_timesheets(self, project, analytic, labour_product, index, company, task=None):
         """Post analytic lines (and optional task timesheets) as labour cost samples."""
         count = 0
@@ -1660,30 +1490,30 @@ class SwitchgearDemoLoader(models.AbstractModel):
         Employee = self.env['hr.employee'].sudo()
         employee = Employee.search([
             ('company_id', '=', company.id),
-            ('name', '=', 'Demo Employee (CPABooks)'),
+            ('name', '=', 'Demo Employee'),
         ], limit=1)
         if employee:
             return employee
         department = self.env['hr.department'].sudo().search([
             ('company_id', '=', company.id),
-            ('name', '=', 'Demo Department (CPABooks)'),
+            ('name', '=', 'Demo Department'),
         ], limit=1)
         if not department:
             department = self.env['hr.department'].sudo().create({
-                'name': 'Demo Department (CPABooks)',
+                'name': 'Demo Department',
                 'company_id': company.id,
             })
         return Employee.create({
-            'name': 'Demo Employee (CPABooks)',
+            'name': 'Demo Employee',
             'company_id': company.id,
             'department_id': department.id,
         })
 
     @api.model
     def _maybe_create_demo_requisition(self, project, partner, catalog, company, index):
-        if 'material.purchase.requisition' not in self.env:
+        if 'switchgear.purchase.requisition' not in self.env:
             return False
-        Requisition = self.env['material.purchase.requisition'].sudo()
+        Requisition = self.env['switchgear.purchase.requisition'].sudo()
         employee = self._demo_requisition_employee(company)
         picking_type = self.env['stock.picking.type'].sudo().search([
             ('code', '=', 'incoming'),
@@ -1710,51 +1540,6 @@ class SwitchgearDemoLoader(models.AbstractModel):
         except Exception as exc:
             _logger.info('Switchgear demo: purchase requisition skipped: %s', exc)
             return False
-
-    @api.model
-    def _ensure_bom_final_products(self, bom):
-        """CPA BoMs need final_product_ids for MO state and mark-done."""
-        bom = bom.sudo()
-        if bom.final_product_ids:
-            return bom
-        seen = set()
-        for line in bom.bom_line_ids:
-            product = line.bom_product_id
-            if product and product.id not in seen:
-                seen.add(product.id)
-                self.env['bom.final.product'].create({
-                    'final_product_id': product.id,
-                    'quantity': bom.product_qty or 1.0,
-                    'bom_id': bom.id,
-                })
-        return bom
-
-    @api.model
-    def _ensure_mo_final_products(self, mo):
-        mo = mo.sudo()
-        if mo.final_product_ids:
-            return mo
-        if not mo.bom_id:
-            return mo
-        self._ensure_bom_final_products(mo.bom_id)
-        for fp in mo.bom_id.final_product_ids:
-            self.env['mrp.final.product'].create({
-                'final_product_id': fp.final_product_id.id,
-                'quantity': fp.quantity or mo.product_qty or 1.0,
-                'production_id': mo.id,
-                'actual_quantity': fp.quantity or mo.product_qty or 1.0,
-            })
-        if not mo.move_finished_ids and mo.final_product_ids:
-            location_dest_id = mo._get_default_location_dest_id()
-            for fp in mo.final_product_ids:
-                vals = mo._get_move_finished_values_multi(
-                    fp.final_product_id.id,
-                    fp.quantity or mo.product_qty or 1.0,
-                    fp.final_product_id.uom_id.id,
-                    location_dest_id,
-                )
-                self.env['stock.move'].create(vals)
-        return mo
 
     @api.model
     def _ensure_demo_mo_done_minimums(self, company, min_count=6):
@@ -1850,7 +1635,6 @@ class SwitchgearDemoLoader(models.AbstractModel):
         if not mo.move_raw_ids:
             return False
         try:
-            self._ensure_mo_final_products(mo)
             self._ensure_demo_mo_component_stock(mo, company)
             if not mo.state or mo.state == 'draft':
                 mo.action_confirm()
@@ -1860,10 +1644,6 @@ class SwitchgearDemoLoader(models.AbstractModel):
                 )._action_confirm()
             mo.action_assign()
             qty = mo.product_qty or 1.0
-            if 'final_product_ids' in mo._fields and mo.final_product_ids:
-                fp_qty = mo.final_product_ids[0].quantity
-                if fp_qty:
-                    qty = fp_qty
             if 'qty_producing' in mo._fields:
                 mo.qty_producing = qty
                 if hasattr(mo, '_set_qty_producing'):
@@ -2042,7 +1822,7 @@ class SwitchgearDemoLoader(models.AbstractModel):
         """Remove one demo CRM stack and related documents."""
         lead = lead.sudo()
         partner = lead.partner_id
-        estimates = self.env['job.estimate'].sudo().search([
+        estimates = self.env['switchgear.estimate'].sudo().search([
             ('opportunity_id', '=', lead.id),
         ])
         sale_orders = lead.order_ids | estimates.mapped('sale_quotation_id')
@@ -2065,12 +1845,6 @@ class SwitchgearDemoLoader(models.AbstractModel):
                 pass
         self._safe_unlink(pickings, 'pickings')
 
-        if 'quotation.job.order' in self.env:
-            job_orders = self.env['quotation.job.order'].sudo().search([
-                ('quotation_no', 'in', sale_orders.ids),
-            ])
-            self._safe_unlink(job_orders, 'job orders')
-
         mos = self.env['mrp.production'].sudo()
         boms = self.env['mrp.bom'].sudo()
         if estimates:
@@ -2082,9 +1856,9 @@ class SwitchgearDemoLoader(models.AbstractModel):
                     mo.action_cancel()
             except Exception:
                 pass
-        qc = self.env['quality.check'].sudo().search([
+        qc = self.env['switchgear.quality.check'].sudo().search([
             ('production_id', 'in', mos.ids),
-        ]) if mos else self.env['quality.check']
+        ]) if mos else self.env['switchgear.quality.check']
         self._safe_unlink(qc, 'quality checks')
         self._safe_unlink(mos, 'manufacturing orders')
         self._safe_unlink(boms, 'boms')
@@ -2094,11 +1868,11 @@ class SwitchgearDemoLoader(models.AbstractModel):
             pos = pos.search([('mo_id', 'in', mos.ids)])
         self._safe_unlink(pos, 'purchase orders')
 
-        if 'material.purchase.requisition' in self.env:
+        if 'switchgear.purchase.requisition' in self.env:
             projects = sale_orders.mapped('project_id') | estimates.mapped('project_id')
-            reqs = self.env['material.purchase.requisition'].sudo().search([
+            reqs = self.env['switchgear.purchase.requisition'].sudo().search([
                 ('project_id', 'in', projects.ids),
-            ]) if projects else self.env['material.purchase.requisition']
+            ]) if projects else self.env['switchgear.purchase.requisition']
             self._safe_unlink(reqs, 'requisitions')
 
         for so in sale_orders:

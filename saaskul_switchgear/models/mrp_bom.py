@@ -11,7 +11,7 @@ class MrpBom(models.Model):
     name = fields.Char(string='Number', required=True, copy=False, index=True, default=lambda self: _('New'))
     sale_order_id = fields.Many2one('sale.order', string='Sale Order')
     mo_count = fields.Integer('# Manufacturing Order', compute='_compute_mo_count')
-    estimate_id = fields.Many2one('job.estimate', string='Job Estimation')
+    estimate_id = fields.Many2one('switchgear.estimate', string='Job Estimation')
     project_id = fields.Many2one('project.project', string='Job Order')
     partner_id = fields.Many2one('res.partner', string='Customer')
     estimate_reference = fields.Char(string='Estimation Reference', related='estimate_id.name')

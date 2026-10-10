@@ -20,25 +20,15 @@
 
         <record id="report_qc_label" model="ir.actions.report">
             <field name="name">QC Label</field>
-            <field name="model">quality.check</field>
+            <field name="model">switchgear.quality.check</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">saaskul_switchgear.report_qc_label_sw</field>
             <field name="report_file">saaskul_switchgear.report_qc_label</field>
             <field name="paperformat_id" ref="saaskul_switchgear.paperformat_qc_label"/>
             <field name="print_report_name">'QC Label - %s' % (object.product_id.name)</field>
-            <field name="binding_model_id" ref="cpabooks_quality_community.model_quality_check"/>
+            <field name="binding_model_id" ref="saaskul_switchgear.model_switchgear_quality_check"/>
             <field name="binding_type">report</field>
         </record>
 
-<!--        <record id="action_report_job_order" model="ir.actions.report">-->
-<!--            <field name="name">Job Order</field>-->
-<!--            <field name="model">stock.picking</field>-->
-<!--            <field name="report_type">qweb-pdf</field>-->
-<!--            <field name="report_name">saaskul_switchgear.report_job_order</field>-->
-<!--            <field name="report_file">saaskul_switchgear.report_job_order</field>-->
-<!--            <field name="print_report_name">'Job Order - %s - %s' % (object.partner_id.name or '', object.name)</field>-->
-<!--            <field name="binding_model_id" ref="stock.model_stock_picking"/>-->
-<!--            <field name="binding_type">report</field>-->
-<!--        </record>-->
     </data>
 </odoo>

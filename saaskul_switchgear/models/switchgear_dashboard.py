@@ -23,12 +23,6 @@ class SwitchgearDashboard(models.AbstractModel):
         ctx = dict(self.env.context)
         ctx.setdefault('default_profile', 'switchgear')
         ctx.setdefault('default_voucher_count', 25)
-        if 'cpabooks.demo.config' in self.env:
-            config = self.env['cpabooks.demo.config'].sudo().search([
-                ('company_id', '=', self.env.company.id),
-            ], limit=1)
-            if config and config.default_voucher_count:
-                ctx['default_voucher_count'] = config.default_voucher_count
         result['context'] = ctx
         return result
 
@@ -39,12 +33,6 @@ class SwitchgearDashboard(models.AbstractModel):
             raise UserError(_('Only Settings / Administrator users can load switchgear demo data.'))
         company = self.env.company.sudo()
         voucher_count = 25
-        if 'cpabooks.demo.config' in self.env:
-            config = self.env['cpabooks.demo.config'].sudo().search([
-                ('company_id', '=', company.id),
-            ], limit=1)
-            if config and config.default_voucher_count:
-                voucher_count = config.default_voucher_count
         if 'switchgear.demo.loader' not in self.env:
             raise UserError(_(
                 'Switchgear demo loader is not available. '
@@ -90,15 +78,6 @@ class SwitchgearDashboard(models.AbstractModel):
 
     @api.model
     def action_open_configuration(self):
-        """Open switchgear / dashboard configuration (no removed switchgear.configuration model)."""
-        if 'cpabooks.demo.config' in self.env:
-            return self.env['cpabooks.demo.config'].action_open_switchgear_configuration()
-        theme_action = self.env.ref(
-            'app_odoo_customize.action_app_theme_config',
-            raise_if_not_found=False,
-        )
-        if theme_action:
-            return theme_action.read()[0]
         company = self.env.company
         return {
             'type': 'ir.actions.act_window',
@@ -127,7 +106,7 @@ class SwitchgearDashboard(models.AbstractModel):
     @api.model
     def _dashboard_kpis(self):
         Lead = self.env['crm.lead'].sudo()
-        Estimate = self.env['job.estimate'].sudo()
+        Estimate = self.env['switchgear.estimate'].sudo()
         SO = self.env['sale.order'].sudo()
         MO = self.env['mrp.production'].sudo()
         Picking = self.env['stock.picking'].sudo()
@@ -142,10 +121,10 @@ class SwitchgearDashboard(models.AbstractModel):
             },
             {
                 'label': 'Estimations (Draft)',
-                'value': Estimate.search_count(cd('job.estimate') + [
+                'value': Estimate.search_count(cd('switchgear.estimate') + [
                     ('state', 'in', ('draft', 'confirmed', 'approved')),
                 ]),
-                'action_xmlid': 'cost_estimate_customer_ld.action_job_estimate',
+                'action_xmlid': 'saaskul_switchgear.action_job_estimate',
                 'icon': 'fa-calculator',
             },
             {
@@ -212,19 +191,19 @@ class SwitchgearDashboard(models.AbstractModel):
             ],
         })
 
-        Estimate = self.env['job.estimate'].sudo()
+        Estimate = self.env['switchgear.estimate'].sudo()
         SO = self.env['sale.order'].sudo()
         sections.append({
             'id': 'customer_sales',
             'title': 'Estimation & Sales',
             'theme': 'customer',
             'items': [
-                self._item('Job estimates — draft', Estimate.search_count(cd('job.estimate') + [
+                self._item('Job estimates — draft', Estimate.search_count(cd('switchgear.estimate') + [
                     ('state', '=', 'draft'),
-                ]), 'cost_estimate_customer_ld.action_job_estimate', 'pending'),
-                self._item('Job estimates — awaiting approval', Estimate.search_count(cd('job.estimate') + [
+                ]), 'saaskul_switchgear.action_job_estimate', 'pending'),
+                self._item('Job estimates — awaiting approval', Estimate.search_count(cd('switchgear.estimate') + [
                     ('state', 'in', ('confirmed', 'approved')),
-                ]), 'cost_estimate_customer_ld.action_job_estimate', 'progress'),
+                ]), 'saaskul_switchgear.action_job_estimate', 'progress'),
                 self._item('Quotations to confirm', SO.search_count(cd('sale.order') + [
                     ('state', 'in', ('draft', 'sent')),
                 ]), 'sale.action_quotations_with_onboarding', 'pending'),
@@ -261,20 +240,17 @@ class SwitchgearDashboard(models.AbstractModel):
             ),
         ]
 
-        if 'material.purchase.requisition' in self.env:
-            Req = self.env['material.purchase.requisition'].sudo()
-            req_domain = cd('material.purchase.requisition')
-            if 'state' in Req._fields:
-                engineering_items.append(
-                    self._item(
-                        'Purchase requisitions open',
-                        Req.search_count(req_domain + [
-                            ('state', 'not in', ('cancel', 'done', 'rejected')),
-                        ]),
-                        'bi_material_purchase_requisitions.action_material_purchase_requisition',
-                        'pending',
-                    ),
-                )
+        Req = self.env['switchgear.purchase.requisition'].sudo()
+        engineering_items.append(
+            self._item(
+                'Purchase requisitions open',
+                Req.search_count(cd('switchgear.purchase.requisition') + [
+                    ('state', 'not in', ('cancel', 'po_created')),
+                ]),
+                'saaskul_switchgear.action_material_purchase_requisition',
+                'pending',
+            ),
+        )
 
         sections.append({
             'id': 'engineering',
@@ -283,14 +259,12 @@ class SwitchgearDashboard(models.AbstractModel):
             'items': engineering_items,
         })
 
-        if 'quality.alert' in self.env:
-            QA = self.env['quality.alert'].sudo()
-            qa_domain = cd('quality.alert')
-            if 'stage_id' in QA._fields:
-                sections[-1]['items'].append(
-                    self._item('Quality alerts open', QA.search_count(qa_domain),
-                               'cpabooks_quality_community.quality_alert_team_action', 'pending'),
-                )
+        QA = self.env['switchgear.quality.alert'].sudo()
+        sections[-1]['items'].append(
+            self._item('Quality alerts open', QA.search_count(cd('switchgear.quality.alert') + [
+                ('stage_id.done', '=', False),
+            ]), 'saaskul_switchgear.quality_alert_team_action', 'pending'),
+        )
 
         PO = self.env['purchase.order'].sudo()
         Picking = self.env['stock.picking'].sudo()

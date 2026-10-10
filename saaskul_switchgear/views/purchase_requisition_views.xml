@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase_requisition_view_form" model="ir.ui.view">
+        <field name="name">switchgear.purchase.requisition.form</field>
+        <field name="model">switchgear.purchase.requisition</field>
+        <field name="arch" type="xml">
+            <form string="Purchase Requisition">
+                <header>
+                    <button name="action_confirm" string="Submit" type="object" states="draft" class="btn-primary"/>
+                    <button name="action_approve" string="Approve" type="object" states="confirmed" class="btn-primary"
+                            groups="purchase.group_purchase_manager"/>
+                    <button name="action_create_po" string="Create Purchase Orders" type="object" states="approved"
+                            class="btn-primary"/>
+                    <button name="action_cancel" string="Cancel" type="object" states="draft,confirmed,approved"/>
+                    <button name="action_draft" string="Set to Draft" type="object" states="cancel"/>
+                    <button name="action_cpabooks_open_progress_status" type="object"
+                            string="Progress Status" class="btn-secondary o_cpabooks_progress_status_btn"
+                            icon="fa-tasks"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,approved,po_created"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_purchase_orders" type="object" class="oe_stat_button"
+                                icon="fa-shopping-cart" attrs="{'invisible': [('purchase_count', '=', 0)]}">
+                            <field name="purchase_count" widget="statinfo" string="Purchase Orders"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="department_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="project_id"/>
+                            <field name="production_id"/>
+                        </group>
+                        <group>
+                            <field name="requisition_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="picking_type_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Products" name="products">
+                            <field name="requisition_line_ids" attrs="{'readonly': [('state', 'in', ('po_created', 'cancel'))]}">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="description"/>
+                                    <field name="qty"/>
+                                    <field name="uom_id"/>
+                                    <field name="vendor_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Reason" name="reason">
+                            <field name="reason_for_requisition" placeholder="Why are these materials needed?"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="purchase_requisition_view_tree" model="ir.ui.view">
+        <field name="name">switchgear.purchase.requisition.tree</field>
+        <field name="model">switchgear.purchase.requisition</field>
+        <field name="arch" type="xml">
+            <tree decoration-muted="state == 'cancel'" decoration-success="state == 'po_created'">
+                <field name="name"/>
+                <field name="requisition_date"/>
+                <field name="employee_id"/>
+                <field name="department_id" optional="show"/>
+                <field name="project_id" optional="show"/>
+                <field name="production_id" optional="hide"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+                <field name="state" widget="badge" decoration-info="state == 'draft'"
+                       decoration-warning="state in ('confirmed', 'approved')" decoration-success="state == 'po_created'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="purchase_requisition_view_search" model="ir.ui.view">
+        <field name="name">switchgear.purchase.requisition.search</field>
+        <field name="model">switchgear.purchase.requisition</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="project_id"/>
+                <field name="production_id"/>
+                <filter name="to_approve" string="Waiting Approval" domain="[('state', '=', 'confirmed')]"/>
+                <filter name="approved" string="Approved" domain="[('state', '=', 'approved')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_project" string="Job Order" context="{'group_by': 'project_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_material_purchase_requisition" model="ir.actions.act_window">
+        <field name="name">Purchase Requisitions</field>
+        <field name="res_model">switchgear.purchase.requisition</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="purchase_requisition_view_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Raise the first purchase requisition</p>
+            <p>List the materials a job needs; once approved, purchase orders are created per vendor.</p>
+        </field>
+    </record>
+</odoo>

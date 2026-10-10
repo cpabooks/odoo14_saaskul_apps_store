@@ -1,6 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Activity Management menus under Switchgear (actions from all_in_one_schedule_activity_management). -->
+    <record id="mail_activity_view_search_switchgear" model="ir.ui.view">
+        <field name="name">mail.activity.search.switchgear</field>
+        <field name="model">mail.activity</field>
+        <field name="inherit_id" ref="mail.mail_activity_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='activities_overdue']" position="before">
+                <filter string="My Activities" name="my_activities" domain="[('user_id', '=', uid)]"/>
+                <separator/>
+            </xpath>
+            <xpath expr="//filter[@name='activities_overdue']" position="attributes">
+                <attribute name="invisible">0</attribute>
+            </xpath>
+            <xpath expr="//filter[@name='activities_today']" position="attributes">
+                <attribute name="invisible">0</attribute>
+            </xpath>
+            <xpath expr="//filter[@name='activities_upcoming_all']" position="attributes">
+                <attribute name="invisible">0</attribute>
+            </xpath>
+            <xpath expr="//filter[@name='activittype']" position="after">
+                <filter string="Assigned To" name="group_user" context="{'group_by': 'user_id'}"/>
+                <filter string="Document Model" name="group_model" context="{'group_by': 'res_model_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_switchgear_activity_all" model="ir.actions.act_window">
+        <field name="name">All Activities</field>
+        <field name="res_model">mail.activity</field>
+        <field name="view_mode">tree,calendar,form</field>
+        <field name="search_view_id" ref="mail_activity_view_search_switchgear"/>
+        <field name="context">{'search_default_group_user': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No open activities</p>
+            <p>Activities scheduled on opportunities, estimates, orders and job tasks show up here.</p>
+        </field>
+    </record>
+
+    <record id="action_switchgear_activity_my" model="ir.actions.act_window">
+        <field name="name">My Activities</field>
+        <field name="res_model">mail.activity</field>
+        <field name="view_mode">tree,calendar,form</field>
+        <field name="search_view_id" ref="mail_activity_view_search_switchgear"/>
+        <field name="context">{'search_default_my_activities': 1}</field>
+    </record>
+
+    <record id="action_switchgear_activity_reporting" model="ir.actions.act_window">
+        <field name="name">Activity Reporting</field>
+        <field name="res_model">mail.activity</field>
+        <field name="view_mode">pivot,graph,tree</field>
+        <field name="search_view_id" ref="mail_activity_view_search_switchgear"/>
+    </record>
+
     <menuitem
         id="menu_switchgear_activities_root"
         name="Activities"
@@ -8,105 +59,38 @@
         sequence="4"/>
 
     <menuitem
-        id="menu_switchgear_activity_dashboard"
-        name="Dashboard"
+        id="menu_switchgear_activity_my"
+        name="My Activities"
         parent="menu_switchgear_activities_root"
+        action="action_switchgear_activity_my"
         sequence="10"/>
-
-    <menuitem
-        id="menu_switchgear_activity_dashboard_project"
-        name="Project Activity Dashboard"
-        parent="menu_switchgear_activity_dashboard"
-        action="all_in_one_schedule_activity_management.activity_action_dashboard_main"
-        sequence="10"/>
-
-    <menuitem
-        id="menu_switchgear_activity_dashboard_task"
-        name="Tasks Dashboard"
-        parent="menu_switchgear_activity_dashboard"
-        action="all_in_one_schedule_activity_management.activity_action_task_dashboard"
-        sequence="20"/>
-
-    <menuitem
-        id="menu_switchgear_activity_dashboard_monitoring"
-        name="Activities Monitoring"
-        parent="menu_switchgear_activity_dashboard"
-        action="all_in_one_schedule_activity_management.activity_action_monitoring"
-        sequence="30"/>
-
-    <menuitem
-        id="menu_switchgear_activity_dashboard_timesheet"
-        name="Timesheet and Planning"
-        parent="menu_switchgear_activity_dashboard"
-        action="all_in_one_schedule_activity_management.activity_action_timesheet_planning"
-        sequence="40"/>
-
-    <menuitem
-        id="menu_switchgear_activity_task_menu"
-        name="Task"
-        parent="menu_switchgear_activities_root"
-        sequence="20"/>
-
-    <menuitem
-        id="menu_switchgear_activity_my_tasks"
-        name="My Tasks"
-        parent="menu_switchgear_activity_task_menu"
-        action="all_in_one_schedule_activity_management.action_my_tasks"
-        sequence="1"/>
-
-    <menuitem
-        id="menu_switchgear_activity_act"
-        name="Activity"
-        parent="menu_switchgear_activities_root"
-        sequence="30"/>
 
     <menuitem
         id="menu_switchgear_activity_all"
         name="All Activities"
-        parent="menu_switchgear_activity_act"
-        action="all_in_one_schedule_activity_management.mail_activity_all_action"
-        sequence="1"/>
-
-    <menuitem
-        id="menu_switchgear_activity_my"
-        name="My Activities"
-        parent="menu_switchgear_activity_act"
-        action="all_in_one_schedule_activity_management.mail_activity_my_action"
-        sequence="2"/>
-
-    <menuitem
-        id="menu_switchgear_activity_done"
-        name="Done Activities"
-        parent="menu_switchgear_activity_act"
-        action="all_in_one_schedule_activity_management.done_mail_activity_all_action"
-        sequence="3"/>
-
-    <menuitem
-        id="menu_switchgear_activity_issues"
-        name="Issue List"
-        parent="menu_switchgear_activity_act"
-        action="all_in_one_schedule_activity_management.action_cpa_issue"
-        sequence="4"/>
-
-    <menuitem
-        id="menu_switchgear_activity_tags"
-        name="Activity Tags"
-        parent="menu_switchgear_activity_act"
-        action="all_in_one_schedule_activity_management.activity_tag_action"
-        sequence="5"/>
-
-    <menuitem
-        id="menu_switchgear_activity_history"
-        name="Activity History"
         parent="menu_switchgear_activities_root"
-        action="all_in_one_schedule_activity_management.mail_activity_history_action"
+        action="action_switchgear_activity_all"
+        sequence="20"/>
+
+    <menuitem
+        id="menu_switchgear_activity_tasks"
+        name="Job Tasks"
+        parent="menu_switchgear_activities_root"
+        action="project.action_view_all_task"
+        sequence="30"/>
+
+    <menuitem
+        id="menu_switchgear_activity_timesheet"
+        name="Timesheets"
+        parent="menu_switchgear_activities_root"
+        action="hr_timesheet.timesheet_action_all"
         sequence="40"/>
 
     <menuitem
         id="menu_switchgear_activity_reporting"
         name="Activity Reporting"
         parent="menu_switchgear_activities_root"
-        action="all_in_one_schedule_activity_management.activity_reporting_action"
+        action="action_switchgear_activity_reporting"
         sequence="50"/>
 
     <menuitem
@@ -119,13 +103,6 @@
         id="menu_switchgear_activity_configuration_types"
         name="Activity Types"
         parent="menu_switchgear_activity_configuration"
-        action="all_in_one_schedule_activity_management.action_activity_type_configuration"
+        action="mail.mail_activity_type_action"
         sequence="10"/>
-
-    <menuitem
-        id="menu_switchgear_activity_configuration_tags"
-        name="Activity Tags"
-        parent="menu_switchgear_activity_configuration"
-        action="all_in_one_schedule_activity_management.activity_tag_action"
-        sequence="20"/>
 </odoo>

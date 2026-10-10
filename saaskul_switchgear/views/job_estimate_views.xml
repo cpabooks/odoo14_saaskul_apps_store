@@ -1,38 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="job_estimate_form_view_inherit_switchgear_custom" model="ir.ui.view">
-        <field name="name">job.estimate.form.view.inherit.switchgear_custom</field>
-        <field name="model">job.estimate</field>
-        <field name="inherit_id" ref="cost_estimate_customer_ld.job_estimate_form_view"/>
+    <record id="job_estimate_form_view" model="ir.ui.view">
+        <field name="name">switchgear.estimate.form</field>
+        <field name="model">switchgear.estimate</field>
         <field name="arch" type="xml">
-            <xpath expr="//button[@name='action_create_quotation']" position="after">
-                <button name="action_create_bom" string="Create BOM" type="object" states="approved,done" class="btn-primary"/>
-<!--                draft,confirmed,-->
-            </xpath>
-            <xpath expr="//div[@name='button_box']" position="inside">
-                <button class="oe_stat_button" name="%(saaskul_switchgear.action_mrp_bom_from_job_estimation)d" type="action" icon="fa-flask">
-                    <field string="Bill of Materials" name="bom_count" widget="statinfo" />
-                </button>
-            </xpath>
-            <xpath expr="//field[@name='user_id']" position="after">
-                <field name="bom_id"/>
-                <field name="bom_reference"/>
-                <field name="bom_product_id"/>
-            </xpath>
-            <xpath expr="//field[@name='project_id']" position="attributes">
-                <attribute name="string">Job Order</attribute>
-            </xpath>
-            <xpath expr="//field[@name='customer_ref']" position="before">
-                <field name="crm_reference"/>
-                <field name="opportunity_id" invisible="1"/>
-            </xpath>
+            <form string="Job Estimate">
+                <header>
+                    <button name="action_job_confirm" string="Confirm" type="object" states="draft" class="btn-primary"/>
+                    <button name="action_approve" string="Approve" type="object" states="confirmed" class="btn-primary"/>
+                    <button name="action_create_quotation" string="Create Quotation" type="object" states="approved" class="btn-primary"/>
+                    <button name="action_create_bom" string="Create BOM" type="object" states="approved,done" class="btn-primary"/>
+                    <button name="action_cancel" string="Cancel" type="object" states="draft,confirmed,approved"/>
+                    <button name="action_set_to_draft" string="Set to Draft" type="object" states="cancel"/>
+                    <button name="action_cpabooks_open_progress_status" type="object"
+                            string="Progress Status" class="btn-secondary o_cpabooks_progress_status_btn"
+                            icon="fa-tasks"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,approved,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="action_view_quotations" type="object" icon="fa-file-text-o"
+                                attrs="{'invisible': [('quotation_count', '=', 0)]}">
+                            <field string="Quotations" name="quotation_count" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button" name="%(saaskul_switchgear.action_mrp_bom_from_job_estimation)d" type="action" icon="fa-flask">
+                            <field string="Bill of Materials" name="bom_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" attrs="{'readonly': [('state', 'not in', ('draft', 'confirmed'))]}"/>
+                            <field name="opportunity_id"/>
+                            <field name="crm_reference"/>
+                            <field name="customer_ref"/>
+                            <field name="project_id"/>
+                            <field name="analytic_id" groups="analytic.group_analytic_accounting"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="sales_person_id"/>
+                            <field name="user_id"/>
+                            <field name="bom_id"/>
+                            <field name="bom_reference"/>
+                            <field name="bom_product_id"/>
+                            <field name="sale_quotation_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Materials" name="materials">
+                            <field name="material_estimation_ids" attrs="{'readonly': [('state', 'not in', ('draft', 'confirmed'))]}">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="description"/>
+                                    <field name="quantity"/>
+                                    <field name="uom_id"/>
+                                    <field name="price_unit"/>
+                                    <field name="discount" optional="hide"/>
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="subtotal" sum="Total"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Labour" name="labour">
+                            <field name="labour_estimation_ids" attrs="{'readonly': [('state', 'not in', ('draft', 'confirmed'))]}">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="description"/>
+                                    <field name="quantity"/>
+                                    <field name="hours"/>
+                                    <field name="uom_id"/>
+                                    <field name="price_unit"/>
+                                    <field name="discount" optional="hide"/>
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="subtotal" sum="Total"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Overheads" name="overheads">
+                            <field name="overhead_estimation_ids" attrs="{'readonly': [('state', 'not in', ('draft', 'confirmed'))]}">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="description"/>
+                                    <field name="quantity"/>
+                                    <field name="uom_id"/>
+                                    <field name="price_unit"/>
+                                    <field name="discount" optional="hide"/>
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="subtotal" sum="Total"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Description" name="description">
+                            <field name="description" placeholder="Scope of work, notes for the quotation..."/>
+                        </page>
+                    </notebook>
+                    <group class="oe_subtotal_footer oe_right" name="totals">
+                        <field name="total_material_estimate" string="Materials"/>
+                        <field name="total_labour_estimate" string="Labour"/>
+                        <field name="total_overhead_estimate" string="Overheads"/>
+                        <field name="total_cost_estimate"/>
+                        <field name="profit_percent" attrs="{'readonly': [('state', 'not in', ('draft', 'confirmed'))]}"/>
+                        <field name="total_job_estimate" class="oe_subtotal_footer_separator"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
         </field>
     </record>
 
-    <!--Action for Estimates-->
+    <record id="job_estimate_tree_view" model="ir.ui.view">
+        <field name="name">switchgear.estimate.tree</field>
+        <field name="model">switchgear.estimate</field>
+        <field name="arch" type="xml">
+            <tree decoration-muted="state == 'cancel'" decoration-info="state == 'draft'" decoration-success="state == 'done'">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="partner_id"/>
+                <field name="opportunity_id" optional="show"/>
+                <field name="project_id" optional="show"/>
+                <field name="sales_person_id" optional="hide"/>
+                <field name="sale_quotation_id" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="total_job_estimate" sum="Total"/>
+                <field name="state" widget="badge" decoration-info="state == 'draft'"
+                       decoration-warning="state in ('confirmed', 'approved')" decoration-success="state == 'done'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="job_estimate_search_view" model="ir.ui.view">
+        <field name="name">switchgear.estimate.search</field>
+        <field name="model">switchgear.estimate</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="opportunity_id"/>
+                <field name="project_id"/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="confirmed" string="Awaiting Approval" domain="[('state', '=', 'confirmed')]"/>
+                <filter name="approved" string="Approved" domain="[('state', '=', 'approved')]"/>
+                <filter name="done" string="Quotation Created" domain="[('state', '=', 'done')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_partner" string="Customer" context="{'group_by': 'partner_id'}"/>
+                    <filter name="group_project" string="Job Order" context="{'group_by': 'project_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_job_estimate" model="ir.actions.act_window">
+        <field name="name">Job Estimates</field>
+        <field name="res_model">switchgear.estimate</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="job_estimate_search_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create the first job estimate</p>
+            <p>Price materials, labour and overheads, then turn the approved estimate into a quotation and a BoM.</p>
+        </field>
+    </record>
+
     <record id="action_job_estimate_from_project" model="ir.actions.act_window">
         <field name="name">Job Estimates</field>
-        <field name="res_model">job.estimate</field>
+        <field name="res_model">switchgear.estimate</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('project_id', '=', active_id)]</field>
         <field name="context">{'default_project_id': active_id}</field>

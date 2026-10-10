@@ -18,7 +18,7 @@ var NAV_ITEMS = [
     {section: 'CRM', sectionClass: 'o_switchgear_section_crm', items: [
         {key: 'enquiry', label: 'Pipeline (Opportunities)', xmlid: 'crm.crm_lead_action_pipeline'},
         {key: 'crm_leads', label: 'Leads', xmlid: 'crm.crm_lead_all_leads'},
-        {key: 'estimation', label: 'Estimation', xmlid: 'cost_estimate_customer_ld.action_job_estimate'},
+        {key: 'estimation', label: 'Estimation', xmlid: 'saaskul_switchgear.action_job_estimate'},
         {key: 'quotation', label: 'Quotation (Sales)', xmlid: 'sale.action_quotations_with_onboarding'},
     ]},
     {section: 'Manufacturing', sectionClass: 'o_switchgear_section_manufacturing', items: [
@@ -26,7 +26,7 @@ var NAV_ITEMS = [
         {key: 'mrp_workorders', label: 'Work Orders', xmlid: 'mrp.mrp_workorder_todo'},
         {key: 'bom', label: 'Bills of Materials', xmlid: 'mrp.mrp_bom_form_action'},
         {key: 'design', label: 'Design (Documents)', xmlid: 'saaskul_switchgear.action_switchgear_design_document'},
-        {key: 'purchase_req', label: 'Purchase Requisition', xmlid: 'bi_material_purchase_requisitions.action_material_purchase_requisition'},
+        {key: 'purchase_req', label: 'Purchase Requisition', xmlid: 'saaskul_switchgear.action_material_purchase_requisition'},
     ]},
     {section: 'Inventory', sectionClass: 'o_switchgear_section_inventory', items: [
         {key: 'stock_check', label: 'Operations Overview', xmlid: 'stock.stock_picking_type_action'},
@@ -36,14 +36,13 @@ var NAV_ITEMS = [
         {key: 'stock_adjustments', label: 'Inventory Adjustments', xmlid: 'stock.action_inventory_form'},
         {key: 'stock_replenish', label: 'Reordering Rules', xmlid: 'stock.action_orderpoint'},
         {key: 'stock_products', label: 'Products', xmlid: 'stock.product_template_action_product'},
-        {key: 'inv_valuation_live', label: 'Inventory Valuation — Live', xmlid: 'eq_inventory_valuation_report.action_wizard_inventory_valuation_ui_loaded'},
+        {key: 'inv_valuation_live', label: 'Inventory Valuation', xmlid: 'stock_account.stock_valuation_layer_action'},
         {key: 'lpo_purchase', label: 'Purchase (LPO / RFQ)', xmlid: 'purchase.purchase_rfq'},
     ]},
     {section: 'Quality', sectionClass: 'o_switchgear_section_quality', items: [
-        {key: 'quality', label: 'Quality Overview', xmlid: 'cpabooks_quality_community.quality_alert_team_action'},
-        {key: 'quality_checks', label: 'Quality Checks', xmlid: 'cpabooks_quality_community.quality_check_action_main'},
-        {key: 'quality_alerts', label: 'Quality Alerts', xmlid: 'cpabooks_quality_community.quality_alert_action'},
-        {key: 'quality_points', label: 'Control Points', xmlid: 'cpabooks_quality_community.quality_point_action'},
+        {key: 'quality', label: 'Quality Overview', xmlid: 'saaskul_switchgear.quality_alert_team_action'},
+        {key: 'quality_checks', label: 'Quality Checks', xmlid: 'saaskul_switchgear.quality_check_action_main'},
+        {key: 'quality_alerts', label: 'Quality Alerts', xmlid: 'saaskul_switchgear.quality_alert_action'},
     ]},
     {section: 'Timesheet', sectionClass: 'o_switchgear_section_timesheet', items: [
         {key: 'timesheet_mine', label: 'My Timesheets', xmlid: 'hr_timesheet.act_hr_timesheet_line'},
@@ -61,13 +60,10 @@ var NAV_ITEMS = [
         {key: 'tasks_by_client', label: 'Tasks by Customer', xmlid: 'saaskul_switchgear.action_switchgear_tasks_by_client'},
     ]},
     {section: 'Activities', sectionClass: 'o_switchgear_section_activities', items: [
-        {key: 'activity_dashboard', label: 'Project Activity Dashboard', xmlid: 'all_in_one_schedule_activity_management.activity_action_dashboard_main'},
-        {key: 'all_activities', label: 'All Activities', xmlid: 'all_in_one_schedule_activity_management.mail_activity_all_action'},
-        {key: 'my_activities', label: 'My Activities', xmlid: 'all_in_one_schedule_activity_management.mail_activity_my_action'},
-        {key: 'activity_monitoring', label: 'Activities Monitoring', xmlid: 'all_in_one_schedule_activity_management.activity_action_monitoring'},
-        {key: 'done_activities', label: 'Done Activities', xmlid: 'all_in_one_schedule_activity_management.done_mail_activity_all_action'},
-        {key: 'activity_history', label: 'Activity History', xmlid: 'all_in_one_schedule_activity_management.mail_activity_history_action'},
-        {key: 'activity_reporting', label: 'Activity Reporting', xmlid: 'all_in_one_schedule_activity_management.activity_reporting_action'},
+        {key: 'my_activities', label: 'My Activities', xmlid: 'saaskul_switchgear.action_switchgear_activity_my'},
+        {key: 'all_activities', label: 'All Activities', xmlid: 'saaskul_switchgear.action_switchgear_activity_all'},
+        {key: 'job_tasks', label: 'Job Tasks', xmlid: 'project.action_view_all_task'},
+        {key: 'activity_reporting', label: 'Activity Reporting', xmlid: 'saaskul_switchgear.action_switchgear_activity_reporting'},
     ]},
     {section: 'Accounting', sectionClass: 'o_switchgear_section_accounting', items: [
         {key: 'tax_invoice', label: 'Tax Invoice', xmlid: 'account.action_move_out_invoice_type'},
@@ -89,7 +85,7 @@ var XMLID_TO_KEY = {};
 var SWITCHGEAR_RES_MODELS = {
     'flowchart.kanban': true,
     'crm.lead': true,
-    'job.estimate': true,
+    'switchgear.estimate': true,
     'sale.order': true,
     'mrp.bom': true,
     'mrp.production': true,
@@ -98,15 +94,15 @@ var SWITCHGEAR_RES_MODELS = {
     'stock.picking.type': true,
     'stock.warehouse.orderpoint': true,
     'stock.inventory': true,
+    'stock.valuation.layer': true,
     'purchase.order': true,
     'account.move': true,
     'account.payment': true,
     'switchgear.design.document': true,
-    'material.purchase.requisition': true,
-    'quality.alert': true,
-    'quality.alert.team': true,
-    'quality.check': true,
-    'quality.point': true,
+    'switchgear.purchase.requisition': true,
+    'switchgear.quality.alert': true,
+    'switchgear.quality.team': true,
+    'switchgear.quality.check': true,
     'hr.employee': true,
     'hr.employee.public': true,
     'hr.department': true,
@@ -120,7 +116,6 @@ var SWITCHGEAR_RES_MODELS = {
     'project.project': true,
     'project.task': true,
     'mail.activity': true,
-    'cpa.issue': true,
 };
 
 _.each(NAV_ITEMS, function (block) {
@@ -221,7 +216,7 @@ function activeKeyFromAction(action) {
     if (action.res_model === 'switchgear.tutorial.wizard') {
         return 'tutorial';
     }
-    if (action.res_model === 'job.estimate') {
+    if (action.res_model === 'switchgear.estimate') {
         return 'estimation';
     }
     if (action.res_model === 'crm.lead') {
@@ -269,16 +264,13 @@ function activeKeyFromAction(action) {
     if (action.res_model === 'switchgear.design.document') {
         return 'design';
     }
-    if (action.res_model === 'quality.check') {
+    if (action.res_model === 'switchgear.quality.check') {
         return 'quality_checks';
     }
-    if (action.res_model === 'quality.alert') {
+    if (action.res_model === 'switchgear.quality.alert') {
         return 'quality_alerts';
     }
-    if (action.res_model === 'quality.point') {
-        return 'quality_points';
-    }
-    if (action.res_model === 'quality.alert.team') {
+    if (action.res_model === 'switchgear.quality.team') {
         return 'quality';
     }
     if (action.res_model === 'hr.employee' || action.res_model === 'hr.employee.public') {
@@ -313,12 +305,6 @@ function activeKeyFromAction(action) {
             return XMLID_TO_KEY[action.xml_id];
         }
         return 'all_activities';
-    }
-    if (action.tag === 'activity_dashboard' || action.tag === 'activity_dashboard_new') {
-        return 'activity_dashboard';
-    }
-    if (action.res_model === 'cpabooks.demo.config') {
-        return 'configuration';
     }
     if (action.xml_id === 'saaskul_switchgear.action_switchgear_configuration') {
         return 'configuration';

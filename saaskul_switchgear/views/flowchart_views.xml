@@ -35,7 +35,7 @@
                                             </button>
                                         </div>
                                         <div class="mt16">
-                                            <button name="%(cost_estimate_customer_ld.action_job_estimate)d" type="action" string="ESTIMATION" class="btn btn-info col-10">
+                                            <button name="%(saaskul_switchgear.action_job_estimate)d" type="action" string="ESTIMATION" class="btn btn-info col-10">
                                                 ESTIMATION
                                             </button>
                                         </div>
@@ -64,12 +64,12 @@
                                             </button>
                                         </div>
                                         <div class="mt16">
-                                            <button name="%(bi_material_purchase_requisitions.action_material_purchase_requisition)d" type="action" string="PURCHASE REQUISITION" class="btn btn-success col-10">
+                                            <button name="%(saaskul_switchgear.action_material_purchase_requisition)d" type="action" string="PURCHASE REQUISITION" class="btn btn-success col-10">
                                                 PURCHASE REQUISITION
                                             </button>
                                         </div>
                                         <div class="mt16">
-                                            <button name="%(cpabooks_quality_community.quality_alert_team_action)d" type="action" string="QUALITY CONTROL/HANDOVER FINISHED PRODUCT TO STORE" class="btn btn-success col-10">
+                                            <button name="%(saaskul_switchgear.quality_alert_team_action)d" type="action" string="QUALITY CONTROL/HANDOVER FINISHED PRODUCT TO STORE" class="btn btn-success col-10">
                                                 QUALITY CONTROL/HANDOVER FINISHED PRODUCT TO STORE
                                             </button>
                                         </div>

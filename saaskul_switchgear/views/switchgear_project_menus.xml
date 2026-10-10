@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Extended project list (contract amount, sales, profit columns from cpabooks_project_extend). -->
     <record id="action_switchgear_project_list" model="ir.actions.act_window">
         <field name="name">Project List</field>
         <field name="res_model">project.project</field>

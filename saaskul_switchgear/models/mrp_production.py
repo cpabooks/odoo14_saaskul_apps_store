@@ -89,13 +89,9 @@ class MrpProduction(models.Model):
             ]) if production.id else 0
 
     def _compute_qc_count(self):
+        Check = self.env['switchgear.quality.check']
         for production in self:
-            if 'quality.check' in self.env:
-                production.qc_count = self.env['quality.check'].search_count([
-                    ('production_id', '=', production.id),
-                ])
-            else:
-                production.qc_count = 0
+            production.qc_count = Check.search_count([('production_id', '=', production.id)]) if production.id else 0
 
     def action_view_relavent_po(self):
         self.ensure_one()
@@ -109,70 +105,30 @@ class MrpProduction(models.Model):
 
     def action_view_quality_checks(self):
         self.ensure_one()
-        if 'quality.check' not in self.env:
-            return True
-        action = self.env.ref(
-            'cpabooks_quality_community.quality_check_action_mo',
-            raise_if_not_found=False,
-        )
-        if action:
-            result = action.read()[0]
-            result['domain'] = [('production_id', '=', self.id)]
-            result['context'] = dict(
-                self.env.context,
-                default_production_id=self.id,
-                search_default_production_id=self.id,
-            )
-            return result
-        return {
-            'name': _('Quality Checks'),
-            'type': 'ir.actions.act_window',
-            'res_model': 'quality.check',
-            'view_mode': 'tree,form',
-            'domain': [('production_id', '=', self.id)],
-            'context': {'default_production_id': self.id},
-        }
+        action = self.env['ir.actions.actions']._for_xml_id('saaskul_switchgear.quality_check_action_mo')
+        action['domain'] = [('production_id', '=', self.id)]
+        action['context'] = dict(self.env.context, default_production_id=self.id)
+        return action
 
     def action_create_qc(self):
-        if 'quality.check' not in self.env:
-            return True
-        test_type = self.env.ref(
-            'cpabooks_quality_community.test_type_passfail', raise_if_not_found=False,
-        )
-        if not test_type:
-            return True
-        team = self.env['quality.alert.team'].search([], limit=1)
-        if not team:
-            return True
+        Check = self.env['switchgear.quality.check']
+        team = self.env['switchgear.quality.team']._get_default_team()
+        test_type = self.env.ref('saaskul_switchgear.test_type_passfail', raise_if_not_found=False)
         for rec in self:
-            self.env['quality.check'].create({
+            vals = {
                 'product_id': rec.product_id.id,
                 'production_id': rec.id,
                 'company_id': rec.company_id.id,
-                'team_id': team.id if team else False,
-                'test_type_id': test_type.id,
-            })
+                'team_id': team.id,
+            }
+            if test_type:
+                vals['test_type_id'] = test_type.id
+            Check.create(vals)
+        if len(self) == 1:
+            return self.action_view_quality_checks()
         return True
 
-    def action_create_pr(self):
-        print("**")
-
-    # def _get_move_raw_values(self, product_id, product_uom_qty, product_uom, operation_id=False, bom_line=False):
-    #     data=super(MrpProduction, self)._get_move_raw_values( product_id, product_uom_qty, product_uom, operation_id=False, bom_line=False)
-    #     data['product_qty']=product_uom_qty
-    #     return data
-
-    def write(self,val_list):
-        if 'product_qty' in val_list:
-            val_list['product_qty']=self.product_qty
-        return super(MrpProduction, self).write(val_list)
-
-    # def action_confirm(self):
-    #     super(MrpProduction, self).action_confirm()
-    #
-    #     for rec in self.move_raw_ids:
-    #         if not rec.production_id:
-    #             rec.production_id=self.id
-    #             rec.raw_material_production_id=self.id
-
-
+    def write(self, vals):
+        if 'product_qty' in vals and len(self) == 1:
+            vals['product_qty'] = self.product_qty
+        return super(MrpProduction, self).write(vals)

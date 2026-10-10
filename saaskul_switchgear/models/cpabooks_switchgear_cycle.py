@@ -160,14 +160,14 @@ SWITCHGEAR_FULL_CYCLE_STEPS = [
 # Primary cycle step index (0–15) when viewing each document type
 DOCUMENT_CYCLE_INDEX = {
     'crm.lead': 0,
-    'job.estimate': 1,
+    'switchgear.estimate': 1,
     'sale.order': 2,
     'switchgear.design.document': 3,
     'mrp.bom': 4,
     'mrp.production': 5,
-    'material.purchase.requisition': 6,
-    'quality.check': 7,
-    'quality.alert': 7,
+    'switchgear.purchase.requisition': 6,
+    'switchgear.quality.check': 7,
+    'switchgear.quality.alert': 7,
     'stock.picking': 10,  # default GRN; outgoing resolved below
     'purchase.order': 9,
     'account.move': 12,
@@ -232,9 +232,9 @@ def compute_switchgear_cycle_checks(lead):
     orders = lead.order_ids.filtered(lambda o: o.state not in ('cancel',))
     partner = lead.partner_id
 
-    estimates = env['job.estimate'].search([
+    estimates = env['switchgear.estimate'].search([
         ('opportunity_id', '=', lead.id),
-    ]) if 'opportunity_id' in env['job.estimate']._fields else env['job.estimate']
+    ]) if 'opportunity_id' in env['switchgear.estimate']._fields else env['switchgear.estimate']
 
     boms = env['mrp.bom']
     mos = env['mrp.production']
@@ -257,8 +257,8 @@ def compute_switchgear_cycle_checks(lead):
             '|', ('company_id', '=', False), ('company_id', '=', company.id),
         ], limit=5)
 
-    requisitions = env['material.purchase.requisition']
-    if 'material.purchase.requisition' in env:
+    requisitions = env['switchgear.purchase.requisition']
+    if 'switchgear.purchase.requisition' in env:
         projects = orders.mapped('project_id').filtered(lambda p: p)
         if not projects and estimates:
             projects = estimates.mapped('project_id').filtered(lambda p: p)
@@ -267,12 +267,12 @@ def compute_switchgear_cycle_checks(lead):
                 ('project_id', 'in', projects.ids),
             ])
         else:
-            requisitions = env['material.purchase.requisition']
+            requisitions = env['switchgear.purchase.requisition']
 
-    qc_checks = env['quality.check'] if 'quality.check' in env else env['ir.model']
-    if 'quality.check' in env and mos:
-        qc_checks = env['quality.check'].search([('production_id', 'in', mos.ids)])
-    elif 'quality.check' not in env:
+    qc_checks = env['switchgear.quality.check'] if 'switchgear.quality.check' in env else env['ir.model']
+    if 'switchgear.quality.check' in env and mos:
+        qc_checks = env['switchgear.quality.check'].search([('production_id', 'in', mos.ids)])
+    elif 'switchgear.quality.check' not in env:
         qc_checks = env['ir.model'].browse()
 
     pos = env['purchase.order']

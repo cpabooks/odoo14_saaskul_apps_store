@@ -8,7 +8,7 @@
             <xpath expr="//sheet" position="inside">
                 <field name="bypass_estimation" invisible="1"/>
             </xpath>
-            <xpath expr="//div[contains(@class,'oe_title')]" position="after">
+            <xpath expr="//div[hasclass('oe_title')]" position="after">
                 <group attrs="{'invisible': [('type', '=', 'lead')]}">
                     <field name="bypass_estimation" widget="boolean_toggle"
                            string="Use quick quotation (bypass job estimate)"/>
@@ -40,7 +40,7 @@
 
     <record id="action_new_estimation" model="ir.actions.act_window">
         <field name="name">Estimation</field>
-        <field name="res_model">job.estimate</field>
+        <field name="res_model">switchgear.estimate</field>
         <field name="view_mode">form,tree</field>
         <field name="domain">[('opportunity_id', '=', active_id)]</field>
         <field name="context">{'search_default_opportunity_id': active_id, 'default_opportunity_id': active_id}</field>
@@ -66,11 +66,10 @@
         <field name="inherit_id" ref="crm.crm_lead_view_form"/>
         <field name="priority">99</field>
         <field name="arch" type="xml">
-            <xpath expr="//div[hasclass('oe_title')]/h1[field[@name='enquiry_number']]" position="replace">
+            <xpath expr="//div[hasclass('oe_title')]/h1[field[@name='name']]" position="before">
                 <div class="o_switchgear_crm_sequence_row">
                     <span class="o_switchgear_crm_sequence_label">Enquiry / Reference</span>
                     <field name="enquiry_number" readonly="1" class="o_switchgear_enquiry_number"/>
-                    <field name="system_admin" invisible="1"/>
                 </div>
             </xpath>
             <xpath expr="//div[hasclass('oe_title')]/h1[field[@name='name']]" position="attributes">
