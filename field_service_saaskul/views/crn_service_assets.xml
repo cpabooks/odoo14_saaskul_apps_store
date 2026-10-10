@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_crn_service" name="CRN service sidebar assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/field_service_saaskul/static/src/js/crn_app_shell.js"/>
+            <script type="text/javascript" src="/field_service_saaskul/static/src/js/fsm_app_launcher.js"/>
+            <script type="text/javascript" src="/field_service_saaskul/static/src/js/crn_service_dashboard_action.js"/>
+            <script type="text/javascript" src="/field_service_saaskul/static/src/js/crn_processing_cycle_action.js"/>
+            <link rel="stylesheet" href="/field_service_saaskul/static/src/css/crn_app_shell.css"/>
+            <link rel="stylesheet" href="/field_service_saaskul/static/src/css/crn_service_dashboard.css"/>
+            <link rel="stylesheet" href="/field_service_saaskul/static/src/css/crn_processing_cycle.css"/>
+        </xpath>
+    </template>
+</odoo>

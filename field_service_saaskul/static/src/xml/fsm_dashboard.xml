@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="FsmServiceDashboard">
+        <div class="fsd_root">
+            <div class="fsd_shell">
+                <section class="fsd_hero">
+                    <div>
+                        <div class="fsd_eyebrow">Field Service</div>
+                        <h1 class="fsd_title">Service Monitoring Dashboard</h1>
+                        <p class="fsd_subtitle">Monitor open CRNs, service cost, technician effort, and operational flow across UAE field service jobs.</p>
+                    </div>
+                    <div class="fsd_hero_note">Live CRN, timesheet, and material signals</div>
+                </section>
+
+                <section class="fsd_filter_card">
+                    <div class="fsd_filter_head">
+                        <div>
+                            <h2>Filters</h2>
+                            <p>Use a period window and company scope for dashboard monitoring.</p>
+                        </div>
+                        <div class="fsd_filter_actions">
+                            <button type="button" class="btn fsd_button fsd_apply_filters">Apply</button>
+                            <button type="button" class="btn fsd_button fsd_button_secondary fsd_reset_filters">Reset</button>
+                        </div>
+                    </div>
+                    <div class="fsd_filter_grid">
+                        <div class="fsd_filter_item">
+                            <label for="fsd_period">Period</label>
+                            <select id="fsd_period" class="fsd_select">
+                                <option value="30">Last 30 Days</option>
+                                <option value="90">Last 90 Days</option>
+                                <option value="365">Last 365 Days</option>
+                                <option value="all">All Time</option>
+                            </select>
+                        </div>
+                        <div class="fsd_filter_item">
+                            <label for="fsd_company">Company</label>
+                            <select id="fsd_company" class="fsd_select"/>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="fsd_kpi_grid" id="fsd_kpi_grid"/>
+
+                <section class="fsd_chart_grid">
+                    <article class="fsd_card">
+                        <div class="fsd_card_head">
+                            <h2>Stage Pipeline</h2>
+                            <p>Click a bar to drill down into filtered CRNs.</p>
+                        </div>
+                        <div class="fsd_chart_wrap">
+                            <canvas id="fsd_stage_chart"/>
+                        </div>
+                    </article>
+                    <article class="fsd_card">
+                        <div class="fsd_card_head">
+                            <h2>Complaint Mix</h2>
+                            <p>Pie view by complaint type.</p>
+                        </div>
+                        <div class="fsd_chart_wrap">
+                            <canvas id="fsd_complaint_chart"/>
+                        </div>
+                    </article>
+                </section>
+
+                <section class="fsd_chart_grid fsd_chart_grid_secondary">
+                    <article class="fsd_card fsd_card_wide">
+                        <div class="fsd_card_head">
+                            <h2>Created vs Closed Trend</h2>
+                            <p>Six-month monitoring line.</p>
+                        </div>
+                        <div class="fsd_chart_wrap">
+                            <canvas id="fsd_trend_chart"/>
+                        </div>
+                    </article>
+                    <article class="fsd_card">
+                        <div class="fsd_card_head">
+                            <h2>Engineer Cost Load</h2>
+                            <p>Top timesheet cost contributors.</p>
+                        </div>
+                        <div class="fsd_chart_wrap">
+                            <canvas id="fsd_team_chart"/>
+                        </div>
+                    </article>
+                </section>
+
+                <article class="fsd_card">
+                    <div class="fsd_card_head">
+                        <h2>Priority Spotlight</h2>
+                        <p>Highest-age active CRNs with live cost markers.</p>
+                    </div>
+                    <div class="fsd_spotlight_grid" id="fsd_spotlight_grid"/>
+                </article>
+            </div>
+        </div>
+    </t>
+</templates>

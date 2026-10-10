@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- Re-apply app menu icon (wins over older icon-set overrides on upgrade). -->
+  <record id="menu_flowchart_kanban_root" model="ir.ui.menu">
+    <field name="web_icon">switchgear_saaskul,static/description/icon.png</field>
+  </record>
+</odoo>

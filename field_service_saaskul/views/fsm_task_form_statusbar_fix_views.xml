@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--
+            Native project.task.type statusbar shows stages like "To Do"; FSM CRN flow must start at 1. REG only.
+            Gate on fsm_crn_form (is_fsm OR check_fsm), not is_fsm alone: new CRNs often leave project_id empty
+            so related is_fsm is False while check_fsm is True.
+        -->
+        <record id="view_fsm_project_task_form_statusbar_fsm_fix" model="ir.ui.view">
+            <field name="name">fsm.project.task.form.statusbar.fsm.fix</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="field_service_saaskul.view_fsm_project_task_form_view_inherit"/>
+            <field name="priority" eval="50"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/field[@name='state'][@widget='statusbar'][contains(@statusbar_visible, 'registered')]" position="replace">
+                    <field name="fsm_crn_form" invisible="1"/>
+                    <field name="check_fsm" invisible="1"/>
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="registered,site_visited,qty_issued,qty_approved,in_progress,waiting_for_invoice,job_completed,job_completed_invoiced,approved"
+                           attrs="{'invisible': ['|', ('fsm_crn_form', '=', False), ('state', '=', 'job_completed')]}"/>
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="registered,site_visited,qty_issued,qty_approved,in_progress,waiting_for_invoice,job_completed,approved"
+                           attrs="{'invisible': ['|', ('fsm_crn_form', '=', False), ('state', '!=', 'job_completed')]}"/>
+                </xpath>
+                <xpath expr="//header/field[@name='stage_id']" position="replace">
+                    <field name="stage_id"
+                           widget="statusbar"
+                           class="ml-2"
+                           options="{'clickable': '1', 'fold_field': 'fold'}"
+                           attrs="{'invisible': ['|', ('project_id', '=', False), ('fsm_crn_form', '=', True)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_fsm_project_task_form_foc_statusbar_final" model="ir.ui.view">
+            <field name="name">fsm.project.task.form.foc.statusbar.final</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="field_service_saaskul.view_fsm_project_task_form_view_inherit"/>
+            <field name="priority" eval="300"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/field[@name='state'][@widget='statusbar'][contains(@statusbar_visible, 'job_completed_invoiced')]" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                    <attribute name="attrs">{'invisible': ['|', ('fsm_crn_form', '=', False), ('state', '=', 'job_completed')]}</attribute>
+                </xpath>
+                <xpath expr="//header/field[@name='state'][@widget='statusbar'][contains(@statusbar_visible, 'job_completed,approved')][not(contains(@statusbar_visible, 'job_completed_invoiced'))]" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                    <attribute name="attrs">{'invisible': ['|', ('fsm_crn_form', '=', False), ('state', '!=', 'job_completed')]}</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

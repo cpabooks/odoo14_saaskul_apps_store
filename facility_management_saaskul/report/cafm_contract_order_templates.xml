@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="CAFM_CO_common_document" name="CAFM Contract Order Common Template">
+        <t t-set="company" t-value="o.company_id or res_company"/>
+        <t t-set="theme_color" t-value="company.primary_color or '#1F3A5F'"/>
+        <t t-set="background_clr" t-value="theme_color if o.show_theme_color else ''"/>
+        <t t-set="block_txt_color" t-value="'#FFFFFF' if o.show_theme_color else '#212529'"/>
+
+        <div class="page" t-attf-data-oe-model="saaskul.cafm.contract.order" t-attf-data-oe-id="{{o.id}}"
+             style="color:#212529;font-size:13px;">
+
+            <h2 class="text-center" style="margin-top:10px;margin-bottom:4px;" t-if="o.show_title">
+                <span t-if="o.state == 'draft'"><u>QUOTATION</u></span>
+                <span t-if="o.state == 'order'"><u>CONTRACT ORDER</u></span>
+                <span t-if="o.state == 'invoiced'"><u>CONTRACT ORDER</u></span>
+                <span t-if="o.state == 'cancelled'"><u>CANCELLED CONTRACT ORDER</u></span>
+            </h2>
+
+            <h5 class="text-center" style="margin-top:0;font-size:18px;margin-bottom:4px;" t-if="o.show_trn and o.company_id.vat">
+                <strong>TRN:</strong>
+                <span t-field="o.company_id.vat"/>
+            </h5>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-7" style="border:1px solid black;">
+                        <div style="display:inline;width:auto;padding:4px;font-size:11px;font-weight:400;">
+                            <span>Customer:</span>
+                        </div>
+                        <div name="partner_name" style="padding-left:3px;">
+                            <span t-field="o.partner_id.name"
+                                  t-attf-style="font-weight:bold !important;color:{{theme_color}};"/>
+                        </div>
+                        <div t-if="o.customer_trn" style="padding-left:3px;margin-top:2px;">
+                            <strong>TRN:</strong>
+                            <span t-field="o.customer_trn"/>
+                        </div>
+                        <div t-if="o.contact_person_id" style="padding-left:3px;margin-top:2px;">
+                            <strong>Contact Person:</strong>
+                            <span t-field="o.contact_person_id.name"/>
+                        </div>
+                        <div t-if="o.contact_no" style="padding-left:3px;margin-top:2px;">
+                            <strong>Contact No:</strong>
+                            <span t-field="o.contact_no"/>
+                        </div>
+                        <div t-if="o.client_manager_id" style="padding-left:3px;margin-top:2px;">
+                            <strong>Client Manager:</strong>
+                            <span t-field="o.client_manager_id.name"/>
+                        </div>
+                        <address t-field="o.partner_id"
+                                 t-if="o.partner_id.street or o.partner_id.street2 or o.partner_id.city or o.partner_id.state_id or o.partner_id.zip or o.partner_id.country_id or o.partner_id.phone or o.partner_id.email"
+                                 style="margin-bottom:0px;"
+                                 t-options='{"widget": "contact", "fields": ["address", "phone", "mobile", "email"], "no_marker": false}'/>
+                    </div>
+
+                    <div class="col-5" t-attf-style="border:1px solid black;background-color:{{background_clr}};color:{{block_txt_color}};">
+                        <t t-set="div_style" t-value="'color:%s;font-size:15px;width:100%%;' % block_txt_color"/>
+                        <div id="order_title" t-attf-style="{{div_style}}margin-top:2px !important;">
+                            <strong>Order No:</strong>
+                            <span t-field="o.name"/>
+                        </div>
+                        <div t-if="o.date_order" t-att-style="div_style">
+                            <strong>Order Date:</strong>
+                            <span t-field="o.date_order"/>
+                        </div>
+                        <div t-if="o.invoice_date" t-att-style="div_style">
+                            <strong>Invoice Date:</strong>
+                            <span t-field="o.invoice_date"/>
+                        </div>
+                        <div t-if="o.contract_id" t-att-style="div_style">
+                            <strong>AMC Contract:</strong>
+                            <span t-field="o.contract_id.name"/>
+                        </div>
+                        <div t-if="o.period_label" t-att-style="div_style">
+                            <strong>Period:</strong>
+                            <span t-field="o.period_label"/>
+                        </div>
+                        <div t-if="o.date_from and o.date_to" t-att-style="div_style">
+                            <strong>Service Period:</strong>
+                            <span t-field="o.date_from"/> - <span t-field="o.date_to"/>
+                        </div>
+                        <div t-if="o.project_id" t-att-style="div_style">
+                            <strong>Project:</strong>
+                            <span t-field="o.project_id.name"/>
+                        </div>
+                        <div t-if="o.unit_id" t-att-style="div_style">
+                            <strong>Villa / Flat:</strong>
+                            <span t-field="o.unit_id.name"/>
+                        </div>
+                        <div t-if="o.project_location_id" t-att-style="div_style">
+                            <strong>Location:</strong>
+                            <span t-field="o.project_location_id.name"/>
+                        </div>
+                        <div t-if="o.gfs_supervisor_id" t-att-style="div_style">
+                            <strong>GFS Supervisor:</strong>
+                            <span t-field="o.gfs_supervisor_id.name"/>
+                        </div>
+                        <div t-if="o.gfs_admin_id" t-att-style="div_style">
+                            <strong>GFS Admin:</strong>
+                            <span t-field="o.gfs_admin_id.name"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div t-if="o.project_title" class="col-12 text-center" style="margin-top:12px;margin-bottom:8px;">
+                <div t-attf-style="display:inline-block;background-color:{{background_clr or 'transparent'}};color:{{block_txt_color}};padding:4px 10px;">
+                    <span t-field="o.project_title" style="font-size:17px;"/>
+                </div>
+            </div>
+
+            <table class="table table-sm" style="margin-top:12px;border-collapse:collapse;border-left:1px solid #d9dde2 !important;border-right:1px solid #d9dde2 !important;">
+                <thead t-attf-style="color:{{block_txt_color}};">
+                    <tr t-attf-style="background-color:{{background_clr}};font-size:13px;">
+                        <th style="border:1px solid #d9dde2 !important;width:40px;">#</th>
+                        <th style="border:1px solid #d9dde2 !important;">Description</th>
+                        <th class="text-right" style="border:1px solid #d9dde2 !important;width:80px;">Qty</th>
+                        <th class="text-right" style="border:1px solid #d9dde2 !important;width:120px;">Unit Price</th>
+                        <th class="text-right" style="border:1px solid #d9dde2 !important;width:120px;">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="border:1px solid #d9dde2 !important;">1</td>
+                        <td style="border:1px solid #d9dde2 !important;">
+                            <span t-field="o.report_line_description"/>
+                            <div t-if="o.notes" style="margin-top:4px;font-size:90%;">
+                                <span t-field="o.notes"/>
+                            </div>
+                        </td>
+                        <td class="text-right" style="border:1px solid #d9dde2 !important;">1</td>
+                        <td class="text-right" style="border:1px solid #d9dde2 !important;">
+                            <span t-field="o.amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                        </td>
+                        <td class="text-right" style="border:1px solid #d9dde2 !important;">
+                            <span t-field="o.amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="row" style="margin-top:8px;">
+                <div class="col-7"/>
+                <div class="col-5">
+                    <table class="table table-sm" style="margin-bottom:0;">
+                        <tr>
+                            <td><strong>Total</strong></td>
+                            <td class="text-right">
+                                <strong>
+                                    <span t-field="o.amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                </strong>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div t-if="o.num_word" style="margin-top:10px;">
+                <strong>Amount in Words:</strong>
+                <span t-field="o.num_word"/>
+            </div>
+
+            <div t-if="o.attention" style="margin-top:8px;">
+                <strong>Attention:</strong>
+                <span t-field="o.attention"/>
+            </div>
+        </div>
+    </template>
+
+    <template id="report_cafm_contract_order">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
+                <t t-call="web.external_layout">
+                    <t t-call="facility_management_saaskul.CAFM_CO_common_document" t-lang="o.partner_id.lang"/>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
