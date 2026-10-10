@@ -13,6 +13,7 @@ Purchase, Inventory, Project and CRM in Odoo 14.
 
     'author': 'Saaskul',
     'website': 'https://saaskul.com',
+    'live_test_url': 'https://saaskul.com/contactus?name=Live%20Preview%20-%20Document%20Sequence%20Manager',
     'support': 'info.cpabooks@gmail.com',
 
     'category': 'Productivity',

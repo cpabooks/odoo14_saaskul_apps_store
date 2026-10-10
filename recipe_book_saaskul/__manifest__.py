@@ -5,6 +5,7 @@
  'version': '14.0.1.0.3',
  'category': 'Operations/Restaurant',
  'author': 'Saaskul', 'website': 'https://saaskul.com', 'support': 'info.cpabooks@gmail.com',
+ 'live_test_url': 'https://saaskul.com/contactus?name=Live%20Preview%20-%20Restaurant%20Recipe%20Costing',
  'license': 'OPL-1',
  'depends': ['base','product','sale_management','stock','purchase'],
  'data': [

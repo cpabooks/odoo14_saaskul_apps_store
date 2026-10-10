@@ -23,6 +23,7 @@
 
     'author': "Saaskul",
     'website': "https://saaskul.com",
+    'live_test_url': 'https://saaskul.com/contactus?name=Live%20Preview%20-%20Field%20Service%20Management',
     'support': "info.cpabooks@gmail.com",
     'category': 'Services/Field Service',
     'version': '14.0.1.0.0',
