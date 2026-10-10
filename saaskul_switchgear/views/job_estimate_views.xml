@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="job_estimate_form_view_inherit_switchgear_custom" model="ir.ui.view">
+        <field name="name">job.estimate.form.view.inherit.switchgear_custom</field>
+        <field name="model">job.estimate</field>
+        <field name="inherit_id" ref="cost_estimate_customer_ld.job_estimate_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_create_quotation']" position="after">
+                <button name="action_create_bom" string="Create BOM" type="object" states="approved,done" class="btn-primary"/>
+<!--                draft,confirmed,-->
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" name="%(saaskul_switchgear.action_mrp_bom_from_job_estimation)d" type="action" icon="fa-flask">
+                    <field string="Bill of Materials" name="bom_count" widget="statinfo" />
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="bom_id"/>
+                <field name="bom_reference"/>
+                <field name="bom_product_id"/>
+            </xpath>
+            <xpath expr="//field[@name='project_id']" position="attributes">
+                <attribute name="string">Job Order</attribute>
+            </xpath>
+            <xpath expr="//field[@name='customer_ref']" position="before">
+                <field name="crm_reference"/>
+                <field name="opportunity_id" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!--Action for Estimates-->
+    <record id="action_job_estimate_from_project" model="ir.actions.act_window">
+        <field name="name">Job Estimates</field>
+        <field name="res_model">job.estimate</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('project_id', '=', active_id)]</field>
+        <field name="context">{'default_project_id': active_id}</field>
+    </record>
+</odoo>

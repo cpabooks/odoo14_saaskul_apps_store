@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extended project list (contract amount, sales, profit columns from cpabooks_project_extend). -->
+    <record id="action_switchgear_project_list" model="ir.actions.act_window">
+        <field name="name">Project List</field>
+        <field name="res_model">project.project</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_id" ref="project.view_project"/>
+        <field name="search_view_id" ref="project.view_project_project_filter"/>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a project to track jobs, tasks, and profitability.
+            </p>
+        </field>
+    </record>
+
+    <record id="view_task_search_switchgear_by_client" model="ir.ui.view">
+        <field name="name">project.task.search.switchgear.by.client</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_search_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <filter string="Customer" name="group_by_partner"
+                        context="{'group_by': 'partner_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_switchgear_tasks_by_client" model="ir.actions.act_window">
+        <field name="name">Tasks by Customer</field>
+        <field name="res_model">project.task</field>
+        <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+        <field name="view_id" ref="project.view_task_tree2"/>
+        <field name="search_view_id" ref="project.view_task_search_form"/>
+        <field name="context">{'search_default_group_by_partner': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Tasks grouped by customer — contract amounts and yearly values per client.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_switchgear_projects_root"
+        name="Projects"
+        parent="menu_flowchart_kanban_root"
+        sequence="3"/>
+
+    <menuitem
+        id="menu_switchgear_project_list"
+        name="Project List"
+        parent="menu_switchgear_projects_root"
+        action="action_switchgear_project_list"
+        sequence="1"/>
+
+    <menuitem
+        id="menu_switchgear_tasks_by_client"
+        name="Tasks by Customer"
+        parent="menu_switchgear_projects_root"
+        action="action_switchgear_tasks_by_client"
+        sequence="2"/>
+</odoo>

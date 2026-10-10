@@ -13,9 +13,10 @@ Purchase, Inventory, Project and CRM in Odoo 14.
 
     'author': 'Saaskul',
     'website': 'https://saaskul.com',
+    'support': 'info.cpabooks@gmail.com',
 
     'category': 'Productivity',
-    'version': '14.0.1.61',
+    'version': '14.0.1.62',
     'license': 'OPL-1',
 
     'images': [

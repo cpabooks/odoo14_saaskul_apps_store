@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_load_switchgear_company_demo" model="ir.actions.server">
+        <field name="name">Switchgear demo data</field>
+        <field name="model_id" ref="saaskul_switchgear.model_switchgear_dashboard"/>
+        <field name="state">code</field>
+        <field name="code">action = model.sudo().action_open_switchgear_demo_wizard()</field>
+    </record>
+
+    <menuitem id="menu_app_switchgear_company_demo"
+              name="Switchgear demo data"
+              parent="app_odoo_customize.menu_app_group"
+              action="action_switchgear_demo_wizard"
+              sequence="100"
+              groups="base.group_system"/>
+
+    <menuitem id="menu_switchgear_demo_data"
+              name="Load / clean demo data"
+              parent="menu_switchgear_configuration"
+              action="action_switchgear_demo_wizard"
+              sequence="5"
+              groups="base.group_system"/>
+</odoo>

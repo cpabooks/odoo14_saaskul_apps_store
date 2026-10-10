@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Sequences for BOM -->
+        <record id="seq_mrp_bom" model="ir.sequence">
+            <field name="name">Bills of Materials</field>
+            <field name="code">mrp.bom</field>
+            <field name="prefix">BOM</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

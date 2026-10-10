@@ -1,0 +1,358 @@
+/* Switchgear: left sidebar only — never show Odoo top submenu tabs. */
+body.o_switchgear_app_shell .o_main_navbar .o_menu_sections {
+    display: none !important;
+}
+
+/* Hide Community "Icon View" while inside Switchgear (use sidebar Apps Home). */
+body.o_switchgear_app_shell .o_cpabooks_icon_view_btn {
+    display: none !important;
+}
+
+body.o_switchgear_app_shell .o_main_navbar .o_menu_brand {
+    cursor: default;
+}
+
+/* CRM opportunity title — readable on default (white) Odoo forms and dark Chrome */
+.o_switchgear_crm_sequence_row,
+.o_switchgear_crm_name_title {
+    color-scheme: light;
+}
+
+.o_switchgear_crm_sequence_row {
+    display: block;
+    margin: 0 0 0.5rem 0;
+    padding: 0.35rem 0 0.15rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.o_switchgear_crm_sequence_label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #6c757d;
+    margin-bottom: 0.15rem;
+}
+
+.o_switchgear_enquiry_number,
+.o_switchgear_enquiry_number .o_field_char,
+.o_switchgear_enquiry_number input.o_input {
+    font-size: 15px !important;
+    font-weight: 600;
+    line-height: 1.35;
+    color: #374151 !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    min-height: auto !important;
+}
+
+.o_switchgear_crm_name_title input.o_input,
+.o_switchgear_crm_name_title .o_field_char input {
+    color: #212529 !important;
+}
+
+.o_switchgear_crm_name_title input.o_input::placeholder {
+    color: #6c757d !important;
+    opacity: 1;
+}
+
+body.o_switchgear_app_shell .o_form_view .oe_title .o_switchgear_crm_sequence_row {
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+body.o_switchgear_app_shell .o_form_view .oe_title .o_switchgear_crm_sequence_label {
+    color: #6c757d;
+}
+
+body.o_switchgear_app_shell .o_form_view .oe_title .o_switchgear_enquiry_number input {
+    color: #374151 !important;
+}
+
+/* Fill Odoo .o_content flex slot (enterprise webclient_layout) */
+body.o_switchgear_app_shell .o_action > .o_content {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body.o_switchgear_app_shell .o_action > .o_content > .o_switchgear_app_layout {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
+}
+
+.o_switchgear_app_layout {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+.o_switchgear_sidebar_host {
+    flex: 0 0 268px;
+    max-width: 268px;
+    width: 268px;
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    max-height: 100%;
+    z-index: 5;
+}
+
+.o_switchgear_app_sidebar {
+    flex: 0 0 268px;
+    max-width: 268px;
+    width: 268px;
+    background: #f4f5f7;
+    border-right: 1px solid #dee2e6;
+    min-height: 100%;
+    max-height: calc(100vh - 46px);
+    align-self: stretch;
+    overflow-y: auto;
+    padding: 16px 12px 28px;
+    --sg-nav-main-size: 17px;
+    --sg-nav-sub-size: 10.2px;
+    --sg-nav-main-pad-y: 10px;
+    --sg-nav-sub-pad-y: 6px;
+}
+
+.o_switchgear_app_sidebar_title {
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    color: #212529;
+    letter-spacing: 0.06em;
+}
+
+.o_switchgear_app_sidebar_nav .list-group-item {
+    border: none;
+    background: transparent;
+}
+
+.o_switchgear_app_sidebar_nav .o_switchgear_app_sidebar_item_main {
+    padding: var(--sg-nav-main-pad-y) 12px;
+}
+
+.o_switchgear_app_sidebar_nav .o_switchgear_app_sidebar_item_sub {
+    padding: var(--sg-nav-sub-pad-y) 12px var(--sg-nav-sub-pad-y) 18px;
+}
+
+.o_switchgear_app_sidebar_nav .list-group-item.active,
+.o_switchgear_app_sidebar_nav .list-group-item.active a {
+    background: #17a2b8;
+    color: #fff;
+}
+
+.o_switchgear_app_sidebar_section {
+    font-size: var(--sg-nav-main-size);
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 14px;
+    padding: var(--sg-nav-main-pad-y) 12px var(--sg-nav-main-pad-y) 10px;
+    border-left: 4px solid #adb5bd;
+}
+
+.o_switchgear_section_home {
+    border-left-color: #6c757d;
+    color: #495057;
+}
+
+.o_switchgear_section_customer {
+    border-left-color: #17a2b8;
+    color: #117a8b;
+}
+
+.o_switchgear_section_crm {
+    border-left-color: #17a2b8;
+    color: #117a8b;
+}
+
+.o_switchgear_section_manufacturing {
+    border-left-color: #28a745;
+    color: #1e7e34;
+}
+
+.o_switchgear_section_inventory {
+    border-left-color: #dc3545;
+    color: #bd2130;
+}
+
+.o_switchgear_section_quality {
+    border-left-color: #20c997;
+    color: #138f6a;
+}
+
+.o_switchgear_section_timesheet {
+    border-left-color: #6610f2;
+    color: #520dc2;
+}
+
+.o_switchgear_section_employees {
+    border-left-color: #007bff;
+    color: #0056b3;
+}
+
+.o_switchgear_section_payroll {
+    border-left-color: #e83e8c;
+    color: #c21766;
+}
+
+.o_switchgear_section_projects {
+    border-left-color: #6c757d;
+    color: #495057;
+}
+
+.o_switchgear_section_activities {
+    border-left-color: #ffc107;
+    color: #d39e00;
+}
+
+.o_switchgear_section_engineering {
+    border-left-color: #28a745;
+    color: #1e7e34;
+}
+
+.o_switchgear_section_purchase {
+    border-left-color: #dc3545;
+    color: #bd2130;
+}
+
+.o_switchgear_section_accounting {
+    border-left-color: #fd7e14;
+    color: #d96d0c;
+}
+
+.o_switchgear_section_config {
+    border-left-color: #6f42c1;
+    color: #5a32a3;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #dee2e6;
+}
+
+.o_switchgear_app_sidebar_nav a {
+    color: #212529;
+    display: block;
+    text-decoration: none;
+    font-weight: 600;
+    line-height: 1.45;
+}
+
+.o_switchgear_app_sidebar_nav .o_switchgear_app_sidebar_item_main a {
+    font-size: var(--sg-nav-main-size);
+    font-weight: 700;
+}
+
+.o_switchgear_app_sidebar_nav .o_switchgear_app_sidebar_item_sub a {
+    font-size: var(--sg-nav-sub-size);
+    font-weight: 500;
+    line-height: 1.35;
+}
+
+.o_switchgear_app_sidebar_nav .list-group-item:not(.o_switchgear_app_sidebar_section):hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.o_switchgear_app_sidebar_nav .list-group-item:not(.o_switchgear_app_sidebar_section):hover a {
+    color: #000;
+}
+
+.o_switchgear_app_content {
+    min-width: 0;
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    padding: 16px 20px;
+    overflow: auto;
+}
+
+/* Form / list / kanban already have Odoo chrome — extra padding shifts layout during entry. */
+.o_switchgear_app_content.o_switchgear_app_content_native {
+    padding: 0;
+    background: transparent;
+}
+
+.o_switchgear_app_content.o_switchgear_app_content_native > .o_view_controller,
+.o_switchgear_app_content.o_switchgear_app_content_native > .o_form_view,
+.o_switchgear_app_content.o_switchgear_app_content_native > .o_list_view,
+.o_switchgear_app_content.o_switchgear_app_content_native > .o_kanban_view {
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+body.o_switchgear_app_shell .o_action > .o_content {
+    background: #fff;
+}
+
+.o_switchgear_flowchart_root {
+    max-width: 1200px;
+}
+
+.o_switchgear_home_header h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.o_switchgear_home_card {
+    display: block;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+    padding: 16px;
+    min-height: 120px;
+    text-decoration: none !important;
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+    background: #fff;
+}
+
+.o_switchgear_home_card:hover {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+}
+
+.o_switchgear_home_card_title {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #212529;
+}
+
+.o_switchgear_home_card_hint {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+.o_switchgear_home_card_customer {
+    border-top: 4px solid #17a2b8;
+}
+
+.o_switchgear_home_card_engineering {
+    border-top: 4px solid #28a745;
+}
+
+.o_switchgear_home_card_purchase {
+    border-top: 4px solid #dc3545;
+}
+
+.o_switchgear_home_card_accounting {
+    border-top: 4px solid #fd7e14;
+}
+
+@media (max-width: 991px) {
+    .o_switchgear_app_sidebar {
+        flex: 0 0 220px;
+        max-width: 220px;
+        width: 220px;
+    }
+}

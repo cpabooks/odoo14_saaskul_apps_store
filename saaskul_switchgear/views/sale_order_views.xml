@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_inherit_switchgear_custom" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.switchgear_custom</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" name="%(saaskul_switchgear.action_mrp_bom_from_sale)d" type="action" icon="fa-flask">
+                    <field string="Bill of Materials" name="bom_count" widget="statinfo"/>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                <field name="bom_product_id" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//notebook" position="inside">
+                <page string="Document" name="document_sent">
+                    <field name="document_sent_ids" nolabel="1">
+                        <tree string="Documents Sent" editable="bottom">
+                            <field name="sr"/>
+                            <field name="document_name"/>
+                            <field name="attachment" filename="attachment_name"/>
+                            <field name="attachment_name" invisible="1"/>
+                            <field name="remarks"/>
+                        </tree>
+                    </field>
+                </page>
+                <page string="Document Received" name="document_received">
+                    <field name="document_received_ids" nolabel="1">
+                        <tree string="Documents Received" editable="bottom">
+                            <field name="sr"/>
+                            <field name="document_name"/>
+                            <field name="date_received"/>
+                            <field name="attachment" filename="attachment_name"/>
+                            <field name="attachment_name" invisible="1"/>
+                            <field name="remarks"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="quality_check_view_form_inherit_switchgear_custom" model="ir.ui.view">
+        <field name="name">quality.check.view.form.inherit.switchgear_custom</field>
+        <field name="model">quality.check</field>
+        <field name="inherit_id" ref="cpabooks_quality_community.quality_check_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='do_alert'][1]" position="before">
+                <button name="action_deliver_product" type="object"
+                        string="Deliver Product"
+                        class="btn-primary"
+                        attrs="{'invisible': [('can_deliver', '=', False)]}"
+                        confirm="Validate the customer delivery order for this product?"/>
+                <button name="action_open_delivery" type="object"
+                        string="Open Delivery"
+                        attrs="{'invisible': ['|', ('delivery_picking_id', '=', False), ('can_deliver', '=', True)]}"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_open_delivery" type="object"
+                        class="oe_stat_button" icon="fa-truck"
+                        attrs="{'invisible': [('delivery_picking_id', '=', False)]}">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">Delivery</span>
+                    </div>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='alert_ids']" position="after">
+                <field name="project_id"/>
+                <field name="delivery_picking_id" invisible="1"/>
+                <field name="can_deliver" invisible="1"/>
+                <field name="delivery_done" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!--Action for Quality Checks-->
+    <record id="action_qc_from_project" model="ir.actions.act_window">
+        <field name="name">Quality Checks</field>
+        <field name="res_model">quality.check</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('project_id', '=', active_id)]</field>
+        <field name="context">{'default_project_id': active_id}</field>
+    </record>
+
+    <!--Action for Quality Checks from Picking-->
+    <record id="action_qc_from_picking" model="ir.actions.act_window">
+        <field name="name">Quality Checks</field>
+        <field name="res_model">quality.check</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('picking_id', '=', active_id)]</field>
+        <field name="context">{'search_default_picking_id': active_id, 'default_picking_id': active_id}</field>
+    </record>
+</odoo>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Activity Management menus under Switchgear (actions from all_in_one_schedule_activity_management). -->
+    <menuitem
+        id="menu_switchgear_activities_root"
+        name="Activities"
+        parent="menu_flowchart_kanban_root"
+        sequence="4"/>
+
+    <menuitem
+        id="menu_switchgear_activity_dashboard"
+        name="Dashboard"
+        parent="menu_switchgear_activities_root"
+        sequence="10"/>
+
+    <menuitem
+        id="menu_switchgear_activity_dashboard_project"
+        name="Project Activity Dashboard"
+        parent="menu_switchgear_activity_dashboard"
+        action="all_in_one_schedule_activity_management.activity_action_dashboard_main"
+        sequence="10"/>
+
+    <menuitem
+        id="menu_switchgear_activity_dashboard_task"
+        name="Tasks Dashboard"
+        parent="menu_switchgear_activity_dashboard"
+        action="all_in_one_schedule_activity_management.activity_action_task_dashboard"
+        sequence="20"/>
+
+    <menuitem
+        id="menu_switchgear_activity_dashboard_monitoring"
+        name="Activities Monitoring"
+        parent="menu_switchgear_activity_dashboard"
+        action="all_in_one_schedule_activity_management.activity_action_monitoring"
+        sequence="30"/>
+
+    <menuitem
+        id="menu_switchgear_activity_dashboard_timesheet"
+        name="Timesheet and Planning"
+        parent="menu_switchgear_activity_dashboard"
+        action="all_in_one_schedule_activity_management.activity_action_timesheet_planning"
+        sequence="40"/>
+
+    <menuitem
+        id="menu_switchgear_activity_task_menu"
+        name="Task"
+        parent="menu_switchgear_activities_root"
+        sequence="20"/>
+
+    <menuitem
+        id="menu_switchgear_activity_my_tasks"
+        name="My Tasks"
+        parent="menu_switchgear_activity_task_menu"
+        action="all_in_one_schedule_activity_management.action_my_tasks"
+        sequence="1"/>
+
+    <menuitem
+        id="menu_switchgear_activity_act"
+        name="Activity"
+        parent="menu_switchgear_activities_root"
+        sequence="30"/>
+
+    <menuitem
+        id="menu_switchgear_activity_all"
+        name="All Activities"
+        parent="menu_switchgear_activity_act"
+        action="all_in_one_schedule_activity_management.mail_activity_all_action"
+        sequence="1"/>
+
+    <menuitem
+        id="menu_switchgear_activity_my"
+        name="My Activities"
+        parent="menu_switchgear_activity_act"
+        action="all_in_one_schedule_activity_management.mail_activity_my_action"
+        sequence="2"/>
+
+    <menuitem
+        id="menu_switchgear_activity_done"
+        name="Done Activities"
+        parent="menu_switchgear_activity_act"
+        action="all_in_one_schedule_activity_management.done_mail_activity_all_action"
+        sequence="3"/>
+
+    <menuitem
+        id="menu_switchgear_activity_issues"
+        name="Issue List"
+        parent="menu_switchgear_activity_act"
+        action="all_in_one_schedule_activity_management.action_cpa_issue"
+        sequence="4"/>
+
+    <menuitem
+        id="menu_switchgear_activity_tags"
+        name="Activity Tags"
+        parent="menu_switchgear_activity_act"
+        action="all_in_one_schedule_activity_management.activity_tag_action"
+        sequence="5"/>
+
+    <menuitem
+        id="menu_switchgear_activity_history"
+        name="Activity History"
+        parent="menu_switchgear_activities_root"
+        action="all_in_one_schedule_activity_management.mail_activity_history_action"
+        sequence="40"/>
+
+    <menuitem
+        id="menu_switchgear_activity_reporting"
+        name="Activity Reporting"
+        parent="menu_switchgear_activities_root"
+        action="all_in_one_schedule_activity_management.activity_reporting_action"
+        sequence="50"/>
+
+    <menuitem
+        id="menu_switchgear_activity_configuration"
+        name="Activity Configuration"
+        parent="menu_switchgear_configuration"
+        sequence="30"/>
+
+    <menuitem
+        id="menu_switchgear_activity_configuration_types"
+        name="Activity Types"
+        parent="menu_switchgear_activity_configuration"
+        action="all_in_one_schedule_activity_management.action_activity_type_configuration"
+        sequence="10"/>
+
+    <menuitem
+        id="menu_switchgear_activity_configuration_tags"
+        name="Activity Tags"
+        parent="menu_switchgear_activity_configuration"
+        action="all_in_one_schedule_activity_management.activity_tag_action"
+        sequence="20"/>
+</odoo>

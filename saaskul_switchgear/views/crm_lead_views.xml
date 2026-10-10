@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="crm_lead_view_form_inherit_job_order" model="ir.ui.view">
+        <field name="name">crm.lead.form.inherit.job_order</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <field name="bypass_estimation" invisible="1"/>
+            </xpath>
+            <xpath expr="//div[contains(@class,'oe_title')]" position="after">
+                <group attrs="{'invisible': [('type', '=', 'lead')]}">
+                    <field name="bypass_estimation" widget="boolean_toggle"
+                           string="Use quick quotation (bypass job estimate)"/>
+                </group>
+            </xpath>
+            <xpath expr="//button[@name='action_set_lost']" position="after">
+                <button string="New Estimation" name="button_new_estimation" type="object" class="oe_highlight" attrs="{'invisible': ['|','|', ('type', '=', 'lead'), ('active', '=', False),('bypass_estimation','=',True)]}"/>
+            </xpath>
+            <button name="action_schedule_meeting" position="after">
+                <button class="oe_stat_button" type="object" name="action_view_estimation" icon="fa-pencil-square-o" attrs="{'invisible': ['|',('type', '=', 'lead'),('bypass_estimation','=',True)]}">
+                    <field name="estimation_count" widget="statinfo" string="Estimations"/>
+                </button>
+            </button>
+
+        </field>
+    </record>
+
+
+    <record id="crm_case_form_view_oppor_inherit_switchgear_custom" model="ir.ui.view">
+        <field name="name">crm.lead.oppor.inherited.crm.switchgear_custom</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_set_won_rainbowman']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_new_estimation" model="ir.actions.act_window">
+        <field name="name">Estimation</field>
+        <field name="res_model">job.estimate</field>
+        <field name="view_mode">form,tree</field>
+        <field name="domain">[('opportunity_id', '=', active_id)]</field>
+        <field name="context">{'search_default_opportunity_id': active_id, 'default_opportunity_id': active_id}</field>
+    </record>
+
+    <!--Inherit Pipeline for List view-->
+    <record id="crm.crm_lead_action_pipeline" model="ir.actions.act_window">
+        <field name="view_mode">tree,kanban,graph,pivot,form,calendar,activity</field>
+    </record>
+
+    <record id="crm.crm_lead_action_pipeline_view_kanban" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+    </record>
+
+    <record id="crm.crm_lead_action_pipeline_view_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="0"/>
+    </record>
+
+    <!-- Readable enquiry sequence above opportunity name (not giant h1). -->
+    <record id="crm_lead_view_form_switchgear_readable_sequence" model="ir.ui.view">
+        <field name="name">crm.lead.form.switchgear.readable.sequence</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_title')]/h1[field[@name='enquiry_number']]" position="replace">
+                <div class="o_switchgear_crm_sequence_row">
+                    <span class="o_switchgear_crm_sequence_label">Enquiry / Reference</span>
+                    <field name="enquiry_number" readonly="1" class="o_switchgear_enquiry_number"/>
+                    <field name="system_admin" invisible="1"/>
+                </div>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_title')]/h1[field[@name='name']]" position="attributes">
+                <attribute name="class">o_switchgear_crm_name_title</attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_title')]//field[@name='name']" position="attributes">
+                <attribute name="placeholder">Opportunity name</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

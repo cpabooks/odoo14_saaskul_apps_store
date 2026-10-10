@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Heavy FSM data migrations run once from hooks.py (not on every module upgrade). -->
+</odoo>

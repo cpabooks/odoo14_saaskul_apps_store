@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="inherit_worksheet_custom_page_jcr" inherit_id="industry_fsm_report.worksheet_custom_page">
+            <xpath expr="//div[contains(@class, 'page')]" position="replace">
+                <div class="page" style="font-size: 14px; color: black; font-family: Arial, sans-serif;">
+                    <t t-set="copy_label" t-value="report_copy_label or 'TMC Internal'"/>
+                    <t t-set="is_customer_copy" t-value="'Customer' in (copy_label or '')"/>
+                    <t t-set="part_rows" t-value="doc._jcr_print_parts_rows(customer_copy=is_customer_copy)"/>
+                    <t t-set="labour_rows" t-value="doc._jcr_print_labour_rows(customer_copy=is_customer_copy)"/>
+
+                    <!-- Header -->
+                    <div style="text-align: center; margin-bottom: 10px;">
+                        <div style="font-size: 20px; font-weight: bold;">JOB COMPLETION REPORT</div>
+                        <div style="font-size: 15px; font-weight: bold;">
+                            <t t-esc="copy_label"/>
+                        </div>
+                        <t t-set="jcr_is_approved" t-value="doc._jcr_print_is_approved()"/>
+                        <div t-if="jcr_is_approved or is_customer_copy"
+                             style="font-size: 16px; font-weight: bold; color: #cc0000; margin-top: 4px; letter-spacing: 0.5px;">
+                            APPROVED
+                        </div>
+                        <div t-else=""
+                             style="font-size: 14px; font-weight: bold; color: #000000; margin-top: 4px;">
+                            APPROVAL
+                        </div>
+                    </div>
+
+                    <div style="width: 100%; overflow: hidden; margin-bottom: 10px; border-bottom: 1px solid black;">
+
+                        <!-- Left Section -->
+                        <div style="float: left; width: 70%;">
+                            <strong>CRN / JCR No :</strong>
+                            <span t-field="doc.task_seq" style="margin-left: 6px;"/>
+                        </div>
+
+                        <!-- Right Section -->
+                        <div style="float: right; width: 30%; text-align: right;">
+                            <strong>Creation Date :</strong>
+                            <span t-field="doc.create_date"
+                                  t-options="{'widget': 'date'}"
+                                  style="margin-left: 6px;"/>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Customer Details -->
+                    <div style="margin-bottom: 12px;">
+
+                        <!-- Section Title -->
+                        <div style="font-weight: bold; font-size: 15px; margin-bottom: 5px;">
+                            Customer Details :
+                        </div>
+
+                        <div style="width: 100%; overflow: hidden; border-bottom: 1px solid black; padding: 4px 0;">
+                            <div style="float: left; width: 60%;">
+                                <strong>Customer Name :</strong>
+                                <span t-field="doc.partner_id.name" style="margin-left: 8px;"/>
+                            </div>
+                            <div style="float: right; width: 40%;">
+                                <strong>Site Address :</strong>
+                                <span t-field="doc.site_location.name" style="margin-left: 6px;"/>
+                            </div>
+                        </div>
+
+                        <!-- Row 2 -->
+                        <div style="width: 100%; overflow: hidden; border-bottom: 1px solid black; padding: 4px 0;">
+                            <div style="float: left; width: 60%;">
+                                <strong>Contact Person :</strong>
+                                <span t-field="doc.client_person.name" style="margin-left: 6px;"/>
+                            </div>
+                            <div style="float: right; width: 40%;">
+                                <strong>Contact No :</strong>
+                                <span style="display: inline-block; min-width: 150px; margin-left: 8px;">
+                                    <t t-esc="doc.client_contact or ''"/>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!--                        &lt;!&ndash; Row 3 Full Width &ndash;&gt;-->
+                        <!--                        <div style="width: 100%; border-bottom: 1px solid black; padding: 4px 0;">-->
+                        <!--                            <strong>Site Address :</strong>-->
+                        <!--                            <span t-field="doc.site_location.name" style="margin-left: 6px;"/>-->
+                        <!--                        </div>-->
+
+                        <!-- Row 4 -->
+                        <div style="width: 100%; overflow: hidden; border-bottom: 1px solid black; padding: 4px 0;">
+                            <div style="float: left; width: 60%;">
+                                <strong>Complaint / Job Type :</strong>
+                                <span t-field="doc.complaint_type" style="margin-left: 6px;"/>
+                            </div>
+                            <div style="float: right; width: 40%;">
+                                <strong>Ref Invoice / Qtn :</strong>
+                                <span style="margin-left: 6px;">
+                                    <t t-if="doc.invoice_id">
+                                        <t t-esc="doc.invoice_id.name"/>
+                                    </t>
+                                    <t t-elif="doc.qt_no">
+                                        <t t-esc="doc.qt_no.name"/>
+                                    </t>
+                                    <t t-elif="doc.qt_no_text">
+                                        <t t-esc="doc.qt_no_text"/>
+                                    </t>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Row 5 Full Width -->
+                        <div style="width: 100%; overflow: hidden; border-bottom: 1px solid black; padding: 4px 0;">
+                            <div style="float: left; width: 40%;">
+                                <strong>Equipment Details :</strong>
+                                <span t-field="doc.item_des.name" style="margin-left: 6px;"/>
+                            </div>
+
+                            <!-- Row 6 Full Width -->
+                            <div style="float: right; width: 40%;">
+                                <strong>Type of Service :</strong>
+                                <span t-field="doc.complaint_title.name" style="margin-left: 6px;"/>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Complaint / Job Details -->
+                    <div style="margin-bottom: 14px;">
+                        <div style="font-weight: bold; font-size: 15px; margin-bottom: 4px;">Complaint / Job Details :
+                        </div>
+                        <div style="border: 1px solid black; min-height: 50px; padding: 8px;">
+                            <span t-field="doc.complaint_details"/>
+                        </div>
+                    </div>
+
+                    <!-- Parts / Materials Used (always total_print_row lines) -->
+                    <div style="margin-bottom: 14px;">
+                        <div style="font-weight: bold; text-decoration: underline; margin-bottom: 4px;">Parts /
+                            Materials Used:
+                        </div>
+                        <table style="width: 100%; border-collapse: collapse; border: 1px solid black; font-size: 11px;">
+                            <thead>
+                                <tr style="background-color: #f0f0f0; height: 21px;">
+                                    <th style="border: 1px solid black; padding: 4px 5px; text-align: center; width: 8%;">
+                                        SR No.
+                                    </th>
+                                    <th style="border: 1px solid black; padding: 4px 5px; text-align: center;">
+                                        Particulars
+                                    </th>
+                                    <th style="border: 1px solid black; padding: 4px 5px; text-align: center; width: 18%;">
+                                        Serial No.
+                                    </th>
+                                    <th style="border: 1px solid black; padding: 4px; text-align: center; width: 10%;">
+                                        QTY
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="part_rows" t-as="row">
+                                    <tr style="height: 19px; line-height: 15px;">
+                                        <td style="border: 1px solid black; padding: 3px 5px; text-align: center;">
+                                            <t t-esc="row['sr']"/>
+                                        </td>
+                                        <td style="border: 1px solid black; padding: 3px 5px;">
+                                            <t t-esc="row['particulars']"/>
+                                        </td>
+                                        <td style="border: 1px solid black; padding: 3px 5px;">
+                                            <t t-esc="row['serial']"/>
+                                        </td>
+                                        <td style="border: 1px solid black; padding: 3px 5px; text-align: right;">
+                                            <t t-esc="row['qty']"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Time Sheet (always total_print_row lines) -->
+                    <div style="margin-bottom: 14px;">
+                        <div style="font-weight: bold; text-decoration: underline; margin-bottom: 4px;">
+                            Time Sheet:
+                        </div>
+                        <table style="width: 100%; border-collapse: collapse; border: 1px solid black; font-size: 11px;">
+                            <thead>
+                                <tr style="background-color: #f0f0f0; height: 20px;">
+                                    <th style="border: 1px solid black; padding: 3px 4px; text-align: center; width: 20%;">
+                                        Date
+                                    </th>
+                                    <th style="border: 1px solid black; padding: 3px 4px; text-align: center;">
+                                        Service Eng / Technician
+                                    </th>
+                                    <th style="border: 1px solid black; padding: 3px 4px; text-align: center; width: 15%;">
+                                        Time In
+                                    </th>
+                                    <th style="border: 1px solid black; padding: 3px 4px; text-align: center; width: 15%;">
+                                        Time Out
+                                    </th>
+                                    <th style="border: 1px solid black; padding: 3px 4px; text-align: center; width: 15%;">
+                                        Hrs. Worked
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="labour_rows" t-as="row">
+                                    <tr style="height: 18px; line-height: 14px;">
+                                        <td style="border: 1px solid black; padding: 2px 4px;">
+                                            <t t-esc="row['date']"/>
+                                        </td>
+                                        <td style="border: 1px solid black; padding: 2px 4px;">
+                                            <t t-esc="row['technician']"/>
+                                        </td>
+                                        <td style="border: 1px solid black; padding: 2px 4px;">&#160;</td>
+                                        <td style="border: 1px solid black; padding: 2px 4px;">&#160;</td>
+                                        <td style="border: 1px solid black; padding: 2px 4px; text-align: center;">
+                                            <t t-esc="row['hours']"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Details of Handover -->
+                    <div style="margin-bottom: 14px;">
+                        <div style="font-weight: bold; text-decoration: underline; margin-bottom: 6px;">Details of
+                            Handover:
+                        </div>
+                        <table style="width: 100%; border-collapse: collapse; border: 1px solid black;">
+                            <tr>
+                                <!-- Customer Side -->
+                                <td style="width: 60%; vertical-align: top; padding: 8px; border-right: 1px solid black;">
+                                    <p style="margin: 0 0 10px 0;">
+                                        The Service Engineer has Installed/ Serviced/ repaired the Equipment to our
+                                        Satisfaction and we agreed to pay below mentioned Charges
+                                    </p>
+                                    <p style="margin: 6px 0; white-space: nowrap;">
+                                        <span>Invoice / Qtn : ...................................</span>
+                                        <span style="margin-left: 12px;">Amount AED : ..........................</span>
+                                    </p>
+                                    <p style="margin: 6px 0; white-space: nowrap;">
+                                        <span>Customer Name : ....................................</span>
+                                        <span style="margin-left: 12px;">Mob : ..........................</span>
+                                    </p>
+                                    <p style="margin: 6px 0; white-space: nowrap;">
+                                        <span>Signature : .......................................</span>
+                                        <span style="margin-left: 12px;">Date : ..........................</span>
+                                    </p>
+                                </td>
+                                <td style="width: 40%; vertical-align: top; padding: 8px;">
+                                    <p style="margin: 0 0 6px 0;">
+                                        <strong>
+                                            <em>For <t t-esc="(doc.company_id or doc.env.company).name"/></em>
+                                        </strong>
+                                    </p>
+                                    <p style="margin: 6px 0;">
+                                        Service Eng. Name : ............................
+                                    </p>
+                                    <p style="margin: 6px 0;">
+                                        Service Eng. Sign: ................................
+                                        <br/>
+                                        <span>Date : ..........................</span>
+                                    </p>
+
+                                    <p style="margin: 10px 0 4px 0;">
+                                        <strong>Remarks :</strong>
+                                    </p>
+                                    <p style="margin: 0; border-bottom: 1px solid black; min-height: 20px;">
+                                    </p>
+                                    <p style="margin: 6px 0; border-bottom: 1px solid black; min-height: 20px;">&#160;
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </xpath>
+        </template>
+
+        <template id="worksheet_custom_customer">
+            <t t-set="report_copy_label" t-value="'TMC Customer'"/>
+            <t t-call="industry_fsm_report.worksheet_custom"/>
+        </template>
+    </data>
+</odoo>

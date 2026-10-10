@@ -1,0 +1,149 @@
+.o_switchgear_processing_cycle_main {
+    min-height: calc(100vh - 46px);
+    background: linear-gradient(160deg, #1a1d24 0%, #252a33 45%, #1e2229 100%);
+    padding: 24px 16px 48px;
+    overflow: auto;
+}
+
+.o_sg_processing_cycle_root {
+    max-width: 960px;
+    margin: 0 auto;
+    color: #f0f2f5;
+}
+
+.o_sg_cycle_header h2 {
+    color: #fff;
+    font-weight: 600;
+}
+
+.o_sg_cycle_viewport {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 560px;
+}
+
+.o_sg_cycle_stage {
+    position: relative;
+    width: 520px;
+    height: 520px;
+}
+
+.o_sg_cycle_center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #3d7a4a, #2d5c38);
+    border: 3px solid rgba(255, 255, 255, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 3;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.o_sg_cycle_center_title {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.o_sg_cycle_center_sub {
+    font-size: 12px;
+    opacity: 0.85;
+    margin-top: 4px;
+}
+
+.o_sg_cycle_ring {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+}
+
+.o_sg_cycle_arrow_ring {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.o_sg_cycle_node {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 118px;
+    margin-left: -59px;
+    margin-top: -36px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none !important;
+    color: #fff !important;
+    font-size: 11px;
+    line-height: 1.25;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    transform: rotate(var(--sg-angle)) translateY(-228px) rotate(calc(-1 * var(--sg-angle)));
+    z-index: 4;
+}
+
+.o_sg_cycle_node:hover {
+    transform: rotate(var(--sg-angle)) translateY(-232px) rotate(calc(-1 * var(--sg-angle))) scale(1.06);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.5);
+    color: #fff !important;
+}
+
+.o_sg_cycle_step {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.25);
+    font-weight: 700;
+    font-size: 11px;
+    margin-bottom: 4px;
+}
+
+.o_sg_cycle_label {
+    display: block;
+    font-weight: 600;
+}
+
+.o_sg_cycle_theme_customer {
+    background: linear-gradient(145deg, #2f7ab8, #1e5a8a);
+}
+
+.o_sg_cycle_theme_engineering {
+    background: linear-gradient(145deg, #3a9e5f, #267a45);
+}
+
+.o_sg_cycle_theme_purchase {
+    background: linear-gradient(145deg, #c45c4a, #9a3d32);
+}
+
+.o_sg_cycle_theme_accounting {
+    background: linear-gradient(145deg, #d4a017, #a67c0a);
+}
+
+.o_sg_cycle_legend {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.o_sg_cycle_legend_dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    margin-right: 6px;
+    vertical-align: middle;
+}

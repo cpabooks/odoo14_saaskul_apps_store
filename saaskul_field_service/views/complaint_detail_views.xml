@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_complaint_detail_tree" model="ir.ui.view">
+            <field name="name">complaint.detail.tree</field>
+            <field name="model">complaint.detail</field>
+            <field name="arch" type="xml">
+                <tree string="Complaint Titles" editable="bottom">
+                    <field name="name" string="Complaint Title"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_complaint_detail_form" model="ir.ui.view">
+            <field name="name">complaint.detail.form</field>
+            <field name="model">complaint.detail</field>
+            <field name="arch" type="xml">
+                <form string="Complaint Title">
+                    <sheet>
+                        <group>
+                            <field name="name" string="Complaint Title"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_complaint_detail" model="ir.actions.act_window">
+            <field name="name">Complaint Titles</field>
+            <field name="res_model">complaint.detail</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create complaint titles.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_fsm_complaint_detail"
+                  name="Complaint Titles"
+                  parent="industry_fsm.fsm_menu_settings"
+                  action="action_complaint_detail"
+                  sequence="20"/>
+    </data>
+</odoo>

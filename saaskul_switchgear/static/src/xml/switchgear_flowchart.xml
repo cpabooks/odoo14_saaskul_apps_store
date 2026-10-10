@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="SwitchgearFlowchartHome">
+        <div class="o_switchgear_flowchart_root">
+            <div class="o_switchgear_home_header">
+                <h2>Switchgear workflow</h2>
+                <p class="text-muted mb-0">
+                    Use the left sidebar to open each step. Sections follow your process:
+                    customer, engineering, purchase/store, and accounting.
+                </p>
+            </div>
+            <div class="row o_switchgear_home_cards mt16">
+                <div class="col-md-6 col-lg-3 mb16">
+                    <a href="#" class="o_switchgear_home_card o_switchgear_home_card_customer" data-nav-key="enquiry">
+                        <div class="o_switchgear_home_card_title">Customer / Client</div>
+                        <div class="o_switchgear_home_card_hint">CRM, quotations, client LPO</div>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-3 mb16">
+                    <a href="#" class="o_switchgear_home_card o_switchgear_home_card_engineering" data-nav-key="design">
+                        <div class="o_switchgear_home_card_title">Engineering &amp; Production</div>
+                        <div class="o_switchgear_home_card_hint">Design, BOM, manuf. order, purchase req., quality</div>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-3 mb16">
+                    <a href="#" class="o_switchgear_home_card o_switchgear_home_card_purchase" data-nav-key="stock_check">
+                        <div class="o_switchgear_home_card_title">Purchase / Store</div>
+                        <div class="o_switchgear_home_card_hint">Stock, LPO, GRN, delivery</div>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-3 mb16">
+                    <a href="#" class="o_switchgear_home_card o_switchgear_home_card_accounting" data-nav-key="tax_invoice">
+                        <div class="o_switchgear_home_card_title">Accounting</div>
+                        <div class="o_switchgear_home_card_hint">Invoices, receipts, bills, payments</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ============================================================ -->
+    <!-- Search Views                                                  -->
+    <!-- ============================================================ -->
+
+    <record id="view_fsm_store_picking_search" model="ir.ui.view">
+        <field name="name">stock.picking.search.fsm.store</field>
+        <field name="model">stock.picking</field>
+        <field name="arch" type="xml">
+            <search string="Store">
+                <field name="name" string="Reference"/>
+                <field name="issue_project_task_id" string="CRN No"/>
+                <field name="issue_customer_id" string="Customer"/>
+                <field name="issue_source_document" string="Source Document"/>
+                <field name="partner_id"/>
+                <field name="picking_type_id"/>
+                <filter name="filter_state_draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="filter_state_waiting" string="Waiting"
+                        domain="[('state', 'in', ('waiting', 'confirmed'))]"/>
+                <filter name="filter_state_ready" string="Ready"
+                        domain="[('state', '=', 'assigned')]"/>
+                <filter name="filter_state_done" string="Done"
+                        domain="[('state', '=', 'done')]"/>
+                <separator/>
+                <filter name="group_by_customer" string="Customer"
+                        context="{'group_by': 'partner_id'}"/>
+                <filter name="group_by_task" string="CRN No"
+                        context="{'group_by': 'issue_project_task_id'}"/>
+                <filter name="group_by_picking_type" string="Operation Type"
+                        context="{'group_by': 'picking_type_id'}"/>
+                <filter name="group_by_state" string="State"
+                        context="{'group_by': 'state'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_fsm_store_material_request_task_search" model="ir.ui.view">
+        <field name="name">project.task.search.fsm.store.material.request</field>
+        <field name="model">project.task</field>
+        <field name="arch" type="xml">
+            <search string="Material Request Pending">
+                <field name="task_seq" string="CRN"/>
+                <field name="name" string="CRN Title"/>
+                <field name="partner_id" string="Customer"/>
+                <field name="project_id"/>
+                <field name="user_id"/>
+                <filter name="group_by_customer" string="Customer"
+                        context="{'group_by': 'partner_id'}"/>
+                <filter name="group_by_project" string="Project"
+                        context="{'group_by': 'project_id'}"/>
+                <filter name="group_by_stage" string="Stage"
+                        context="{'group_by': 'stage_id'}"/>
+                <filter name="group_by_assignee" string="Assignee"
+                        context="{'group_by': 'user_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- Tree Views                                                    -->
+    <!-- ============================================================ -->
+
+    <record id="view_fsm_store_material_request_task_tree" model="ir.ui.view">
+        <field name="name">project.task.tree.fsm.store.material.request</field>
+        <field name="model">project.task</field>
+        <field name="arch" type="xml">
+            <tree string="Material Request Pending" create="0">
+                <field name="task_seq" string="CRN"/>
+                <field name="name" string="CRN Title"/>
+                <field name="partner_id" string="Customer"/>
+                <field name="project_id" string="Project/Job"/>
+                <field name="user_id" widget="many2one_avatar_user"/>
+                <field name="stage_id"/>
+                <field name="date_deadline" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Same columns as Material Request notebook on task (project_task_views). -->
+    <record id="view_fsm_store_material_request_line_search" model="ir.ui.view">
+        <field name="name">material.request.line.search.fsm.store.pending</field>
+        <field name="model">material.request.line</field>
+        <field name="arch" type="xml">
+            <search string="Material Request Pending">
+                <field name="product_id"/>
+                <field name="description"/>
+                <field name="task_crn_number" string="CRN No"/>
+                <field name="task_id" string="CRN No"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_fsm_store_material_request_line_tree" model="ir.ui.view">
+        <field name="name">material.request.line.tree.fsm.store.pending</field>
+        <field name="model">material.request.line</field>
+        <field name="arch" type="xml">
+            <tree string="Material Request Pending" create="0">
+                <field name="task_crn_number" string="CRN No"/>
+                <field name="product_id"/>
+                <field name="description"/>
+                <field name="quantity"/>
+                <field name="quantity_done"/>
+                <field name="amount_done"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_fsm_store_material_request_line_form" model="ir.ui.view">
+        <field name="name">material.request.line.form.fsm.store.pending</field>
+        <field name="model">material.request.line</field>
+        <field name="arch" type="xml">
+            <form string="Material Request Line" create="false" edit="false" delete="false">
+                <sheet>
+                    <group>
+                        <field name="task_crn_number" readonly="1"/>
+                        <field name="task_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                        <field name="product_id"/>
+                        <field name="description"/>
+                        <field name="quantity"/>
+                        <field name="quantity_done"/>
+                        <field name="amount_done"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Lines from done issue notes — Operations-style columns (+ optional picking context). -->
+    <record id="view_fsm_store_material_issued_move_search" model="ir.ui.view">
+        <field name="name">stock.move.search.fsm.store.material.issued</field>
+        <field name="model">stock.move</field>
+        <field name="arch" type="xml">
+            <search string="Material Issued">
+                <field name="picking_id" string="Transfer"/>
+                <field name="product_id"/>
+                <field name="picking_issue_crn_number" string="CRN No"/>
+                <field name="description_picking" string="Product Description"/>
+                <separator/>
+                <filter string="Transfer" name="grp_picking" context="{'group_by': 'picking_id'}"/>
+                <filter string="Product" name="grp_product" context="{'group_by': 'product_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_fsm_store_material_issued_move_tree" model="ir.ui.view">
+        <field name="name">stock.move.tree.fsm.store.material.issued</field>
+        <field name="model">stock.move</field>
+        <field name="arch" type="xml">
+            <tree string="Material Issued" create="0" delete="0" decoration-muted="scrapped == True or state == 'cancel'">
+                <field name="company_id" invisible="1"/>
+                <field name="state" invisible="1"/>
+                <field name="scrapped" invisible="1"/>
+                <field name="picking_code" invisible="1"/>
+                <field name="has_tracking" invisible="1"/>
+                <field name="show_details_visible" invisible="1"/>
+                <field name="picking_id" string="Transfer" optional="hide"/>
+                <field name="picking_issue_crn_number" string="CRN No"/>
+                <field name="picking_issue_task_id" string="CRN No" optional="hide"/>
+                <field name="picking_issue_customer_id" string="Customer" optional="hide"/>
+                <field name="picking_issue_source_document" string="Source Document" optional="hide"/>
+                <field name="product_id"/>
+                <field name="description_picking" string="Product Description"/>
+                <field name="product_uom_qty" string="Demand"/>
+                <field name="quantity_done" string="Done"/>
+                <field name="product_uom" string="Unit of Measure" groups="uom.group_uom" options="{'no_open': True, 'no_create': True}"/>
+                <field name="rate" optional="hide"/>
+                <field name="amount" optional="hide"/>
+                <!-- Tree RelaxNG allows no width/options on buttons (unlike embedded picking trees). -->
+                <button name="action_show_details" type="object" icon="fa-list"
+                        attrs="{'invisible': [('show_details_visible', '=', False)]}"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_fsm_store_picking_tree" model="ir.ui.view">
+        <field name="name">stock.picking.tree.fsm.store</field>
+        <field name="model">stock.picking</field>
+        <field name="arch" type="xml">
+            <tree string="Store" create="0" sample="1">
+                <field name="name" decoration-bf="1"/>
+                <field name="issue_crn_number" string="CRN No" optional="show"/>
+                <field name="issue_project_task_id" string="CRN No" optional="show"/>
+                <field name="issue_customer_id" string="Customer" optional="show"/>
+                <field name="partner_id" optional="hide"/>
+                <field name="issue_source_document" string="Source Document" optional="show"/>
+                <field name="origin" optional="hide"/>
+                <field name="picking_type_id" optional="show"/>
+                <field name="scheduled_date" optional="show"
+                       widget="remaining_days"
+                       attrs="{'invisible':[('state', 'in', ('done', 'cancel'))]}"/>
+                <field name="date_done" optional="show"
+                       attrs="{'invisible':[('state', '!=', 'done')]}"/>
+                <field name="user_id" optional="hide" widget="many2one_avatar_user"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state not in ('done', 'cancel')"
+                       decoration-muted="state == 'cancel'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- Actions                                                       -->
+    <!-- ============================================================ -->
+
+    <!-- Material Request Pending: material lines on FSM tasks that are not fully issued yet. -->
+    <record id="action_fsm_store_material_request_pending" model="ir.actions.act_window">
+        <field name="name">Material Request Pending</field>
+        <field name="res_model">material.request.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[
+            ('task_id.is_fsm', '=', True),
+            ('task_id.issue_note_done', '=', False),
+        ]</field>
+        <field name="context">{}</field>
+        <field name="search_view_id" ref="view_fsm_store_material_request_line_search"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            No pending material requests
+          </p>
+          <p>
+            Lines from the Material Request tab on Field Service tasks that have not yet
+            been fully issued will appear here.
+          </p>
+        </field>
+    </record>
+
+    <record id="action_fsm_store_material_request_pending_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_fsm_store_material_request_line_tree"/>
+        <field name="act_window_id" ref="action_fsm_store_material_request_pending"/>
+    </record>
+
+    <record id="action_fsm_store_material_request_pending_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_fsm_store_material_request_line_form"/>
+        <field name="act_window_id" ref="action_fsm_store_material_request_pending"/>
+    </record>
+
+    <!-- Material Issued: stock.move lines from completed internal issue notes. -->
+    <record id="action_fsm_store_material_issued" model="ir.actions.act_window">
+        <field name="name">Material Issued</field>
+        <field name="res_model">stock.move</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[
+            ('picking_id.issue_project_task_id', '!=', False),
+            ('picking_id.picking_type_code', '=', 'internal'),
+            ('picking_id.state', '=', 'done'),
+            ('picking_id.is_material_return', '=', False),
+            ('state', '=', 'done'),
+            ('scrapped', '=', False),
+        ]</field>
+        <field name="context">{}</field>
+        <field name="search_view_id" ref="view_fsm_store_material_issued_move_search"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            No materials issued yet
+          </p>
+          <p>
+            Product lines from completed material issue notes (internal transfers linked to Field Service CRNs).
+          </p>
+        </field>
+    </record>
+
+    <record id="action_fsm_store_material_issued_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_fsm_store_material_issued_move_tree"/>
+        <field name="act_window_id" ref="action_fsm_store_material_issued"/>
+    </record>
+
+    <!-- Pending DO: Outgoing deliveries linked to an FSM task (via sale
+         order) that are not yet done. -->
+    <record id="action_fsm_store_do_pending" model="ir.actions.act_window">
+        <field name="name">DO Pending</field>
+        <field name="res_model">stock.picking</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('picking_type_code', '=', 'outgoing'), ('sale_id.task_id.is_fsm', '=', True), ('state', 'not in', ('done', 'cancel'))]</field>
+        <field name="context">{}</field>
+        <field name="search_view_id" ref="view_fsm_store_picking_search"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            No pending delivery orders
+          </p>
+          <p>
+            Outgoing deliveries linked to a field service task that are still
+            waiting to be processed will appear here.
+          </p>
+        </field>
+    </record>
+
+    <record id="action_fsm_store_do_pending_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_fsm_store_picking_tree"/>
+        <field name="act_window_id" ref="action_fsm_store_do_pending"/>
+    </record>
+
+    <!-- DO Issued: Outgoing deliveries linked to an FSM task that are
+         already validated/done. -->
+    <record id="action_fsm_store_do_issued" model="ir.actions.act_window">
+        <field name="name">DO Issued</field>
+        <field name="res_model">stock.picking</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('picking_type_code', '=', 'outgoing'), ('sale_id.task_id.is_fsm', '=', True), ('state', '=', 'done')]</field>
+        <field name="context">{'search_default_filter_state_done': 1}</field>
+        <field name="search_view_id" ref="view_fsm_store_picking_search"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            No delivery orders issued yet
+          </p>
+          <p>
+            Outgoing deliveries linked to a field service task that have been
+            validated will appear here.
+          </p>
+        </field>
+    </record>
+
+    <record id="action_fsm_store_do_issued_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_fsm_store_picking_tree"/>
+        <field name="act_window_id" ref="action_fsm_store_do_issued"/>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- Menus                                                         -->
+    <!-- ============================================================ -->
+
+    <menuitem id="menu_fsm_store_root"
+              name="Store"
+              parent="industry_fsm.fsm_menu_root"
+              sequence="45"
+              groups="industry_fsm.group_fsm_manager"/>
+
+    <menuitem id="menu_fsm_store_material_request_pending"
+              name="Material Request Pending"
+              parent="menu_fsm_store_root"
+              sequence="10"
+              action="action_fsm_store_material_request_pending"
+              groups="industry_fsm.group_fsm_manager"/>
+
+    <menuitem id="menu_fsm_store_material_issued"
+              name="Material Issued"
+              parent="menu_fsm_store_root"
+              sequence="20"
+              action="action_fsm_store_material_issued"
+              groups="industry_fsm.group_fsm_manager"/>
+
+    <menuitem id="menu_fsm_store_do_pending"
+              name="DO Pending"
+              parent="menu_fsm_store_root"
+              sequence="30"
+              action="action_fsm_store_do_pending"
+              groups="industry_fsm.group_fsm_manager"/>
+
+    <menuitem id="menu_fsm_store_do_issued"
+              name="DO Issued"
+              parent="menu_fsm_store_root"
+              sequence="40"
+              action="action_fsm_store_do_issued"
+              groups="industry_fsm.group_fsm_manager"/>
+
+</odoo>

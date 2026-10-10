@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Mirror of Field Service → Store menus under Inventory, after Products. -->
+    <menuitem id="menu_stock_store_root"
+              name="CRN"
+              parent="stock.menu_stock_root"
+              sequence="5"/>
+
+    <menuitem id="menu_stock_store_material_request_pending"
+              name="Material Request Pending"
+              parent="menu_stock_store_root"
+              sequence="10"
+              action="saaskul_field_service.action_fsm_store_material_request_pending"/>
+
+    <menuitem id="menu_stock_store_material_issued"
+              name="Material Issued"
+              parent="menu_stock_store_root"
+              sequence="20"
+              action="saaskul_field_service.action_fsm_store_material_issued"/>
+
+    <menuitem id="menu_stock_store_do_pending"
+              name="DO Pending"
+              parent="menu_stock_store_root"
+              sequence="30"
+              action="saaskul_field_service.action_fsm_store_do_pending"/>
+
+    <menuitem id="menu_stock_store_do_issued"
+              name="DO Issued"
+              parent="menu_stock_store_root"
+              sequence="40"
+              action="saaskul_field_service.action_fsm_store_do_issued"/>
+
+    <menuitem id="issue_menu"
+              name="Material Issue Note"
+              parent="menu_stock_store_root"
+              sequence="5"
+              action="issue_action"/>
+
+    <menuitem id="return_issue_menu"
+              name="Material Return Note"
+              parent="menu_stock_store_root"
+              sequence="6"
+              action="return_issue_action"/>
+</odoo>

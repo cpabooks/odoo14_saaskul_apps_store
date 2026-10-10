@@ -1,0 +1,342 @@
+/* Chocolate-themed Switchgear dashboard */
+.o_switchgear_dashboard_main {
+    background: linear-gradient(160deg, #3d2314 0%, #2a1810 35%, #1f120c 100%);
+    min-height: 0;
+    flex: 1 1 auto;
+    padding: 20px 24px 32px;
+    color: #f5e6d3;
+    overflow-y: auto;
+}
+
+.o_switchgear_dashboard_root {
+    max-width: 1400px;
+}
+
+.o_sg_dash_header {
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(212, 165, 116, 0.35);
+    padding-bottom: 14px;
+}
+
+.o_sg_dash_header_row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.o_sg_open_main_menu {
+    background: #8b5a2b;
+    border-color: #d4a574;
+    color: #fff8f0;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.o_sg_open_main_menu:hover {
+    background: #a66d35;
+    color: #fff;
+}
+
+.o_sg_dash_config {
+    margin-bottom: 20px;
+}
+
+.o_sg_dash_config_card {
+    padding: 0;
+}
+
+.o_sg_dash_config_inner {
+    background: rgba(139, 90, 43, 0.35);
+    border: 1px solid rgba(212, 165, 116, 0.5);
+    border-radius: 8px;
+    padding: 16px 20px;
+}
+
+.o_sg_dash_config_title {
+    font-size: 1.1rem;
+    margin: 0 0 8px;
+    color: #fff8f0;
+}
+
+.o_sg_dash_config_hint {
+    margin-bottom: 12px;
+    color: #e8d4bc !important;
+}
+
+.o_sg_dash_config_btn {
+    background: #c9a227;
+    border-color: #d4a574;
+    color: #1f120c;
+    font-weight: 600;
+}
+
+.o_sg_dash_config_btn:hover {
+    background: #ddb52e;
+    color: #1f120c;
+}
+
+.o_sg_dash_title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #f5e6d3;
+    margin: 0 0 4px;
+    letter-spacing: 0.02em;
+}
+
+.o_sg_dash_subtitle {
+    color: #d4a574 !important;
+    font-size: 14px;
+    margin: 0;
+}
+
+.o_sg_dash_kpis {
+    margin-bottom: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.o_sg_dash_kpi {
+    flex: 1 1 140px;
+    min-width: 130px;
+    max-width: 180px;
+    background: linear-gradient(145deg, #5d3a1a 0%, #4a2f15 100%);
+    border: 1px solid #8b5a2b;
+    border-radius: 10px;
+    padding: 14px 12px;
+    text-align: center;
+    text-decoration: none !important;
+    color: #f5e6d3 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.o_sg_dash_kpi:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    color: #fff8f0 !important;
+}
+
+.o_sg_dash_kpi_icon {
+    font-size: 22px;
+    color: #d4a574;
+    margin-bottom: 6px;
+}
+
+.o_sg_dash_kpi_value {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #fff8f0;
+}
+
+.o_sg_dash_kpi_label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #c9a66b;
+    margin-top: 4px;
+}
+
+.o_sg_dash_workflow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.o_sg_dash_section {
+    flex: 1 1 300px;
+    background: rgba(93, 58, 26, 0.55);
+    border: 1px solid rgba(139, 90, 43, 0.6);
+    border-radius: 10px;
+    padding: 14px 16px;
+    backdrop-filter: blur(4px);
+}
+
+.o_sg_dash_section_title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid rgba(212, 165, 116, 0.4);
+}
+
+.o_sg_theme_customer .o_sg_dash_section_title { color: #7ec8e3; border-bottom-color: #17a2b8; }
+.o_sg_theme_engineering .o_sg_dash_section_title { color: #90d490; border-bottom-color: #28a745; }
+.o_sg_theme_purchase .o_sg_dash_section_title { color: #f5a0a0; border-bottom-color: #dc3545; }
+.o_sg_theme_accounting .o_sg_dash_section_title { color: #ffc078; border-bottom-color: #fd7e14; }
+
+.o_sg_dash_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    margin-bottom: 6px;
+    border-radius: 6px;
+    background: rgba(45, 28, 18, 0.5);
+    text-decoration: none !important;
+    color: #f5e6d3 !important;
+    font-size: 13px;
+    border-left: 3px solid #8b5a2b;
+}
+
+.o_sg_dash_row:hover {
+    background: rgba(61, 35, 20, 0.85);
+    color: #fff8f0 !important;
+}
+
+.o_sg_dash_row.o_sg_status_pending { border-left-color: #e8a838; }
+.o_sg_dash_row.o_sg_status_progress { border-left-color: #6bc96b; }
+
+.o_sg_dash_row_label {
+    flex: 1;
+    padding-right: 8px;
+}
+
+.o_sg_dash_row_badge {
+    background: #3d2314;
+    border: 1px solid #d4a574;
+    color: #fff8f0;
+    font-weight: 700;
+    min-width: 32px;
+    text-align: center;
+    border-radius: 12px;
+    padding: 2px 10px;
+    font-size: 12px;
+}
+
+/* Sidebar: higher contrast + larger type when Switchgear shell is active */
+body.o_switchgear_app_shell .o_switchgear_app_sidebar {
+    background: linear-gradient(180deg, #3d2314 0%, #2a1810 100%);
+    border-right: 2px solid #e8c896;
+}
+
+body.o_switchgear_app_shell .o_switchgear_app_sidebar {
+    --sg-nav-main-size: 18px;
+    --sg-nav-sub-size: 10.8px;
+    --sg-nav-main-pad-y: 11px;
+    --sg-nav-sub-pad-y: 6px;
+}
+
+body.o_switchgear_app_shell .o_switchgear_app_sidebar_title {
+    color: #ffffff;
+    font-size: 17px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+body.o_switchgear_app_shell .o_switchgear_app_sidebar_nav .o_switchgear_app_sidebar_item_main a {
+    color: #fff8f0;
+    font-weight: 700;
+}
+
+body.o_switchgear_app_shell .o_switchgear_app_sidebar_nav .o_switchgear_app_sidebar_item_sub a {
+    font-weight: 500;
+    color: rgba(255, 248, 240, 0.88);
+}
+
+body.o_switchgear_app_shell .o_switchgear_app_sidebar_nav .list-group-item:not(.o_switchgear_app_sidebar_section):hover {
+    background: rgba(255, 248, 240, 0.14);
+}
+
+body.o_switchgear_app_shell .o_switchgear_app_sidebar_nav .list-group-item:not(.o_switchgear_app_sidebar_section):hover a {
+    color: #ffffff;
+}
+
+body.o_switchgear_app_shell .o_switchgear_app_sidebar_nav .list-group-item.active,
+body.o_switchgear_app_shell .o_switchgear_app_sidebar_nav .list-group-item.active a {
+    background: #e8c896;
+    color: #2a1810;
+    font-weight: 700;
+}
+
+body.o_switchgear_app_shell .o_switchgear_app_sidebar_section {
+    color: #ffe4b8;
+    font-weight: 800;
+    border-left-width: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+body.o_switchgear_app_shell .o_switchgear_section_home {
+    border-left-color: #f0f0f0;
+    color: #ffffff;
+}
+
+body.o_switchgear_app_shell .o_switchgear_section_projects {
+    border-left-color: #b8d4ff;
+    color: #e8f2ff;
+}
+
+body.o_switchgear_app_shell .o_switchgear_section_activities {
+    border-left-color: #ffd966;
+    color: #fff4cc;
+}
+
+body.o_switchgear_app_shell .o_switchgear_section_customer {
+    border-left-color: #7ec8e3;
+    color: #d4f1ff;
+}
+
+body.o_switchgear_app_shell .o_switchgear_section_crm {
+    border-left-color: #7ec8e3;
+    color: #d4f1ff;
+}
+
+body.o_switchgear_app_shell .o_switchgear_section_manufacturing {
+    border-left-color: #8fe8a8;
+    color: #d8ffe3;
+}
+
+body.o_switchgear_app_shell .o_switchgear_section_inventory {
+    border-left-color: #ff9aa8;
+    color: #ffe0e4;
+}
+
+body.o_switchgear_app_shell .o_switchgear_section_quality {
+    border-left-color: #7ee8c8;
+    color: #d4fff0;
+}
+
+body.o_switchgear_app_shell .o_switchgear_section_timesheet {
+    border-left-color: #b8a8ff;
+    color: #e8e0ff;
+}
+
+body.o_switchgear_app_shell .o_switchgear_section_employees {
+    border-left-color: #7eb8ff;
+    color: #d4e8ff;
+}
+
+body.o_switchgear_app_shell .o_switchgear_section_payroll {
+    border-left-color: #ff9ac8;
+    color: #ffe0ef;
+}
+
+body.o_switchgear_app_shell .o_switchgear_section_engineering {
+    border-left-color: #8fe8a8;
+    color: #d8ffe3;
+}
+
+body.o_switchgear_app_shell .o_switchgear_section_purchase {
+    border-left-color: #ff9aa8;
+    color: #ffe0e4;
+}
+
+body.o_switchgear_app_shell .o_switchgear_section_accounting {
+    border-left-color: #ffc078;
+    color: #ffe8c8;
+}
+
+body.o_switchgear_app_shell .o_switchgear_section_config {
+    border-left-color: #c9a8ff;
+    color: #efe4ff;
+    border-top-color: rgba(232, 200, 150, 0.45);
+}
+
+body.o_switchgear_app_shell .o_switchgear_section_settings {
+    border-left-color: #c9a8ff;
+    color: #efe4ff;
+    border-top-color: rgba(232, 200, 150, 0.45);
+}

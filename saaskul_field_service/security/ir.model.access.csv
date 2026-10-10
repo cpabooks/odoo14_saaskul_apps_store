@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_contact_person,access_contact_person,model_contact_person,base.group_user,1,1,1,1
+access_material_line_req,access_material_line_req,model_material_request_line,base.group_user,1,1,1,1
+access_site_location,access_site_location,model_site_location,base.group_user,1,1,1,1
+access_complaint_detail,access_complaint_detail,model_complaint_detail,base.group_user,1,1,1,1
+access_fsm_test_data_record,access_fsm_test_data_record,model_cpabooks_fsm_test_data_record,industry_fsm.group_fsm_manager,1,1,1,1
+access_fsm_test_data_wizard,access_fsm_test_data_wizard,model_cpabooks_fsm_test_data_wizard,industry_fsm.group_fsm_manager,1,1,1,1
+access_fsm_stage0_close_wizard,access_fsm_stage0_close_wizard,model_cpabooks_fsm_stage0_close_wizard,base.group_user,1,1,1,1
+access_crn_service_dashboard,access_crn_service_dashboard,model_crn_service_dashboard,base.group_user,1,0,0,0
+access_crn_service_dashboard_system,access_crn_service_dashboard_system,model_crn_service_dashboard,base.group_system,1,1,1,0
+access_invoice_type_user,access_invoice_type_user,model_invoice_type,base.group_user,1,0,0,0
+access_invoice_type_manager,access_invoice_type_manager,model_invoice_type,account.group_account_manager,1,1,1,1

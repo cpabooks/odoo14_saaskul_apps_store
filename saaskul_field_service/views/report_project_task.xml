@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="industry_fsm_report.task_custom_report" model="ir.actions.report">
+            <field name="name">TMC Internal</field>
+        </record>
+
+        <record id="task_custom_report_customer_copy" model="ir.actions.report">
+            <field name="name">TMC Customer</field>
+            <field name="model">project.task</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">saaskul_field_service.worksheet_custom_customer</field>
+            <field name="report_file">saaskul_field_service.worksheet_custom_customer</field>
+            <field name="print_report_name">'Worksheet %s - %s' % (object.name, object.partner_id.name)</field>
+            <field name="binding_model_id" ref="model_project_task"/>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>

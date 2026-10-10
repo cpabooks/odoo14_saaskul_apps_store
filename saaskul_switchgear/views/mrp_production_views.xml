@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_production_view_form_inherit_switchgear_custom" model="ir.ui.view">
+        <field name="name">mrp.production.view.form.inherit.switchgear_custom</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_confirm']" position="after">
+                 <button name="%(action_transientmodel_wizard)d" type="action" string="Create PR"  class="btn-primary" attrs="{'invisible':[('state','not in',('confirmed','progress'))]}"/>
+
+<!--                <button name="action_create_pr" string="Create PR" type="object" class="btn-primary" attrs="{'invisible':[('state','not in',('confirmed','progress'))]}"/>-->
+                <button name="action_create_qc" string="Create Quality Check" type="object" class="btn-primary"/>
+            </xpath>
+            <xpath expr="//field[@name='bom_id']" position="after">
+                <field name="project_id"/>
+                <field name="partner_id"/>
+                <field name="bom_reference"/>
+            </xpath>
+
+            <xpath expr="//sheet/div[@name='button_box']" position="inside">
+                <button type="object" name="action_view_relavent_po"
+                        class="oe_stat_button" icon="fa-pencil-square-o"
+                        attrs="{'invisible': [('po_count', '=', 0)]}">
+                    <field name="po_count" widget="statinfo" string="Purchase"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- quality count inherit restored after cpabooks_quality_community install -->
+
+    <record id="mrp_production_view_form_inherit_quality_count" model="ir.ui.view">
+        <field name="name">mrp.production.view.form.inherit.quality.count</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="cpabooks_quality_community.mrp_production_view_form_inherit_quality"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']/button[@name='action_view_quality_checks']" position="replace">
+                <button type="object" name="action_view_quality_checks"
+                        class="oe_stat_button" icon="fa-check"
+                        attrs="{'invisible': [('qc_count', '=', 0)]}">
+                    <field name="qc_count" widget="statinfo" string="Quality Checks"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_mrp_production" model="ir.actions.act_window">
+        <field name="name">Manufacturing Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.production</field>
+        <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+        <field name="search_view_id" ref="mrp.view_mrp_production_filter"/>
+        <field name="domain">[('bom_id', '=', active_id)]</field>
+        <field name="context">{'default_bom_id': active_id, 'search_default_bom_id': active_id}</field>
+    </record>
+
+    <!--Action for Manufacturing Orders-->
+    <record id="action_mrp_production_from_project" model="ir.actions.act_window">
+        <field name="name">Manufacturing Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.production</field>
+        <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+        <field name="search_view_id" ref="mrp.view_mrp_production_filter"/>
+        <field name="domain">[('project_id', '=', active_id)]</field>
+        <field name="context">{'default_project_id': active_id}</field>
+    </record>
+</odoo>

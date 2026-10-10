@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_form_delivery_reset_draft" model="ir.ui.view">
+        <field name="name">stock.picking.form.delivery.reset.draft</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_confirm']" position="before">
+                <button name="action_reset_to_draft_for_delivery"
+                        type="object"
+                        string="Reset to Draft"
+                        class="btn-secondary"
+                        attrs="{'invisible': ['|', ('picking_type_code', '!=', 'outgoing'), ('state', 'in', ['draft', 'done'])]}"/>
+            </xpath>
+            <xpath expr="//field[@name='partner_id'][@nolabel='1']" position="attributes">
+                <attribute name="attrs">{'readonly': [('state', 'not in', ['draft'])], 'required': [('picking_type_code', '=', 'outgoing')]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
