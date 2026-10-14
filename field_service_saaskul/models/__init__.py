@@ -12,7 +12,6 @@ from . import mail_activity
 from . import fsm_dashboard
 from . import crn_service_dashboard
 from . import sale_order
-from . import planning_slot
 from . import contact_person
 from . import site_location
 from . import material_request_line

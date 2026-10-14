@@ -16,24 +16,22 @@
         <field name="tag">crn_service_dashboard</field>
     </record>
 
-    <!-- App launcher needs an action on the root menu (Odoo 14 enterprise home menu). -->
-    <record id="industry_fsm.fsm_menu_root" model="ir.ui.menu">
+    <!-- App launcher opens the dashboard from the root menu. -->
+    <record id="crn_menu_root" model="ir.ui.menu">
         <field name="action" ref="action_crn_service_dashboard"/>
-        <field name="web_icon">industry_fsm,static/description/icon.svg</field>
     </record>
 
-    <!-- Under standard Odoo Field Service app (name unchanged in app switcher). -->
     <menuitem
         id="menu_crn_service_dashboard"
         name="Dashboard"
-        parent="industry_fsm.fsm_menu_root"
+        parent="crn_menu_root"
         action="action_crn_service_dashboard"
         sequence="1"/>
 
     <menuitem
         id="menu_crn_processing_cycle"
         name="CRN Processing Cycle"
-        parent="industry_fsm.fsm_menu_root"
+        parent="crn_menu_root"
         action="action_crn_processing_cycle"
         sequence="2"/>
 

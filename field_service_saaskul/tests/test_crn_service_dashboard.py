@@ -10,7 +10,7 @@ class TestCrnServiceDashboard(TransactionCase):
     def test_dashboard_action_templates_use_list_view_mode(self):
         Dashboard = self.env['crn.service.dashboard']
         data = Dashboard.get_dashboard_data()
-        task_action = data['action_templates'].get('industry_fsm.project_task_action_all_fsm')
+        task_action = data['action_templates'].get('field_service_saaskul.crn_task_action_all')
         self.assertTrue(task_action, 'FSM task action template missing from dashboard data')
         self.assertTrue(task_action.get('views'), 'dashboard action must include views')
         self.assertEqual(task_action['views'][0][1], 'list')
@@ -25,7 +25,7 @@ class TestCrnServiceDashboard(TransactionCase):
         list_domain = Task._cpabooks_all_crn_domain()
         self.assertEqual(all_kpi['value'], Task.search_count(list_domain))
         self.assertEqual(all_kpi['domain'], [])
-        action_domain = data['action_templates']['industry_fsm.project_task_action_all_fsm']['domain']
+        action_domain = data['action_templates']['field_service_saaskul.crn_task_action_all']['domain']
         self.assertEqual(action_domain, list_domain)
 
     def test_stage_kpis_match_stage_counts(self):

@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Field Service Management",
+    'name': "Complaint Registration Services",
 
     'summary': """
-        Complaint Registration (CRN) for Odoo Field Service: 9-stage workflow
-        from registration, site visit and quotation to job completion, invoice
-        and approval, with material issue/return notes, job costing and dashboards.""",
+        Complaint Registration (CRN) for service teams: 9-stage workflow from
+        registration, site visit and quotation to job completion, invoice and
+        approval, with material issue/return notes, job costing and dashboards.
+        Works on Odoo Community and Enterprise.""",
 
     'description': """
-        Field Service turns Odoo Field Service tasks into Complaint
+        Complaint Registration Services turns project tasks into Complaint
         Registration Numbers (CRNs). Every complaint follows a guided 9-stage
         flow (Registered, Site Visited, Quotation Issued, Quotation Approved,
         Work in Progress, Waiting Invoice, FOC Done, Invoiced, Approved) with a
@@ -23,33 +24,31 @@
 
     'author': "Saaskul",
     'website': "https://saaskul.com",
-    'live_test_url': 'https://saaskul.com/contactus?name=Live%20Preview%20-%20Field%20Service%20Management',
+    'live_test_url': 'https://saaskul.com/contactus?name=Live%20Preview%20-%20Complaint%20Registration%20Services',
     'support': "info.cpabooks@gmail.com",
-    'category': 'Services/Field Service',
-    'version': '14.0.1.0.0',
+    'category': 'Services/Project',
+    'version': '14.0.1.1.0',
     'license': 'OPL-1',
     'images': ['static/description/banner.png'],
 
     'depends': [
         'base',
+        'project',
         'hr_timesheet',
-        'industry_fsm',
-        'industry_fsm_report',
-        'industry_fsm_sale',
-        'project_forecast',
         'sale_timesheet',
         'sale_stock',
-        'timesheet_grid',
         'stock',
         'purchase',
     ],
 
     'data': [
+        'security/crn_security.xml',
         'security/ir.model.access.csv',
         'security/customer_part_access.xml',
         'data/invoice_type_data.xml',
         'data/project_project_data.xml',
         'data/project_task_data.xml',
+        'views/crn_base_views.xml',
         'views/report_project_task.xml',
         'reports/worksheet_customer_report_templates.xml',
         'views/complaint_detail_views.xml',
@@ -75,7 +74,6 @@
         'views/timesheet_cost_views.xml',
         'views/fsm_task_cancel_actions.xml',
         'views/fsm_project_task.xml',
-        'views/fsm_crn_labels_views.xml',
         'views/crn_service_assets.xml',
         'views/crn_service_menus.xml',
         'views/fsm_dashboard_views.xml',

@@ -8,14 +8,14 @@ var AppShell = require('field_service_saaskul.crn_app_shell');
 var _t = core._t;
 
 var CYCLE_STEPS = [
-    {step: 1, label: '1. Registered', xmlid: 'industry_fsm.project_task_action_all_fsm', theme: 'intake'},
-    {step: 2, label: '2. Site Visited', xmlid: 'industry_fsm.project_task_action_all_fsm', theme: 'intake'},
+    {step: 1, label: '1. Registered', xmlid: 'field_service_saaskul.crn_task_action_all', theme: 'intake'},
+    {step: 2, label: '2. Site Visited', xmlid: 'field_service_saaskul.crn_task_action_all', theme: 'intake'},
     {step: 3, label: '3. Quotation Issued', xmlid: 'field_service_saaskul.action_fsm_project_task_to_quotation_issue', theme: 'quotation'},
-    {step: 4, label: '4. QTN Approved', xmlid: 'industry_fsm.project_task_action_all_fsm', theme: 'quotation'},
-    {step: 5, label: '5. Work in Progress', xmlid: 'industry_fsm.project_task_action_all_fsm', theme: 'execution'},
+    {step: 4, label: '4. QTN Approved', xmlid: 'field_service_saaskul.crn_task_action_all', theme: 'quotation'},
+    {step: 5, label: '5. Work in Progress', xmlid: 'field_service_saaskul.crn_task_action_all', theme: 'execution'},
     {step: 6, label: '6. Waiting Invoice', xmlid: 'field_service_saaskul.action_fsm_project_task_to_invoice', theme: 'billing'},
-    {step: 7, label: '7. Job Complete FOC', xmlid: 'industry_fsm.project_task_action_all_fsm', theme: 'billing'},
-    {step: 8, label: '8. Job Invoiced', xmlid: 'industry_fsm.project_task_action_all_fsm', theme: 'billing'},
+    {step: 7, label: '7. Job Complete FOC', xmlid: 'field_service_saaskul.crn_task_action_all', theme: 'billing'},
+    {step: 8, label: '8. Job Invoiced', xmlid: 'field_service_saaskul.crn_task_action_all', theme: 'billing'},
     {step: 9, label: '9. Approved', xmlid: 'field_service_saaskul.action_fsm_task_analysis_monitor', theme: 'closed'},
 ];
 

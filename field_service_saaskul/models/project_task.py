@@ -155,6 +155,9 @@ class ProjectTask(models.Model):
     _order = 'write_date desc, create_date desc, id desc'
 
     project_id = fields.Many2one(required=False)
+    is_fsm = fields.Boolean(related='project_id.is_fsm', search='_search_is_fsm')
+    planned_date_begin = fields.Datetime('Planned Start')
+    planned_date_end = fields.Datetime('Planned End')
 
     state = fields.Selection(
         STATE,
@@ -463,7 +466,7 @@ class ProjectTask(models.Model):
 
     @api.model
     def _fsm_default_planned_datetimes(self):
-        """Match industry_fsm: today 09:00–17:00 in user TZ so planning filters do not hide new CRNs."""
+        """Today 09:00–17:00 in user TZ so planning filters do not hide new CRNs."""
         user_tz = pytz.timezone(self.env.context.get('tz') or 'UTC')
         now_utc = pytz.utc.localize(datetime.utcnow())
         local_now = now_utc.astimezone(user_tz)
@@ -524,17 +527,10 @@ class ProjectTask(models.Model):
         if hasattr(company_id, 'id'):
             company_id = company_id.id
 
-        fsm_project = self.env.ref('industry_fsm.fsm_project', raise_if_not_found=False)
-        if fsm_project:
-            fsm_project = fsm_project.sudo()
-            if company_id and fsm_project.company_id and fsm_project.company_id.id != company_id:
-                fsm_project = project_model
-
-        if not fsm_project:
-            domain = [('is_fsm', '=', True), ('name', '=', 'Field Service')]
-            if company_id:
-                domain.append(('company_id', 'in', [False, company_id]))
-            fsm_project = project_model.with_context(active_test=False).search(domain, order='company_id desc, sequence, id', limit=1)
+        domain = [('is_fsm', '=', True), ('name', '=', 'Field Service')]
+        if company_id:
+            domain.append(('company_id', 'in', [False, company_id]))
+        fsm_project = project_model.with_context(active_test=False).search(domain, order='company_id desc, sequence, id', limit=1)
 
         if not fsm_project:
             vals = {
@@ -988,8 +984,7 @@ class ProjectTask(models.Model):
     def _search_is_fsm(self, operator, value):
         """CRN membership: FSM project OR check_fsm OR CRN% seq (project may be empty).
 
-        Do not call industry_fsm inselect here — related setup normally ignores
-        search=, and wrapping inselect in expression.OR breaks domain parsing.
+        Related setup normally ignores search=, so _register_hook restores it.
         """
         if operator not in ('=', '!='):
             return [('id', '=', False)]
@@ -1382,7 +1377,7 @@ class ProjectTask(models.Model):
 
     def _fsm_workflow_reload_form_action(self):
         self.ensure_one()
-        action = self.env.ref('industry_fsm.project_task_action_fsm').read()[0]
+        action = self.env.ref('field_service_saaskul.crn_task_action_my').read()[0]
         action['views'] = [(False, 'form')]
         action['res_id'] = self.id
         action['target'] = 'current'
@@ -2622,6 +2617,25 @@ class ProjectTask(models.Model):
             return view.get('viewID') or view.get('view_id') or False
         return False
 
+    def action_fsm_create_quotation(self):
+        self.ensure_one()
+        action = self.env["ir.actions.actions"]._for_xml_id("sale.action_quotations")
+        action.update({
+            'name': _('Create Quotation'),
+            'views': [(False, 'form')],
+            'view_mode': 'form',
+            'target': 'current',
+            'context': {
+                'fsm_mode': True,
+                'form_view_initial_mode': 'edit',
+                'default_partner_id': self.partner_id.id,
+                'default_task_id': self.id,
+                'default_company_id': self.company_id.id or self.env.company.id,
+                'default_origin': self.task_seq if self.task_seq and self.task_seq != '/' else self.name,
+            },
+        })
+        return action
+
     def action_fsm_view_all_related_quotations(self):
         self.ensure_one()
         orders = self._get_fsm_related_orders()
@@ -3245,7 +3259,7 @@ class ProjectTask(models.Model):
             ))
         name = self.task_seq or self.display_name
         self.with_context(**{CPABOOKS_FSM_CRN_MUTATION_CTX: True}).unlink()
-        action = self.env.ref('industry_fsm.project_task_action_all_fsm', raise_if_not_found=False)
+        action = self.env.ref('field_service_saaskul.crn_task_action_all', raise_if_not_found=False)
         if action:
             result = action.read()[0]
             result.setdefault('params', {})

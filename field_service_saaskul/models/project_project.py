@@ -6,6 +6,11 @@ from . import res_partner_fsm  # noqa: F401,E402
 class ProjectProject(models.Model):
     _inherit = 'project.project'
 
+    is_fsm = fields.Boolean(
+        string='Complaint Registration',
+        default=False,
+        help='Tasks of this project are managed as Complaint Registration Numbers (CRNs).',
+    )
     is_internal_project = fields.Boolean(
         string='Internal Project',
         default=False,

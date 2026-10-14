@@ -6,7 +6,7 @@ var core = require('web.core');
 
 var SHELL_CLASS = 'o_crn_app_shell';
 var MAIN_MENU_CLASS = 'o_crn_show_main_menu';
-var FSM_ROOT_XMLID = 'industry_fsm.fsm_menu_root';
+var FSM_ROOT_XMLID = 'field_service_saaskul.crn_menu_root';
 
 var NAV_ITEMS = [
     {section: 'Home', sectionClass: 'o_crn_section_home', items: [
@@ -14,9 +14,8 @@ var NAV_ITEMS = [
         {key: 'processing_cycle', label: 'CRN Processing Cycle', xmlid: 'field_service_saaskul.action_crn_processing_cycle', tier: 'home'},
     ]},
     {section: 'CRNs', sectionClass: 'o_crn_section_crns', items: [
-        {key: 'my_crns', label: 'My CRNs', xmlid: 'industry_fsm.project_task_action_fsm'},
-        {key: 'all_crns', label: 'All CRNs', xmlid: 'industry_fsm.project_task_action_all_fsm'},
-        {key: 'crn_map', label: 'CRN Map', xmlid: 'industry_fsm.project_task_action_fsm_map'},
+        {key: 'my_crns', label: 'My CRNs', xmlid: 'field_service_saaskul.crn_task_action_my'},
+        {key: 'all_crns', label: 'All CRNs', xmlid: 'field_service_saaskul.crn_task_action_all'},
         {key: 'to_quotation', label: 'To Quotation / Issue', xmlid: 'field_service_saaskul.action_fsm_project_task_to_quotation_issue'},
         {key: 'to_invoice', label: 'To Invoice', xmlid: 'field_service_saaskul.action_fsm_project_task_to_invoice'},
     ]},
@@ -386,7 +385,7 @@ var AppShell = {
     },
 
     openMainMenu: function () {
-        var $toggle = $('nav.o_main_navbar > a.o_menu_toggle, .o_main_navbar .o_menu_toggle').first();
+        var $toggle = $('nav.o_main_navbar > a.o_menu_toggle, .o_main_navbar .o_menu_toggle, .o_main_navbar .o_menu_apps a.full').first();
         if ($toggle.length) {
             $toggle.trigger('click');
         }

@@ -38,7 +38,7 @@
 
         <menuitem id="menu_fsm_complaint_detail"
                   name="Complaint Titles"
-                  parent="industry_fsm.fsm_menu_settings"
+                  parent="crn_menu_config"
                   action="action_complaint_detail"
                   sequence="20"/>
     </data>

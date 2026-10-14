@@ -35,8 +35,8 @@
 
     <menuitem id="menu_fsm_run_test_data"
               name="Run Test Data"
-              parent="industry_fsm.fsm_menu_settings"
+              parent="crn_menu_config"
               action="action_fsm_test_data_wizard"
               sequence="95"
-              groups="industry_fsm.group_fsm_manager"/>
+              groups="group_crn_manager"/>
 </odoo>

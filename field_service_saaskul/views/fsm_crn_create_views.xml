@@ -6,7 +6,7 @@
         <record id="view_fsm_project_task_kanban_disable_quick_create" model="ir.ui.view">
             <field name="name">project.task.kanban.fsm.disable.quick.create</field>
             <field name="model">project.task</field>
-            <field name="inherit_id" ref="industry_fsm.project_task_view_kanban_fsm"/>
+            <field name="inherit_id" ref="crn_task_view_kanban"/>
             <field name="arch" type="xml">
                 <xpath expr="//kanban" position="attributes">
                     <attribute name="quick_create">false</attribute>

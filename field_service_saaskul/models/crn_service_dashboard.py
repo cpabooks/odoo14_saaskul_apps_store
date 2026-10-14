@@ -5,12 +5,12 @@ from odoo.tools.safe_eval import safe_eval
 
 _TERMINAL_STAGES = ('job_completed', 'job_completed_invoiced', 'approved')
 _OPEN_STAGE_DOMAIN = [('fsm_stage_group', 'not in', list(_TERMINAL_STAGES))]
-_TASK_ACTION = 'industry_fsm.project_task_action_all_fsm'
+_TASK_ACTION = 'field_service_saaskul.crn_task_action_all'
 _ANALYSIS_ACTION = 'field_service_saaskul.action_fsm_task_analysis_monitor'
 _DASHBOARD_ACTION_XMLIDS = (
     _TASK_ACTION,
     _ANALYSIS_ACTION,
-    'industry_fsm.project_task_action_fsm',
+    'field_service_saaskul.crn_task_action_my',
     'field_service_saaskul.action_fsm_project_task_to_invoice',
     'field_service_saaskul.action_fsm_project_task_to_quotation_issue',
     'field_service_saaskul.action_fsm_store_material_request_pending',
@@ -228,7 +228,7 @@ class CrnServiceDashboard(models.AbstractModel):
                            self._stage_domain('registered')),
                 self._item('CRNs - open (all stages)', len(open_tasks), _TASK_ACTION, 'progress', open_domain),
                 self._item('My CRNs', Task.search_count(self._my_crn_domain(open_domain)),
-                           'industry_fsm.project_task_action_fsm', 'progress', self._my_crn_domain(open_domain)),
+                           'field_service_saaskul.crn_task_action_my', 'progress', self._my_crn_domain(open_domain)),
             ],
         })
 
