@@ -3,7 +3,7 @@
     'name': "Complaint Registration Services",
 
     'summary': """
-        Complaint Registration (CRN) for service teams: 9-stage workflow from
+        Field service complaint registration (CRN): 9-stage workflow from
         registration, site visit and quotation to job completion, invoice and
         approval, with material issue/return notes, job costing and dashboards.
         Works on Odoo Community and Enterprise.""",
@@ -26,8 +26,8 @@
     'website': "https://saaskul.com",
     'live_test_url': 'https://saaskul.com/contactus?name=Live%20Preview%20-%20Complaint%20Registration%20Services',
     'support': "info.cpabooks@gmail.com",
-    'category': 'Services/Project',
-    'version': '14.0.1.1.0',
+    'category': 'Services/Field Service',
+    'version': '14.0.1.2.0',
     'license': 'OPL-1',
     'images': ['static/description/banner.png'],
 
