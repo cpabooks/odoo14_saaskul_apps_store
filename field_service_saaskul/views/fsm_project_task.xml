@@ -4,7 +4,7 @@
         <record id="view_fsm_project_task_list_view_inherit" model="ir.ui.view">
             <field name="name">view.fsm.project.task.list.view.inherit</field>
             <field name="model">project.task</field>
-            <field name="inherit_id" ref="industry_fsm.project_task_view_list_fsm"/>
+            <field name="inherit_id" ref="crn_task_view_list"/>
             <field name="arch" type="xml">
                 <xpath expr="//tree" position="inside">
                     <field name="fsm_stage_group" string="Stage" optional="hide"/>
@@ -52,7 +52,7 @@
         <record id="project_task_view_search_fsm_inherit_admin" model="ir.ui.view">
             <field name="name">project.task.search.fsm.inherit.admin</field>
             <field name="model">project.task</field>
-            <field name="inherit_id" ref="industry_fsm.project_task_view_search_fsm"/>
+            <field name="inherit_id" ref="crn_task_view_search"/>
             <field name="arch" type="xml">
                 <!-- Enter / keyword: search CRN No, title, customer, assignee together. -->
                 <xpath expr="//field[@name='name']" position="attributes">
@@ -97,47 +97,11 @@
             </field>
         </record>
 
-        <record id="industry_fsm.project_task_action_fsm" model="ir.actions.act_window">
-            <field name="name">My CRNs</field>
-            <field name="view_mode">tree,form</field>
-            <field name="domain">['|', '|', ('project_id.is_fsm', '=', True), ('check_fsm', '=', True), ('task_seq', '=like', 'CRN%'), ('fsm_creator_uid', '=', uid), '|', ('project_id', '=', False), ('project_id.is_internal_project', '!=', True)]</field>
-            <field name="context">{
-                'fsm_mode': True,
-                'default_is_fsm': True,
-                'default_check_fsm': True,
-                'show_address': True,
-                'show_task_seq': True,
-                'show_crn_number': True,
-                'search_default_my_tasks': False,
-                'search_default_planned_future': False,
-                'search_default_planned_today': False,
-                'fsm_task_kanban_whole_date': False,
-                }
-            </field>
-        </record>
-
-        <record id="industry_fsm.project_task_action_fsm_map" model="ir.actions.act_window">
-            <field name="domain">['|', '|', ('project_id.is_fsm', '=', True), ('check_fsm', '=', True), ('task_seq', '=like', 'CRN%'), ('fsm_creator_uid', '=', uid), '|', ('project_id', '=', False), ('project_id.is_internal_project', '!=', True)]</field>
-            <field name="context">{
-                'fsm_mode': True,
-                'default_is_fsm': True,
-                'default_check_fsm': True,
-                'show_address': True,
-                'show_task_seq': True,
-                'show_crn_number': True,
-                'search_default_my_tasks': False,
-                'search_default_planned_future': False,
-                'search_default_planned_today': False,
-                'fsm_task_kanban_whole_date': False,
-                }
-            </field>
-        </record>
-
         <record id="action_fsm_project_task_to_quotation_issue" model="ir.actions.act_window">
             <field name="name">To Quotation Issue</field>
             <field name="res_model">project.task</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="industry_fsm.project_task_view_search_fsm"/>
+            <field name="search_view_id" ref="crn_task_view_search"/>
             <field name="domain">['|', '|', ('project_id.is_fsm', '=', True), ('check_fsm', '=', True), ('task_seq', '=like', 'CRN%'), ('next_action', '=', 'issue'), ('fsm_stage_group', '=', 'site_visited')]</field>
             <field name="context">{
                 'fsm_mode': True,
@@ -152,7 +116,7 @@
 
         <menuitem id="menu_fsm_project_task_to_quotation_issue"
                   name="To Quotation Issue"
-                  parent="industry_fsm.fsm_tasks_menu"
+                  parent="crn_menu_my"
                   action="action_fsm_project_task_to_quotation_issue"
                   sequence="18"/>
 
@@ -160,7 +124,7 @@
             <field name="name">To Invoice</field>
             <field name="res_model">project.task</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="industry_fsm.project_task_view_search_fsm"/>
+            <field name="search_view_id" ref="crn_task_view_search"/>
             <field name="domain">['|', '|', ('project_id.is_fsm', '=', True), ('check_fsm', '=', True), ('task_seq', '=like', 'CRN%'), ('fsm_stage_group', '=', 'waiting_for_invoice')]</field>
             <field name="context">{
                 'fsm_mode': True,
@@ -175,17 +139,9 @@
 
         <menuitem id="menu_fsm_project_task_to_invoice"
                   name="To Invoice"
-                  parent="industry_fsm.fsm_tasks_menu"
+                  parent="crn_menu_my"
                   action="action_fsm_project_task_to_invoice"
                   sequence="19"/>
-
-        <record id="industry_fsm.fsm_menu_planning" model="ir.ui.menu">
-            <field name="active" eval="False"/>
-        </record>
-
-        <record id="industry_fsm.fsm_menu_all_tasks_schedule" model="ir.ui.menu">
-            <field name="active" eval="False"/>
-        </record>
 
     </data>
 </odoo>

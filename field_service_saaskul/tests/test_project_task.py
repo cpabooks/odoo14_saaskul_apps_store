@@ -256,12 +256,10 @@ class TestProjectTask(TransactionCase):
 
     def test_fsm_partner_onchange_keeps_project_manual(self):
         partner = self.env['res.partner'].create({'name': 'FSM manual project customer'})
-        manual_project = self.env.ref('industry_fsm.fsm_project', raise_if_not_found=False)
-        if not manual_project:
-            manual_project = self.env['project.project'].create({
-                'name': 'FSM manual project',
-                'is_fsm': True,
-            })
+        manual_project = self.env['project.project'].create({
+            'name': 'FSM manual project',
+            'is_fsm': True,
+        })
         task = self.env['project.task'].with_context(fsm_mode=True).new({
             'name': 'FSM customer keeps manual project',
             'project_id': manual_project.id,
@@ -312,12 +310,10 @@ class TestProjectTask(TransactionCase):
         if not invoice_type:
             invoice_type = self.env['invoice.type'].create({'name': 'AMC'})
         partner = self.env['res.partner'].create({'name': 'FSM selectable invoice customer'})
-        project = self.env.ref('industry_fsm.fsm_project', raise_if_not_found=False)
-        if not project:
-            project = self.env['project.project'].create({
-                'name': 'FSM selectable invoice project',
-                'is_fsm': True,
-            })
+        project = self.env['project.project'].create({
+            'name': 'FSM selectable invoice project',
+            'is_fsm': True,
+        })
         invoice = self.env['account.move'].create({
             'partner_id': partner.id,
             'move_type': 'out_invoice',

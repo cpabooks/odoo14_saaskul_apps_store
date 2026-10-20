@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- CRN list -->
+        <record id="crn_task_view_list" model="ir.ui.view">
+            <field name="name">project.task.crn.list</field>
+            <field name="model">project.task</field>
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <tree string="CRNs" multi_edit="1" sample="1">
+                    <field name="name"/>
+                    <field name="project_id" optional="show"/>
+                    <field name="partner_id" optional="show"/>
+                    <field name="user_id" widget="many2one_avatar_user" optional="show"/>
+                    <field name="planned_date_begin" optional="hide"/>
+                    <field name="planned_date_end" optional="hide"/>
+                    <field name="effective_hours" widget="float_time" sum="Hours Spent" optional="hide"/>
+                    <field name="date_deadline" optional="hide"/>
+                    <field name="stage_id" optional="show"/>
+                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" optional="hide"/>
+                    <field name="activity_exception_decoration" widget="activity_exception"/>
+                    <field name="company_id" groups="base.group_multi_company" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- CRN search -->
+        <record id="crn_task_view_search" model="ir.ui.view">
+            <field name="name">project.task.crn.search</field>
+            <field name="model">project.task</field>
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <search string="Search CRNs">
+                    <field name="name" string="Keyword"/>
+                    <field name="partner_id"/>
+                    <field name="user_id"/>
+                    <field name="project_id"/>
+                    <field name="stage_id"/>
+                    <filter string="My CRNs" name="my_tasks" domain="[('user_id', '=', uid)]"/>
+                    <filter string="Unassigned" name="unassigned" domain="[('user_id', '=', False)]"/>
+                    <separator/>
+                    <filter string="Planned Today" name="planned_today"
+                            domain="[('planned_date_begin', '&lt;', (context_today() + relativedelta(days=1)).strftime('%Y-%m-%d')), ('planned_date_end', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+                    <filter string="Planned Later" name="planned_future"
+                            domain="[('planned_date_begin', '&gt;=', (context_today() + relativedelta(days=1)).strftime('%Y-%m-%d'))]"/>
+                    <separator/>
+                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Assigned to" name="groupby_user" context="{'group_by': 'user_id'}"/>
+                        <filter string="Customer" name="groupby_partner" context="{'group_by': 'partner_id'}"/>
+                        <filter string="Stage" name="groupby_stage" context="{'group_by': 'stage_id'}"/>
+                        <filter string="Project" name="groupby_project" context="{'group_by': 'project_id'}"/>
+                        <filter string="Company" name="groupby_company" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- CRN calendar -->
+        <record id="crn_task_view_calendar" model="ir.ui.view">
+            <field name="name">project.task.crn.calendar</field>
+            <field name="model">project.task</field>
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <calendar string="CRNs" date_start="planned_date_begin" date_stop="planned_date_end"
+                          color="user_id" mode="week" quick_add="False" event_open_popup="False">
+                    <field name="partner_id"/>
+                    <field name="user_id"/>
+                    <field name="stage_id"/>
+                </calendar>
+            </field>
+        </record>
+
+        <!-- CRN quick create -->
+        <record id="crn_task_view_quick_create" model="ir.ui.view">
+            <field name="name">project.task.crn.quick.create</field>
+            <field name="model">project.task</field>
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="project.quick_create_task_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='project_id']" position="after">
+                    <field name="partner_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- CRN kanban -->
+        <record id="crn_task_view_kanban" model="ir.ui.view">
+            <field name="name">project.task.crn.kanban</field>
+            <field name="model">project.task</field>
+            <field name="mode">primary</field>
+            <field name="priority">100</field>
+            <field name="inherit_id" ref="project.view_task_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="string">CRNs</attribute>
+                    <attribute name="quick_create_view">field_service_saaskul.crn_task_view_quick_create</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Actions -->
+        <record id="crn_task_action_my" model="ir.actions.act_window">
+            <field name="name">My CRNs</field>
+            <field name="res_model">project.task</field>
+            <field name="view_mode">tree,kanban,calendar,form</field>
+            <field name="search_view_id" ref="crn_task_view_search"/>
+            <field name="domain">['|', '|', ('project_id.is_fsm', '=', True), ('check_fsm', '=', True), ('task_seq', '=like', 'CRN%'), ('fsm_creator_uid', '=', uid), '|', ('project_id', '=', False), ('project_id.is_internal_project', '!=', True)]</field>
+            <field name="context">{
+                'fsm_mode': True,
+                'default_is_fsm': True,
+                'default_check_fsm': True,
+                'show_address': True,
+                'show_task_seq': True,
+                'show_crn_number': True,
+                'search_default_my_tasks': False,
+                'search_default_planned_future': False,
+                'search_default_planned_today': False,
+                'fsm_task_kanban_whole_date': False,
+            }</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">No CRNs found. Let's create one!</p>
+                <p>Manage your call-center complaint registrations (CRNs) from here.</p>
+            </field>
+        </record>
+
+        <record id="crn_task_action_my_view_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="5"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="crn_task_view_list"/>
+            <field name="act_window_id" ref="crn_task_action_my"/>
+        </record>
+        <record id="crn_task_action_my_view_kanban" model="ir.actions.act_window.view">
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="crn_task_view_kanban"/>
+            <field name="act_window_id" ref="crn_task_action_my"/>
+        </record>
+        <record id="crn_task_action_my_view_calendar" model="ir.actions.act_window.view">
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="crn_task_view_calendar"/>
+            <field name="act_window_id" ref="crn_task_action_my"/>
+        </record>
+        <record id="crn_task_action_my_view_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="30"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="project.view_task_form2"/>
+            <field name="act_window_id" ref="crn_task_action_my"/>
+        </record>
+
+        <record id="crn_task_action_all" model="ir.actions.act_window">
+            <field name="name">All CRNs</field>
+            <field name="res_model">project.task</field>
+            <field name="view_mode">tree,kanban,calendar,form</field>
+            <field name="search_view_id" ref="crn_task_view_search"/>
+            <field name="domain">['|', '|', ('project_id.is_fsm', '=', True), ('check_fsm', '=', True), ('task_seq', '=like', 'CRN%'), '|', ('project_id', '=', False), ('project_id.is_internal_project', '!=', True)]</field>
+            <field name="context">{
+                'fsm_mode': True,
+                'default_is_fsm': True,
+                'default_check_fsm': True,
+                'show_address': True,
+                'show_task_seq': True,
+                'show_crn_number': True,
+            }</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">No CRNs found. Let's create one!</p>
+                <p>Manage all call-center complaint registrations (CRNs) from here.</p>
+            </field>
+        </record>
+
+        <record id="crn_task_action_all_view_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="5"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="crn_task_view_list"/>
+            <field name="act_window_id" ref="crn_task_action_all"/>
+        </record>
+        <record id="crn_task_action_all_view_kanban" model="ir.actions.act_window.view">
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="crn_task_view_kanban"/>
+            <field name="act_window_id" ref="crn_task_action_all"/>
+        </record>
+        <record id="crn_task_action_all_view_calendar" model="ir.actions.act_window.view">
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="crn_task_view_calendar"/>
+            <field name="act_window_id" ref="crn_task_action_all"/>
+        </record>
+        <record id="crn_task_action_all_view_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="30"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="project.view_task_form2"/>
+            <field name="act_window_id" ref="crn_task_action_all"/>
+        </record>
+
+        <record id="crn_project_action" model="ir.actions.act_window">
+            <field name="name">Projects</field>
+            <field name="res_model">project.project</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="domain">[('is_fsm', '=', True)]</field>
+            <field name="context">{'default_is_fsm': True, 'default_allow_timesheets': True}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create a CRN project</p>
+                <p>CRNs are registered inside projects marked as Complaint Registration.</p>
+            </field>
+        </record>
+
+        <!-- Menus -->
+        <menuitem id="crn_menu_root"
+                  name="Complaint Registration"
+                  web_icon="field_service_saaskul,static/description/icon.png"
+                  groups="group_crn_user"
+                  sequence="57"/>
+
+        <menuitem id="crn_menu_my" name="My CRNs" parent="crn_menu_root" sequence="10"/>
+        <menuitem id="crn_menu_my_crns" name="CRNs" parent="crn_menu_my"
+                  action="crn_task_action_my" sequence="10"/>
+
+        <menuitem id="crn_menu_all_root" name="All CRNs" parent="crn_menu_root" sequence="20"/>
+        <menuitem id="crn_menu_all" name="All CRNs" parent="crn_menu_all_root"
+                  action="crn_task_action_all" sequence="10"/>
+
+        <menuitem id="crn_menu_reporting" name="Reporting" parent="crn_menu_root"
+                  groups="group_crn_manager" sequence="80"/>
+
+        <menuitem id="crn_menu_config" name="Configuration" parent="crn_menu_root"
+                  groups="group_crn_manager" sequence="100"/>
+        <menuitem id="crn_menu_config_projects" name="Projects" parent="crn_menu_config"
+                  action="crn_project_action" sequence="10"/>
+
+    </data>
+</odoo>

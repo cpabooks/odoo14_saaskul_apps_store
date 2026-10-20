@@ -34,13 +34,6 @@
                             invisible="1"/>
                 </xpath>
 
-                <xpath expr="//button[@name='action_fsm_validate'][hasclass('btn-primary')]" position="attributes">
-                    <attribute name="attrs">{'invisible': ['|', '|', ('display_mark_as_done_primary', '=', False), ('is_fsm', '=', True), ('check_fsm', '=', True)]}</attribute>
-                </xpath>
-                <xpath expr="//button[@name='action_fsm_validate'][hasclass('btn-secondary')]" position="attributes">
-                    <attribute name="attrs">{'invisible': ['|', '|', ('display_mark_as_done_secondary', '=', False), ('is_fsm', '=', True), ('check_fsm', '=', True)]}</attribute>
-                </xpath>
-
                 <xpath expr="//div[@name='cpabooks_fsm_document_button_box']" position="after">
                     <div class="cpabooks_fsm_next_prominent" attrs="{'invisible': ['&amp;', ('is_fsm', '=', False), ('check_fsm', '=', False)]}">
                         <field name="fsm_workflow_pending_serials_display" invisible="1"/>

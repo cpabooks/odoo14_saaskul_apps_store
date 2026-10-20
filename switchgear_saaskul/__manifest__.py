@@ -14,6 +14,7 @@ estimate to BOM to MO, QC final inspection tag, dashboard, tutorial wizard and d
     'version': '14.0.1.0.0',
     'author': 'Saaskul',
     'website': 'https://saaskul.com',
+    'live_test_url': 'https://saaskul.com/contactus?name=Live%20Preview%20-%20Switchgear%20Manufacturing',
     'support': 'info.cpabooks@gmail.com',
     'depends': [
         'web', 'mail', 'utm',

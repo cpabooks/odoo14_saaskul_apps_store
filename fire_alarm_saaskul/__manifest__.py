@@ -12,6 +12,7 @@ Execute → Test → Handover → Invoice → Payment.
     'category': 'Services/Fire Safety',
     'author': 'Saaskul',
     'website': 'https://saaskul.com',
+    'live_test_url': 'https://saaskul.com/contactus?name=Live%20Preview%20-%20Fire%20Alarm%20%26%20Fire%20Fighting',
     'support': 'info.cpabooks@gmail.com',
     'license': 'OPL-1',
     'images': ['static/description/banner.png'],

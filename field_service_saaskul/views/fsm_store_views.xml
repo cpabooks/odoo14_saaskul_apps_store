@@ -334,36 +334,36 @@
 
     <menuitem id="menu_fsm_store_root"
               name="Store"
-              parent="industry_fsm.fsm_menu_root"
+              parent="crn_menu_root"
               sequence="45"
-              groups="industry_fsm.group_fsm_manager"/>
+              groups="group_crn_manager"/>
 
     <menuitem id="menu_fsm_store_material_request_pending"
               name="Material Request Pending"
               parent="menu_fsm_store_root"
               sequence="10"
               action="action_fsm_store_material_request_pending"
-              groups="industry_fsm.group_fsm_manager"/>
+              groups="group_crn_manager"/>
 
     <menuitem id="menu_fsm_store_material_issued"
               name="Material Issued"
               parent="menu_fsm_store_root"
               sequence="20"
               action="action_fsm_store_material_issued"
-              groups="industry_fsm.group_fsm_manager"/>
+              groups="group_crn_manager"/>
 
     <menuitem id="menu_fsm_store_do_pending"
               name="DO Pending"
               parent="menu_fsm_store_root"
               sequence="30"
               action="action_fsm_store_do_pending"
-              groups="industry_fsm.group_fsm_manager"/>
+              groups="group_crn_manager"/>
 
     <menuitem id="menu_fsm_store_do_issued"
               name="DO Issued"
               parent="menu_fsm_store_root"
               sequence="40"
               action="action_fsm_store_do_issued"
-              groups="industry_fsm.group_fsm_manager"/>
+              groups="group_crn_manager"/>
 
 </odoo>

@@ -44,7 +44,7 @@
     <record id="action_fsm_task_analysis_monitor_tree" model="ir.actions.act_window.view">
         <field name="sequence" eval="1"/>
         <field name="view_mode">tree</field>
-        <field name="view_id" ref="industry_fsm.project_task_view_list_fsm"/>
+        <field name="view_id" ref="crn_task_view_list"/>
         <field name="act_window_id" ref="action_fsm_task_analysis_monitor"/>
     </record>
 
@@ -142,24 +142,24 @@
 
     <menuitem id="menu_fsm_service_monitor_dashboard"
               name="Service Dashboard"
-              parent="industry_fsm.fsm_menu_reporting"
+              parent="crn_menu_reporting"
               sequence="5"
               action="action_fsm_service_monitor_dashboard"
-              groups="industry_fsm.group_fsm_manager"/>
+              groups="group_crn_manager"/>
 
     <menuitem id="menu_fsm_task_analysis_monitor"
               name="Service Task Analysis"
-              parent="industry_fsm.fsm_menu_reporting"
+              parent="crn_menu_reporting"
               sequence="15"
               action="action_fsm_task_analysis_monitor"
-              groups="industry_fsm.group_fsm_manager"/>
+              groups="group_crn_manager"/>
 
     <menuitem id="menu_fsm_timesheet_analysis_monitor"
               name="Service Timesheet Analysis"
-              parent="industry_fsm.fsm_menu_reporting"
+              parent="crn_menu_reporting"
               sequence="20"
               action="action_fsm_timesheet_analysis_monitor"
-              groups="industry_fsm.group_fsm_manager"/>
+              groups="group_crn_manager"/>
 
     <template id="assets_fsm_dashboard" inherit_id="web.assets_backend" name="FSM Dashboard assets">
         <xpath expr="." position="inside">

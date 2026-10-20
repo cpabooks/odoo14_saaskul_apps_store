@@ -148,13 +148,13 @@
 
     <menuitem id="menu_fsm_material_consumption_analysis"
               name="Material Consumption Analysis"
-              parent="industry_fsm.fsm_menu_reporting"
+              parent="crn_menu_reporting"
               sequence="12"
               action="action_fsm_material_consumption_analysis"/>
 
     <menuitem id="menu_fsm_material_consumption_analysis_root"
               name="Material Consumption Analysis"
-              parent="industry_fsm.fsm_menu_root"
+              parent="crn_menu_root"
               sequence="48"
               action="action_fsm_material_consumption_analysis"/>
 </odoo>

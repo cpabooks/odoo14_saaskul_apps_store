@@ -10,6 +10,7 @@
     'category': 'Services/Facility Management',
     'author': 'Saaskul',
     'website': 'https://saaskul.com',
+    'live_test_url': 'https://saaskul.com/contactus?name=Live%20Preview%20-%20Facility%20Management%20%28CAFM%29',
     'support': 'info.cpabooks@gmail.com',
     'license': 'OPL-1',
     'images': ['static/description/banner.png'],
