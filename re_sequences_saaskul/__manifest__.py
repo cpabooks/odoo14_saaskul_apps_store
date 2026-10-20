@@ -1,6 +1,6 @@
 ## -*- coding: utf-8 -*-
 {
-    'name': 'Document Sequence Manager',
+    'name': 'Sequence Manager - Document Numbering',
 
     'summary': 'Manage and re-sequence document numbers across Odoo applications',
 
@@ -13,11 +13,11 @@ Purchase, Inventory, Project and CRM in Odoo 14.
 
     'author': 'Saaskul',
     'website': 'https://saaskul.com',
-    'live_test_url': 'https://saaskul.com/contactus?name=Live%20Preview%20-%20Document%20Sequence%20Manager',
+    'live_test_url': 'https://saaskul.com/contactus?name=Live%20Preview%20-%20Sequence%20Manager',
     'support': 'info.cpabooks@gmail.com',
 
     'category': 'Productivity',
-    'version': '14.0.1.62',
+    'version': '14.0.1.63',
     'license': 'OPL-1',
 
     'images': [
