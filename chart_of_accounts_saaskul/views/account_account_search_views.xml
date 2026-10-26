@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_account_search_cpabooks_l_structure" model="ir.ui.view">
+        <field name="name">account.account.search.cpabooks.l.structure</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_search"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="cpabooks_display_code" string="L3-LC"/>
+                <field name="cpabooks_l1_type_code"/>
+                <field name="cpabooks_l1_type_label" invisible="1"/>
+                <field name="cpabooks_group_code" string="Group Code"/>
+                <field name="group_id" string="Group"/>
+                <field name="company_id" string="Company" invisible="1"/>
+            </field>
+            <xpath expr="//search" position="inside">
+                <separator/>
+                <filter name="cpabooks_l1_assets" string="L1 Assets"
+                        domain="[('cpabooks_l1_type_code', '=', '1')]"/>
+                <filter name="cpabooks_l1_liabilities" string="L1 Liabilities"
+                        domain="[('cpabooks_l1_type_code', '=', '2')]"/>
+                <filter name="cpabooks_l1_equity" string="L1 Equity"
+                        domain="[('cpabooks_l1_type_code', '=', '3')]"/>
+                <filter name="cpabooks_l1_income" string="L1 Income"
+                        domain="[('cpabooks_l1_type_code', '=', '4')]"/>
+                <filter name="cpabooks_l1_expense" string="L1 Expense"
+                        domain="[('cpabooks_l1_type_code', '=', '5')]"/>
+            </xpath>
+            <xpath expr="//group" position="inside">
+                <filter name="group_cpabooks_l1_type" string="L1 Type"
+                        context="{'group_by': 'cpabooks_l1_type_label'}"/>
+                <filter name="group_cpabooks_l2_code" string="Group Code"
+                        context="{'group_by': 'cpabooks_group_code'}"/>
+                <filter name="group_cpabooks_group" string="Group"
+                        context="{'group_by': 'group_id'}"/>
+                <filter name="group_cpabooks_company" string="Company / Branch"
+                        context="{'group_by': 'company_id'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

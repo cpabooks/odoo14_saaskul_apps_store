@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+<!--         <menuitem name="COA Create"-->
+<!--            id="menu_coa_create_root"/>-->
+
+        <record id="success_message_wizard_form" model="ir.ui.view">
+    <field name="name">success.message.wizard.form</field>
+    <field name="model">success.message.wizard</field>
+    <field name="arch" type="xml">
+        <form>
+            <field name="message" readonly="True"/>
+            <footer>
+                <button name="action_close" string="Ok" type="object" default_focus="1" class="oe_highlight"/>
+            </footer>
+        </form>
+    </field>
+    </record>
+
+        <record id="coa_create_form" model="ir.ui.view">
+            <field name="name">coa.create.form</field>
+            <field name="model">coa.create</field>
+            <field name="arch" type="xml">
+                <form string="COA Create"  create="false" edit="false">
+
+                <sheet>
+
+                    <div class="message text-danger border border-info p-2 rounded w-100">
+                        <strong>Factory Reset</strong> deletes unused ledgers and restores the
+                        factory chart (seed + PDC Receivable / PDC Payable) like new books.
+                        User-created / renamed factory ledgers that are unused are removed or overwritten.
+                        Ledgers still used on journals or journal entries are kept.
+                        Use <strong>Reset All</strong> instead if you only want to restore missing defaults
+                        while preserving your manual edits.
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="coa_csv_file" invisible="1"/>
+                            <field name="group_csv_file" invisible="1"/>
+                            <field name="not_delete_csv_file" invisible="1"/>
+                            <field name="company_id"/>
+
+                        </group>
+<!--                        <group>-->
+<!--                            <field name="delete_unlink_account"/>-->
+
+<!--                        </group>-->
+
+                    </group>
+
+
+                </sheet>
+                <footer>
+<!--                    <button type="object" name="read_file" string="Create COA"/>-->
+                    <button type="object" name="delete_coa" string="Delete &amp; Modify COAs"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+
+
+<!--        <record id="coa_create_tree" model="ir.ui.view">-->
+<!--            <field name="name">coa.create.tree</field>-->
+<!--            <field name="model">coa.create</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <tree string="COA Create" multi_edit="1">-->
+
+<!--                    <field name="csv_file"/>-->
+
+<!--                </tree>-->
+<!--            </field>-->
+<!--        </record>-->
+
+
+
+        <record id="coa_create_form_action" model="ir.actions.act_window">
+            <field name="name">CPA COA</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">coa.create</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+
+<!--            <field name="view_id" ref="coa_create_tree"/>-->
+<!--            <field name="context">{}</field>-->
+<!--            <field name="help" type="html">-->
+<!--              <p class="o_view_nocontent_smiling_face">-->
+<!--                No COA Creat found. Let's create one!-->
+
+<!--              </p>-->
+<!--            </field>-->
+        </record>
+
+
+
+
+
+
+<!--        <menuitem id="menu_coa_create_management" name="COA Create"-->
+<!--            parent="menu_coa_create_root" action="coa_create_form_action" sequence="1" />-->
+<!--    <menuitem id="menu_coa_create_management" name="COA Modify"-->
+<!--            parent="account.account_account_menu" action="coa_create_form_action" sequence="1" groups="base.group_system"/>-->
+
+</odoo>

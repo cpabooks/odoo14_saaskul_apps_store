@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_account_list_cpabooks_ledger_balance" model="ir.ui.view">
+        <field name="name">account.account.list.cpabooks.ledger.balance</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_list"/>
+        <field name="arch" type="xml">
+            <field name="code" position="replace">
+                <field name="cpabooks_company_branch_code" string="BC" optional="hide"/>
+                <field name="cpabooks_company_display" string="Company / Branch" optional="hide"/>
+                <field name="cpabooks_l1_type_display" string="L1-TCODE"/>
+                <field name="cpabooks_group_code" string="Group Code"/>
+                <field name="cpabooks_group_name" string="Account Groups"/>
+                <field name="cpabooks_display_code" string="L3-LC"/>
+                <field name="code" invisible="1"/>
+            </field>
+            <field name="name" position="attributes">
+                <attribute name="string">Ledger Name</attribute>
+            </field>
+            <field name="user_type_id" position="replace">
+                <field name="cpabooks_l1_type_code" invisible="1"/>
+                <field name="cpabooks_l1_type_label" invisible="1"/>
+                <field name="user_type_id" string="Account Type" optional="hide"/>
+            </field>
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="cpabooks_proposed_group_name" string="Proposed Group" optional="hide"/>
+                <field name="cpabooks_balance_currency_id" invisible="1"/>
+                <field name="cpabooks_opening_balance"
+                       string="Opening Balance"
+                       sum="Opening Balance"
+                       optional="hide"
+                       widget="monetary"
+                       options="{'currency_field': 'cpabooks_balance_currency_id'}"/>
+                <field name="cpabooks_ledger_balance"
+                       string="Closing Balance"
+                       sum="Closing Balance"
+                       optional="hide"
+                       widget="monetary"
+                       options="{'currency_field': 'cpabooks_balance_currency_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_list_cpabooks_final_column_cleanup" model="ir.ui.view">
+        <field name="name">account.account.list.cpabooks.final.column.cleanup</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_list"/>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='group_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+                <attribute name="optional">hide</attribute>
+            </xpath>
+            <xpath expr="//tree/field[@name='company_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+                <attribute name="optional">hide</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_form_cpabooks_pager" model="ir.ui.view">
+        <field name="name">account.account.form.cpabooks.pager</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="js_class">account_form_pager</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_form_cpabooks_ifrs" model="ir.ui.view">
+        <field name="name">account.account.form.cpabooks.ifrs</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="action_cpabooks_ifrs_name_review"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-pencil-square-o"
+                        attrs="{'invisible': [('cpabooks_ifrs_needs_name_review', '=', False)]}">
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">IFRS Name Review</span>
+                    </div>
+                </button>
+            </div>
+            <field name="user_type_id" position="before">
+                <field name="cpabooks_l1_type_code" invisible="1"/>
+                <field name="cpabooks_l1_type_label" invisible="1"/>
+            </field>
+            <field name="group_id" position="after">
+                <field name="cpabooks_previous_code" readonly="1"
+                       attrs="{'invisible': [('cpabooks_previous_code', '=', False)]}"/>
+                <field name="cpabooks_previous_name" readonly="1"
+                       attrs="{'invisible': [('cpabooks_previous_name', '=', False)]}"/>
+                <field name="cpabooks_ifrs_needs_name_review" invisible="1"/>
+            </field>
+            <field name="group_id" position="before">
+                <field name="cpabooks_group_code" string="Group Code" readonly="1"/>
+            </field>
+            <field name="group_id" position="attributes">
+                <attribute name="string">Account Groups</attribute>
+                <attribute name="readonly">0</attribute>
+                <attribute name="domain">[('company_id', '=', company_id)]</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

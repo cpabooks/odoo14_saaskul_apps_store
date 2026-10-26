@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo noupdate="1">
+    <function model="visa.product" name="action_create_default_visa_product"/>
+    <function model="visa.product" name="action_attach_existing_vehicle_product"/>
+    <function model="visa.product" name="action_attach_existing_visa_analytic_acc"/>
+    <function model="res.partner" name="action_cpabooks_restore_partner_accounts"/>
+</odoo>
