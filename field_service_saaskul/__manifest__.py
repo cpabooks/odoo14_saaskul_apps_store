@@ -29,6 +29,8 @@
     'category': 'Services/Field Service',
     'version': '14.0.1.2.0',
     'license': 'OPL-1',
+    'price': 99.00,
+    'currency': 'USD',
     'images': ['static/description/banner.png'],
 
     'depends': [
