@@ -15,6 +15,8 @@ Execute → Test → Handover → Invoice → Payment.
     'live_test_url': 'https://saaskul.com/contactus?name=Live%20Preview%20-%20Fire%20Alarm%20%26%20Fire%20Fighting',
     'support': 'info.cpabooks@gmail.com',
     'license': 'OPL-1',
+    'price': 200.00,
+    'currency': 'USD',
     'images': ['static/description/banner.png'],
     'depends': [
         'crm',
