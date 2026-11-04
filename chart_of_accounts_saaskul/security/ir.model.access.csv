@@ -1,0 +1,34 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cpabooks_coa_actions2,cpabooks.coa.actions2,model_cpabooks_coa_actions2,account.group_account_user,1,1,1,1
+access_cpa_coa_setup_line,cpa.coa.setup.line,model_cpa_coa_setup_line,account.group_account_manager,1,1,1,1
+access_product_analytic_acc_conf,manage_product_analytic_acc_conf,model_product_analytic_acc_conf,,1,1,1,1
+access_product_analytic_acc_conf_line,manage_product_analytic_acc_conf_line,model_product_analytic_acc_conf_line,,1,1,1,1
+access_product_analytic_acc_conf_line_show,manage_product_analytic_acc_conf_line_show,model_product_analytic_acc_conf_line_show,,1,1,1,1
+access_visa_product_show,manage_visa_product_show,model_visa_product_show,,1,1,1,1
+access_visa_product,manage_visa_product,model_visa_product,,1,1,1,1
+access_visa_analytic_acc,manage_visa_analytic_acc,model_visa_analytic_acc,,1,1,1,1
+access_coa_bulk_actions_wizard,coa.bulk.actions.wizard,model_coa_bulk_actions_wizard,base.group_system,1,1,1,1
+access_coa_bulk_actions_wizard_line,coa.bulk.actions.wizard.line,model_coa_bulk_actions_wizard_line,base.group_system,1,1,1,1
+access_coa_reset_code_preview_wizard,coa.reset.code.preview.wizard,model_coa_reset_code_preview_wizard,base.group_system,1,1,1,1
+access_coa_reset_code_preview_wizard_line,coa.reset.code.preview.wizard.line,model_coa_reset_code_preview_wizard_line,base.group_system,1,1,1,1
+access_coa_bulk_actions_wizard_account_manager,coa.bulk.actions.wizard account manager,model_coa_bulk_actions_wizard,account.group_account_manager,1,1,1,1
+access_coa_bulk_actions_wizard_line_account_manager,coa.bulk.actions.wizard.line account manager,model_coa_bulk_actions_wizard_line,account.group_account_manager,1,1,1,1
+access_coa_bulk_delete_wizard,coa.bulk.delete.wizard,model_coa_bulk_delete_wizard,base.group_system,1,1,1,1
+access_coa_bulk_delete_wizard_account_manager,coa.bulk.delete.wizard account manager,model_coa_bulk_delete_wizard,account.group_account_manager,1,1,1,1
+access_coa_reset_code_preview_wizard_account_manager,coa.reset.code.preview.wizard account manager,model_coa_reset_code_preview_wizard,account.group_account_manager,1,1,1,1
+access_coa_reset_code_preview_wizard_line_account_manager,coa.reset.code.preview.wizard.line account manager,model_coa_reset_code_preview_wizard_line,account.group_account_manager,1,1,1,1
+access_coa_reset_code_options_wizard,coa.reset.code.options.wizard,model_coa_reset_code_options_wizard,base.group_system,1,1,1,1
+access_coa_reset_code_options_wizard_account_manager,coa.reset.code.options.wizard account manager,model_coa_reset_code_options_wizard,account.group_account_manager,1,1,1,1
+access_coa_menu_action_wizard,coa.menu.action.wizard,model_coa_menu_action_wizard,base.group_system,1,1,1,1
+access_coa_menu_action_wizard_account_manager,coa.menu.action.wizard account manager,model_coa_menu_action_wizard,account.group_account_manager,1,1,1,1
+access_coa_ifrs_coding_wizard,coa.ifrs.coding.wizard,model_coa_ifrs_coding_wizard,base.group_system,1,1,1,1
+access_coa_ifrs_coding_preview_line,coa.ifrs.coding.preview.line,model_coa_ifrs_coding_preview_line,base.group_system,1,1,1,1
+access_coa_ifrs_name_suggestion_wizard,coa.ifrs.name.suggestion.wizard,model_coa_ifrs_name_suggestion_wizard,base.group_system,1,1,1,1
+access_coa_ifrs_coding_wizard_account_manager,coa.ifrs.coding.wizard account manager,model_coa_ifrs_coding_wizard,account.group_account_manager,1,1,1,1
+access_coa_ifrs_coding_preview_line_account_manager,coa.ifrs.coding.preview.line account manager,model_coa_ifrs_coding_preview_line,account.group_account_manager,1,1,1,1
+access_coa_ifrs_name_suggestion_wizard_account_manager,coa.ifrs.name.suggestion.wizard account manager,model_coa_ifrs_name_suggestion_wizard,account.group_account_manager,1,1,1,1
+access_coa_ifrs_reset_confirm_wizard,coa.ifrs.reset.confirm.wizard,model_coa_ifrs_reset_confirm_wizard,base.group_system,1,1,1,1
+access_coa_ifrs_reset_confirm_wizard_account_manager,coa.ifrs.reset.confirm.wizard account manager,model_coa_ifrs_reset_confirm_wizard,account.group_account_manager,1,1,1,1
+access_function_call_coa,function_call_coa,model_function_call,base.group_user,1,1,1,1
+access_coa_create,coa_create,model_coa_create,base.group_user,1,1,1,1
+access_account_group_user_coa,account.group.user.coa,account.model_account_group,base.group_user,1,1,1,1

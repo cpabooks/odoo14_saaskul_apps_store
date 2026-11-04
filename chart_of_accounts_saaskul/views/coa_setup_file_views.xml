@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cpa_coa_setup_line_tree" model="ir.ui.view">
+        <field name="name">cpa.coa.setup.line.tree</field>
+        <field name="model">cpa.coa.setup.line</field>
+        <field name="arch" type="xml">
+            <tree string="COA Setup File" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="code"/>
+                <field name="code_auto"/>
+                <field name="account_name"/>
+                <field name="account_name_revise"/>
+                <field name="type_name"/>
+                <field name="type_revise"/>
+                <field name="group_name"/>
+                <field name="prefix_from"/>
+                <field name="prefix_to"/>
+                <field name="qid"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_cpa_coa_setup_file" model="ir.actions.act_window">
+        <field name="name">COA Setup File</field>
+        <field name="res_model">cpa.coa.setup.line</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="menu_cpa_coa_setup_file"
+              name="COA Setup File"
+              parent="account.menu_finance_configuration"
+              action="action_cpa_coa_setup_file"
+              sequence="44"
+              groups="account.group_account_manager"/>
+</odoo>

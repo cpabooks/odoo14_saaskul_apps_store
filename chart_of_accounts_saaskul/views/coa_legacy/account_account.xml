@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_account_form_inherit" model="ir.ui.view">
+            <field name="name">account.account.form.inherit</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='deprecated']" position="after">
+                    <field name="get_previous"/>
+                    <field name="identity_code" string="Identity Code" readonly="1" force_save="1"/>
+                </xpath>
+
+                <xpath expr="//div[@class='oe_title']/div/field[@name='code']" position="before">
+                    <label for="previous" invisible="1" attrs="{'invisible': [('get_previous', '=', False)]}"/>
+                    <field name="previous" invisible="1" attrs="{'invisible': [('get_previous', '=', False)]}"/>
+                </xpath>
+                <!--                <xpath expr="//div[@class='oe_title']" position="inside">-->
+                <!--                        <field name="group_id" string="Select Group" attrs="{'invisible': [('get_previous', '=', False)]}" placeholder="Group"/>-->
+                <!--                    &lt;!&ndash;                    <label for="group_id" attrs="{'invisible': [('get_previous', '=', False)]}"/>&ndash;&gt;-->
+                <!--                </xpath>-->
+
+                <xpath expr="//div[@class='oe_title']/div/field[@name='name']" position="attributes">
+                    <attribute name="placeholder">Insert New Ledger Name</attribute>
+                </xpath>
+                <xpath expr="//div[@class='oe_title']/div/field[@name='name']" position="after">
+                    <field name="cpabooks_sync_name_all_companies" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='group_id']" position="attributes">
+                    <attribute name="string">Select Group</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='group_id']" position="after">
+                    <field name="qid" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//group[@name='security_group']" position="after">
+                    <group string="Related">
+                        <field name="cpabooks_related_account_ids"
+                               string="Related Ledgers"
+                               widget="many2many_tags"
+                               domain="[('company_id', '=', company_id), ('id', '!=', id)]"
+                               options="{'no_create': True, 'no_create_edit': True}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_tree_inherit" model="ir.ui.view">
+            <field name="name">account.account.tree.inherit</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_list"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='reconcile']" position="attributes">
+                    <attribute name="optional">0</attribute>
+                </xpath>
+                <xpath expr="//field[@name='group_id']" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </xpath>
+                <xpath expr="//field[@name='currency_id']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="account.action_account_form" model="ir.actions.act_window">
+            <field name="domain">[('company_id', 'in', allowed_company_ids)]</field>
+        </record>
+
+
+    </data>
+</odoo>

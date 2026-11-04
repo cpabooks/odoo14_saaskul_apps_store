@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_account_list_coa_actions_header_v1" model="ir.ui.view">
+        <field name="name">account.account.list.coa.actions.header.v1</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_list"/>
+        <field name="priority">101</field>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <header>
+                    <button type="object" name="reset_all" string="Reset All"
+                            class="oe_highlight"
+                            groups="account.group_account_manager"/>
+                    <button type="object" name="cpa_coa_menu_reset_groups" string="Reset Groups"
+                            class="oe_highlight"
+                            groups="account.group_account_manager"/>
+                    <button type="object" name="cpa_coa_menu_update_all_groups" string="Update all Groups"
+                            class="oe_highlight"
+                            groups="account.group_account_manager"/>
+                    <button type="object" name="cpa_coa_menu_reset_afg" string="Reset AFG"
+                            class="oe_highlight"
+                            groups="account.group_account_manager"/>
+                    <button type="object" name="cpa_coa_menu_reset_ctf" string="Reset CTG"
+                            class="oe_highlight"
+                            groups="account.group_account_manager"/>
+                    <button type="object" name="action_open_coa_actions2" string="Actions 2"
+                            class="oe_highlight"
+                            groups="account.group_account_manager"/>
+                </header>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_cpabooks_coa_actions2_form" model="ir.ui.view">
+        <field name="name">cpabooks.coa.actions2.form</field>
+        <field name="model">cpabooks.coa.actions2</field>
+        <field name="arch" type="xml">
+            <form string="Actions 2">
+                <div class="o_cpabooks_coa_actions2">
+                    <button type="object" name="action_set_coa_4_digits" string="COA 4 Digits" class="btn btn-link d-block text-left"/>
+                    <button type="object" name="action_set_coa_6_digits" string="COA 6 Digits" class="btn btn-link d-block text-left"/>
+                    <button type="object" name="reset_all" string="Reset All" class="btn btn-link d-block text-left"/>
+                    <button type="object" name="delete_wizard" string="Factory Reset" class="btn btn-link d-block text-left"/>
+                    <button type="object" name="action_cpabooks_add_opening_balance" string="Add Opening Balance" class="btn btn-link d-block text-left"/>
+                    <button type="object" name="action_view_rules" string="VR" class="btn btn-link d-block text-left"/>
+                    <button type="object" name="action_remove_group" string="Remove Groups" class="btn btn-link d-block text-left"/>
+                    <button type="object" name="reset_group" string="Reset Account Group" class="btn btn-link d-block text-left"/>
+                    <button type="object" name="cpa_coa_menu_update_all_groups" string="Update all Groups" class="btn btn-link d-block text-left"/>
+                    <button type="object" name="action_cpa_reset_afg" string="Reset AFG" class="btn btn-link d-block text-left"/>
+                    <button type="object" name="action_cpa_reset_ctf" string="Reset CTG" class="btn btn-link d-block text-left"/>
+                    <button type="object" name="action_view_duplicate_codes" string="View Duplicate Codes" class="btn btn-link d-block text-left"/>
+                    <button type="object" name="action_fix_duplicate_codes" string="Fix Duplicate Codes" class="btn btn-link d-block text-left"/>
+                    <button type="object" name="create_deferred_expense_model" string="Create Prepaid Rules" class="btn btn-link d-block text-left"/>
+                    <button type="object" name="action_toggle_code" string="Toggle Code" class="btn btn-link d-block text-left"/>
+                    <button type="object" name="action_show_code_true" string="SCT" class="btn btn-link d-block text-left"/>
+                    <button type="object" name="action_update_selected" string="Upd Spc Ledger" class="btn btn-link d-block text-left"/>
+                    <button type="object" name="action_create_far_rules" string="Create FAR Rules" class="btn btn-link d-block text-left"/>
+                    <button type="object" name="action_create_journals_from_coa" string="Create JV" class="btn btn-link d-block text-left"/>
+                    <button type="object" name="action_open_coa_merge_coa" string="Merge COA" class="btn btn-link d-block text-left"/>
+                    <button type="object" name="cpa_coa_menu_delete_unused_coa" string="Delete Unused COA" class="btn btn-link d-block text-left"/>
+                    <button type="object" name="cpa_coa_menu_archive_unused_coa" string="Archive Unused COA" class="btn btn-link d-block text-left"/>
+                    <button type="object" name="action_open_ifrs_coding_wizard" string="IFRS Reset / Recode" class="btn btn-link d-block text-left"/>
+                </div>
+                <footer>
+                    <button string="Close" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+<record id="action_cpa_coa_update_all_groups" model="ir.actions.server">
+        <field name="name">Update all Groups</field>
+        <field name="sequence">19</field>
+        <field name="model_id" ref="account.model_account_account"/>
+        <field name="binding_model_id" ref="account.model_account_account"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = env['account.account'].cpa_coa_menu_update_all_groups()
+        </field>
+    </record>
+
+    <record id="action_cpa_coa_reset_all" model="ir.actions.server">
+        <field name="name">Reset All</field>
+        <field name="sequence">21</field>
+        <field name="model_id" ref="account.model_account_account"/>
+        <field name="binding_model_id" ref="account.model_account_account"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = env['account.account'].with_context(active_ids=env.context.get('active_ids', [])).cpa_coa_menu_reset_all()
+        </field>
+    </record>
+
+    <record id="action_cpa_coa_factory_reset" model="ir.actions.server">
+        <field name="name">Factory Reset</field>
+        <field name="model_id" ref="account.model_account_account"/>
+        <field name="binding_model_id" ref="account.model_account_account"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = env['account.account'].with_context(active_ids=env.context.get('active_ids', [])).cpa_coa_menu_factory_reset()
+        </field>
+    </record>
+
+    <record id="action_cpa_coa_view_rules" model="ir.actions.server">
+        <field name="name">VR</field>
+        <field name="model_id" ref="account.model_account_account"/>
+        <field name="binding_model_id" ref="account.model_account_account"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = env['account.account'].with_context(active_ids=env.context.get('active_ids', [])).cpa_coa_menu_view_rules()
+        </field>
+    </record>
+
+    <record id="action_cpa_coa_remove_groups" model="ir.actions.server">
+        <field name="name">Remove Groups</field>
+        <field name="model_id" ref="account.model_account_account"/>
+        <field name="binding_model_id" ref="account.model_account_account"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = env['account.account'].with_context(active_ids=env.context.get('active_ids', [])).cpa_coa_menu_remove_groups()
+        </field>
+    </record>
+
+    <record id="action_cpa_coa_reset_groups" model="ir.actions.server">
+        <field name="name">Reset Account Group</field>
+        <field name="sequence">22</field>
+        <field name="model_id" ref="account.model_account_account"/>
+        <field name="binding_model_id" ref="account.model_account_account"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = env['account.account'].with_context(active_ids=env.context.get('active_ids', [])).cpa_coa_menu_reset_groups()
+        </field>
+    </record>
+
+    <record id="action_cpa_coa_view_duplicate_codes" model="ir.actions.server">
+        <field name="name">View Duplicate Codes</field>
+        <field name="model_id" ref="account.model_account_account"/>
+        <field name="binding_model_id" ref="account.model_account_account"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = env['account.account'].action_cpa_view_duplicate_codes()
+        </field>
+    </record>
+
+    <record id="action_cpa_coa_fix_duplicate_codes" model="ir.actions.server">
+        <field name="name">Fix Duplicate Codes</field>
+        <field name="model_id" ref="account.model_account_account"/>
+        <field name="binding_model_id" ref="account.model_account_account"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = env['account.account'].action_cpa_fix_duplicate_codes()
+        </field>
+    </record>
+
+    <record id="action_cpa_coa_create_prepaid_rules" model="ir.actions.server">
+        <field name="name">Create Prepaid Rules</field>
+        <field name="model_id" ref="account.model_account_account"/>
+        <field name="binding_model_id" ref="account.model_account_account"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = env['account.account'].with_context(active_ids=env.context.get('active_ids', [])).cpa_coa_menu_create_prepaid_rules()
+        </field>
+    </record>
+
+    <record id="action_cpa_coa_toggle_code" model="ir.actions.server">
+        <field name="name">Toggle Code</field>
+        <field name="model_id" ref="account.model_account_account"/>
+        <field name="binding_model_id" ref="account.model_account_account"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = env['account.account'].with_context(active_ids=env.context.get('active_ids', [])).cpa_coa_menu_toggle_code()
+        </field>
+    </record>
+
+    <record id="action_cpa_coa_show_code_true" model="ir.actions.server">
+        <field name="name">SCT</field>
+        <field name="model_id" ref="account.model_account_account"/>
+        <field name="binding_model_id" ref="account.model_account_account"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = env['account.account'].with_context(active_ids=env.context.get('active_ids', [])).cpa_coa_menu_show_code_true()
+        </field>
+    </record>
+
+    <record id="action_cpa_coa_update_specific_ledger" model="ir.actions.server">
+        <field name="name">Upd Spc Ledger</field>
+        <field name="model_id" ref="account.model_account_account"/>
+        <field name="binding_model_id" ref="account.model_account_account"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = env['account.account'].with_context(active_ids=env.context.get('active_ids', [])).cpa_coa_menu_update_specific_ledger()
+        </field>
+    </record>
+
+    <record id="action_cpa_coa_create_far_rules" model="ir.actions.server">
+        <field name="name">Create FAR Rules</field>
+        <field name="model_id" ref="account.model_account_account"/>
+        <field name="binding_model_id" ref="account.model_account_account"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = env['account.account'].with_context(active_ids=env.context.get('active_ids', [])).cpa_coa_menu_create_far_rules()
+        </field>
+    </record>
+
+    <record id="action_cpa_coa_create_journals" model="ir.actions.server">
+        <field name="name">Create JV</field>
+        <field name="model_id" ref="account.model_account_account"/>
+        <field name="binding_model_id" ref="account.model_account_account"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = env['account.account'].with_context(active_ids=env.context.get('active_ids', [])).cpa_coa_menu_create_journals()
+        </field>
+    </record>
+
+    <record id="action_cpa_coa_bulk_actions" model="ir.actions.server">
+        <field name="name">Merge COA</field>
+        <field name="model_id" ref="account.model_account_account"/>
+        <field name="binding_model_id" ref="account.model_account_account"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = env['account.account'].with_context(active_ids=env.context.get('active_ids', [])).cpa_coa_menu_merge_coa()
+        </field>
+    </record>
+
+
+    <record id="action_cpa_coa_reset_afg" model="ir.actions.server">
+        <field name="name">Reset AFG</field>
+        <field name="sequence">23</field>
+        <field name="model_id" ref="account.model_account_account"/>
+        <field name="binding_model_id" ref="account.model_account_account"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = env['account.account'].with_context(active_ids=env.context.get('active_ids', [])).cpa_coa_menu_reset_afg()
+        </field>
+    </record>
+
+    <record id="action_cpa_coa_reset_ctf" model="ir.actions.server">
+        <field name="name">Reset CTG</field>
+        <field name="sequence">24</field>
+        <field name="model_id" ref="account.model_account_account"/>
+        <field name="binding_model_id" ref="account.model_account_account"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = env['account.account'].with_context(active_ids=env.context.get('active_ids', [])).cpa_coa_menu_reset_ctf()
+        </field>
+    </record>
+
+    <record id="action_cpa_coa_reset_code_digits" model="ir.actions.server">
+        <field name="name">Reset Code Digits (legacy)</field>
+        <field name="sequence">25</field>
+        <field name="model_id" ref="account.model_account_account"/>
+        <field name="binding_model_id" ref="account.model_account_account"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = env['account.account'].with_context(active_ids=env.context.get('active_ids', [])).cpa_coa_menu_reset_code_digits()
+        </field>
+    </record>
+
+    <record id="action_cpa_coa_delete_unused" model="ir.actions.server">
+        <field name="name">Delete Unused COA</field>
+        <field name="sequence">2</field>
+        <field name="model_id" ref="account.model_account_account"/>
+        <field name="binding_model_id" ref="account.model_account_account"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = env['account.account'].cpa_coa_menu_delete_unused_coa()
+        </field>
+    </record>
+
+    <record id="action_cpa_coa_archive_unused" model="ir.actions.server">
+        <field name="name">Archive Unused COA</field>
+        <field name="sequence">1</field>
+        <field name="model_id" ref="account.model_account_account"/>
+        <field name="binding_model_id" ref="account.model_account_account"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = env['account.account'].cpa_coa_menu_archive_unused_coa()
+        </field>
+    </record>
+
+    <record id="action_cpa_coa_open_action_chooser" model="ir.actions.server">
+        <field name="name">COA Actions (choose)…</field>
+        <field name="model_id" ref="account.model_account_account"/>
+        <field name="binding_model_id" ref="account.model_account_account"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = env['account.account'].with_context(active_ids=env.context.get('active_ids', [])).cpa_coa_menu_open_action_chooser()
+        </field>
+    </record>
+
+    <record id="view_coa_reset_code_options_wizard_form" model="ir.ui.view">
+        <field name="name">coa.reset.code.options.wizard.form</field>
+        <field name="model">coa.reset.code.options.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Reset Account Codes">
+                <group>
+                    <field name="account_ids" invisible="1"/>
+                    <field name="code_digit_length" widget="radio"/>
+                    <field name="company_code_mode" widget="radio"/>
+                </group>
+                <field name="help_html" nolabel="1" readonly="1"/>
+                <footer>
+                    <button name="action_preview" type="object" string="Preview" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_coa_menu_action_wizard_form" model="ir.ui.view">
+        <field name="name">coa.menu.action.wizard.form</field>
+        <field name="model">coa.menu.action.wizard</field>
+        <field name="arch" type="xml">
+            <form string="COA Actions">
+                <group>
+                    <field name="action_key" widget="radio"/>
+                </group>
+                <footer>
+                    <button name="action_run" type="object" string="Run" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <menuitem id="menu_cpa_coa_root"
+              name="COA"
+              parent="account.menu_finance"
+              sequence="34"
+              groups="account.group_account_manager,base.group_system"/>
+    <menuitem id="menu_cpa_coa_action_chooser" name="COA Actions (choose)…" parent="menu_cpa_coa_root"
+              action="action_cpa_coa_open_action_chooser" sequence="5"
+              groups="account.group_account_manager,base.group_system"/>
+    <menuitem id="menu_cpa_coa_reset_all" name="Reset All" parent="menu_cpa_coa_root"
+              action="action_cpa_coa_reset_all" sequence="10" groups="account.group_account_manager,base.group_system"/>
+    <menuitem id="menu_cpa_coa_factory_reset" name="Factory Reset" parent="menu_cpa_coa_root"
+              action="action_cpa_coa_factory_reset" sequence="20" groups="account.group_account_manager,base.group_system"/>
+    <menuitem id="menu_cpa_coa_view_rules" name="VR" parent="menu_cpa_coa_root"
+              action="action_cpa_coa_view_rules" sequence="30" groups="account.group_account_manager,base.group_system"/>
+    <menuitem id="menu_cpa_coa_remove_groups" name="Remove Groups" parent="menu_cpa_coa_root"
+              action="action_cpa_coa_remove_groups" sequence="40" groups="account.group_account_manager,base.group_system"/>
+    <menuitem id="menu_cpa_coa_reset_groups" name="Reset Groups" parent="menu_cpa_coa_root"
+              action="action_cpa_coa_reset_groups" sequence="50" groups="account.group_account_manager,base.group_system"/>
+    <menuitem id="menu_cpa_coa_update_all_groups" name="Update all Groups" parent="menu_cpa_coa_root"
+              action="action_cpa_coa_update_all_groups" sequence="52" groups="account.group_account_manager,base.group_system"/>
+    <menuitem id="menu_cpa_coa_reset_afg" name="Reset AFG" parent="menu_cpa_coa_root"
+              action="action_cpa_coa_reset_afg" sequence="54" groups="account.group_account_manager,base.group_system"/>
+    <menuitem id="menu_cpa_coa_reset_ctf" name="Reset CTG" parent="menu_cpa_coa_root"
+              action="action_cpa_coa_reset_ctf" sequence="56" groups="account.group_account_manager,base.group_system"/>
+    <menuitem id="menu_cpa_coa_view_duplicate_codes" name="View Duplicate Codes" parent="menu_cpa_coa_root"
+              action="action_cpa_coa_view_duplicate_codes" sequence="60" groups="account.group_account_manager,base.group_system"/>
+    <menuitem id="menu_cpa_coa_fix_duplicate_codes" name="Fix Duplicate Codes" parent="menu_cpa_coa_root"
+              action="action_cpa_coa_fix_duplicate_codes" sequence="70" groups="account.group_account_manager,base.group_system"/>
+    <menuitem id="menu_cpa_coa_create_prepaid_rules" name="Create Prepaid Rules" parent="menu_cpa_coa_root"
+              action="action_cpa_coa_create_prepaid_rules" sequence="80" groups="account.group_account_manager,base.group_system"/>
+    <menuitem id="menu_cpa_coa_toggle_code" name="Toggle Code" parent="menu_cpa_coa_root"
+              action="action_cpa_coa_toggle_code" sequence="90" groups="account.group_account_manager,base.group_system"/>
+    <menuitem id="menu_cpa_coa_show_code_true" name="SCT" parent="menu_cpa_coa_root"
+              action="action_cpa_coa_show_code_true" sequence="100" groups="account.group_account_manager,base.group_system"/>
+    <menuitem id="menu_cpa_coa_update_specific_ledger" name="Upd Spc Ledger" parent="menu_cpa_coa_root"
+              action="action_cpa_coa_update_specific_ledger" sequence="110" groups="account.group_account_manager,base.group_system"/>
+    <menuitem id="menu_cpa_coa_create_far_rules" name="Create FAR Rules" parent="menu_cpa_coa_root"
+              action="action_cpa_coa_create_far_rules" sequence="120" groups="account.group_account_manager,base.group_system"/>
+    <menuitem id="menu_cpa_coa_create_journals" name="Create JV" parent="menu_cpa_coa_root"
+              action="action_cpa_coa_create_journals" sequence="130" groups="account.group_account_manager,base.group_system"/>
+    <menuitem id="menu_cpa_coa_bulk_actions" name="Merge COA" parent="menu_cpa_coa_root"
+              action="action_cpa_coa_bulk_actions" sequence="140" groups="account.group_account_manager,base.group_system"/>
+    <menuitem id="menu_cpa_coa_delete_unused" name="Delete Unused COA" parent="menu_cpa_coa_root"
+              action="action_cpa_coa_delete_unused" sequence="141" groups="account.group_account_manager,base.group_system"/>
+    <menuitem id="menu_cpa_coa_reset_code_digits" name="Reset Code Digits (legacy)"
+              parent="menu_cpa_coa_root" action="action_cpa_coa_reset_code_digits" sequence="146"
+              groups="account.group_account_manager,base.group_system"/>
+
+    <record id="view_coa_reset_code_preview_wizard_form" model="ir.ui.view">
+        <field name="name">coa.reset.code.preview.wizard.form</field>
+        <field name="model">coa.reset.code.preview.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Reset Code Digits Preview">
+                <field name="message" readonly="1" nolabel="1"/>
+                <field name="line_ids" nolabel="1" readonly="1">
+                    <tree create="false" edit="false" delete="false"
+                          decoration-danger="issue == 'company_duplicate'"
+                          decoration-info="issue == 'changed'"
+                          decoration-success="issue == 'ok'">
+                        <field name="company_id"/>
+                        <field name="current_code"/>
+                        <field name="suggested_code"/>
+                        <field name="name"/>
+                        <field name="user_type_id"/>
+                        <field name="group_key"/>
+                        <field name="issue"/>
+                        <field name="suggested_fix"/>
+                    </tree>
+                </field>
+                <footer>
+                    <button name="action_apply_reset"
+                            type="object"
+                            string="Apply Reset"
+                            class="btn-primary"
+                            confirm="This will update account codes using the suggested digit-only codes. Continue?"/>
+                    <button string="Close" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_coa_bulk_delete_wizard_form" model="ir.ui.view">
+        <field name="name">coa.bulk.delete.wizard.form</field>
+        <field name="model">coa.bulk.delete.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Move entries and delete">
+                <field name="bulk_wizard_id" invisible="1"/>
+                <field name="company_id" invisible="1"/>
+                <field name="account_ids" invisible="1"/>
+                <div class="alert alert-warning" role="alert">
+                    Selected ledgers have journal entries. Move them to another ledger,
+                    then delete the source ledgers. A target is suggested when possible.
+                </div>
+                <field name="summary_html" nolabel="1" readonly="1"/>
+                <group>
+                    <field name="suggested_target_id" readonly="1"
+                           attrs="{'invisible': [('suggested_target_id', '=', False)]}"/>
+                    <field name="target_account_id"
+                           options="{'no_create': True}"
+                           placeholder="Ledger that will keep the journal entries"/>
+                </group>
+                <footer>
+                    <button name="action_move_and_delete"
+                            type="object"
+                            string="Move entries and delete"
+                            class="btn-primary"
+                            confirm="Journal items will be moved to the target ledger and the selected ledgers will be removed. Continue?"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_coa_delete_unused_wizard_form" model="ir.ui.view">
+        <field name="name">coa.delete.unused.wizard.form</field>
+        <field name="model">coa.bulk.actions.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Delete Unused COA">
+                <field name="operation_mode" invisible="1"/>
+                <field name="account_ids" invisible="1"/>
+                <field name="show_company_selector" invisible="1"/>
+                <div class="alert alert-info" role="alert">
+                    Use <strong>Select all unused</strong>, then <strong>Delete</strong>.
+                    Unused ledgers are removed; if Odoo blocks delete, they are <strong>archived</strong> instead.
+                    Ledgers with journal items open <strong>move entries</strong> (target ledger suggested).
+                    Uncheck <strong>Show only unused</strong> to include ledgers that already have entries.
+                </div>
+                <field name="message" readonly="1" nolabel="1" attrs="{'invisible': [('message', '=', False)]}"/>
+                <group>
+                    <field name="company_id"
+                           options="{'no_create': True}"
+                           attrs="{'invisible': [('show_company_selector', '=', False)]}"/>
+                    <field name="show_only_unused"/>
+                </group>
+                <notebook>
+                    <page string="Company ledgers">
+                        <field name="line_ids" nolabel="1" mode="tree" limit="20"
+                               options="{'no_open': True, 'no_create': True}">
+                            <tree editable="bottom" create="false" delete="false" limit="20"
+                                  decoration-success="not is_used"
+                                  decoration-muted="is_used">
+                                <field name="selected" string="Select"/>
+                                <field name="account_id" invisible="1"/>
+                                <field name="is_used" invisible="1"/>
+                                <field name="can_delete" invisible="1"/>
+                                <field name="code" string="LCODE" readonly="1"/>
+                                <field name="name" string="Account" readonly="1"/>
+                                <field name="company_id" readonly="1"/>
+                                <field name="user_type_id" string="Type" readonly="1"/>
+                                <field name="group_id" string="Group" readonly="1" optional="show"/>
+                                <field name="move_line_count" readonly="1"/>
+                                <field name="balance" readonly="1"/>
+                                <field name="usage_label" string="Status" readonly="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+                <group string="Selection">
+                    <button name="action_select_all_unused" type="object" string="Select all unused"
+                            class="btn-secondary"/>
+                    <button name="action_select_all_visible" type="object" string="Select all on page"
+                            class="btn-secondary"/>
+                    <button name="action_clear_selection" type="object" string="Clear selection"
+                            class="btn-secondary"/>
+                </group>
+                <group string="Actions on selected rows">
+                    <button name="action_delete_selected" type="object" string="Delete" class="btn-primary"/>
+                    <button name="action_archive_selected" type="object" string="Archive" class="btn-secondary"
+                            confirm="Mark the selected ledgers as deprecated (archived). Use when delete is blocked. Continue?"/>
+                    <button name="action_refresh" type="object" string="Refresh list" class="btn-secondary"/>
+                </group>
+                <footer>
+                    <button string="Close" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_coa_bulk_actions_wizard_form" model="ir.ui.view">
+        <field name="name">coa.bulk.actions.wizard.form</field>
+        <field name="model">coa.bulk.actions.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Merge COA">
+                <field name="operation_mode" invisible="1"/>
+                <field name="account_ids" invisible="1"/>
+                <field name="show_company_selector" invisible="1"/>
+                <div class="alert alert-info" role="alert">
+                    <strong>Merge from</strong> is filled with the ledger(s) you opened this from, and
+                    <strong>Merge into</strong> is suggested — change either field if needed, then press <strong>Merge</strong>.
+                    The list below shows only those ledgers; untick <strong>Show only merge ledgers</strong> to browse the whole company.
+                    On the full list you can tick <strong>Select</strong> and use <strong>Archive</strong> (mark deprecated) or
+                    <strong>Delete</strong> (removes unused ledgers, or opens a dialog to move journal items first).
+                </div>
+                <field name="message" readonly="1" nolabel="1" attrs="{'invisible': [('message', '=', False)]}"/>
+                <group>
+                    <field name="company_id"
+                           options="{'no_create': True}"
+                           attrs="{'invisible': [('show_company_selector', '=', False)]}"/>
+                    <field name="source_account_ids"
+                           string="Merge from"
+                           widget="many2many_tags"
+                           options="{'no_create': True}"
+                           domain="[('company_id', '=', company_id), ('id', '!=', target_account_id)]"
+                           placeholder="Source ledger(s) to remove"/>
+                    <field name="target_account_id"
+                           string="Merge into"
+                           domain="[('company_id', '=', company_id)]"
+                           options="{'no_create': True}"
+                           placeholder="Target ledger to keep"/>
+                    <field name="limit_to_merge_ledgers"/>
+                </group>
+                <notebook>
+                    <page string="Company ledgers">
+                        <field name="line_ids"
+                               nolabel="1"
+                               mode="tree"
+                               options="{'no_open': True, 'no_create': True}">
+                            <tree editable="bottom"
+                                  create="false"
+                                  delete="false"
+                                  decoration-success="not is_used"
+                                  decoration-muted="is_used">
+                                <field name="selected" string="Select"/>
+                                <field name="account_id" invisible="1"/>
+                                <field name="is_used" invisible="1"/>
+                                <field name="can_delete" invisible="1"/>
+                                <field name="code" readonly="1"/>
+                                <field name="name" readonly="1"/>
+                                <field name="company_id" readonly="1"/>
+                                <field name="user_type_id" readonly="1"/>
+                                <field name="group_id" readonly="1" optional="hide"/>
+                                <field name="move_line_count" readonly="1"/>
+                                <field name="usage_label" string="Status" readonly="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+                <group string="Actions on selected rows">
+                    <button name="action_merge_coa"
+                            type="object"
+                            string="Merge"
+                            class="btn-primary"
+                            confirm="Move all journal items from the source ledger(s) into the target ledger and remove the source ledger(s). Continue?"/>
+                    <button name="action_archive_selected"
+                            type="object"
+                            string="Archive"
+                            class="btn-secondary"
+                            confirm="Mark the selected ledgers as deprecated (archived). Continue?"/>
+                    <button name="action_delete_selected"
+                            type="object"
+                            string="Delete"
+                            class="btn-secondary"/>
+                    <button name="action_refresh"
+                            type="object"
+                            string="Refresh list"
+                            class="btn-secondary"/>
+                </group>
+                <footer>
+                    <button string="Close" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="cpabooks_coa_default_pdc_settings" model="ir.ui.view">
+        <field name="name">cpabooks.coa.default.pdc.settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="priority">45</field>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@data-key='account']" position="inside">
+                <h2>Set by Default</h2>
+                <div class="row mt16 o_settings_container"
+                     name="cpabooks_default_ledgers">
+                    <div class="col-xs-6 col-md-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="pdc_customer"/>
+                            <div class="content-group">
+                                <field name="pdc_customer"
+                                       domain="[('company_id', '=', company_id)]"
+                                       options="{'no_create': True}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="pdc_vendor"/>
+                            <div class="content-group">
+                                <field name="pdc_vendor"
+                                       domain="[('company_id', '=', company_id)]"
+                                       options="{'no_create': True}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

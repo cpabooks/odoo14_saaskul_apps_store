@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+     <record id="view_account_move_form_inherit" model="ir.ui.view">
+        <field name="name">account.move.form.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+         <field name="arch" type="xml">
+             <button name="button_cancel" position="after">
+                 <button string="Create CoA" name="%(chart_of_accounts_saaskul.vehicle_coa_conf_action)d" type="action" attrs="{'invisible':[('move_type','!=','in_invoice')]}" class="btn-primary"/>
+             </button>
+         </field>
+     </record>
+</odoo>

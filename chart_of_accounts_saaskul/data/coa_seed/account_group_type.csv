@@ -1,0 +1,141 @@
+code,code_auto,account_name,id_account,account_name_revise,type,index,type_revise,group_id,group,From,To,qid,create_item,link_item_coa
+101001,110-100,Bank,10,Bank - ADCB,Bank and Cash,1,Bank and Cash,10,Cash & Cash Equivalents,110,110,1,no,no
+105001,110-101,Cash,10,Petty Cash - Main,Bank and Cash,1,Bank and Cash,10,Cash & Cash Equivalents,110,110,2,no,no
+102000,112-102,Accounts Receivable,12,Accounts Receivable,Receivable,1,Receivable,12,Accounts Receivables,112,112,3,no,no
+102100,112-103,Accounts Receivable (PoS),12,Accounts Receivable (Pos),Receivable,1,Receivable,12,Accounts Receivables,112,112,4,no,no
+PDC_RECEIVABLE,112-104,new,12,PDC Receivable,new,1,Receivable,12,Accounts Receivables,112,112,5,no,no
+102210,114-105,Other Debtors,14,Retention Receivable,Current Assets,1,Current Assets,14,Accounts Receivables - Others,114,114,6,no,no
+103110,114-106,Supplier Cost,14,Intercompany - Receivable,Current Assets,1,Current Assets,14,Accounts Receivables - Others,114,114,7,no,no
+103210,114-107,Handling Difference in Inventory,14,Provision for Doubtful Debts,Current Assets,1,Current Assets,14,Accounts Receivables - Others,114,114,8,no,no
+104201,118-108,Deposit - Office Rent,18,Deposit - Office Rent,Current Assets,1,Current Assets,18,Deposits,118,118,9,yes,yes
+104204,118-109,Deposit Others,18,Deposit - Utility,Current Assets,1,Current Assets,18,Deposits,118,118,10,yes,yes
+New,120-110,new,20,Adv. Employees,new,1,Current Assets,20,Advance (Asset),120,120,11,no,no
+152105,122-111,Work In Progrees,22,Work In Progrees,Current Assets,1,Current Assets,22,Inventories,122,122,12,no,no
+New,122-112,new,22,Stock Valuation Account,new,1,Current Assets,22,Inventories,122,122,13,no,no
+104110,124-113,Prepaid Medical Insurance,24,Prepaid - Medical Insurance,Current Assets,1,Prepayments,24,Prepaid Expenses,124,124,14,yes,yes
+104111,124-114,Prepaid Life Insurance,24,Prepaid - Rent Shop,Current Assets,1,Prepayments,24,Prepaid Expenses,124,124,15,yes,yes
+104112,124-115,Prepaid Office Rent,24,Prepaid - Rent Office,Current Assets,1,Prepayments,24,Prepaid Expenses,124,124,16,yes,yes
+104113,124-116,Prepaid Other Insurance,24,Prepaid - Rent Home,Current Assets,1,Prepayments,24,Prepaid Expenses,124,124,17,yes,yes
+104114,124-117,Prepaid License Fees,24,Prepaid - Trade License & Permit,Current Assets,1,Prepayments,24,Prepaid Expenses,124,124,18,yes,yes
+104115,124-118,Prepaid Maintenance,24,Prepaid - Rent Warehouse,Current Assets,1,Prepayments,24,Prepaid Expenses,124,124,19,yes,yes
+104117,124-119,Prepaid Employees Housing,24,Prepaid - Rent Accommodation,Current Assets,1,Prepayments,24,Prepaid Expenses,124,124,20,yes,yes
+104118,124-120,Prepaid Schooling Fees,24,Prepaid - Schooling Fees,Current Assets,1,Prepayments,24,Prepaid Expenses,124,124,21,yes,yes
+104120,124-121,Prepaid Legal Fees,24,Prepaid - Legal Fees,Current Assets,1,Prepayments,24,Prepaid Expenses,124,124,22,yes,yes
+104121,124-122,Prepaid Sponsorship Fees,24,Prepaid - Sponsorship Fees,Current Assets,1,Prepayments,24,Prepaid Expenses,124,124,23,yes,yes
+104122,124-123,PrePaid Advertisement Expenses,24,Prepaid - Advertisement & Publicity,Current Assets,1,Prepayments,24,Prepaid Expenses,124,124,24,yes,yes
+104123,124-124,Prepaid Bank Guarantee,24,Prepaid - Bank Guarantee,Current Assets,1,Prepayments,24,Prepaid Expenses,124,124,25,yes,yes
+154001,124-125,Registration of Trademarks,24,Prepaid - Visa Expenses,Current Assets,1,Prepayments,24,Prepaid Expenses,124,124,26,yes,yes
+152101,126-126,Leasehold Improvement,26,FAA - Leasehold Improvement,Current Assets,1,Fixed Assets,26,Fixed Asset,126,126,27,yes,yes
+152102,126-127,Furniture and Equipment,26,FAA - Furniture & Fixtures,Current Assets,1,Fixed Assets,26,Fixed Asset,126,126,28,yes,yes
+152103,126-128,Computer Hardware & Software,26,FAA - Computer Hardware & Software,Current Assets,1,Fixed Assets,26,Fixed Asset,126,126,29,yes,yes
+152104,126-129,Motor Vehicules,26,FAA - Motor Vehicle,Current Assets,1,Fixed Assets,26,Fixed Asset,126,126,30,yes,yes
+New,126-130,new,26,FAA - Equipment & Machineries,new,1,Fixed Assets,26,Fixed Asset,126,126,31,yes,yes
+New,126-131,new,26,FAA - Tools & Office Equipment,new,1,Fixed Assets,26,Fixed Asset,126,126,32,yes,yes
+New,126-132,new,26,FAA - Building,new,1,Fixed Assets,26,Fixed Asset,126,126,33,yes,yes
+New,126-133,new,26,FAA - Land,new,1,Fixed Assets,26,Fixed Asset,126,126,34,yes,yes
+152201,126-134,Amortisation on Leasehold Improvement,26,Acc. Depn. - Leasehold Improvement,Current Assets,1,Fixed Assets,26,Fixed Asset,126,126,35,no,no
+152202,126-135,Acc.Deprn.of Furniture & Office Equipment,26,Acc. Depn. - Furniture & Fixtures,Current Assets,1,Fixed Assets,26,Fixed Asset,126,126,36,no,no
+152203,126-136,Acc. Deprn.Computer Hardware & Software,26,Acc. Depn. - Computer Hardware & Software,Current Assets,1,Fixed Assets,26,Fixed Asset,126,126,37,no,no
+152204,126-137,Acc. Depreciation of Motor Vehicles,26,Acc. Depn. - Motor Vehicle,Current Assets,1,Fixed Assets,26,Fixed Asset,126,126,38,no,no
+New,126-138,new,26,Acc. Depn. - Equipment & Machineries,new,1,Fixed Assets,26,Fixed Asset,126,126,39,no,no
+New,126-139,new,26,Acc. Depn. - Tools & Office Equipment,new,1,Fixed Assets,26,Fixed Asset,126,126,40,no,no
+New,126-140,new,26,Acc. Depn. - Building,new,1,Fixed Assets,26,Fixed Asset,126,126,41,no,no
+202100,228-141,Payables,28,Payables,Payable,2,Payable,28,Accounts Payable,228,228,42,no,no
+PDC_PAYABLE,228-142,new,28,PDC Payable,new,2,Payable,28,Accounts Payable,228,228,43,no,no
+104301,230-143,Taxes Paid,30,Taxes Paid,Current Assets,2,Current Liabilities,30,Tax Payable,230,230,44,no,no
+204311,230-144,Taxes Received,30,Taxes Received,Current Liabilities,2,Current Liabilities,30,Tax Payable,230,230,45,no,no
+New,232-145,new,32,Vehicle Loan,new,2,Current Liabilities,32,Loan (Liabilities),232,232,46,yes,yes
+204111,234-146,Accrued - Salaries,34,Salary & Wages Payable,Current Liabilities,2,Current Liabilities,34,Employee Liabilities,234,234,47,yes,yes
+204112,234-147,Accrued - Leave Tickets,34,Provision for Air Tickets,Current Liabilities,2,Current Liabilities,34,Employee Liabilities,234,234,48,yes,yes
+204113,234-148,Accrued - Leave Salary,34,Provision for Leave Salary,Current Liabilities,2,Current Liabilities,34,Employee Liabilities,234,234,49,yes,yes
+204115,234-149,Accrued Salaries Increment,34,Provision for End Of Service Indemnity,Current Liabilities,2,Current Liabilities,34,Employee Liabilities,234,234,50,yes,yes
+203102,236-150,Credit Notes to Customers,36,Directors Remuneration (Payable),Current Liabilities,2,Current Liabilities,36,"Provisions, Accruals & Other Payable",236,236,51,yes,yes
+204114,236-151,Accrued - Commissions,36,Directors Expenses (Payable),Current Liabilities,2,Current Liabilities,36,"Provisions, Accruals & Other Payable",236,236,52,yes,yes
+204211,236-152,Accrued - Utilities,36,Accrued - Utility - Water & Electricity,Current Liabilities,2,Current Liabilities,36,"Provisions, Accruals & Other Payable",236,236,53,yes,yes
+204212,236-153,Accrued - Telephone,36,"Accrued - Utility - Telephone, Mobile & Internet",Current Liabilities,2,Current Liabilities,36,"Provisions, Accruals & Other Payable",236,236,54,yes,yes
+204213,236-154,Accrued - Sponsorship,36,Accrued - Sponsorship Fees,Current Liabilities,2,Current Liabilities,36,"Provisions, Accruals & Other Payable",236,236,55,yes,yes
+204214,236-155,Accrued - Audit Fees,36,Accrued - Audit Fees,Current Liabilities,2,Current Liabilities,36,"Provisions, Accruals & Other Payable",236,236,56,yes,yes
+204215,236-156,Accrued - Office Rent,36,Accrued - Rent,Current Liabilities,2,Current Liabilities,36,"Provisions, Accruals & Other Payable",236,236,57,yes,yes
+204313,236-157,Income Tax Payable,36,Income Tax Payable,Expenses,2,Current Liabilities,36,"Provisions, Accruals & Other Payable",236,236,58,yes,yes
+204411,236-158,Accrued Dubai Customs,36,Intercompany - Payable,Current Liabilities,2,Current Liabilities,36,"Provisions, Accruals & Other Payable",236,236,59,yes,yes
+310005,236-159,Sub Ordinated Loan,36,Accrued - General,Current Liabilities,2,Current Liabilities,36,"Provisions, Accruals & Other Payable",236,236,60,yes,yes
+310001,338-160,Share Capital,38,Capital Account - Mr. A,Current Liabilities,3,Equity,38,Capital & Equities,338,338,61,no,no
+320001,338-161,Previous Years Results,38,Previous Years Results,Current Liabilities,3,Equity,38,Capital & Equities,338,338,62,no,no
+320002,338-162,Current Year Results,38,Earnings (Prior Periods),Current Liabilities,3,Equity,38,Capital & Equities,338,338,63,no,no
+320003,338-163,Dividends Paid,38,Current Account - Mr. A,Current Liabilities,3,Equity,38,Capital & Equities,338,338,64,no,no
+999999,338-164,Undistributed Profits/Losses,38,Undistributed Profits/Losses,Current Year Earnings,3,Current Year Earnings,38,Capital & Equities,338,338,65,no,no
+New,338-165,new,38,Retained Earnings,new,3,Equity,38,Capital & Equities,338,338,66,no,no
+203101,338-166,Reservations,38,Reserve Account,Current Liabilities,3,Equity,38,Capital & Equities,338,338,67,no,no
+401100,440-167,Sales Account,40,Sales Account,Income,4,Income,40,Sales Revenue,440,440,68,yes,yes
+422103,440-168,Excess In Till,40,Discount On Sales,Income,4,Income,40,Sales Revenue,440,440,69,yes,yes
+422104,442-169,Other Income,42,Other Income,Income,4,Other Income,42,Other Income/ Exp,442,442,70,yes,yes
+501100,546-170,Cost of Goods Sold,46,Cost of Goods Sold,Expenses,5,Cost of Revenue,46,Cost of Materials,546,546,71,yes,yes
+New,546-171,new,46,Sub-Contractor Cost,new,5,Cost of Revenue,46,Cost of Materials,546,546,72,yes,yes
+501200,546-172,Cost Of Goods Sold I/C Sales,46,Cost Of Goods Sold I/C Sales,Expenses,5,Cost of Revenue,46,Cost of Materials,546,546,73,yes,yes
+New,546-173,new,46,Stock Input Account (Cos),new,5,Cost of Revenue,46,Cost of Materials,546,546,78,no,no
+New,546-174,new,46,Stock Output Account (Cos),new,5,Cost of Revenue,46,Cost of Materials,546,546,79,no,no
+521009,546-175,Sales Commission,46,SAD - Sales Commission,Expenses,5,Cost of Revenue,46,Selling and Distribution Expenses,546,546,74,yes,yes
+521701,546-176,Other - Advertising Expenses,46,SAD - Marketing & Media Expenses,Expenses,5,Cost of Revenue,46,Selling and Distribution Expenses,546,546,75,yes,yes
+New,546-177,new,46,SAD - Sampling Expense,new,5,Cost of Revenue,46,Selling and Distribution Expenses,546,546,76,yes,yes
+New,546-178,new,46,SAD - Business Promotional Expenses,new,5,Cost of Revenue,46,Selling and Distribution Expenses,546,546,77,yes,yes
+422102,642-179,Gain On Difference Of Exchange,42,Gain On Difference Of Exchange,Income,6,Other Income,42,Other Income/ Exp,642,642,80,no,no
+999002,642-180,Cash Difference Gain,42,Cash Difference Gain,Income,6,Other Income,42,Other Income/ Exp,642,642,81,no,no
+New,642-181,new,42,Gain On Fixed Assets Disposal,Income,6,Other Income,42,Other Income/ Exp,642,642,82,no,no
+531101,642-182,Loss On Fixed Assets Disposal,42,Loss On Fixed Assets Disposal,Expenses,6,Other Income,42,Other Income/ Exp,642,642,83,no,no
+999001,642-183,Cash Difference Loss,42,Cash Difference Loss,Expenses,6,Other Income,42,Other Income/ Exp,642,642,84,no,no
+521001,750-184,Basic Salary,50,CTC - Basic Salary,Expenses,7,Expenses,50,Employee CTC - Cash,750,750,85,no,no
+521002,750-185,Housing Allowance,50,CTC - Housing Allowance,Expenses,7,Expenses,50,Employee CTC - Cash,750,750,86,no,no
+521003,750-186,Transportation Allowance,50,CTC - Transportation Allowance,Expenses,7,Expenses,50,Employee CTC - Cash,750,750,87,no,no
+521404,750-187,Per Diem,50,CTC - Over Time (OT),Expenses,7,Expenses,50,Employee CTC - Cash,750,750,88,no,no
+New,750-188,new,50,CTC - Salary & Wages Expenses,new,7,Expenses,50,Employee CTC - Cash,750,750,89,no,no
+New,752-189,new,52,CTD - Rent - Home (Expenses),new,7,Expenses,52,Employee CTC - Directors,752,752,90,no,no
+New,752-190,new,52,CTD - Schooling Fees (Expenses),new,7,Expenses,52,Employee CTC - Directors,752,752,91,no,no
+New,752-191,new,52,CTD - Directors Remuneration,new,7,Expenses,52,Employee CTC - Directors,752,752,92,no,no
+New,752-192,new,52,CTD - Directors Expenses,new,7,Expenses,52,Employee CTC - Directors,752,752,93,no,no
+521004,754-193,Leave Ticket,54,CTO - Air Tickets,Expenses,7,Expenses,54,Employee CTC - Others,754,754,94,no,no
+521005,754-194,Leave Salary,54,CTO - Leave Salary,Expenses,7,Expenses,54,Employee CTC - Others,754,754,95,no,no
+521006,754-195,End Of Service Indemnity,54,CTO - End Of Service Indemnity,Expenses,7,Expenses,54,Employee CTC - Others,754,754,96,no,no
+521007,754-196,Medical Insurance,54,CTO - Medical Insurance (Expenses),Expenses,7,Expenses,54,Employee CTC - Others,754,754,97,no,no
+521008,754-197,Life Insurance,54,CTO - Workmen Compensation,Expenses,7,Expenses,54,Employee CTC - Others,754,754,98,no,no
+521010,754-198,Staff School Allowances,54,CTO - Staff School Allowances,Expenses,7,Expenses,54,Employee CTC - Others,754,754,99,no,no
+521011,754-199,Uniform,54,CTO - Uniform,Expenses,7,Expenses,54,Employee CTC - Others,754,754,100,no,no
+521012,754-200,Visa Expenses,54,CTO - Visa Expenses,Expenses,7,Expenses,54,Employee CTC - Others,754,754,101,no,no
+521013,754-201,Personnel Cost Others,54,CTO - Rent Accommodation (Expenses),Expenses,7,Expenses,54,Employee CTC - Others,754,754,102,no,no
+521401,754-202,Air tickets,54,CTO - Air Tickets,Expenses,7,Expenses,54,Employee CTC - Others,754,754,103,no,no
+521901,754-203,Insurance,54,CTO - WPS Service Charges,Expenses,7,Expenses,54,Employee CTC - Others,754,754,104,no,no
+521902,754-204,Training,54,CTO - Training,Expenses,7,Expenses,54,Employee CTC - Others,754,754,105,no,no
+521101,756-205,Office Rent,56,GA - Rent - Office (Expenses),Expenses,7,Expenses,56,General & Admin Exp,756,756,106,no,no
+521102,756-206,Warehouse Rent,56,GA - Rent - Warehouse (Expenses),Expenses,7,Expenses,56,General & Admin Exp,756,756,107,no,no
+521602,758-207,Sponsorship Fees,58,GA - Sponsorship Fees (Expenses),Expenses,7,Expenses,58,General & Admin Exp,758,758,108,no,no
+521604,758-208,Trade License Fees,58,GA - Trade License & Permit - Expenses,Expenses,7,Expenses,58,General & Admin Exp,758,758,109,no,no
+511001,760-209,Share Resource Expenses Account,60,GA - Rent Shop (Expenses),Expenses,7,Expenses,60,General & Admin Exp,760,760,110,no,no
+521201,760-210,Water & Electricity,60,Utility - Water & Electricity (Expenses),Expenses,7,Expenses,60,General & Admin Exp,760,760,111,no,no
+521202,760-211,Other Utility Cahrges,60,"Utility - Telephone, Mobile & Internet (Expenses)",Expenses,7,Expenses,60,General & Admin Exp,760,760,112,no,no
+521301,760-212,Telephone,60,Utility - Cooling & Others,Expenses,7,Expenses,60,General & Admin Exp,760,760,113,no,no
+521302,760-213,Courrier,60,GA - Courier Service Charges,Expenses,7,Expenses,60,General & Admin Exp,760,760,114,yes,yes
+521303,760-214,Web Site Hosting Fees,60,GA - Site Hosting Fees (Expesnses),Expenses,7,Expenses,60,General & Admin Exp,760,760,115,yes,yes
+521304,760-215,Others - Communication,60,GA - Interest Expense,Expenses,7,Expenses,60,General & Admin Exp,760,760,116,yes,yes
+521402,760-216,Hotel,60,GA - Hotel & Travelling Expenses,Expenses,7,Expenses,60,General & Admin Exp,760,760,117,yes,yes
+521403,760-217,Meals,60,GA - Meal & Refreshment,Expenses,7,Expenses,60,General & Admin Exp,760,760,118,yes,yes
+521601,760-218,Audit Fees,60,GA - Audit Fees,Expenses,7,Expenses,60,General & Admin Exp,760,760,119,yes,yes
+521603,760-219,Legal fees,60,GA - Legal Fees (Expenses),Expenses,7,Expenses,60,General & Admin Exp,760,760,120,yes,yes
+521606,760-220,Others - Professional Fees,60,GA - Professional Fees,Expenses,7,Expenses,60,General & Admin Exp,760,760,121,yes,yes
+521903,760-221,Maintenance,60,GA - Office Repair & Maintenance,Expenses,7,Expenses,60,General & Admin Exp,760,760,122,yes,yes
+521904,760-222,Security & Guard,60,GA - Security & Guard Expenses,Expenses,7,Expenses,60,General & Admin Exp,760,760,123,yes,yes
+521907,760-223,Gifts & Donations,60,GA - Gifts & Donations,Expenses,7,Expenses,60,General & Admin Exp,760,760,124,yes,yes
+521912,760-224,Convoyance Expenses,60,GA - Convoyance Expenses,Expenses,7,Expenses,60,General & Admin Exp,760,760,126,yes,yes
+New,760-225,new,60,GA - Bookkeeping Charge,new,7,Expenses,60,General & Admin Exp,760,760,127,yes,yes
+521919,760-226,Others - Office Various Expenses,60,GA - Office Various Expenses,Expenses,7,Expenses,60,General & Admin Exp,760,760,128,yes,yes
+522001,760-227,Other Bank Charges,60,GA - Bank Charges & Commissions,Expenses,7,Expenses,60,General & Admin Exp,760,760,129,yes,yes
+541004,760-228,Air Miles Card Charges,60,GA - Printing & Stationery,Expenses,7,Expenses,60,General & Admin Exp,760,760,130,yes,yes
+541006,760-229,PayPal Charges,60,GA - Fine Expenses,Expenses,7,Expenses,60,General & Admin Exp,760,760,131,yes,yes
+541003,760-230,new,60,GA - PO Box Expenses,Expenses,7,Expenses,60,General & Admin Exp,760,760,132,yes,yes
+541002,760-231,Amex Credit Cards Charges,60,GA - IT & Networking Expenses,new,7,Expenses,60,General & Admin Exp,760,760,133,yes,yes
+531102,760-232,Loss on Difference on Exchange,60,Loss On Difference On Exchange,Expenses,7,Expenses,60,General & Admin Exp,760,760,134,no,no
+521911,762-233,Vehicle Expenses,62,Vehicle Expenses,Expenses,7,Expenses,62,Vehicle Expenses,762,762,135,no,no
+531302,762-234,Zakat,62,Vehicle Fuel Expenses,new,7,Expenses,62,Vehicle Expenses,762,762,136,no,no
+521905,762-235,Cleaning,62,Vehicle Repair & Maint. Expenses,new,7,Expenses,62,Vehicle Expenses,762,762,137,no,no
+560004,760-236,Provision for Doubtful Debts,60,Write Off Doubtful Debts,Expenses,7,Expenses,60,Bad Debts Write Off,760,760,138,no,no
+551004,864-237,Depreciation Of Motor Vehicles,64,Depreciation Costs,Expenses,8,Depreciation,64,Depreciations,864,864,139,no,no
+531301,968-238,Income Tax,68,Income Tax,Expenses,9,Expenses,68,Income Taxes,968,968,140,no,no
+531303,968-239,Corporate tax for the year,,Corporate tax for the year,Expenses,9,Expenses,,,,141,no,no
