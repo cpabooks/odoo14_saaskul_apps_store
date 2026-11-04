@@ -13,6 +13,8 @@
     'live_test_url': 'https://saaskul.com/contactus?name=Live%20Preview%20-%20Facility%20Management%20%28CAFM%29',
     'support': 'info.cpabooks@gmail.com',
     'license': 'OPL-1',
+    'price': 299.00,
+    'currency': 'USD',
     'images': ['static/description/banner.png'],
     'depends': [
         'maintenance',

@@ -10,10 +10,12 @@ Equity, Cash Flow, PPE schedule, notes and UAE Corporate Tax.
     """,
     'version': '14.0.1.0.236',
     'category': 'Accounting',
-    'author': 'Saaskul',
+    'author': 'Saaskul()',
     'website': 'https://saaskul.com',
     'live_test_url': 'https://saaskul.com/contactus?name=Live%20Preview%20-%20Financial%20Statements%20Report',
     'license': 'OPL-1',
+    'price': 400.00,
+    'currency': 'USD',
     'support': 'info.cpabooks@gmail.com',
     'images': [
         'static/description/banner_screenshot.jpg',
