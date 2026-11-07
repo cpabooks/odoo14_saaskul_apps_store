@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_cpa_cd_sale_cancel" model="ir.actions.server">
+            <field name="name">Cancel</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_cancel()</field>
+        </record>
+        <record id="action_cpa_cd_sale_cancel_lines" model="ir.actions.server">
+            <field name="name">Cancel - Lines</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_cancel_lines()</field>
+        </record>
+        <record id="action_cpa_cd_sale_cancel_linked" model="ir.actions.server">
+            <field name="name">Cancel - Linked Docs</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_cancel_linked()</field>
+        </record>
+        <record id="action_cpa_cd_sale_confirm" model="ir.actions.server">
+            <field name="name">Confirm / Post</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_confirm_post()</field>
+        </record>
+        <record id="action_cpa_cd_sale_delete" model="ir.actions.server">
+            <field name="name">Delete</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_delete()</field>
+        </record>
+        <record id="action_cpa_cd_sale_delete_linked" model="ir.actions.server">
+            <field name="name">Delete - Linked Docs</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_delete_linked()</field>
+        </record>
+        <record id="action_cpa_cd_sale_draft" model="ir.actions.server">
+            <field name="name">Reset to Draft</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_reset_draft()</field>
+        </record>
+        <record id="action_cpa_cd_sale_reverse" model="ir.actions.server">
+            <field name="name">Reverse</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_reverse()</field>
+        </record>
+
+        <record id="action_cpa_cd_po_cancel" model="ir.actions.server">
+            <field name="name">Cancel</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_cancel()</field>
+        </record>
+        <record id="action_cpa_cd_po_cancel_lines" model="ir.actions.server">
+            <field name="name">Cancel - Lines</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_cancel_lines()</field>
+        </record>
+        <record id="action_cpa_cd_po_cancel_linked" model="ir.actions.server">
+            <field name="name">Cancel - Linked Docs</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_cancel_linked()</field>
+        </record>
+        <record id="action_cpa_cd_po_confirm" model="ir.actions.server">
+            <field name="name">Confirm / Post</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_confirm_post()</field>
+        </record>
+        <record id="action_cpa_cd_po_delete" model="ir.actions.server">
+            <field name="name">Delete</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_delete()</field>
+        </record>
+        <record id="action_cpa_cd_po_delete_linked" model="ir.actions.server">
+            <field name="name">Delete - Linked Docs</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_delete_linked()</field>
+        </record>
+        <record id="action_cpa_cd_po_draft" model="ir.actions.server">
+            <field name="name">Reset to Draft</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_reset_draft()</field>
+        </record>
+        <record id="action_cpa_cd_po_reverse" model="ir.actions.server">
+            <field name="name">Reverse</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_reverse()</field>
+        </record>
+
+        <record id="action_cpa_cd_pick_cancel" model="ir.actions.server">
+            <field name="name">Cancel</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_cancel()</field>
+        </record>
+        <record id="action_cpa_cd_pick_cancel_lines" model="ir.actions.server">
+            <field name="name">Cancel - Lines</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_cancel_lines()</field>
+        </record>
+        <record id="action_cpa_cd_pick_cancel_linked" model="ir.actions.server">
+            <field name="name">Cancel - Linked Docs</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_cancel_linked()</field>
+        </record>
+        <record id="action_cpa_cd_pick_confirm" model="ir.actions.server">
+            <field name="name">Confirm / Post</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_confirm_post()</field>
+        </record>
+        <record id="action_cpa_cd_pick_delete" model="ir.actions.server">
+            <field name="name">Delete</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_delete()</field>
+        </record>
+        <record id="action_cpa_cd_pick_delete_linked" model="ir.actions.server">
+            <field name="name">Delete - Linked Docs</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_delete_linked()</field>
+        </record>
+        <record id="action_cpa_cd_pick_draft" model="ir.actions.server">
+            <field name="name">Reset to Draft</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_reset_draft()</field>
+        </record>
+        <record id="action_cpa_cd_pick_reverse" model="ir.actions.server">
+            <field name="name">Reverse</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_reverse()</field>
+        </record>
+
+        <record id="action_cpa_cd_move_cancel" model="ir.actions.server">
+            <field name="name">Cancel</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_cancel()</field>
+        </record>
+        <record id="action_cpa_cd_move_cancel_lines" model="ir.actions.server">
+            <field name="name">Cancel - Lines</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_cancel_lines()</field>
+        </record>
+        <record id="action_cpa_cd_move_cancel_linked" model="ir.actions.server">
+            <field name="name">Cancel - Linked Docs</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_cancel_linked()</field>
+        </record>
+        <record id="action_cpa_cd_move_confirm" model="ir.actions.server">
+            <field name="name">Confirm / Post</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_confirm_post()</field>
+        </record>
+        <record id="action_cpa_cd_move_delete" model="ir.actions.server">
+            <field name="name">Delete</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_delete()</field>
+        </record>
+        <record id="action_cpa_cd_move_delete_linked" model="ir.actions.server">
+            <field name="name">Delete - Linked Docs</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_delete_linked()</field>
+        </record>
+        <record id="action_cpa_cd_move_draft" model="ir.actions.server">
+            <field name="name">Reset to Draft</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_reset_draft()</field>
+        </record>
+        <record id="action_cpa_cd_move_reverse" model="ir.actions.server">
+            <field name="name">Reverse</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_cpa_cd_reverse()</field>
+        </record>
+    </data>
+</odoo>
