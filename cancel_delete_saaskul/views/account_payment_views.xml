@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Cancel / Delete is on Action menu via ir.actions.server, not form header. -->
+</odoo>

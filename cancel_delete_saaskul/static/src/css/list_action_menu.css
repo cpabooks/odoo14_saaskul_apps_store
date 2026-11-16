@@ -1,0 +1,16 @@
+.o_cpa_cd_action_dropdown {
+    margin-left: 4px;
+}
+.o_cpa_cd_action_dropdown .dropdown-menu {
+    z-index: 2000;
+    max-height: 320px;
+    overflow-y: auto;
+}
+.modal .o_cpa_cd_action_dropdown .dropdown-menu {
+    z-index: 2060;
+}
+
+.o_list_view tr.o_cpa_cd_scratch td {
+    text-decoration: line-through;
+    opacity: 0.72;
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/css" href="/cancel_delete_saaskul/static/src/css/list_action_menu.css"/>
+            <script type="text/javascript" src="/cancel_delete_saaskul/static/src/js/list_action_menu.js"/>
+            <script type="text/javascript" src="/cancel_delete_saaskul/static/src/js/form_buttons.js"/>
+        </xpath>
+    </template>
+</odoo>
