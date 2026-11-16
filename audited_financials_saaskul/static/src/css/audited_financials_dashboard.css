@@ -1,0 +1,1114 @@
+.o_afg_root {
+    padding: 16px 8px 32px;
+    background: #f8fafc;
+    min-height: 100%;
+    /* .o_action_manager clips overflow; the action must scroll itself. */
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    align-items: flex-start;
+}
+.o_afg_root > .o_afg_dashboard_body {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+}
+.o_afg_header {
+    margin-bottom: 16px;
+    padding: 12px 16px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    align-items: center;
+}
+.o_afg_title {
+    margin: 0 0 6px;
+    font-size: 22px;
+    color: #0f172a;
+}
+.o_afg_meta {
+    font-size: 13px;
+}
+.o_afg_body {
+    align-items: flex-start;
+}
+.o_afg_sidebar .list-group-item {
+    border-radius: 4px !important;
+    margin-bottom: 4px;
+    border: 1px solid #e2e8f0;
+    padding: 8px 10px;
+}
+.o_afg_sidebar .o_afg_nav_group {
+    background: #0f172a;
+    color: #e2e8f0;
+    border-color: #1e293b;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+.o_afg_sidebar .list-group-item.active,
+.o_afg_sidebar .list-group-item:hover {
+    background: #e0f2fe;
+    border-color: #7dd3fc;
+}
+.o_afg_sidebar a {
+    color: #0f172a;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+body.o_afg_single_sidebar_shell .o_main_navbar .o_menu_sections {
+    display: none !important;
+}
+
+body.o_afg_single_sidebar_shell .o_main_navbar .o_menu_brand {
+    pointer-events: none;
+}
+.o_afg_main {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+    min-height: 420px;
+}
+.o_afg_table {
+    border-collapse: collapse;
+    width: 100%;
+}
+.o_afg_table thead th {
+    background: #1e293b;
+    color: #fff;
+    border: 1px solid #64748b !important;
+    font-size: 12px;
+}
+.o_afg_table td {
+    font-size: 13px;
+    vertical-align: middle;
+    border: 1px solid #475569 !important;
+}
+.o_afg_root.o_afg_dark .o_afg_table thead th {
+    border-color: #64748b !important;
+}
+.o_afg_root.o_afg_dark .o_afg_table td {
+    border-color: #475569 !important;
+}
+.o_afg_alerts_col {
+    position: sticky;
+    top: 12px;
+    align-self: flex-start;
+    max-height: calc(100vh - 90px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.o_afg_alert_card {
+    flex: 0 1 auto;
+    max-height: 38vh;
+    overflow: auto;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+}
+.o_afg_internal_notes_card {
+    flex: 1 1 auto;
+    min-height: 160px;
+    margin-top: 8px;
+    border: 1px solid #64748b;
+    border-radius: 8px;
+    background: #0f172a;
+}
+.o_afg_internal_notes_card .card-header {
+    font-weight: 600;
+    background: #1e3a5f;
+    color: #e2e8f0;
+    border-bottom: 1px solid #334155;
+}
+.o_afg_internal_notes_card textarea,
+.o_afg_internal_notes_card textarea.form-control,
+.o_afg_internal_notes_card textarea.o_afg_internal_notes {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    caret-color: #0f172a;
+    -webkit-text-fill-color: #0f172a;
+    border-color: #475569;
+    resize: vertical;
+}
+.o_afg_internal_notes_card textarea::placeholder {
+    color: #64748b !important;
+    opacity: 1;
+}
+@media print {
+    .o_afg_internal_notes_card {
+        display: none !important;
+    }
+}
+.o_afg_alert_card .card-header {
+    font-weight: 600;
+    background: #fef3c7;
+    color: #92400e;
+    border-bottom: 1px solid #fcd34d;
+}
+.o_afg_actions .btn {
+    margin-left: 4px;
+}
+.o_afg_toolbar .btn {
+    margin-right: 6px;
+    margin-bottom: 6px;
+}
+.o_afg_mode_journal tr.o_afg_drillable.o_afg_kind_ledger {
+    cursor: pointer;
+    background-color: rgba(14, 165, 233, 0.06);
+}
+/* Group vs ledger: only two caption colors (all non-ledgers = group) */
+.o_afg_l0 {
+    font-weight: 800;
+    font-size: 16px;
+    color: #0284c7;
+}
+.o_afg_kind_type_computed .o_afg_type_name,
+.o_afg_l0_computed .o_afg_type_name {
+    font-style: italic;
+    font-weight: 800;
+}
+/* Main SOFP/P&L category headers — ALL CAPS via .o_afg_type_caps (Equity excluded) */
+.o_afg_table tbody tr.o_afg_kind_type .o_afg_type_name {
+    font-size: 1.05rem;
+    font-weight: 800;
+}
+.o_afg_table tbody tr.o_afg_kind_type .o_afg_type_name.o_afg_type_caps {
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+/* ALL-CAPS L0 bands reuse Trial Balance .o_afg_tb_section_banner fill (see JS). */
+.o_afg_table tbody tr.o_afg_kind_type .o_afg_amt_cell,
+.o_afg_table tbody tr.o_afg_kind_type .o_afg_cell_num,
+.o_afg_table tbody tr.o_afg_kind_type .o_afg_cell_lg {
+    font-size: 1.02rem;
+    font-weight: 800;
+}
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_type_computed .o_afg_amt_cell,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_type_computed .o_afg_cell_num {
+    color: #38bdf8 !important;
+    font-weight: 800;
+}
+.o_afg_l1 {
+    font-weight: 700;
+    font-size: 14px;
+    color: #0284c7;
+}
+.o_afg_l2 {
+    font-weight: 600;
+    color: #c2410c;
+}
+.o_afg_l3 {
+    font-weight: 400;
+    color: #a67c52;
+}
+.o_afg_l4 {
+    font-weight: 500;
+    font-size: 12px;
+    color: #a67c52;
+}
+.o_afg_l1_toggle {
+    cursor: pointer;
+    user-select: none;
+}
+
+.o_afg_drillable {
+    cursor: pointer;
+}
+
+/* Toggle chart / group codes (labels are split into prefix + name spans in JS) */
+.o_afg_root.o_afg_ledger_codes_off .o_afg_ledger_code_part {
+    display: none !important;
+}
+.o_afg_root.o_afg_group_codes_off .o_afg_group_code_part {
+    display: none !important;
+}
+.o_afg_root.o_afg_ledger_codes_off .o_afg_tb_table .o_afg_tb_cell_code,
+.o_afg_root.o_afg_ledger_codes_off .o_afg_tb_table .o_afg_tb_th_code {
+    display: none !important;
+}
+.o_afg_root.o_afg_group_codes_off .o_afg_tb_table .o_afg_tb_cell_group,
+.o_afg_root.o_afg_group_codes_off .o_afg_tb_table .o_afg_tb_th_group {
+    display: none !important;
+}
+
+/* Statement rows: L0/L1 teal; L2 brown (below); L3 amber */
+.o_afg_table tbody tr.o_afg_kind_type .o_afg_cell_num,
+.o_afg_table tbody tr.o_afg_kind_type .o_afg_desc_cell .o_afg_type_name,
+.o_afg_table tbody tr.o_afg_kind_type .o_afg_amt_cell,
+.o_afg_table tbody tr.o_afg_kind_l1 .o_afg_cell_num,
+.o_afg_table tbody tr.o_afg_kind_l1 .o_afg_cell_lg,
+.o_afg_table tbody tr.o_afg_kind_l1 .o_afg_amt_cell,
+.o_afg_table tbody tr.o_afg_kind_l1 .o_afg_desc_cell .o_afg_afg_name,
+.o_afg_table tbody tr.o_afg_kind_l1 .o_afg_desc_cell .o_afg_afg_code_part {
+    color: #0284c7;
+    font-weight: 700;
+}
+.o_afg_table tbody tr.o_afg_kind_type .o_afg_type_name,
+.o_afg_table tbody tr.o_afg_kind_type .o_afg_amt_cell {
+    font-weight: 800;
+}
+.o_afg_table tbody tr.o_afg_kind_ledger .o_afg_cell_num,
+.o_afg_table tbody tr.o_afg_kind_ledger .o_afg_cell_lg,
+.o_afg_table tbody tr.o_afg_kind_ledger .o_afg_desc_cell,
+.o_afg_table tbody tr.o_afg_kind_ledger .o_afg_desc_cell .o_afg_ledger_name,
+.o_afg_table tbody tr.o_afg_kind_ledger .o_afg_desc_cell .o_afg_ledger_code_part,
+.o_afg_table tbody tr.o_afg_kind_ledger .o_afg_amt_cell {
+    color: #a67c52;
+    font-weight: 500;
+}
+.o_afg_table tbody tr.o_afg_kind_l1 .o_afg_amount_input {
+    color: #0284c7;
+    font-weight: 700;
+}
+.o_afg_table tbody tr.o_afg_kind_ledger .o_afg_amount_input {
+    color: #a67c52;
+    font-weight: 500;
+}
+/* Hierarchy: LG badge + stepped Description indent */
+.o_afg_th_lg,
+.o_afg_cell_lg {
+    width: 2.5rem;
+    max-width: 3rem;
+    text-align: center;
+    font-weight: 700;
+    white-space: nowrap;
+}
+/* Groups flush left (same vertical alignment); ledgers only ~2–3 spaces */
+.o_afg_table tbody tr[data-afg-level="0"] .o_afg_desc_cell,
+.o_afg_table tbody tr[data-afg-level="1"] .o_afg_desc_cell,
+.o_afg_table tbody tr[data-afg-level="2"] .o_afg_desc_cell,
+.o_afg_table tbody tr.o_afg_kind_type .o_afg_desc_cell,
+.o_afg_table tbody tr.o_afg_kind_l1 .o_afg_desc_cell,
+.o_afg_table tbody tr.o_afg_kind_group .o_afg_desc_cell,
+.o_afg_table tbody tr.o_afg_cf_section td,
+.o_afg_table tbody tr.o_afg_cf_group .o_afg_desc_cell {
+    padding-left: 4px !important;
+}
+.o_afg_table tbody tr[data-afg-level="3"] .o_afg_desc_cell,
+.o_afg_table tbody tr[data-afg-level="4"] .o_afg_desc_cell,
+.o_afg_table tbody tr.o_afg_kind_ledger .o_afg_desc_cell,
+.o_afg_table tbody tr.o_afg_cf_ledger .o_afg_cf_ledger_label {
+    padding-left: 28px !important;
+}
+/* L2 ledger groups — brown (distinct from L1 teal / L3 amber) */
+.o_afg_table tbody tr.o_afg_kind_group .o_afg_cell_num,
+.o_afg_table tbody tr.o_afg_kind_group .o_afg_cell_lg,
+.o_afg_table tbody tr.o_afg_kind_group .o_afg_desc_cell .o_afg_group_name,
+.o_afg_table tbody tr.o_afg_kind_group .o_afg_desc_cell .o_afg_group_code_part,
+.o_afg_table tbody tr.o_afg_kind_group .o_afg_amt_cell,
+.o_afg_table tbody tr.o_afg_kind_group .o_afg_amount_input {
+    color: #c2410c;
+    font-weight: 700;
+}
+
+.o_afg_hide_l2 tr[data-afg-level="2"],
+.o_afg_hide_l2 tr[data-afg-level="3"] {
+    display: none;
+}
+.o_afg_hide_l3 tr[data-afg-level="3"] {
+    display: none;
+}
+.o_afg_company_select {
+    min-height: 88px;
+}
+
+.o_afg_period_presets {
+    gap: 0.6rem;
+}
+.o_afg_period_card {
+    position: relative;
+    flex: 1 1 10rem;
+    min-width: 9.5rem;
+    max-width: 16rem;
+    text-align: left;
+    border: 1px solid #334155;
+    background: #0f172a;
+    color: #e2e8f0;
+    border-radius: 0.45rem;
+    padding: 0.65rem 0.8rem 0.7rem;
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+.o_afg_period_card:hover {
+    border-color: #38bdf8;
+    background: #111827;
+}
+.o_afg_period_card:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+.o_afg_period_card_active {
+    border-color: #14b8a6;
+    box-shadow: inset 0 0 0 1px #14b8a6;
+    background: #042f2e;
+}
+.o_afg_period_card_title {
+    font-weight: 700;
+    font-size: 0.92rem;
+    margin-bottom: 0.15rem;
+}
+.o_afg_period_card_caption {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #38bdf8;
+    letter-spacing: 0.01em;
+}
+.o_afg_period_card_hint {
+    font-size: 0.72rem;
+    color: #94a3b8;
+    margin-top: 0.2rem;
+}
+.o_afg_period_card_badge {
+    position: absolute;
+    top: 0.4rem;
+    right: 0.45rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #0f766e;
+    background: #99f6e4;
+    border-radius: 0.25rem;
+    padding: 0.05rem 0.35rem;
+}
+.o_afg_root.o_afg_dark .o_afg_period_card_badge {
+    color: #042f2e;
+}
+.o_afg_column_order_card {
+    border-color: #f59e0b;
+    background: #422006;
+}
+.o_afg_column_order_card:hover {
+    border-color: #fbbf24;
+    background: #78350f;
+}
+.o_afg_column_order_card .o_afg_period_card_caption {
+    color: #fcd34d;
+}
+.o_afg_column_order_desc {
+    box-shadow: inset 0 0 0 1px #f59e0b;
+}
+.o_afg_period_span_card {
+    border-color: #38bdf8;
+    background: #0c4a6e;
+    min-width: 9.5rem;
+}
+.o_afg_period_span_card:hover {
+    border-color: #7dd3fc;
+    background: #075985;
+}
+.o_afg_period_span_card .o_afg_period_card_caption {
+    color: #bae6fd;
+}
+.o_afg_period_span_select {
+    background: #0f172a;
+    color: #e2e8f0;
+    border: 1px solid #38bdf8;
+    max-width: 100%;
+}
+.o_afg_custom_period_panel {
+    border: 1px solid #334155;
+    border-radius: 0.45rem;
+    background: #0f172a;
+    padding: 0.75rem 0.9rem;
+}
+.o_afg_custom_period_grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-end;
+}
+.o_afg_custom_period_block {
+    min-width: 11rem;
+}
+.o_afg_custom_period_label {
+    font-weight: 700;
+    color: #38bdf8;
+    margin-bottom: 0.35rem;
+}
+.o_afg_custom_period_actions {
+    padding-bottom: 0.15rem;
+}
+.o_afg_custom_period_panel input[type="date"] {
+    max-width: 11rem;
+    background: #111827;
+    color: #e2e8f0;
+    border-color: #475569;
+}
+
+@media print {
+    .o_afg_toolbar,
+    .o_afg_period_row,
+    .o_afg_filters_row,
+    .o_afg_sidebar,
+    .o_afg_alerts_col,
+    .o_afg_actions,
+    .o_main_navbar {
+        display: none !important;
+    }
+    .o_afg_main {
+        border: 0;
+        width: 100%;
+    }
+    .o_afg_root .o_afg_ledger_code_part,
+    .o_afg_root .o_afg_group_code_part {
+        display: inline !important;
+    }
+    .o_afg_tb_table .o_afg_tb_cell_code,
+    .o_afg_tb_table .o_afg_tb_cell_group,
+    .o_afg_tb_table .o_afg_tb_th_code,
+    .o_afg_tb_table .o_afg_tb_th_group {
+        display: table-cell !important;
+    }
+}
+
+/* Default dark theme for audited financials dashboard */
+.o_afg_root.o_afg_dark {
+    background: #0f172a;
+    color: #e2e8f0;
+    min-height: 100%;
+}
+.o_afg_root.o_afg_dark .o_afg_header {
+    background: #1e293b;
+    border-color: #334155;
+}
+.o_afg_root.o_afg_dark .o_afg_title {
+    color: #f8fafc;
+}
+.o_afg_root.o_afg_dark .o_afg_meta,
+.o_afg_root.o_afg_dark .text-muted {
+    color: #94a3b8 !important;
+}
+.o_afg_root.o_afg_dark .o_afg_main {
+    background: #1e293b;
+    border-color: #334155;
+    color: #e2e8f0;
+}
+.o_afg_root.o_afg_dark .o_afg_sidebar .list-group-item {
+    background: #0f172a;
+    border-color: #334155;
+}
+.o_afg_root.o_afg_dark .o_afg_sidebar .list-group-item.active,
+.o_afg_root.o_afg_dark .o_afg_sidebar .list-group-item:hover {
+    background: #334155;
+    border-color: #475569;
+}
+.o_afg_root.o_afg_dark .o_afg_sidebar a {
+    color: #e2e8f0;
+}
+.o_afg_root.o_afg_dark .o_afg_l0,
+.o_afg_root.o_afg_dark .o_afg_l0 .o_afg_desc_text,
+.o_afg_root.o_afg_dark .o_afg_l1,
+.o_afg_root.o_afg_dark .o_afg_l1 .o_afg_desc_text,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_type .o_afg_cell_num,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_type .o_afg_desc_cell .o_afg_type_name,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_type .o_afg_amt_cell,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_l1 .o_afg_cell_num,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_l1 .o_afg_cell_lg,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_l1 .o_afg_amt_cell,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_l1 .o_afg_desc_cell .o_afg_afg_name,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_l1 .o_afg_desc_cell .o_afg_afg_code_part {
+    color: #38bdf8 !important;
+    font-weight: 700;
+}
+.o_afg_root.o_afg_dark .o_afg_l2,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_group .o_afg_cell_num,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_group .o_afg_cell_lg,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_group .o_afg_desc_cell .o_afg_group_name,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_group .o_afg_desc_cell .o_afg_group_code_part,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_group .o_afg_amt_cell {
+    color: #fb923c !important;
+    font-weight: 700;
+}
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_type .o_afg_type_name,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_type .o_afg_amt_cell {
+    font-weight: 800;
+    font-size: 1.05rem;
+}
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_type .o_afg_type_name.o_afg_type_caps {
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+/* Caps L0 on SOFP/P&L: same banner fill + readable text as TB ASSETS */
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_type_caps_row.o_afg_tb_section_banner .o_afg_type_name,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_type_caps_row.o_afg_tb_section_banner .o_afg_amt_cell,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_type_caps_row.o_afg_tb_section_banner .o_afg_cell_num,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_type_caps_row.o_afg_tb_section_banner .o_afg_cell_lg,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_type_caps_row.o_afg_tb_section_banner .o_afg_caret {
+    color: #e2e8f0 !important;
+}
+.o_afg_table tbody tr.o_afg_type_caps_row.o_afg_tb_section_banner .o_afg_type_name,
+.o_afg_table tbody tr.o_afg_type_caps_row.o_afg_tb_section_banner .o_afg_amt_cell,
+.o_afg_table tbody tr.o_afg_type_caps_row.o_afg_tb_section_banner .o_afg_cell_num {
+    color: #f8fafc !important;
+}
+.o_afg_root.o_afg_dark .o_afg_l3,
+.o_afg_root.o_afg_dark .o_afg_l4,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_ledger .o_afg_cell_num,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_ledger .o_afg_cell_lg,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_ledger .o_afg_desc_cell,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_ledger .o_afg_desc_cell .o_afg_ledger_name,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_ledger .o_afg_desc_cell .o_afg_ledger_code_part,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_ledger .o_afg_amt_cell {
+    color: #d4a574 !important;
+    font-weight: 500;
+}
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_l1 .o_afg_amount_input {
+    color: #38bdf8;
+    font-weight: 700;
+}
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_group .o_afg_amount_input {
+    color: #fb923c;
+    font-weight: 700;
+}
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_kind_ledger .o_afg_amount_input {
+    color: #d4a574;
+    font-weight: 500;
+}
+.o_afg_root.o_afg_dark .o_afg_l0_toggle,
+.o_afg_root.o_afg_dark .o_afg_l1_toggle {
+    cursor: pointer;
+}
+.o_afg_root.o_afg_dark .o_afg_l0_toggle .o_afg_caret,
+.o_afg_root.o_afg_dark .o_afg_l1_toggle .o_afg_caret {
+    color: #94a3b8;
+    font-weight: 900;
+}
+.o_afg_root.o_afg_dark .o_afg_table td {
+    color: #e2e8f0;
+    border: 1px solid #475569 !important;
+}
+.o_afg_root.o_afg_dark .o_afg_table.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(15, 23, 42, 0.45);
+}
+.o_afg_root.o_afg_dark .form-control,
+.o_afg_root.o_afg_dark .custom-control-label {
+    color: #e2e8f0;
+}
+.o_afg_root.o_afg_dark .o_afg_year_prior,
+.o_afg_root.o_afg_dark .o_afg_year_current,
+.o_afg_root.o_afg_dark .o_afg_export_level {
+    background: #0f172a;
+    border-color: #475569;
+    color: #e2e8f0;
+}
+/* Report level dropdown: black background + white text (open list too) */
+.o_afg_root .o_afg_export_level,
+.o_afg_root .o_afg_export_level option {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border-color: #475569;
+    color-scheme: dark;
+}
+.o_afg_export_depth_label,
+.o_afg_toolbar label {
+    color: #e2e8f0;
+}
+.o_afg_root.o_afg_dark .o_afg_company_select {
+    background: #0f172a;
+    border-color: #475569;
+    color: #e2e8f0;
+}
+
+.o_afg_root.o_afg_dark .o_afg_notes,
+.o_afg_root.o_afg_dark .o_afg_review {
+    color: #e2e8f0;
+}
+.o_afg_root.o_afg_dark .o_afg_notes .card {
+    background: #1e293b;
+    border-color: #475569;
+    color: #e2e8f0;
+}
+.o_afg_root.o_afg_dark .o_afg_notes .card-header {
+    background: #334155;
+    color: #f8fafc;
+    border-bottom-color: #475569;
+}
+.o_afg_root.o_afg_dark .o_afg_notes .card-body {
+    color: #cbd5e1;
+}
+.o_afg_root.o_afg_dark .o_afg_review .alert {
+    border-color: #475569;
+}
+.o_afg_root.o_afg_dark .o_afg_tb_empty td {
+    color: #94a3b8;
+}
+
+/* Audited Financials Trial Balance — split panels */
+.o_afg_tb_panel_title {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #0284c7;
+    margin: 4px 0 8px;
+}
+.o_afg_root.o_afg_dark .o_afg_tb_panel_title {
+    color: #38bdf8;
+}
+.o_afg_tb_panel_table {
+    table-layout: auto;
+    width: max-content;
+    min-width: 100%;
+}
+/* Main AFG table in TB mode — match Excel: readable OTC columns + horizontal scroll */
+.o_afg_tb_panels {
+    overflow-x: auto;
+    width: 100%;
+    max-width: 100%;
+}
+.o_afg_table.o_afg_tb_unified {
+    table-layout: auto !important;
+    width: max-content;
+    min-width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+.o_afg_table.o_afg_tb_unified thead th.o_afg_tb_year_group {
+    border-bottom-width: 1px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+.o_afg_table.o_afg_tb_unified thead th.o_afg_tb_subcap,
+.o_afg_table.o_afg_tb_unified thead th.o_afg_tb_amt_th {
+    font-weight: 600;
+    white-space: nowrap;
+    min-width: 6.5rem;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+}
+.o_afg_table.o_afg_tb_unified thead th.o_afg_tb_th_wrap {
+    white-space: normal !important;
+    line-height: 1.15;
+    font-size: 0.72rem;
+    min-width: 6.25rem;
+}
+.o_afg_table.o_afg_tb_unified th.o_afg_tb_th_desc,
+.o_afg_table.o_afg_tb_unified td:nth-child(3) {
+    min-width: 18rem;
+    max-width: 32rem;
+    font-size: 0.82rem;
+    line-height: 1.2;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+.o_afg_table.o_afg_tb_unified th:nth-child(1),
+.o_afg_table.o_afg_tb_unified td:nth-child(1) {
+    width: 2.75rem;
+    min-width: 2.75rem;
+}
+.o_afg_table.o_afg_tb_unified th:nth-child(2),
+.o_afg_table.o_afg_tb_unified td:nth-child(2) {
+    width: 2.75rem;
+    min-width: 2.75rem;
+}
+.o_afg_table.o_afg_tb_unified th.o_afg_tb_th_notes,
+.o_afg_table.o_afg_tb_unified th:nth-child(4),
+.o_afg_table.o_afg_tb_unified td:nth-child(4) {
+    width: 4rem;
+    min-width: 3.5rem;
+}
+.o_afg_table.o_afg_tb_unified td.o_afg_amt_cell {
+    min-width: 7.25rem;
+    white-space: nowrap;
+    padding-left: 0.55rem;
+    padding-right: 0.55rem;
+}
+.o_afg_tb_panel_table th:nth-child(1),
+.o_afg_tb_panel_table td:nth-child(1) {
+    width: 2.75rem;
+}
+.o_afg_tb_panel_table th:nth-child(2),
+.o_afg_tb_panel_table td:nth-child(2) {
+    width: 2.75rem;
+}
+.o_afg_tb_panel_table th:nth-child(4),
+.o_afg_tb_panel_table td:nth-child(4) {
+    width: 4.5rem;
+}
+.o_afg_tb_panel_table th:nth-child(n+5),
+.o_afg_tb_panel_table td:nth-child(n+5),
+.o_afg_tb_panel_table th.o_afg_tb_amt_th,
+.o_afg_tb_panel_table td.o_afg_amt_cell {
+    min-width: 7.25rem;
+    white-space: nowrap;
+}
+.o_afg_tb_panel_table thead th.o_afg_tb_year_group {
+    border-bottom-width: 1px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+}
+.o_afg_tb_panel_table thead th.o_afg_tb_subcap {
+    font-weight: 600;
+    font-size: 0.72rem;
+}
+.o_afg_table tbody tr.o_afg_tb_section_banner td {
+    background: #1e293b !important;
+    color: #f8fafc !important;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.45rem 0.6rem !important;
+    border-color: #475569 !important;
+}
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_tb_section_banner td,
+.o_afg_root.o_afg_dark .o_afg_table.table-striped tbody tr.o_afg_tb_section_banner:nth-of-type(odd) td,
+.o_afg_root.o_afg_dark .o_afg_table.table-striped tbody tr.o_afg_tb_section_banner:nth-of-type(even) td {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+}
+/* SOFP/P&L ALL-CAPS type rows: full-row contrast fill (not text-only) */
+.o_afg_table tbody tr.o_afg_type_caps_row.o_afg_tb_section_banner td {
+    background: #1e293b !important;
+    color: #f8fafc !important;
+}
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_type_caps_row.o_afg_tb_section_banner td,
+.o_afg_root.o_afg_dark .o_afg_table.table-striped tbody tr.o_afg_type_caps_row.o_afg_tb_section_banner td {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+}
+.o_afg_table tbody tr.o_afg_tb_section_total td {
+    border-top: 3px double #0284c7 !important;
+    border-bottom: 3px double #0284c7 !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.02em;
+    background: #1e293b !important;
+    color: #f8fafc !important;
+}
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_tb_section_total td {
+    border-top-color: #38bdf8 !important;
+    border-bottom-color: #38bdf8 !important;
+    color: #f8fafc !important;
+    background: #1e293b !important;
+}
+/* All reports: ASSETS / TOTAL ASSETS / L0 totals / CF sections — dark contrast fill */
+.o_afg_table tbody tr.o_afg_main_line_fill td,
+.o_afg_table.o_afg_tb_panel_table tbody tr.o_afg_tb_section_total td,
+.o_afg_table.o_afg_tb_panel_table tbody tr.o_afg_main_line_fill td,
+.o_afg_fa_table tbody tr.o_afg_main_line_fill td {
+    background: #1e293b !important;
+    background-image: none !important;
+    color: #f8fafc !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.03em;
+    border-color: #475569 !important;
+}
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_main_line_fill td,
+.o_afg_root.o_afg_dark .o_afg_table.table-striped tbody tr.o_afg_main_line_fill td,
+.o_afg_root.o_afg_dark .o_afg_table.o_afg_tb_panel_table tbody tr.o_afg_tb_section_total td,
+.o_afg_root.o_afg_dark .o_afg_table.o_afg_tb_panel_table tbody tr.o_afg_main_line_fill td,
+.o_afg_root.o_afg_dark .o_afg_fa_table tbody tr.o_afg_main_line_fill td {
+    background: #1e293b !important;
+    background-image: none !important;
+    color: #f8fafc !important;
+}
+.o_afg_table tbody tr.o_afg_main_line_fill .o_afg_type_name,
+.o_afg_table tbody tr.o_afg_main_line_fill .o_afg_amt_cell,
+.o_afg_table tbody tr.o_afg_main_line_fill .o_afg_cell_num,
+.o_afg_table tbody tr.o_afg_main_line_fill .o_afg_cell_lg,
+.o_afg_table tbody tr.o_afg_main_line_fill .o_afg_caret,
+.o_afg_table tbody tr.o_afg_tb_section_total .o_afg_type_name,
+.o_afg_table tbody tr.o_afg_tb_section_total .o_afg_amt_cell,
+.o_afg_table tbody tr.o_afg_tb_section_total .o_afg_cell_num,
+.o_afg_table tbody tr.o_afg_tb_section_total .o_afg_cell_lg,
+.o_afg_fa_table tbody tr.o_afg_main_line_fill .o_afg_fa_row_label,
+.o_afg_fa_table tbody tr.o_afg_main_line_fill .amt {
+    color: #f8fafc !important;
+}
+.o_afg_table tbody td.o_afg_tb_nature_neg,
+.o_afg_table tbody td.o_afg_amt_cell.o_afg_tb_nature_neg {
+    color: #f87171 !important;
+    font-weight: 700;
+}
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_tb_difference td {
+    color: #f87171 !important;
+}
+
+/* Cash flow statement (sample layout) */
+.o_afg_table.o_afg_cf_table thead th {
+    background: #1e3a5f;
+    color: #fff;
+    border-color: #1e3a5f;
+}
+.o_afg_table tbody tr.o_afg_cf_section td {
+    font-weight: 800;
+    color: #0284c7;
+    padding-top: 12px;
+}
+.o_afg_table tbody tr.o_afg_cf_group {
+    background: rgba(56, 189, 248, 0.18) !important;
+}
+.o_afg_table tbody tr.o_afg_cf_group td {
+    font-weight: 700;
+    color: #0284c7;
+}
+.o_afg_table tbody tr.o_afg_cf_ledger td {
+    color: #a67c52;
+    font-weight: 500;
+}
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_cf_section td,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_cf_group td {
+    color: #38bdf8 !important;
+}
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_cf_ledger td {
+    color: #d4a574 !important;
+}
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_cf_group {
+    background: rgba(56, 189, 248, 0.12) !important;
+}
+
+/* Fixed Assets column mode toggle */
+.o_afg_fa_toolbar {
+    gap: 0.35rem;
+    padding: 0.35rem 0.15rem 0.55rem;
+}
+.o_afg_fa_toolbar_label {
+    color: #94a3b8;
+    font-weight: 600;
+}
+.o_afg_root.o_afg_dark .o_afg_fa_toolbar_label {
+    color: #cbd5e1;
+}
+.o_afg_fa_table.o_afg_fa_table_single {
+    width: 100%;
+    max-width: 42rem;
+}
+.o_afg_fa_table.o_afg_fa_table_single th.o_afg_fa_total,
+.o_afg_fa_table.o_afg_fa_table_single td.o_afg_fa_total {
+    min-width: 9rem;
+}
+
+/* L4 depth: AFG group main rows — contrast fill + CAPITAL CASE (like L1+ledgers era) */
+.o_afg_table tbody tr.o_afg_afg_band_contrast td {
+    background: #1e293b !important;
+    color: #f8fafc !important;
+    font-weight: 700;
+    border-color: #334155 !important;
+}
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_afg_band_contrast td,
+.o_afg_root.o_afg_dark .o_afg_table.table-striped tbody tr.o_afg_afg_band_contrast td {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+}
+.o_afg_table tbody tr.o_afg_afg_band_contrast .o_afg_afg_name,
+.o_afg_table tbody tr.o_afg_afg_band_contrast .o_afg_afg_code_part,
+.o_afg_table tbody tr.o_afg_afg_band_contrast .o_afg_group_name,
+.o_afg_table tbody tr.o_afg_afg_band_contrast .o_afg_group_code_part,
+.o_afg_table tbody tr.o_afg_afg_band_contrast .o_afg_name_part,
+.o_afg_table tbody tr.o_afg_afg_band_contrast .o_afg_cell_num,
+.o_afg_table tbody tr.o_afg_afg_band_contrast .o_afg_cell_lg,
+.o_afg_table tbody tr.o_afg_afg_band_contrast .o_afg_amt_cell,
+.o_afg_table tbody tr.o_afg_afg_band_contrast .o_afg_caret,
+.o_afg_table tbody tr.o_afg_afg_band_contrast .o_afg_desc_cell {
+    color: #f8fafc !important;
+    font-weight: 800;
+}
+.o_afg_table tbody tr.o_afg_afg_band_contrast .o_afg_afg_name.o_afg_type_caps {
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+/* Fixed assets PPE reconciliation layout */
+.o_afg_fa_wrap {
+    margin-top: 8px;
+    overflow-x: auto;
+}
+.o_afg_fa_year {
+    margin-bottom: 28px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #334155;
+}
+.o_afg_fa_year:last-child {
+    border-bottom: none;
+}
+.o_afg_fa_year_title {
+    font-size: 15px;
+    font-weight: 800;
+    margin: 4px 0 14px;
+    color: #38bdf8;
+}
+.o_afg_fa_block {
+    margin-bottom: 18px;
+}
+.o_afg_fa_block h5 {
+    font-size: 13px;
+    font-weight: 800;
+    margin-bottom: 6px;
+    color: #0284c7;
+}
+.o_afg_fa_table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+    font-size: 12px;
+}
+.o_afg_fa_table th,
+.o_afg_fa_table td {
+    border: 1px solid #94a3b8;
+    padding: 5px 8px;
+    vertical-align: middle;
+}
+.o_afg_fa_table thead th {
+    background: #1e3a5f;
+    color: #fff;
+    font-weight: 700;
+    white-space: normal;
+    max-width: 9rem;
+}
+/* Multi-column: wrap long ledger titles; no ghost gap before Total */
+.o_afg_fa_table thead th.o_afg_fa_ledger_th,
+.o_afg_fa_table thead th.amt:not(.o_afg_fa_total) {
+    white-space: normal !important;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+    max-width: 8rem;
+    min-width: 4.5rem;
+    width: auto;
+    line-height: 1.25;
+    vertical-align: bottom;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+}
+.o_afg_fa_table td.amt:not(.o_afg_fa_total) {
+    max-width: 8rem;
+    min-width: 4.5rem;
+    width: auto;
+}
+.o_afg_fa_table thead th.o_afg_fa_total,
+.o_afg_fa_table td.o_afg_fa_total {
+    width: 6.5rem;
+    min-width: 5.5rem;
+    white-space: nowrap;
+}
+.o_afg_fa_table .o_afg_fa_row_label,
+.o_afg_fa_table th:first-child,
+.o_afg_fa_table td:first-child {
+    font-weight: 700;
+    color: #0284c7;
+    text-align: left;
+    min-width: 14rem;
+    width: 14rem;
+    white-space: nowrap;
+}
+.o_afg_fa_table .amt {
+    text-align: right;
+    white-space: nowrap;
+    color: #334155;
+    min-width: 6.5rem;
+}
+.o_afg_fa_table .o_afg_fa_total {
+    font-weight: 800;
+    background: rgba(56, 189, 248, 0.12);
+    min-width: 7rem;
+}
+.o_afg_root.o_afg_dark .o_afg_fa_block h5,
+.o_afg_root.o_afg_dark .o_afg_fa_table .o_afg_fa_row_label,
+.o_afg_root.o_afg_dark .o_afg_fa_table th:first-child,
+.o_afg_root.o_afg_dark .o_afg_fa_table td:first-child {
+    color: #38bdf8;
+}
+.o_afg_root.o_afg_dark .o_afg_fa_table .amt {
+    color: #e2e8f0;
+}
+.o_afg_root.o_afg_dark .o_afg_fa_table th,
+.o_afg_root.o_afg_dark .o_afg_fa_table td {
+    border-color: #475569;
+}
+
+/* Three row tones: ledger / group-with-ledgers / structure-only (all AFG reports). */
+.o_afg_table tbody tr.o_afg_tone_ledger,
+.o_afg_table tbody tr.o_afg_tone_ledger td {
+    background-color: #ecfdf5 !important;
+    color: #064e3b !important;
+}
+.o_afg_table tbody tr.o_afg_tone_has_ledgers,
+.o_afg_table tbody tr.o_afg_tone_has_ledgers td {
+    background-color: #dbeafe !important;
+    color: #1e3a8a !important;
+}
+.o_afg_table tbody tr.o_afg_tone_structure,
+.o_afg_table tbody tr.o_afg_tone_structure td {
+    background-color: #fef3c7 !important;
+    color: #78350f !important;
+}
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_tone_ledger,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_tone_ledger td {
+    background-color: #115e59 !important;
+    color: #ccfbf1 !important;
+}
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_tone_has_ledgers,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_tone_has_ledgers td {
+    background-color: #1e3a8a !important;
+    color: #dbeafe !important;
+}
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_tone_structure,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_tone_structure td {
+    background-color: #78350f !important;
+    color: #fde68a !important;
+}
+.o_afg_table tbody tr.o_afg_tone_ledger .o_afg_amount_input,
+.o_afg_table tbody tr.o_afg_tone_has_ledgers .o_afg_amount_input,
+.o_afg_table tbody tr.o_afg_tone_structure .o_afg_amount_input {
+    color: inherit !important;
+    background: transparent !important;
+}
+.o_afg_table:not(.o_afg_tb_unified) th.o_afg_th_desc,
+.o_afg_table:not(.o_afg_tb_unified) td.o_afg_desc_cell {
+    min-width: 22rem;
+    max-width: none;
+    white-space: normal;
+    overflow: visible;
+}
+.o_afg_table tbody tr.o_afg_multco_row .o_afg_multco_name {
+    color: #94a3b8;
+    font-size: 12px;
+    font-weight: 500;
+}
+/* Tax mismatch, missing tax, or P&L result not the same fils as Odoo default P&L. */
+.o_afg_table tbody td.o_afg_amt_cell.o_afg_amt_alert,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_main_line_fill td.o_afg_amt_cell.o_afg_amt_alert,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_tone_has_ledgers td.o_afg_amt_cell.o_afg_amt_alert,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_tone_structure td.o_afg_amt_cell.o_afg_amt_alert,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_tone_ledger td.o_afg_amt_cell.o_afg_amt_alert,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_type_caps_row.o_afg_tb_section_banner td.o_afg_amt_cell.o_afg_amt_alert {
+    background-color: #d50000 !important;
+    color: #ffffff !important;
+    font-weight: 800 !important;
+}
+/* Ungrouped ledgers should not stay on the face — name and amount in red, including a blank amount. */
+.o_afg_table tbody tr.o_afg_ungrouped_warn td,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_ungrouped_warn td,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_ungrouped_warn.o_afg_tone_ledger td,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_ungrouped_warn.o_afg_tone_has_ledgers td,
+.o_afg_root.o_afg_dark .o_afg_table tbody tr.o_afg_ungrouped_warn.o_afg_tone_structure td {
+    color: #ff4d4f !important;
+    font-weight: 700 !important;
+}
+
+/* Show periods dropdown: keep readable contrast (Bootstrap .form-control / :focus forced a white bg under light text) */
+.o_afg_period_span_card select.o_afg_period_span_select.form-control,
+.o_afg_period_span_card select.o_afg_period_span_select.form-control:focus {
+    background-color: #0f172a;
+    color: #f8fafc;
+    border-color: #38bdf8;
+    color-scheme: dark;
+}
+.o_afg_period_span_card select.o_afg_period_span_select.form-control:focus {
+    box-shadow: 0 0 0 0.15rem rgba(56, 189, 248, 0.45);
+}
+.o_afg_period_span_card select.o_afg_period_span_select option {
+    background-color: #0f172a;
+    color: #f8fafc;
+}
+.o_afg_period_span_card select.o_afg_period_span_select option:checked,
+.o_afg_period_span_card select.o_afg_period_span_select option:hover {
+    background-color: #0284c7;
+    color: #ffffff;
+}

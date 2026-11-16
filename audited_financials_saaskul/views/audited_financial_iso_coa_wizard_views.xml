@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_audited_financial_iso_coa_wizard_form" model="ir.ui.view">
+        <field name="name">audited.financial.iso.coa.wizard.form</field>
+        <field name="model">audited.financial.iso.coa.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Load ISO Chart of Accounts">
+                <div class="alert alert-info" role="alert" invisible="summary">
+                    Loads the ISOSYSTEMS (Nigeria) chart of accounts: 42 account groups,
+                    248 ledgers and their Audited Financials (AFG) mapping.
+                    Existing ledgers are kept; nothing is deleted.
+                </div>
+                <div class="alert alert-success" role="status" invisible="not summary">
+                    <field name="summary" nolabel="1"/>
+                </div>
+                <group invisible="summary">
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="load_groups"/>
+                    <field name="load_accounts"/>
+                    <field name="apply_afg_mapping"/>
+                    <field name="update_names"/>
+                </group>
+                <footer>
+                    <button name="action_load" type="object" string="Load" class="btn-primary"
+                            invisible="summary"/>
+                    <button string="Close" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_audited_financial_iso_coa_wizard" model="ir.actions.act_window">
+        <field name="name">Load ISO Chart of Accounts</field>
+        <field name="res_model">audited.financial.iso.coa.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_audited_financial_iso_coa_wizard"
+              name="Load ISO Chart of Accounts"
+              parent="menu_audited_financials_configuration"
+              action="action_audited_financial_iso_coa_wizard"
+              groups="account.group_account_manager"
+              sequence="90"/>
+</odoo>

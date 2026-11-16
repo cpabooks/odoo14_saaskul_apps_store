@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_form_afg_group" model="ir.ui.view">
+        <field name="name">account.account.form.afg.group</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_form"/>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='account_type']" position="after">
+                <field name="company_id" invisible="1"/>
+                <field name="afg_sync_same_name" string="All companies"/>
+                <field name="afg_group_id"
+                       string="AFG group"
+                       options="{'no_create': True, 'no_open': True}"/>
+                <field name="ctf_category" string="CT Filing"/>
+                <field name="cpa_type_ctf_group_id" string="Set CTF" options="{'no_create': True, 'no_open': True}"/>
+                <field name="cpa_type_afg_group_id" string="Set AFG" options="{'no_create': True, 'no_open': True}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_tree_afg_group" model="ir.ui.view">
+        <field name="name">account.account.tree.afg.group</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_list"/>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <field name="active" position="before">
+                <field name="afg_group_id" string="AFG group" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_search_afg_group" model="ir.ui.view">
+        <field name="name">account.account.search.afg.group</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="afg_group_id" string="AFG group"/>
+                <field name="ctf_category" string="CTFG"/>
+            </xpath>
+            <xpath expr="//group" position="inside">
+                <filter name="groupby_afg" string="AFG group" context="{'group_by': 'afg_group_id'}"/>
+                <filter name="groupby_ctf" string="CTFG" context="{'group_by': 'ctf_category'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_group_form_afg_ctf" model="ir.ui.view">
+        <field name="name">account.group.form.afg.ctf</field>
+        <field name="model">account.group</field>
+        <field name="inherit_id" ref="account.view_account_group_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="cpabooks_all_companies" string="All companies"/>
+                <field name="afg_group_id" string="AFG" options="{'no_create': True, 'no_open': True}"/>
+                <field name="ctf_group_id" string="CTF" options="{'no_create': True, 'no_open': True}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_group_tree_all_companies" model="ir.ui.view">
+        <field name="name">account.group.tree.all.companies</field>
+        <field name="model">account.group</field>
+        <field name="inherit_id" ref="account.view_account_group_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="cpabooks_all_companies" string="All companies" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_type_ctf_popup" model="ir.ui.view">
+        <field name="name">account.account.type.ctf.popup</field>
+        <field name="model">account.account.type</field>
+        <field name="arch" type="xml">
+            <form string="Type">
+                <group>
+                    <field name="name" readonly="1"/>
+                    <field name="ctf_group_id" string="CTF" options="{'no_create': True, 'no_open': True}"/>
+                    <field name="afg_group_id" string="AFG" options="{'no_create': True, 'no_open': True}"/>
+                </group>
+                <footer>
+                    <button string="Close" special="cancel" class="btn-secondary"/>
+                    <button string="Save" special="save" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

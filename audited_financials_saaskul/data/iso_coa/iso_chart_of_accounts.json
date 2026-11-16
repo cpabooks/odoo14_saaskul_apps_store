@@ -1,0 +1,2818 @@
+{
+ "source": "iso.saaskul.com - ISOSYSTEMS (Nigeria, NGN)",
+ "groups": [
+  {
+   "name": "Unallocated Group",
+   "start": "000",
+   "end": "000"
+  },
+  {
+   "name": "Fixed Assets",
+   "start": "11",
+   "end": "11"
+  },
+  {
+   "name": "Cash & Cash Equivalents",
+   "start": "110",
+   "end": "110"
+  },
+  {
+   "name": "Accounts Receivables",
+   "start": "112",
+   "end": "112"
+  },
+  {
+   "name": "Accounts Receivables - Others",
+   "start": "114",
+   "end": "114"
+  },
+  {
+   "name": "Deposits",
+   "start": "118",
+   "end": "118"
+  },
+  {
+   "name": "Advance (Asset)",
+   "start": "120",
+   "end": "120"
+  },
+  {
+   "name": "Inventories",
+   "start": "122",
+   "end": "122"
+  },
+  {
+   "name": "Prepaid Expenses",
+   "start": "124",
+   "end": "124"
+  },
+  {
+   "name": "Fixed Asset",
+   "start": "126",
+   "end": "126"
+  },
+  {
+   "name": "Trade and Other Receivables",
+   "start": "13",
+   "end": "13"
+  },
+  {
+   "name": "Cash and Bank",
+   "start": "15",
+   "end": "15"
+  },
+  {
+   "name": "Trade and Other Payables",
+   "start": "21",
+   "end": "21"
+  },
+  {
+   "name": "Accounts Payable",
+   "start": "228",
+   "end": "228"
+  },
+  {
+   "name": "Tax Payable",
+   "start": "230",
+   "end": "230"
+  },
+  {
+   "name": "Loan (Liabilities)",
+   "start": "232",
+   "end": "232"
+  },
+  {
+   "name": "Employee Liabilities",
+   "start": "234",
+   "end": "234"
+  },
+  {
+   "name": "Provisions, Accruals & Other Payable",
+   "start": "236",
+   "end": "236"
+  },
+  {
+   "name": "VAT / Tax Payable",
+   "start": "24",
+   "end": "24"
+  },
+  {
+   "name": "Other Liabilities",
+   "start": "27",
+   "end": "27"
+  },
+  {
+   "name": "Current Year Profit / Loss",
+   "start": "33",
+   "end": "33"
+  },
+  {
+   "name": "Capital & Equities",
+   "start": "338",
+   "end": "338"
+  },
+  {
+   "name": "Owner / Partner Current Account",
+   "start": "34",
+   "end": "34"
+  },
+  {
+   "name": "Other Income",
+   "start": "43",
+   "end": "43"
+  },
+  {
+   "name": "Sales Revenue",
+   "start": "440",
+   "end": "440"
+  },
+  {
+   "name": "Other Income/ Exp",
+   "start": "442",
+   "end": "442"
+  },
+  {
+   "name": "Staff Cost",
+   "start": "53",
+   "end": "53"
+  },
+  {
+   "name": "Rent and Utilities",
+   "start": "54",
+   "end": "54"
+  },
+  {
+   "name": "Cost of Materials",
+   "start": "546",
+   "end": "546"
+  },
+  {
+   "name": "Selling and Distribution Expenses",
+   "start": "546",
+   "end": "546"
+  },
+  {
+   "name": "Admin Expenses",
+   "start": "55",
+   "end": "55"
+  },
+  {
+   "name": "Finance Cost",
+   "start": "56",
+   "end": "56"
+  },
+  {
+   "name": "Depreciation",
+   "start": "57",
+   "end": "57"
+  },
+  {
+   "name": "Other Expenses",
+   "start": "58",
+   "end": "58"
+  },
+  {
+   "name": "Employee CTC - Cash",
+   "start": "750",
+   "end": "750"
+  },
+  {
+   "name": "Employee CTC - Directors",
+   "start": "752",
+   "end": "752"
+  },
+  {
+   "name": "Employee CTC - Others",
+   "start": "754",
+   "end": "754"
+  },
+  {
+   "name": "General & Admin Exp",
+   "start": "756",
+   "end": "756"
+  },
+  {
+   "name": "Bad Debts Write Off",
+   "start": "760",
+   "end": "760"
+  },
+  {
+   "name": "Vehicle Expenses",
+   "start": "762",
+   "end": "762"
+  },
+  {
+   "name": "Depreciations",
+   "start": "864",
+   "end": "864"
+  },
+  {
+   "name": "Income Taxes",
+   "start": "968",
+   "end": "968"
+  }
+ ],
+ "accounts": [
+  {
+   "code": "110100",
+   "name": "Bank - ADCB",
+   "account_type": "asset_cash",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CASH",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "110101",
+   "name": "Petty Cash - Main",
+   "account_type": "asset_cash",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CASH",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "112102",
+   "name": "Accounts Receivable",
+   "account_type": "asset_receivable",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_AR",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "112103",
+   "name": "Accounts Receivable (Pos)",
+   "account_type": "asset_receivable",
+   "reconcile": true,
+   "afg_groups": [],
+   "ctf_category": null
+  },
+  {
+   "code": "112104",
+   "name": "PDC Receivable",
+   "account_type": "asset_receivable",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_AR",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "114105",
+   "name": "Retention Receivable",
+   "account_type": "asset_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_AR",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "114106",
+   "name": "Intercompany - Receivable",
+   "account_type": "asset_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_REL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "114107",
+   "name": "Provision for Doubtful Debts",
+   "account_type": "asset_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_AR",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "118108",
+   "name": "Deposit - Office Rent",
+   "account_type": "asset_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_PREP"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "118109",
+   "name": "Deposit - Utility",
+   "account_type": "asset_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_PREP"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "120110",
+   "name": "Adv. Employees",
+   "account_type": "asset_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_PREP"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "122111",
+   "name": "Work In Progrees",
+   "account_type": "asset_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_INV"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "122112",
+   "name": "Stock Valuation Account",
+   "account_type": "asset_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_INV"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "124113",
+   "name": "Prepaid - Medical Insurance",
+   "account_type": "asset_prepayments",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_PREP"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "124114",
+   "name": "Prepaid - Rent Shop",
+   "account_type": "asset_prepayments",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_PREP"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "124115",
+   "name": "Prepaid - Rent Office",
+   "account_type": "asset_prepayments",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_PREP"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "124116",
+   "name": "Prepaid - Rent Home",
+   "account_type": "asset_prepayments",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_PREP"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "124117",
+   "name": "Prepaid - Trade License & Permit",
+   "account_type": "asset_prepayments",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_PREP"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "124118",
+   "name": "Prepaid - Rent Warehouse",
+   "account_type": "asset_prepayments",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_PREP"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "124119",
+   "name": "Prepaid - Rent Accommodation",
+   "account_type": "asset_prepayments",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_PREP"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "124120",
+   "name": "Prepaid - Schooling Fees",
+   "account_type": "asset_prepayments",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_PREP"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "124121",
+   "name": "Prepaid - Legal Fees",
+   "account_type": "asset_prepayments",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_PREP"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "124122",
+   "name": "Prepaid - Sponsorship Fees",
+   "account_type": "asset_prepayments",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_PREP"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "124123",
+   "name": "Prepaid - Advertisement & Publicity",
+   "account_type": "asset_prepayments",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_PREP"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "124124",
+   "name": "Prepaid - Bank Guarantee",
+   "account_type": "asset_prepayments",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CASH",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "124125",
+   "name": "Prepaid - Visa Expenses",
+   "account_type": "asset_prepayments",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_PREP"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "126126",
+   "name": "FAA - Leasehold Improvement",
+   "account_type": "asset_fixed",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "126127",
+   "name": "FAA - Furniture & Fixtures",
+   "account_type": "asset_fixed",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "126128",
+   "name": "FAA - Computer Hardware & Software",
+   "account_type": "asset_fixed",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "126129",
+   "name": "FAA - Motor Vehicle",
+   "account_type": "asset_fixed",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "126130",
+   "name": "FAA - Equipment & Machineries",
+   "account_type": "asset_fixed",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "126131",
+   "name": "FAA - Tools & Office Equipment",
+   "account_type": "asset_fixed",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "126132",
+   "name": "FAA - Building",
+   "account_type": "asset_fixed",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "126133",
+   "name": "FAA - Land",
+   "account_type": "asset_fixed",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "126134",
+   "name": "Acc. Depn. - Leasehold Improvement",
+   "account_type": "asset_fixed",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "126135",
+   "name": "Acc. Depn. - Furniture & Fixtures",
+   "account_type": "asset_fixed",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "126136",
+   "name": "Acc. Depn. - Computer Hardware & Software",
+   "account_type": "asset_fixed",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "126137",
+   "name": "Acc. Depn. - Motor Vehicle",
+   "account_type": "asset_fixed",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "126138",
+   "name": "Acc. Depn. - Equipment & Machineries",
+   "account_type": "asset_fixed",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "126139",
+   "name": "Acc. Depn. - Tools & Office Equipment",
+   "account_type": "asset_fixed",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "126140",
+   "name": "Acc. Depn. - Building",
+   "account_type": "asset_fixed",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "21010101",
+   "name": "Consolidated Salary",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_PAYROLL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "21010102",
+   "name": "Staff Performance Bonus & Subsistence Allowance",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_PAYROLL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "21020201",
+   "name": "NHIA Contribution 5%",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_PAYROLL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "21020202",
+   "name": "Employer Pension (Er)",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "21020203",
+   "name": "Industrial Training Fund",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020101",
+   "name": "Local Travels & Transport",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020102",
+   "name": "International Travels & Transport",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020201",
+   "name": "Electricity Charges",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020202",
+   "name": "Telephone Charges",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020203",
+   "name": "Internet Access Charges",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020204",
+   "name": "Water Rates",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020205",
+   "name": "Sewerage Charges",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020301",
+   "name": "Office Materials & Supplies",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020302",
+   "name": "Library Books & Periodicals",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020303",
+   "name": "Computer Materials & Supplies",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020304",
+   "name": "Printing Of Non-Security Documents",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020305",
+   "name": "Printing Of Security Documents",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020306",
+   "name": "Drugs & Medical Supplies",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020307",
+   "name": "Other Materials And Supplies",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020401",
+   "name": "Maintenance Of Motor Vehicles",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020402",
+   "name": "Maintenance Of Office Furniture & Fittings",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020403",
+   "name": "Maintenance Of Building - Office",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020404",
+   "name": "Maintenance Of Office Equipment",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020405",
+   "name": "Maintenance Of Computers & It Equipment",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020406",
+   "name": "Maintenance Of Plants/Generators",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020407",
+   "name": "Enterprise ICT Subscriptions",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020408",
+   "name": "Other Maintenance Services",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020501",
+   "name": "Local Training",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020502",
+   "name": "International Training",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020601",
+   "name": "Security Services",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020602",
+   "name": "Cleaning & Fumigation Services",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020603",
+   "name": "Office Rent",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020604",
+   "name": "Security Expenses",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020605",
+   "name": "Audit & Monitoring",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020606",
+   "name": "Project/Process Supervision",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020607",
+   "name": "Research",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020608",
+   "name": "Stakeholders Engagement",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020609",
+   "name": "Technology Assurance, Vulnerability And Stress Testing",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020610",
+   "name": "Student Data Collection",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020611",
+   "name": "API Connections Subscriptions",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020612",
+   "name": "Board Expenses",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020613",
+   "name": "Operational Meetings/Retreat",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020614",
+   "name": "Management Retreat With Stakeholders",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020615",
+   "name": "Skills Acquisition Data Capture",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020701",
+   "name": "Financial Consulting",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020702",
+   "name": "Information Technology Consulting & Service Level Agreement",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020703",
+   "name": "Legal Services",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020704",
+   "name": "Monitoring And Compliance Enhancement",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020705",
+   "name": "Human Resource Services",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020706",
+   "name": "Other Professional Services: Business Process",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020707",
+   "name": "External Audit Fees",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020801",
+   "name": "Motor Vehicle Fuel Cost",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020901",
+   "name": "Bank Charges",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020902",
+   "name": "Insurance Charges",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22020903",
+   "name": "Nsitf Employee Compensation Scheme",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22021001",
+   "name": "Refreshment & Meals",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22021002",
+   "name": "Honorarium & Sitting Allowance",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_PAYROLL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22021003",
+   "name": "Publicity & Advertisements",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22021004",
+   "name": "Medical Expenditure/HMO",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22021005",
+   "name": "Hire Of Hall, Accommodation & Events",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22021006",
+   "name": "Postages & Courier Services",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22021007",
+   "name": "Group Life Insurance",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22021008",
+   "name": "Welfare Packages: Festivity And Others",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22021009",
+   "name": "Annual Budget Expenses & Administration",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22021010",
+   "name": "Sporting Activities",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22021011",
+   "name": "Meal Allowance",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_PAYROLL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22021012",
+   "name": "Hazard Allowance",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_PAYROLL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22021013",
+   "name": "Corporate Outfit",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22021014",
+   "name": "Cost Of Living Allowance",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_PAYROLL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22021015",
+   "name": "Sensitization & Advocacy",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22021101",
+   "name": "Contribution To Local Organisations",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22021102",
+   "name": "Contribtution To Professional Bodies",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22021103",
+   "name": "Contribution To Associated MDAs",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "22021201",
+   "name": "Death Benefits",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "228141",
+   "name": "Payables",
+   "account_type": "liability_payable",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_AP",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "228142",
+   "name": "PDC Payable",
+   "account_type": "liability_payable",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_AP",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "23010101",
+   "name": "Purchase Of Vehicles",
+   "account_type": "asset_fixed",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "23010102",
+   "name": "Purchase Of Office Furniture",
+   "account_type": "asset_fixed",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "23010103",
+   "name": "Purchase Of Computer Equipments",
+   "account_type": "asset_fixed",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "23010104",
+   "name": "Communication Equipment",
+   "account_type": "asset_fixed",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "23010105",
+   "name": "Security/ Safety Equipment",
+   "account_type": "asset_fixed",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "23010106",
+   "name": "Purchase Of Office Equipment",
+   "account_type": "asset_fixed",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "23010107",
+   "name": "Purchase Of Hq Building",
+   "account_type": "asset_fixed",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "23010108",
+   "name": "Infrastructural Development",
+   "account_type": "asset_fixed",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "230143",
+   "name": "Taxes Paid",
+   "account_type": "liability_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_TAX"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "230144",
+   "name": "Taxes Received",
+   "account_type": "liability_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_TAX"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "232145",
+   "name": "Vehicle Loan",
+   "account_type": "liability_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_AP",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "234146",
+   "name": "Salary & Wages Payable",
+   "account_type": "liability_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_AP",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "234147",
+   "name": "Provision for Air Tickets",
+   "account_type": "liability_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_EOS"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "234148",
+   "name": "Provision for Leave Salary",
+   "account_type": "liability_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_EOS"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "234149",
+   "name": "Provision for End Of Service Indemnity",
+   "account_type": "liability_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_EOS"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "236150",
+   "name": "Directors Remuneration (Payable)",
+   "account_type": "liability_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_AP",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "236151",
+   "name": "Directors Expenses (Payable)",
+   "account_type": "liability_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_AP",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "236152",
+   "name": "Accrued - Utility - Water & Electricity",
+   "account_type": "liability_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_AP",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "236153",
+   "name": "Accrued - Utility - Telephone, Mobile & Internet",
+   "account_type": "liability_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_AP",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "236154",
+   "name": "Accrued - Sponsorship Fees",
+   "account_type": "liability_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_AP",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "236155",
+   "name": "Accrued - Audit Fees",
+   "account_type": "liability_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_AP",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "236156",
+   "name": "Accrued - Rent",
+   "account_type": "liability_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_AP",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "236157",
+   "name": "Income Tax Payable",
+   "account_type": "liability_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_TAX"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "236158",
+   "name": "Intercompany - Payable",
+   "account_type": "liability_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_REL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "236159",
+   "name": "Accrued - General",
+   "account_type": "liability_current",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_AP",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "338160",
+   "name": "Capital Account - Mr. A",
+   "account_type": "equity",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_EQ",
+    "AFG_EQ_CHG"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "338161",
+   "name": "Previous Years Results",
+   "account_type": "equity",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_EQ",
+    "AFG_EQ_CHG"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "338162",
+   "name": "Current Year Results",
+   "account_type": "equity",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_EQ",
+    "AFG_EQ_CHG"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "338163",
+   "name": "Current Account - Mr. A",
+   "account_type": "equity",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_EQ",
+    "AFG_EQ_CHG"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "338165",
+   "name": "Retained Earnings",
+   "account_type": "equity",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_EQ",
+    "AFG_EQ_CHG"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "338166",
+   "name": "Reserve Account",
+   "account_type": "equity",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_EQ",
+    "AFG_EQ_CHG"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "440167",
+   "name": "Sales Account",
+   "account_type": "income",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_REV"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "440168",
+   "name": "Discount On Sales",
+   "account_type": "income",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_REV"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "442169",
+   "name": "Other Income",
+   "account_type": "income_other",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_REV"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "546170",
+   "name": "Cost of Goods Sold",
+   "account_type": "expense_direct_cost",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_COR"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "546171",
+   "name": "Sub-Contractor Cost",
+   "account_type": "expense_direct_cost",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_COR"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "546172",
+   "name": "Cost Of Goods Sold I/C Sales",
+   "account_type": "expense_direct_cost",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_COR"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "546173",
+   "name": "Stock Input Account (Cos)",
+   "account_type": "expense_direct_cost",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_COR"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "546174",
+   "name": "Stock Output Account (Cos)",
+   "account_type": "expense_direct_cost",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_COR"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "546175",
+   "name": "SAD - Sales Commission",
+   "account_type": "expense_direct_cost",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_COR"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "546176",
+   "name": "SAD - Marketing & Media Expenses",
+   "account_type": "expense_direct_cost",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_COR"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "546177",
+   "name": "SAD - Sampling Expense",
+   "account_type": "expense_direct_cost",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_COR"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "546178",
+   "name": "SAD - Business Promotional Expenses",
+   "account_type": "expense_direct_cost",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_COR"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "565006PVE",
+   "name": "Prepaid Visa Expenses",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_PAYROLL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "642179",
+   "name": "Gain On Difference Of Exchange",
+   "account_type": "income_other",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_REV"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "642180",
+   "name": "Cash Difference Gain",
+   "account_type": "income_other",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_REV"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "642181",
+   "name": "Gain On Fixed Assets Disposal",
+   "account_type": "income_other",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_REV"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "642182",
+   "name": "Loss On Fixed Assets Disposal",
+   "account_type": "income_other",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_REV"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "642183",
+   "name": "Cash Difference Loss",
+   "account_type": "income_other",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_REV"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "750184",
+   "name": "CTC - Basic Salary",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_PAYROLL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "750185",
+   "name": "CTC - Housing Allowance",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [],
+   "ctf_category": null
+  },
+  {
+   "code": "750186",
+   "name": "CTC - Transportation Allowance",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_SELL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "750187",
+   "name": "CTC - Over Time (OT)",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [],
+   "ctf_category": null
+  },
+  {
+   "code": "750188",
+   "name": "CTC - Salary & Wages Expenses",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_PAYROLL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "752189",
+   "name": "CTD - Rent - Home (Expenses)",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [],
+   "ctf_category": null
+  },
+  {
+   "code": "752190",
+   "name": "CTD - Schooling Fees (Expenses)",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_PAYROLL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "752191",
+   "name": "CTD - Directors Remuneration",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_PAYROLL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "752192",
+   "name": "CTD - Directors Expenses",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_PAYROLL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "754193",
+   "name": "CTO - Air Tickets",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_PAYROLL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "754194",
+   "name": "CTO - Leave Salary",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_PAYROLL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "754195",
+   "name": "CTO - End Of Service Indemnity",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_PAYROLL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "754196",
+   "name": "CTO - Medical Insurance (Expenses)",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "754197",
+   "name": "CTO - Workmen Compensation",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_PAYROLL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "754198",
+   "name": "CTO - Staff School Allowances",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_PAYROLL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "754199",
+   "name": "CTO - Uniform",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_PAYROLL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "754200",
+   "name": "CTO - Visa Expenses",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_PAYROLL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "754201",
+   "name": "CTO - Rent Accommodation (Expenses)",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_PAYROLL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "754202",
+   "name": "CTO - Air Tickets",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [],
+   "ctf_category": null
+  },
+  {
+   "code": "754203",
+   "name": "CTO - WPS Service Charges",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_PAYROLL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "754204",
+   "name": "CTO - Training",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_PAYROLL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "756205",
+   "name": "GA - Rent - Office (Expenses)",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "756206",
+   "name": "GA - Rent - Warehouse (Expenses)",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "758207",
+   "name": "GA - Sponsorship Fees (Expenses)",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "758208",
+   "name": "GA - Trade License & Permit - Expenses",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760209",
+   "name": "GA - Rent Shop (Expenses)",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760210",
+   "name": "Utility - Water & Electricity (Expenses)",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760211",
+   "name": "Utility - Telephone, Mobile & Internet (Expenses)",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760212",
+   "name": "Utility - Cooling & Others",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760213",
+   "name": "GA - Courier Service Charges",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760214",
+   "name": "GA - Site Hosting Fees (Expesnses)",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760215",
+   "name": "GA - Interest Expense",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760216",
+   "name": "GA - Hotel & Travelling Expenses",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760217",
+   "name": "GA - Meal & Refreshment",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760218",
+   "name": "GA - Audit Fees",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760219",
+   "name": "GA - Legal Fees (Expenses)",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760220",
+   "name": "GA - Professional Fees",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760221",
+   "name": "GA - Office Repair & Maintenance",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760222",
+   "name": "GA - Security & Guard Expenses",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760223",
+   "name": "GA - Gifts & Donations",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760224",
+   "name": "GA - Convoyance Expenses",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760225",
+   "name": "GA - Bookkeeping Charge",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760226",
+   "name": "GA - Office Various Expenses",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760227",
+   "name": "GA - Bank Charges & Commissions",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_SELL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760228",
+   "name": "GA - Printing & Stationery",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760229",
+   "name": "GA - Fine Expenses",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760230",
+   "name": "GA - PO Box Expenses",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760231",
+   "name": "GA - IT & Networking Expenses",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760232",
+   "name": "Loss On Difference On Exchange",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "760236",
+   "name": "Write Off Doubtful Debts",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "762233",
+   "name": "Vehicle Expenses",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "762234",
+   "name": "Vehicle Fuel Expenses",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "762235",
+   "name": "Vehicle Repair & Maint. Expenses",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "864237",
+   "name": "Depreciation Costs",
+   "account_type": "expense_depreciation",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_DEPR_PL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "968238",
+   "name": "Income Tax",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.004",
+   "name": "10% Of Revolving Student Fund",
+   "account_type": "income",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_REV"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.016",
+   "name": "Entertainment Tax",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.026",
+   "name": "Maintanance Of Security And Safety Equipment",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.050",
+   "name": "Special Purpose Services",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.053",
+   "name": "Student Verification System",
+   "account_type": "expense",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_GNA"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.057",
+   "name": "Depreciation",
+   "account_type": "expense_depreciation",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_DEPR_PL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.058",
+   "name": "Amortisation",
+   "account_type": "expense_depreciation",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_DEPR_PL"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.059",
+   "name": "Statutory Loan Fund TSA",
+   "account_type": "asset_cash",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CASH",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.060",
+   "name": "ISOSYSTEMS (Nel) Operation TSA",
+   "account_type": "asset_cash",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CASH",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.061",
+   "name": "Student Revolving Fund - Cash",
+   "account_type": "asset_cash",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CASH",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.062",
+   "name": "Student Loans - Tuition Fee",
+   "account_type": "asset_receivable",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_AR",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.063",
+   "name": "Student Loan - Upkeep",
+   "account_type": "asset_receivable",
+   "reconcile": true,
+   "afg_groups": [
+    "AFG_AR",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.064",
+   "name": "Technology",
+   "account_type": "asset_fixed",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.065",
+   "name": "Accum Amortisation - ERP Software",
+   "account_type": "asset_fixed",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.067",
+   "name": "Accum Depr - Computer Equipments",
+   "account_type": "asset_fixed",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.069",
+   "name": "Accum Depr - Office Equipments",
+   "account_type": "asset_fixed",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.071",
+   "name": "Accum Depr - Office Furniture",
+   "account_type": "asset_fixed",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.073",
+   "name": "Accum Depr - Vehicles",
+   "account_type": "asset_fixed",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_FIXED",
+    "AFG_PPE"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.074",
+   "name": "Pension",
+   "account_type": "liability_current",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_AP",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.075",
+   "name": "National Housing Fund",
+   "account_type": "liability_current",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_AP",
+    "AFG_CF"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.076",
+   "name": "PAYE",
+   "account_type": "liability_current",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_TAX"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.077",
+   "name": "Value Added Tax (VAT)",
+   "account_type": "liability_current",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_TAX"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.078",
+   "name": "Witholding Tax",
+   "account_type": "liability_current",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_TAX"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.079",
+   "name": "Stamp Duty",
+   "account_type": "liability_current",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_TAX"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.080",
+   "name": "Student Revolving Fund - Fund",
+   "account_type": "equity",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_EQ",
+    "AFG_EQ_CHG"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "NEW.081",
+   "name": "Accummulated Surplus",
+   "account_type": "equity",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_EQ",
+    "AFG_EQ_CHG"
+   ],
+   "ctf_category": null
+  },
+  {
+   "code": "UE.000",
+   "name": "Undistributed Profits/Losses",
+   "account_type": "equity_unaffected",
+   "reconcile": false,
+   "afg_groups": [
+    "AFG_CF",
+    "AFG_EQ",
+    "AFG_EQ_CHG"
+   ],
+   "ctf_category": null
+  }
+ ]
+}

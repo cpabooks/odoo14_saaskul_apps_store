@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="audited_financials_saaskul.Dashboard">
+        <div class="o_afg_root o_afg_dark container-fluid" t-ref="root">
+            <div class="o_afg_dashboard_body">
+            <div class="o_afg_toolbar row align-items-center mb-2">
+                <div class="col-12">
+                    <button type="button" class="btn btn-sm btn-primary o_afg_btn_load_default">Load default data</button>
+                    <button type="button" class="btn btn-sm btn-info o_afg_btn_load_sample">Load sample data</button>
+                    <button type="button" class="btn btn-sm btn-secondary o_afg_btn_clear_adj">Clear adjustments</button>
+                    <button type="button" class="btn btn-sm btn-warning o_afg_btn_reload_periods">Reload to default periods</button>
+                    <label class="small mb-0 ml-2 mr-1 o_afg_export_depth_label">Report level</label>
+                    <select class="form-control form-control-sm d-inline-block o_afg_export_level" style="width:26rem;vertical-align:middle;">
+                        <option value="1">L1 — Official (FTA / banks)</option>
+                        <option value="5">L1 — Official (FTA / Bank) — Arabic Version</option>
+                        <option value="2">L2 — Management (with Type)</option>
+                        <option value="3" selected="selected">L3 — Detailed (with Group)</option>
+                        <option value="4">L4 — Working Papers</option>
+                    </select>
+                    <button type="button" class="btn btn-sm btn-secondary o_afg_btn_print">Print preview</button>
+                    <button type="button" class="btn btn-sm btn-primary o_afg_btn_print_simple">Print</button>
+                    <button type="button" class="btn btn-sm btn-primary o_afg_btn_print_audit">Print full audit (PDF)</button>
+                    <button type="button" class="btn btn-sm btn-primary o_afg_btn_ct_master">Export CT Master File</button>
+                    <button type="button" class="btn btn-sm btn-secondary o_afg_btn_export_xlsx">Export audit (Excel)</button>
+                    <button type="button" class="btn btn-sm btn-secondary o_afg_btn_export_word">Export audit (Word)</button>
+                    <button type="button" class="btn btn-sm btn-secondary o_afg_btn_export">Export lines (CSV)</button>
+                </div>
+            </div>
+            <div class="o_afg_page_setup_row row align-items-center mb-2">
+                <div class="col-12 text-center o_afg_dpi_bar">
+                    <span class="small mr-2">DPI</span>
+                    <button type="button" class="btn btn-sm btn-secondary o_afg_dpi_btn" data-dpi-delta="-15">−15</button>
+                    <button type="button" class="btn btn-sm btn-secondary o_afg_dpi_btn" data-dpi-delta="-10">−10</button>
+                    <button type="button" class="btn btn-sm btn-secondary o_afg_dpi_btn" data-dpi-delta="-5">−5</button>
+                    <span class="o_afg_dpi_value badge badge-light mx-2" style="font-size:14px;min-width:3rem;">90</span>
+                    <button type="button" class="btn btn-sm btn-secondary o_afg_dpi_btn" data-dpi-delta="5">+5</button>
+                    <button type="button" class="btn btn-sm btn-secondary o_afg_dpi_btn" data-dpi-delta="10">+10</button>
+                    <button type="button" class="btn btn-sm btn-secondary o_afg_dpi_btn" data-dpi-delta="15">+15</button>
+                    <label class="small mb-0 ml-4 o_afg_print_financials_label" style="color:#e8eef6;cursor:pointer;">
+                        <input type="checkbox" class="o_afg_print_financials mr-1" checked="checked"/>
+                        Print financials
+                    </label>
+                </div>
+            </div>
+            <div class="o_afg_period_row row mb-2">
+                <div class="col-12">
+                    <span class="small text-muted d-block mb-1">Comparative period</span>
+                    <div class="o_afg_period_presets d-flex flex-wrap align-items-stretch"/>
+                    <div class="o_afg_custom_period_panel mt-2" style="display:none;">
+                        <div class="o_afg_custom_period_grid">
+                            <div class="o_afg_custom_period_block">
+                                <div class="o_afg_custom_period_label">Prior</div>
+                                <label class="small mb-0">From</label>
+                                <input type="date" class="form-control form-control-sm o_afg_custom_dfp mb-1"/>
+                                <label class="small mb-0">To</label>
+                                <input type="date" class="form-control form-control-sm o_afg_custom_dtp"/>
+                            </div>
+                            <div class="o_afg_custom_period_block">
+                                <div class="o_afg_custom_period_label">Current</div>
+                                <label class="small mb-0">From</label>
+                                <input type="date" class="form-control form-control-sm o_afg_custom_dfc mb-1"/>
+                                <label class="small mb-0">To</label>
+                                <input type="date" class="form-control form-control-sm o_afg_custom_dtc"/>
+                            </div>
+                            <div class="o_afg_custom_period_actions">
+                                <button type="button" class="btn btn-sm btn-primary o_afg_btn_apply_custom">Apply custom &amp; reload</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="o_afg_filters_row row align-items-end mb-2">
+                <div class="col-12 text-right">
+                    <div class="btn-group btn-group-sm ml-md-2 mt-2 mt-md-0" role="group"/>
+                </div>
+            </div>
+            <div class="o_afg_empty alert alert-warning" style="display:none;" role="status"/>
+            <div class="o_afg_header row">
+                <div class="col-md-8">
+                    <h2 class="o_afg_title">Cpabooks Audited Financials</h2>
+                    <div class="o_afg_meta text-muted">
+                        <span class="o_afg_company d-none" aria-hidden="true"/>
+                        <span class="o_afg_period"/>
+                        <span class="o_afg_curr"/>
+                        <span class="o_afg_state badge badge-secondary ml-2"/>
+                        <span class="o_afg_data_state badge badge-info ml-2"/>
+                        <button type="button" class="btn btn-sm btn-warning ml-2 o_afg_btn_merge_ledger"
+                                title="Find similar / duplicate ledger names and rename on CoA">Merge Ledger</button>
+                    </div>
+                </div>
+                <div class="col-md-4 text-right o_afg_actions">
+                    <button type="button" class="btn btn-sm btn-primary o_afg_btn_print_fta"
+                            style="display:none;"
+                            title="Print corporate tax filing only">Print</button>
+                </div>
+            </div>
+            <div class="row o_afg_body">
+                <div class="col-md-2 o_afg_sidebar">
+                    <ul class="list-group o_afg_nav">
+                        <li class="list-group-item o_afg_nav_group">Audited Financial</li>
+                        <li class="list-group-item" data-section="pl"><a href="#">Overview</a></li>
+
+                        <li class="list-group-item o_afg_nav_group">Configuration</li>
+                        <li class="list-group-item" data-action-xmlid="audited_financials_saaskul.action_afg_chart_of_accounts"><a href="#">Chart of Accounts</a></li>
+
+                        <li class="list-group-item o_afg_nav_group">Financial Statements</li>
+                        <li class="list-group-item" data-section="pl"><a href="#">Statement of Profit or Loss</a></li>
+                        <li class="list-group-item" data-section="bs"><a href="#">Statement of Financial Position</a></li>
+                        <li class="list-group-item" data-section="fta"><a href="#">CORPORATE TAX FILING- FTA</a></li>
+                        <li class="list-group-item" data-section="equity"><a href="#">Statement of Changes in Equity</a></li>
+                        <li class="list-group-item" data-section="cashflow"><a href="#">Statement of Cash Flows</a></li>
+                        <li class="list-group-item" data-section="fixed_assets"><a href="#">Property, Plant and Equipment</a></li>
+                        <li class="list-group-item" data-section="notes"><a href="#">Notes to the Financial Statements</a></li>
+                        <li class="list-group-item" data-section="review"><a href="#">Validation</a></li>
+                        <li class="list-group-item o_afg_nav_tb" data-section="tb"><a href="#">Trial Balance</a></li>
+                        <li class="list-group-item o_afg_nav_tb" data-section="tb_x"><a href="#">Trial Balance_x</a></li>
+
+                        <li class="list-group-item o_afg_nav_group">Saved</li>
+                        <li class="list-group-item" data-action-xmlid="audited_financials_saaskul.action_audited_financial_version"><a href="#">Saved versions</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-7 o_afg_main">
+                    <div class="o_afg_section_title h4"/>
+                    <p class="o_afg_tb_asof text-muted small" style="display:none;"/>
+                    <div class="o_afg_table_wrap table-responsive">
+                        <table class="table table-sm table-striped o_afg_table">
+                            <thead class="o_afg_thead">
+                                <tr class="o_afg_thr_first">
+                                    <th class="o_afg_th_hash">#</th>
+                                    <th class="o_afg_th_desc">Description</th>
+                                    <th class="o_afg_th_notes">Notes</th>
+                                    <th class="text-right o_afg_y1">Prior</th>
+                                    <th class="text-right o_afg_y2">Current</th>
+                                </tr>
+                            </thead>
+                            <tbody class="o_afg_tbody"/>
+                        </table>
+                    </div>
+                    <div class="o_afg_tb_panels" style="display:none;"/>
+                    <div class="o_afg_fa_wrap" style="display:none;"/>
+                    <div class="o_afg_tb_wrap table-responsive" style="display:none;">
+                        <table class="table table-sm table-striped o_afg_tb_table">
+                            <thead class="o_afg_tb_thead"/>
+                            <tbody class="o_afg_tb_tbody"/>
+                        </table>
+                    </div>
+                    <div class="o_afg_notes panel panel-default" style="display:none;">
+                        <div class="o_afg_notes_body"/>
+                    </div>
+                    <div class="o_afg_review panel panel-default" style="display:none;">
+                        <p class="text-muted">Validation PASS/FAIL and mapping alerts (management / FTA pack — not an audit).</p>
+                        <div class="o_afg_alerts"/>
+                    </div>
+                </div>
+                <div class="col-md-3 o_afg_alerts_col">
+                    <div class="card o_afg_alert_card">
+                        <div class="card-header">Review alerts</div>
+                        <div class="card-body o_afg_alerts_side"/>
+                    </div>
+                    <div class="card o_afg_internal_notes_card mt-2">
+                        <div class="card-header">Internal notes / actions</div>
+                        <div class="card-body">
+                            <textarea class="form-control form-control-sm o_afg_internal_notes"
+                                      rows="8"
+                                      placeholder="What is missing and what to do next (not printed)"/>
+                            <button type="button" class="btn btn-sm btn-secondary mt-2 o_afg_btn_save_internal_notes">Save notes</button>
+                            <div class="small text-muted mt-1 o_afg_internal_notes_status"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </t>
+</templates>

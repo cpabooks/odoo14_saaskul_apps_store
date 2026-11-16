@@ -1,0 +1,934 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        v105 is the real template. The legacy xmlid only redirects so any leftover
+        report_name / Studio inherit of the old arch cannot keep calling schedules.get.
+    -->
+    <template id="afg_audit_report_pdf_v105">
+        <!-- Must be BEFORE html_container — attributes land on <html data-report-margin-top> -->
+        <t t-set="data_report_margin_top" t-value="int((document or {}).get('margin_header') or 5)"/>
+        <t t-set="data_report_header_spacing" t-value="0"/>
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="afg_doc" t-value="document or {}"/>
+                <t t-set="afg_cover" t-value="(cover or afg_doc.get('cover') or {}) or {}"/>
+                <t t-set="afg_chapters" t-value="(chapters or afg_doc.get('chapters') or []) or []"/>
+                <t t-set="afg_yp" t-value="year_prior or afg_doc.get('year_prior') or ''"/>
+                <t t-set="afg_yc" t-value="year_current or afg_doc.get('year_current') or ''"/>
+                <t t-set="afg_curr" t-value="currency or afg_doc.get('currency') or 'AED'"/>
+                <t t-set="afg_sign" t-value="signatory_label or afg_doc.get('signatory_label') or 'Authorized Signatory'"/>
+                <t t-set="afg_sig" t-value="(signatory or afg_doc.get('signatory') or {}) or {}"/>
+                <t t-set="afg_sgap" t-value="int(afg_doc.get('sign_gap_pt') or 28)"/>
+                <t t-set="afg_sign_last" t-value="bool(afg_doc.get('sign_last_only'))"/>
+                <t t-set="afg_print_cover" t-value="bool(afg_doc.get('print_cover') if afg_doc.get('print_cover') is not None else True)"/>
+                <t t-set="afg_contents_titles" t-value="afg_doc.get('contents_titles') or []"/>
+                <t t-set="afg_pts" t-value="doc._afg_pdf_type_pts()"/>
+
+                <!-- Margins come from report.paperformat (mm), not CSS padding — padding caused fake/double gaps. -->
+                <div t-att-class="'o_afg_audit_pdf' + (' o_afg_rtl' if (rtl or afg_doc.get('rtl') or (afg_doc.get('report_pack') or {}).get('rtl')) else '') + (' o_afg_compact_hf' if afg_doc.get('compact_hf') else '')"
+                     t-att-dir="'rtl' if (rtl or afg_doc.get('rtl') or (afg_doc.get('report_pack') or {}).get('rtl')) else 'ltr'">
+                    <style type="text/css">
+                        .o_afg_audit_pdf { font-family: DejaVu Sans, Arial, sans-serif; font-size: 10pt; color: #1a1a1a; padding: 0; margin: 0; }
+                        .o_afg_audit_pdf .rpt-hdr { margin: 0 0 8pt 0; }
+                        .o_afg_audit_pdf.o_afg_compact_hf .rpt-hdr { margin: 0 0 3pt 0; }
+                        .o_afg_audit_pdf.o_afg_compact_hf .rpt-hdr .co { font-size: 11pt; }
+                        .o_afg_audit_pdf.o_afg_compact_hf .rpt-hdr .rn { font-size: 10pt; margin: 1pt 0 0 0; }
+                        .o_afg_audit_pdf.o_afg_compact_hf .rpt-hdr .pd { font-size: 9pt; margin: 1pt 0 0 0; }
+                        .o_afg_audit_pdf.o_afg_compact_hf .disc { padding-top: 4pt; margin: 6pt 0 8pt 0; font-size: 8.5pt; }
+                        .o_afg_audit_pdf .rpt-hdr .co {
+                            font-size: 13pt; font-weight: bold; text-transform: uppercase; margin: 0;
+                        }
+                        .o_afg_audit_pdf .rpt-hdr .rn {
+                            font-size: 11pt; font-weight: bold; margin: 2pt 0 0 0;
+                        }
+                        .o_afg_audit_pdf .rpt-hdr .pd {
+                            font-size: 10pt; font-weight: bold; margin: 2pt 0 0 0;
+                        }
+                        .o_afg_audit_pdf .chapter { page-break-before: always; page-break-inside: auto; margin-top: 0; }
+                        .o_afg_audit_pdf .chapter.first,
+                        .o_afg_audit_pdf .o_afg_cover_letter {
+                            page-break-before: auto !important;
+                            page-break-after: always;
+                            min-height: 240mm;
+                        }
+                        .o_afg_audit_pdf .o_afg_cover_letter .co { font-size: 16pt; }
+                        .o_afg_audit_pdf .o_afg_cover_letter .rn { font-size: 18pt; margin-top: 24pt; }
+                        .o_afg_audit_pdf h3 { font-size: 11pt; color: #344d5f; margin: 10pt 0 4pt 0; }
+                        .o_afg_audit_pdf .block-title {
+                            font-size: 10pt; font-weight: bold; color: #1e3a5f; margin: 12pt 0 4pt 0;
+                        }
+                        .o_afg_audit_pdf .disc {
+                            font-size: 9.5pt; font-weight: normal; font-style: italic;
+                            color: #555555; text-align: left;
+                            border-top: 1px solid #d0d0d0;
+                            padding-top: 10pt; margin: 16pt 0 18pt 0;
+                            background: none; border-left: none; border-right: none; border-bottom: none;
+                        }
+                        .o_afg_audit_pdf table {
+                            width: 100%; border-collapse: collapse; font-size: 10pt; margin: 4pt 0 8pt 0;
+                            table-layout: fixed; page-break-inside: auto;
+                        }
+                        .o_afg_audit_pdf thead { display: table-header-group; }
+                        .o_afg_audit_pdf tbody { display: table-row-group; }
+                        .o_afg_audit_pdf tr { page-break-inside: avoid; page-break-after: auto; }
+                        .o_afg_audit_pdf table.o_afg_ppe,
+                        .o_afg_audit_pdf table.o_afg_soce {
+                            table-layout: fixed; width: 100%;
+                        }
+                        .o_afg_audit_pdf table.o_afg_ppe th:first-child,
+                        .o_afg_audit_pdf table.o_afg_ppe td:first-child,
+                        .o_afg_audit_pdf table.o_afg_soce th:first-child,
+                        .o_afg_audit_pdf table.o_afg_soce td:first-child {
+                            word-wrap: break-word; overflow-wrap: break-word; white-space: normal;
+                        }
+                        .o_afg_audit_pdf table.o_afg_ppe th.amt,
+                        .o_afg_audit_pdf table.o_afg_ppe td.amt,
+                        .o_afg_audit_pdf table.o_afg_soce th.amt,
+                        .o_afg_audit_pdf table.o_afg_soce td.amt {
+                            white-space: nowrap; overflow: hidden; text-overflow: clip;
+                            word-wrap: normal; overflow-wrap: normal;
+                        }
+                        .o_afg_audit_pdf table.o_afg_ppe th,
+                        .o_afg_audit_pdf table.o_afg_soce th {
+                            font-size: 7pt; line-height: 1.15;
+                        }
+                        .o_afg_audit_pdf table.o_afg_soce th.soce-yr {
+                            font-size: 6.5pt; font-weight: normal;
+                        }
+                        .o_afg_audit_pdf.o_afg_rtl {
+                            direction: rtl; text-align: right;
+                        }
+                        .o_afg_audit_pdf.o_afg_rtl .amt { text-align: left; }
+                        .o_afg_audit_pdf.o_afg_rtl th, .o_afg_audit_pdf.o_afg_rtl td {
+                            text-align: right;
+                        }
+                        .o_afg_audit_pdf.o_afg_rtl .amt { text-align: left; }
+                        .o_afg_audit_pdf th, .o_afg_audit_pdf td {
+                            border: none; padding: 2pt 4pt; vertical-align: top; color: #000;
+                        }
+                        .o_afg_audit_pdf th { background: none; color: #000; text-align: center; font-weight: normal; border-bottom: 1px solid #000; }
+                        .o_afg_audit_pdf table.o_afg_stmt { border-collapse: collapse; }
+                        .o_afg_audit_pdf table.o_afg_stmt tr.total td { border-top: 1px solid #000; border-bottom: 3px double #000; background: none; }
+                        .o_afg_audit_pdf table.o_afg_stmt tr.bold td { background: none; }
+                        .o_afg_audit_pdf table.o_afg_stmt tr.section td { font-weight: bold; text-decoration: underline; background: none; }
+                        .o_afg_audit_pdf .rpt-hdr .place { font-size: 10pt; margin-top: 1pt; }
+                        .o_afg_audit_pdf .rpt-hdr .unit { font-size: 10pt; margin-top: 1pt; }
+                        .o_afg_audit_pdf .amt { text-align: right; white-space: nowrap; min-width: 72pt; }
+                        .o_afg_audit_pdf table.o_afg_tb_face,
+                        .o_afg_audit_pdf table.o_afg_many_amts {
+                            font-size: 8pt;
+                        }
+                        .o_afg_audit_pdf table.o_afg_tb_face .amt,
+                        .o_afg_audit_pdf table.o_afg_many_amts .amt {
+                            min-width: 0;
+                            white-space: normal;
+                            word-break: break-word;
+                            overflow-wrap: break-word;
+                            font-size: 7pt;
+                            line-height: 1.15;
+                            padding: 2pt 2pt;
+                        }
+                        .o_afg_audit_pdf table.o_afg_tb_face th.amt,
+                        .o_afg_audit_pdf table.o_afg_many_amts th.amt {
+                            font-size: 6.5pt;
+                            font-weight: 600;
+                        }
+                        .o_afg_audit_pdf table.o_afg_tb_face td:nth-child(2),
+                        .o_afg_audit_pdf table.o_afg_many_amts td:nth-child(2) {
+                            font-size: 8pt;
+                            line-height: 1.2;
+                            overflow-wrap: break-word;
+                            word-break: break-word;
+                        }
+                        .o_afg_audit_pdf tr.bold td { font-weight: bold; background: none; }
+                        .o_afg_audit_pdf tr.total td {
+                            font-weight: bold; background: none;
+                            border-top: 1px solid #000; border-bottom: 3px double #000;
+                        }
+                        .o_afg_audit_pdf .sign,
+                        .o_afg_audit_pdf table.sign-keep {
+                            margin-top: 8pt;
+                            page-break-inside: avoid !important;
+                            break-inside: avoid !important;
+                            page-break-before: avoid;
+                            width: auto;
+                            border: none !important;
+                        }
+                        .o_afg_audit_pdf table.sign-keep td {
+                            border: none !important;
+                            padding: 0 !important;
+                            background: transparent !important;
+                            text-align: left;
+                            vertical-align: top;
+                        }
+                        .o_afg_audit_pdf.o_afg_compact_hf .sign,
+                        .o_afg_audit_pdf.o_afg_compact_hf table.sign-keep {
+                            margin-top: 4pt;
+                        }
+                        .o_afg_audit_pdf .sign .for { color: #1e3a5f; margin-bottom: 2pt; }
+                        .o_afg_audit_pdf .sign .entity {
+                            font-weight: bold; text-transform: uppercase; margin-bottom: 2pt;
+                        }
+                        .o_afg_audit_pdf .sign .sign-media {
+                            margin: 2pt 0 2pt 0;
+                            page-break-inside: avoid;
+                            break-inside: avoid;
+                        }
+                        .o_afg_audit_pdf .sign .afg-stamp {
+                            max-height: 72pt; max-width: 72pt; margin-right: 10pt; vertical-align: middle;
+                        }
+                        .o_afg_audit_pdf.o_afg_compact_hf .sign .afg-stamp {
+                            max-height: 48pt; max-width: 48pt;
+                        }
+                        .o_afg_audit_pdf .sign .afg-signature {
+                            max-height: 48pt; max-width: 110pt; vertical-align: middle;
+                        }
+                        .o_afg_audit_pdf.o_afg_compact_hf .sign .afg-signature {
+                            max-height: 36pt; max-width: 90pt;
+                        }
+                        .o_afg_audit_pdf .sign .uline {
+                            border-bottom: 1.5px solid #000; width: 160pt;
+                            margin: 0 0 2pt 0; padding: 0;
+                        }
+                        .o_afg_audit_pdf.o_afg_compact_hf .sign .uline {
+                            width: 120pt;
+                        }
+                        .o_afg_audit_pdf .sign .lab { font-weight: bold; margin: 0; }
+                        .o_afg_audit_pdf .o_stat_page { font-family: "Times New Roman", "Liberation Serif", "DejaVu Serif", serif; font-size: 11pt; color: #000; }
+                        .o_afg_audit_pdf .o_stat_page .co { font-weight: bold; font-size: 12pt; text-transform: uppercase; }
+                        .o_afg_audit_pdf .o_stat_page .place { font-size: 11pt; margin-top: 1pt; }
+                        .o_afg_audit_pdf .o_stat_page .title { font-weight: bold; font-size: 12pt; margin-top: 12pt; letter-spacing: 0.2pt; }
+                        .o_afg_audit_pdf .o_stat_page .period { font-weight: bold; font-size: 11pt; margin-top: 1pt; }
+                        .o_afg_audit_pdf .o_stat_page .unit { font-size: 11pt; margin: 1pt 0 10pt 0; }
+                        .o_afg_audit_pdf .o_stat_page table { width: 100%; border-collapse: collapse; margin-top: 6pt; }
+                        .o_afg_audit_pdf .o_stat_page th, .o_afg_audit_pdf .o_stat_page td { border: none; background: none; color: #000; font-size: 11pt; font-weight: normal; padding: 2pt 4pt; }
+                        .o_afg_audit_pdf .o_stat_page th { border-bottom: 1px solid #000; text-align: center; font-weight: bold; }
+                        .o_afg_audit_pdf .o_stat_page td.lbl { text-align: left; }
+                        .o_afg_audit_pdf .o_stat_page td.note, .o_afg_audit_pdf .o_stat_page th.note { width: 12%; text-align: center; }
+                        .o_afg_audit_pdf .o_stat_page td.num, .o_afg_audit_pdf .o_stat_page th.num { width: 16%; text-align: right; }
+                        .o_afg_audit_pdf .o_stat_page tr.sec td.lbl { font-weight: bold; text-decoration: underline; padding-top: 8pt; }
+                        .o_afg_audit_pdf .o_stat_page tr.indent td.lbl { padding-left: 14pt; }
+                        .o_afg_audit_pdf .o_stat_page tr.single td.num { border-top: 1px solid #000; }
+                        .o_afg_audit_pdf .o_stat_page tr.double td.num { border-top: 1px solid #000; border-bottom: 3px double #000; }
+                        .o_afg_audit_pdf .o_stat_page .md { margin-top: 26pt; font-size: 11pt; }
+                        .o_afg_audit_pdf .o_stat_page .pg { text-align: center; margin-top: 22pt; font-size: 11pt; }
+                        .o_afg_audit_pdf .o_cover_sheet { min-height: 640pt; display: -webkit-box; display: flex; -webkit-box-orient: vertical; -webkit-box-pack: center; flex-direction: column; justify-content: center; -webkit-box-align: center; align-items: center; }
+                        .o_afg_audit_pdf .o_cover_head { text-align: center; width: 100%; }
+                        .o_afg_audit_pdf .o_cover_companies { margin-top: 78pt; text-align: left; width: 420pt; }
+                        .o_afg_audit_pdf .o_cover_companies p { margin: 2pt 0; text-align: left; }
+                        .o_afg_audit_pdf .o_cover_caption { text-align: center; margin-bottom: 8pt; }
+                        .o_afg_audit_pdf .o_index_table { width: 100%; border-collapse: collapse; margin-top: 14pt; }
+                        .o_afg_audit_pdf .o_index_table th { border-bottom: 1px solid #000; font-weight: bold; text-align: left; padding: 3pt 6pt; }
+                        .o_afg_audit_pdf .o_index_table td { padding: 3pt 6pt; text-align: left; }
+                        .o_afg_audit_pdf .o_index_table td.sr { width: 8%; }
+                        .o_afg_audit_pdf .o_index_table td.pgno, .o_afg_audit_pdf .o_index_table th.pg { width: 14%; text-align: right; }
+                        /* DPI scales pt text. Paperformat DPI does not. Wider amount columns stop year figures overlapping. */
+                        .o_afg_audit_pdf { font-size: <t t-esc="afg_pts.get('body')"/>pt; }
+                        .o_afg_audit_pdf .rpt-hdr .co { font-size: <t t-esc="afg_pts.get('title')"/>pt; }
+                        .o_afg_audit_pdf .rpt-hdr .rn,
+                        .o_afg_audit_pdf .rpt-hdr .pd,
+                        .o_afg_audit_pdf .rpt-hdr .place,
+                        .o_afg_audit_pdf .rpt-hdr .unit { font-size: <t t-esc="afg_pts.get('stat')"/>pt; }
+                        .o_afg_audit_pdf .o_stat_page { font-size: <t t-esc="afg_pts.get('stat')"/>pt; }
+                        .o_afg_audit_pdf .o_stat_page .co,
+                        .o_afg_audit_pdf .o_stat_page .title { font-size: <t t-esc="afg_pts.get('title')"/>pt; }
+                        .o_afg_audit_pdf .o_stat_page .place,
+                        .o_afg_audit_pdf .o_stat_page .period,
+                        .o_afg_audit_pdf .o_stat_page .unit,
+                        .o_afg_audit_pdf .o_stat_page .md,
+                        .o_afg_audit_pdf .o_stat_page .pg { font-size: <t t-esc="afg_pts.get('stat')"/>pt; }
+                        .o_afg_audit_pdf .o_stat_page th,
+                        .o_afg_audit_pdf .o_stat_page td { font-size: <t t-esc="afg_pts.get('stat')"/>pt; }
+                        .o_afg_audit_pdf .o_stat_page table { table-layout: fixed; width: 100%; }
+                        .o_afg_audit_pdf .o_stat_page td.num,
+                        .o_afg_audit_pdf .o_stat_page th.num {
+                            white-space: nowrap;
+                            text-align: right;
+                            padding-left: 8pt;
+                            padding-right: 1pt;
+                        }
+                        .o_afg_audit_pdf .o_stat_page table.o_afg_amt_2 td.note,
+                        .o_afg_audit_pdf .o_stat_page table.o_afg_amt_2 th.note { width: 7%; }
+                        .o_afg_audit_pdf .o_stat_page table.o_afg_amt_2 td.num,
+                        .o_afg_audit_pdf .o_stat_page table.o_afg_amt_2 th.num {
+                            width: 27%;
+                            font-size: <t t-esc="afg_pts.get('num2')"/>pt;
+                        }
+                        .o_afg_audit_pdf .o_stat_page table.o_afg_amt_4 td.num,
+                        .o_afg_audit_pdf .o_stat_page table.o_afg_amt_4 th.num {
+                            width: 17%;
+                            font-size: <t t-esc="afg_pts.get('num4')"/>pt;
+                            white-space: nowrap;
+                        }
+                        .o_afg_audit_pdf .o_stat_page table.o_afg_amt_4 th.num {
+                            white-space: normal;
+                            line-height: 1.2;
+                            vertical-align: bottom;
+                        }
+                        .o_afg_audit_pdf table.o_afg_stmt { table-layout: fixed; width: 100%; }
+                        .o_afg_audit_pdf table.o_afg_stmt td.amt,
+                        .o_afg_audit_pdf table.o_afg_stmt th.amt {
+                            width: 22%;
+                            min-width: 0;
+                            white-space: nowrap;
+                            font-size: <t t-esc="afg_pts.get('num2')"/>pt;
+                            padding-left: 6pt;
+                            padding-right: 1pt;
+                        }
+                        .o_afg_audit_pdf table.o_afg_many_amts td.amt,
+                        .o_afg_audit_pdf table.o_afg_many_amts th.amt,
+                        .o_afg_audit_pdf table.o_afg_tb_face td.amt,
+                        .o_afg_audit_pdf table.o_afg_tb_face th.amt {
+                            min-width: 0;
+                            font-size: <t t-esc="afg_pts.get('amt')"/>pt;
+                        }
+                    </style>
+
+                    <div class="chapter first o_afg_cover_letter" t-if="afg_print_cover and not (afg_chapters and (afg_chapters[0].get('kind') or '') == 'statutory_page')">
+                        <div class="rpt-hdr">
+                            <div class="co" t-esc="afg_cover.get('entity') or ''"/>
+                            <div class="rn" t-esc="afg_cover.get('title') or 'Financial Statements'"/>
+                            <div class="pd">
+                                <t t-esc="afg_cover.get('period') or ''"/>
+                                <t t-if="afg_curr"> — <t t-esc="afg_curr"/></t>
+                            </div>
+                        </div>
+                        <p t-esc="afg_cover.get('subtitle') or ''"/>
+                        <div class="disc" t-esc="afg_cover.get('disclaimer') or ''"/>
+                        <h3>Contents</h3>
+                        <ul>
+                            <t t-foreach="afg_contents_titles or []" t-as="ctitle">
+                                <t t-if="ctitle">
+                                    <li t-esc="ctitle"/>
+                                </t>
+                            </t>
+                        </ul>
+                    </div>
+
+                    <t t-if="not afg_chapters">
+                        <div class="rpt-hdr">
+                            <div class="co" t-esc="afg_cover.get('entity') or ''"/>
+                            <div class="rn" t-esc="afg_cover.get('title') or 'Audited Financial Statements'"/>
+                            <div class="pd">
+                                <t t-esc="afg_cover.get('period') or ('As at 31 December %s' % afg_yc)"/>
+                                <t t-if="afg_curr"> — <t t-esc="afg_curr"/></t>
+                            </div>
+                        </div>
+                        <p>No audited statement lines were available for this version.</p>
+                    </t>
+
+                    <t t-set="first_chapter" t-value="not afg_print_cover"/>
+                    <t t-foreach="afg_chapters" t-as="ch">
+                        <t t-if="ch and (ch.get('kind') or '') != 'cover' and (ch.get('key') or '') != 'cover'">
+                            <t t-set="hdr" t-value="(ch.get('header') or {}) if ch else {}"/>
+                            <div t-att-class="(first_chapter and 'chapter first' or 'chapter')">
+                                <t t-set="first_chapter" t-value="False"/>
+                                <t t-set="is_cover" t-value="False"/>
+                                <t t-if="(ch.get('kind') or '') == 'statutory_page'">
+                                    <div t-att-class="'o_stat_page o_cover_sheet' if (ch.get('key') or '') == 'cover_fs' else 'o_stat_page'">
+                                        <div t-att-class="'o_cover_head' if (ch.get('key') or '') == 'cover_fs' else ''">
+                                            <div class="co" t-esc="ch.get('company') or ''"/>
+                                            <div class="place" t-esc="ch.get('place') or ''"/>
+                                            <div class="title" t-esc="ch.get('title') or ''"/>
+                                            <div class="period" t-esc="ch.get('period') or ''"/>
+                                            <div class="unit" t-esc="ch.get('unit') or ''"/>
+                                        </div>
+                                        <t t-if="ch.get('narrative') and (ch.get('key') or '') == 'index_fs'">
+                                            <table class="o_index_table">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="sr">Sr.</th>
+                                                        <th>Particulars</th>
+                                                        <th class="pg">Page</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="ch.get('rows') or []" t-as="srow">
+                                                        <tr>
+                                                            <td class="sr" t-esc="srow.get('label') or ''"/>
+                                                            <td class="idxname" t-esc="(srow.get('cells') or [{}])[0].get('text') or ''"/>
+                                                            <td class="pgno" t-esc="(srow.get('cells') or [{}, {}])[1].get('text') if len(srow.get('cells') or []) &gt; 1 else ''"/>
+                                                        </tr>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                        </t>
+                                        <t t-elif="ch.get('narrative')">
+                                            <div t-att-class="'o_cover_companies' if (ch.get('key') or '') == 'cover_fs' else ''">
+                                                <t t-foreach="ch.get('rows') or []" t-as="srow">
+                                                    <p t-att-class="'o_cover_caption' if (ch.get('key') or '') == 'cover_fs' and (srow.get('label') or '') == 'Companies Included' else (srow.get('cls') or None)" t-esc="srow.get('label') or ''"/>
+                                                </t>
+                                            </div>
+                                            <div class="pg" t-esc="ch.get('page') or ''"/>
+                                        </t>
+                                        <t t-else="">
+                                        <t t-set="afg_nnum" t-value="len([h for h in (ch.get('heads') or []) if (h.get('cls') or '') == 'num'])"/>
+                                        <table t-attf-class="o_afg_amt_{{afg_nnum}}">
+                                            <thead>
+                                                <tr>
+                                                    <th class="lbl"/>
+                                                    <t t-foreach="ch.get('heads') or []" t-as="head">
+                                                        <th t-att-class="head.get('cls') or ''" t-esc="head.get('label') or ''"/>
+                                                    </t>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="ch.get('rows') or []" t-as="srow">
+                                                    <tr t-att-class="srow.get('cls') or None">
+                                                        <td class="lbl" t-esc="srow.get('label') or ''"/>
+                                                        <t t-foreach="srow.get('cells') or []" t-as="cell">
+                                                            <td t-att-class="cell.get('cls') or ''" t-esc="cell.get('text') or ''"/>
+                                                        </t>
+                                                    </tr>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                        <div class="md">(Managing Director)</div>
+                                        <div class="pg" t-esc="ch.get('page') or ''"/>
+                                        </t>
+                                    </div>
+                                </t>
+                                <t t-else="">
+                                <div class="rpt-hdr">
+                                    <div class="co" t-esc="hdr.get('company') or afg_cover.get('entity') or ''"/>
+                                    <div class="place" t-esc="hdr.get('place') or ''"/>
+                                    <div class="rn" t-esc="hdr.get('report_name') or ch.get('title') or ''"/>
+                                    <div class="pd" t-esc="hdr.get('period') or ('As at 31 December %s' % afg_yc)"/>
+                                    <div class="unit" t-esc="hdr.get('unit') or ''"/>
+                                </div>
+
+                                <t t-set="kind" t-value="ch.get('kind') or 'statement'"/>
+                                <t t-set="is_cover" t-value="kind == 'cover' or (ch.get('key') or '') == 'cover'"/>
+                                <t t-set="ch_rows" t-value="ch.get('rows') or []"/>
+                                <t t-set="ch_notes" t-value="ch.get('notes') or []"/>
+
+                                <t t-if="is_cover">
+                                    <t t-set="cov" t-value="(ch.get('cover') or afg_cover) or {}"/>
+                                    <p t-esc="cov.get('subtitle') or ''"/>
+                                    <div class="disc" t-esc="cov.get('disclaimer') or ''"/>
+                                    <h3>Contents</h3>
+                                    <ul>
+                                        <t t-foreach="ch.get('contents_titles') or []" t-as="ctitle">
+                                            <t t-if="ctitle">
+                                                <li t-esc="ctitle"/>
+                                            </t>
+                                        </t>
+                                    </ul>
+                                </t>
+
+                                <t t-elif="kind == 'notes'">
+                                    <t t-foreach="ch_notes" t-as="note">
+                                        <t t-if="note">
+                                            <h3 t-esc="note.get('title') or ''"/>
+                                            <div t-out="note.get('body') or ''"/>
+                                        </t>
+                                    </t>
+                                </t>
+
+                                <t t-elif="kind == 'validation'">
+                                    <t t-set="vals" t-value="ch.get('validations') or []"/>
+                                    <p>
+                                        <strong>Overall status:
+                                            <t t-esc="ch.get('overall') or 'PASS'"/>
+                                        </strong>
+                                    </p>
+                                    <t t-if="(ch.get('overall') or '') == 'FAIL'">
+                                        <p style="color:#a94442;font-weight:bold;">FINANCIAL STATEMENTS NOT RECONCILED</p>
+                                    </t>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Check</th>
+                                                <th>Status</th>
+                                                <th>Detail</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="vals" t-as="v">
+                                                <t t-if="v">
+                                                    <tr>
+                                                        <td t-esc="v.get('name') or ''"/>
+                                                        <td t-esc="v.get('status') or ''"/>
+                                                        <td t-esc="v.get('detail') or ''"/>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </t>
+
+                                <t t-elif="kind == 'fs_recon'">
+                                    <t t-set="recon" t-value="ch.get('recon') or {}"/>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Type</th>
+                                                <th class="amt">TB Prior</th>
+                                                <th class="amt">Adj Prior</th>
+                                                <th class="amt">FS Prior</th>
+                                                <th class="amt">TB Current</th>
+                                                <th class="amt">Adj Current</th>
+                                                <th class="amt">FS Current</th>
+                                                <th>OK</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="recon.get('rows') or []" t-as="rr">
+                                                <t t-if="rr">
+                                                    <tr>
+                                                        <td t-esc="rr.get('label') or ''"/>
+                                                        <td class="amt" t-esc="'%.2f' % (rr.get('tb_prior') or 0.0)"/>
+                                                        <td class="amt" t-esc="'%.2f' % (rr.get('adj_prior') or 0.0)"/>
+                                                        <td class="amt" t-esc="'%.2f' % (rr.get('fs_prior') or 0.0)"/>
+                                                        <td class="amt" t-esc="'%.2f' % (rr.get('tb_current') or 0.0)"/>
+                                                        <td class="amt" t-esc="'%.2f' % (rr.get('adj_current') or 0.0)"/>
+                                                        <td class="amt" t-esc="'%.2f' % (rr.get('fs_current') or 0.0)"/>
+                                                        <td t-esc="'PASS' if rr.get('ok') else 'FAIL'"/>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                    <t t-if="recon.get('ledger_gaps')">
+                                        <h3>Unmapped CoA ledgers included on FS</h3>
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Section</th>
+                                                    <th>Ledger</th>
+                                                    <th class="amt">Prior</th>
+                                                    <th class="amt">Current</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="recon.get('ledger_gaps') or []" t-as="lg">
+                                                    <t t-if="lg">
+                                                        <tr>
+                                                            <td t-esc="lg.get('section') or ''"/>
+                                                            <td t-esc="lg.get('label') or ''"/>
+                                                            <td class="amt" t-esc="'%.2f' % (lg.get('prior') or 0.0)"/>
+                                                            <td class="amt" t-esc="'%.2f' % (lg.get('current') or 0.0)"/>
+                                                        </tr>
+                                                    </t>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </t>
+                                </t>
+
+                                <t t-elif="kind == 'equity_soce'">
+                                    <t t-set="soce" t-value="ch.get('soce') or {}"/>
+                                    <t t-set="soce_cols" t-value="soce.get('columns') or []"/>
+                                    <t t-set="soce_rows" t-value="soce.get('rows') or []"/>
+                                    <t t-set="soce_yp" t-value="str(soce.get('year_prior') or ch.get('col_prior') or afg_yp)"/>
+                                    <t t-set="soce_yc" t-value="str(soce.get('year_current') or ch.get('col_current') or afg_yc)"/>
+                                    <t t-set="soce_yd" t-value="bool(ch.get('years_descending'))"/>
+                                    <t t-set="soce_single" t-value="bool(soce.get('single_year') or ch.get('hide_comparative'))"/>
+                                    <t t-set="soce_y1" t-value="soce_yc if soce_yd else soce_yp"/>
+                                    <t t-set="soce_y2" t-value="soce_yp if soce_yd else soce_yc"/>
+                                    <t t-set="soce_n_amt" t-value="max((len(soce_cols) + 1) if soce_single else (len(soce_cols) * 2 + 2), 2)"/>
+                                    <t t-set="soce_amt_w" t-value="'%.4f' % (72.0 / float(soce_n_amt))"/>
+                                    <table class="o_afg_soce">
+                                        <colgroup>
+                                            <col style="width:28%;"/>
+                                            <t t-foreach="soce_cols" t-as="scol">
+                                                <col t-att-style="'width:' + soce_amt_w + '%;'"/>
+                                                <t t-if="not soce_single">
+                                                    <col t-att-style="'width:' + soce_amt_w + '%;'"/>
+                                                </t>
+                                            </t>
+                                            <col t-att-style="'width:' + soce_amt_w + '%;'"/>
+                                            <t t-if="not soce_single">
+                                                <col t-att-style="'width:' + soce_amt_w + '%;'"/>
+                                            </t>
+                                        </colgroup>
+                                        <thead>
+                                            <t t-if="soce_single">
+                                                <tr>
+                                                    <th t-esc="(afg_doc.get('rtl') and 'البيان') or 'Particulars'"/>
+                                                    <t t-foreach="soce_cols" t-as="scol">
+                                                        <th class="amt" t-esc="scol.get('name') or ''"/>
+                                                    </t>
+                                                    <th class="amt" t-esc="(afg_doc.get('rtl') and 'الإجمالي') or 'Total'"/>
+                                                </tr>
+                                                <tr>
+                                                    <th/>
+                                                    <t t-foreach="soce_cols" t-as="scol">
+                                                        <th class="amt soce-yr" t-esc="soce_yc"/>
+                                                    </t>
+                                                    <th class="amt soce-yr" t-esc="soce_yc"/>
+                                                </tr>
+                                            </t>
+                                            <t t-else="">
+                                                <tr>
+                                                    <th rowspan="2" t-esc="(afg_doc.get('rtl') and 'البيان') or 'Particulars'"/>
+                                                    <t t-foreach="soce_cols" t-as="scol">
+                                                        <th class="amt" colspan="2" t-esc="scol.get('name') or ''"/>
+                                                    </t>
+                                                    <th class="amt" colspan="2" t-esc="(afg_doc.get('rtl') and 'الإجمالي') or 'Total'"/>
+                                                </tr>
+                                                <tr>
+                                                    <t t-foreach="soce_cols" t-as="scol">
+                                                        <th class="amt soce-yr" t-esc="soce_y1"/>
+                                                        <th class="amt soce-yr" t-esc="soce_y2"/>
+                                                    </t>
+                                                    <th class="amt soce-yr" t-esc="soce_y1"/>
+                                                    <th class="amt soce-yr" t-esc="soce_y2"/>
+                                                </tr>
+                                            </t>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="soce_rows" t-as="srow">
+                                                <t t-if="srow">
+                                                    <t t-set="row_cls" t-value="srow.get('bold') and 'total' or ''"/>
+                                                    <tr t-att-class="row_cls or None">
+                                                        <td t-esc="srow.get('label') or ''"/>
+                                                        <t t-if="soce_single">
+                                                            <t t-foreach="soce_cols" t-as="scol">
+                                                                <t t-set="cell" t-value="(srow.get('cells') or {}).get(scol.get('key')) or {}"/>
+                                                                <td class="amt" t-esc="doc._afg_fmt_amt(cell.get('current'))"/>
+                                                            </t>
+                                                            <t t-set="stot" t-value="srow.get('total') or {}"/>
+                                                            <td class="amt" t-esc="doc._afg_fmt_amt(stot.get('current'))"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <t t-foreach="soce_cols" t-as="scol">
+                                                                <t t-set="cell" t-value="(srow.get('cells') or {}).get(scol.get('key')) or {}"/>
+                                                                <t t-set="v1" t-value="cell.get('current') if soce_yd else cell.get('prior')"/>
+                                                                <t t-set="v2" t-value="cell.get('prior') if soce_yd else cell.get('current')"/>
+                                                                <td class="amt" t-esc="doc._afg_fmt_amt(v1)"/>
+                                                                <td class="amt" t-esc="doc._afg_fmt_amt(v2)"/>
+                                                            </t>
+                                                            <t t-set="stot" t-value="srow.get('total') or {}"/>
+                                                            <t t-set="t1" t-value="stot.get('current') if soce_yd else stot.get('prior')"/>
+                                                            <t t-set="t2" t-value="stot.get('prior') if soce_yd else stot.get('current')"/>
+                                                            <td class="amt" t-esc="doc._afg_fmt_amt(t1)"/>
+                                                            <td class="amt" t-esc="doc._afg_fmt_amt(t2)"/>
+                                                        </t>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </t>
+
+                                <t t-elif="kind == 'ppe_matrix'">
+                                    <t t-set="ppe" t-value="ch.get('ppe') or {}"/>
+                                    <t t-set="cats" t-value="ppe.get('categories') or []"/>
+                                    <t t-set="blocks" t-value="ppe.get('blocks') or []"/>
+                                    <t t-set="n_cat" t-value="len(cats) or 1"/>
+                                    <t t-set="ppe_cat_w" t-value="'%.4f' % (60.0 / float(n_cat))"/>
+                                    <t t-foreach="blocks" t-as="block">
+                                        <t t-if="block">
+                                            <t t-if="block.get('is_section')">
+                                                <h2 t-esc="block.get('title') or ''"/>
+                                            </t>
+                                            <t t-else="">
+                                                <div class="block-title" t-esc="block.get('title') or ''"/>
+                                                <table class="o_afg_ppe">
+                                                    <colgroup>
+                                                        <col style="width:28%;"/>
+                                                        <t t-foreach="cats" t-as="cat">
+                                                            <col t-att-style="'width:' + ppe_cat_w + '%;'"/>
+                                                        </t>
+                                                        <col style="width:12%;"/>
+                                                    </colgroup>
+                                                    <thead>
+                                                        <tr>
+                                                            <th t-esc="(afg_doc.get('rtl') and 'البيان') or 'Particulars'"/>
+                                                            <t t-foreach="cats" t-as="cat">
+                                                                <th class="amt" t-esc="cat"/>
+                                                            </t>
+                                                            <th class="amt" t-esc="(afg_doc.get('rtl') and 'الإجمالي') or 'Total'"/>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <t t-foreach="block.get('rows') or []" t-as="prow">
+                                                            <t t-if="prow">
+                                                                <tr t-att-class="prow.get('is_total') and 'total' or None">
+                                                                    <td t-esc="prow.get('label') or ''"/>
+                                                                    <t t-set="pvals" t-value="prow.get('values_disp') or []"/>
+                                                                    <t t-foreach="cats" t-as="cat">
+                                                                        <t t-set="val" t-value="pvals[cat_index] if cat_index &lt; len(pvals) else None"/>
+                                                                        <td class="amt">
+                                                                            <t t-if="val is None">—</t>
+                                                                            <t t-else="" t-esc="val"/>
+                                                                        </td>
+                                                                    </t>
+                                                                    <td class="amt">
+                                                                        <t t-if="prow.get('total_disp') is None">—</t>
+                                                                        <t t-else="" t-esc="prow.get('total_disp')"/>
+                                                                    </td>
+                                                                </tr>
+                                                            </t>
+                                                        </t>
+                                                    </tbody>
+                                                </table>
+                                            </t>
+                                        </t>
+                                    </t>
+                                </t>
+
+                                <t t-elif="kind == 'tb_face'">
+                                    <t t-set="tb_cols" t-value="ch.get('tb_columns') or []"/>
+                                    <t t-set="tb_meta" t-value="ch.get('tb_column_meta') or []"/>
+                                    <table class="o_afg_tb_face o_afg_many_amts">
+                                        <colgroup>
+                                            <col style="width:7%;"/>
+                                            <col style="width:41%;"/>
+                                            <t t-foreach="tb_cols" t-as="tcol_w">
+                                                <col style="width:10%;"/>
+                                            </t>
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>LG</th>
+                                                <th>Description</th>
+                                                <t t-if="tb_meta">
+                                                    <t t-foreach="tb_meta" t-as="tmeta">
+                                                        <th class="amt">
+                                                            <t t-esc="tmeta.get('label') or ''"/>
+                                                            <t t-if="tmeta.get('year')">
+                                                                <br/><t t-esc="tmeta.get('year')"/>
+                                                            </t>
+                                                        </th>
+                                                    </t>
+                                                </t>
+                                                <t t-else="">
+                                                    <t t-foreach="tb_cols" t-as="tcol">
+                                                        <th class="amt" t-esc="tcol"/>
+                                                    </t>
+                                                </t>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="ch_rows" t-as="row">
+                                                <t t-if="row">
+                                                    <t t-if="row.get('is_section_banner')">
+                                                        <tr class="bold">
+                                                            <td t-att-colspan="2 + len(tb_cols)"
+                                                                t-esc="row.get('label_raw') or row.get('label') or ''"/>
+                                                        </tr>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <t t-set="row_cls" t-value="row.get('is_total') and 'total' or (row.get('bold') and 'bold' or '')"/>
+                                                        <t t-set="row_lvl" t-value="int(row.get('level') or 0)"/>
+                                                        <t t-set="pad" t-value="28 if row_lvl &gt;= 3 else 0"/>
+                                                        <t t-set="tb_amts" t-value="row.get('tb_amounts_disp') or []"/>
+                                                        <tr t-att-class="row_cls or None">
+                                                            <td t-esc="row.get('lg') or ''"/>
+                                                            <td>
+                                                                <span t-att-style="'padding-left:%spx' % pad"
+                                                                      t-esc="row.get('label_raw') or row.get('label') or ''"/>
+                                                            </td>
+                                                            <t t-foreach="tb_cols" t-as="tcol">
+                                                                <td class="amt">
+                                                                    <t t-set="tv" t-value="tb_amts[tcol_index] if tcol_index &lt; len(tb_amts) else None"/>
+                                                                    <t t-if="tv is None or doc._afg_pdf_disp_blank(tv)">—</t>
+                                                                    <t t-else="" t-esc="tv"/>
+                                                                </td>
+                                                            </t>
+                                                        </tr>
+                                                    </t>
+                                                </t>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </t>
+
+                                <t t-elif="ch.get('statutory')">
+                                    <table class="o_afg_stmt">
+                                        <colgroup>
+                                            <col style="width:58%;"/>
+                                            <col style="width:10%;"/>
+                                            <col style="width:16%;"/>
+                                            <col style="width:16%;"/>
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th/>
+                                                <th>Note</th>
+                                                <th class="amt" t-esc="ch.get('col_current_date') or ch.get('col_current') or ''"/>
+                                                <th class="amt" t-esc="ch.get('col_prior_date') or ch.get('col_prior') or ''"/>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="ch_rows" t-as="row">
+                                                <t t-if="row">
+                                                    <t t-set="row_cls" t-value="row.get('is_section') and 'section' or (row.get('is_total') and 'total' or (row.get('bold') and 'bold' or ''))"/>
+                                                    <tr t-att-class="row_cls or None">
+                                                        <td t-esc="row.get('label') or ''"/>
+                                                        <td style="text-align:center;" t-esc="row.get('note') or ''"/>
+                                                        <td class="amt" t-esc="doc._afg_pdf_cell(row, 'current')"/>
+                                                        <td class="amt" t-esc="doc._afg_pdf_cell(row, 'prior')"/>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </t>
+
+                                <t t-else="">
+                                    <t t-set="hide_lg" t-value="ch.get('hide_lg')"/>
+                                    <t t-set="hide_comp" t-value="ch.get('hide_comparative')"/>
+                                    <t t-set="period_labs" t-value="ch.get('period_labels') or []"/>
+                                    <t t-set="use_multi" t-value="bool(period_labs) and len(period_labs) != 2"/>
+                                    <table t-att-class="'o_afg_stmt' + (' o_afg_many_amts' if (use_multi and period_labs and len(period_labs) &gt; 2) else '')">
+                                        <colgroup>
+                                            <t t-if="not hide_lg">
+                                                <col style="width:8%;"/>
+                                            </t>
+                                            <col style="width:54%;"/>
+                                            <t t-if="use_multi or (period_labs and len(period_labs) == 1)">
+                                                <t t-foreach="period_labs" t-as="plab_w">
+                                                    <col style="width:16%;"/>
+                                                </t>
+                                            </t>
+                                            <t t-elif="not hide_comp">
+                                                <col style="width:19%;"/>
+                                                <col style="width:19%;"/>
+                                            </t>
+                                            <t t-else="">
+                                                <col style="width:28%;"/>
+                                            </t>
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <t t-if="not hide_lg">
+                                                    <th>LG</th>
+                                                </t>
+                                                <th>Description</th>
+                                                <t t-if="use_multi or (period_labs and len(period_labs) == 1)">
+                                                    <t t-foreach="period_labs" t-as="plab">
+                                                        <th class="amt" t-esc="plab"/>
+                                                    </t>
+                                                </t>
+                                                <t t-elif="not hide_comp">
+                                                    <th class="amt" t-esc="ch.get('col_prior') or afg_yp"/>
+                                                    <th class="amt" t-esc="ch.get('col_current') or afg_yc"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <th class="amt" t-esc="ch.get('col_current') or afg_yc"/>
+                                                </t>
+                                                <t t-if="kind == 'cashflow' and not hide_lg">
+                                                    <th>Remark</th>
+                                                </t>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="ch_rows" t-as="row">
+                                                <t t-if="row">
+                                                    <t t-set="row_cls" t-value="row.get('is_total') and 'total' or (row.get('bold') and 'bold' or '')"/>
+                                                    <t t-set="row_lvl" t-value="int(row.get('level') or 0)"/>
+                                                    <t t-set="pad" t-value="28 if row_lvl &gt;= 3 else 0"/>
+                                                    <t t-set="pam_disp" t-value="row.get('period_amounts_disp') or []"/>
+                                                    <tr t-att-class="row_cls or None">
+                                                        <t t-if="not hide_lg">
+                                                            <td t-esc="row.get('lg') or ''"/>
+                                                        </t>
+                                                        <td>
+                                                            <span t-att-style="'padding-left:%spx' % pad"
+                                                                  t-esc="row.get('label_raw') or row.get('label') or ''"/>
+                                                        </td>
+                                                        <t t-if="use_multi or (period_labs and len(period_labs) == 1)">
+                                                            <t t-foreach="period_labs" t-as="plab">
+                                                                <td class="amt" t-esc="doc._afg_pdf_period_cell(row, plab_index)"/>
+                                                            </t>
+                                                        </t>
+                                                        <t t-elif="not hide_comp">
+                                                            <td class="amt" t-esc="doc._afg_pdf_cell(row, 'prior')"/>
+                                                            <td class="amt" t-esc="doc._afg_pdf_cell(row, 'current')"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <td class="amt" t-esc="doc._afg_pdf_cell(row, 'current')"/>
+                                                        </t>
+                                                        <t t-if="kind == 'cashflow' and not hide_lg">
+                                                            <td t-esc="row.get('remark') or ''"/>
+                                                        </t>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </t>
+                                </t>
+
+                                <!-- Never put sign-off on Cover; last chapter only when sign_last_only -->
+                                <t t-if="(ch.get('kind') or '') != 'statutory_page' and (not is_cover) and ((not afg_sign_last) or ch_last)">
+                                    <table class="sign-keep">
+                                        <tr>
+                                            <td>
+                                                <div class="sign">
+                                                    <div class="for" t-esc="afg_sig.get('for_line') or 'For and on behalf of'"/>
+                                                    <div class="entity" t-esc="afg_sig.get('entity') or afg_cover.get('entity') or ''"/>
+                                                    <div class="sign-media" t-if="afg_sig.get('stamp') or afg_sig.get('signature')">
+                                                        <img t-if="afg_sig.get('stamp')" class="afg-stamp"
+                                                             t-att-style="afg_sig.get('stamp_style') or 'max-height:72pt;max-width:72pt;margin-right:10pt;vertical-align:middle;'"
+                                                             t-att-src="afg_sig.get('stamp_src') or ('data:image/png;base64,' + (afg_sig.get('stamp') or ''))"
+                                                             alt="Company stamp"/>
+                                                        <img t-if="afg_sig.get('signature')" class="afg-signature"
+                                                             t-att-style="afg_sig.get('signature_style') or 'max-height:48pt;max-width:110pt;vertical-align:middle;'"
+                                                             t-att-src="afg_sig.get('signature_src') or ('data:image/png;base64,' + (afg_sig.get('signature') or ''))"
+                                                             alt="Authorized signature"/>
+                                                    </div>
+                                                    <div t-else="" class="uline" t-att-style="'height:%spt;' % afg_sgap"/>
+                                                    <div class="lab" t-esc="afg_sig.get('signatory_label') or afg_sign"/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </t>
+                            </div>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="afg_simple_fs_pdf">
+        <t t-call="audited_financials_saaskul.afg_audit_report_pdf_v105"/>
+    </template>
+
+    <!-- Replace any stale DB arch that still had schedules.get / cover.get crashes -->
+    <template id="afg_audit_report_pdf">
+        <t t-call="audited_financials_saaskul.afg_audit_report_pdf_v105"/>
+    </template>
+
+    <!-- Real PDF margins (wkhtmltopdf). UI Header/Footer mm values sync here — not CSS padding. -->
+    <record id="paperformat_afg_audit" model="report.paperformat">
+        <field name="name">AFG Financial Statements</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">16</field>
+        <field name="margin_bottom">16</field>
+        <field name="margin_left">18</field>
+        <field name="margin_right">16</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_afg_audit_pdf" model="ir.actions.report">
+        <field name="name">Financial Statements</field>
+        <field name="model">audited.financial.version</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">audited_financials_saaskul.afg_audit_report_pdf_v105</field>
+        <field name="report_file">audited_financials_saaskul.afg_audit_report_pdf_v105</field>
+        <field name="print_report_name">'Audited_Financials_%s_%s' % (object.year_prior or '', object.year_current or object.id)</field>
+        <field name="paperformat_id" ref="paperformat_afg_audit"/>
+    </record>
+
+    <record id="action_report_afg_simple_fs_pdf" model="ir.actions.report">
+        <field name="name">Financial Statements</field>
+        <field name="model">audited.financial.version</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">audited_financials_saaskul.afg_simple_fs_pdf</field>
+        <field name="report_file">audited_financials_saaskul.afg_audit_report_pdf_v105</field>
+        <field name="print_report_name">'Financial_Statements_%s_%s' % (object.year_prior or '', object.year_current or object.id)</field>
+        <field name="paperformat_id" ref="paperformat_afg_audit"/>
+    </record>
+</odoo>
