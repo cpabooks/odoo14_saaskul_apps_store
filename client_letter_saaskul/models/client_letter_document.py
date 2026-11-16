@@ -9,13 +9,7 @@ class ClientLetterDocument(models.Model):
 
     name = fields.Char(default="New", readonly=True, copy=False, tracking=True)
     source_ref = fields.Reference(
-        selection=[
-            ("crm.lead", "CRM / Opportunity"),
-            ("sale.order", "Quotation"),
-            ("job.estimate", "Estimation"),
-            ("account.move", "Customer Invoice"),
-            ("project.project", "Project"),
-        ],
+        selection="_selection_source_models",
         string="Source Document",
         tracking=True,
     )
@@ -48,6 +42,10 @@ class ClientLetterDocument(models.Model):
         "attachment_id",
         string="Attachments",
     )
+
+    @api.model
+    def _selection_source_models(self):
+        return self.env["client.letter.wizard"]._selection_source_models()
 
     @api.model
     def create(self, vals):

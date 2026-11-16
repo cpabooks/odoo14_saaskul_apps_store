@@ -80,13 +80,16 @@ class ClientLetterWizard(models.TransientModel):
 
     @api.model
     def _selection_source_models(self):
-        return [
+        # Estimation (job.estimate) is listed only when the optional cost
+        # estimation module, and its bridge, are installed.
+        models_list = [
             ("crm.lead", "CRM / Opportunity"),
             ("sale.order", "Quotation"),
             ("job.estimate", "Estimation"),
             ("account.move", "Customer Invoice"),
             ("project.project", "Project"),
         ]
+        return [(model, label) for model, label in models_list if model in self.env]
 
     @api.depends("source_ref")
     def _compute_source_meta(self):

@@ -56,18 +56,4 @@
             </xpath>
         </field>
     </record>
-
-    <record id="job_estimate_form_view_client_letter" model="ir.ui.view">
-        <field name="name">job.estimate.form.client.letter</field>
-        <field name="model">job.estimate</field>
-        <field name="inherit_id" ref="cost_estimate_customer_ld.job_estimate_form_view"/>
-        <field name="arch" type="xml">
-            <xpath expr="//header" position="inside">
-                <button name="action_open_client_letter_wizard"
-                        type="object"
-                        string="Send Client Letter"
-                        class="oe_highlight"/>
-            </xpath>
-        </field>
-    </record>
 </odoo>

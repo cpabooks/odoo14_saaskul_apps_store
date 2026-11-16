@@ -41,10 +41,3 @@ class ProjectProject(models.Model):
 
     def action_open_client_letter_wizard(self):
         return _client_letter_action(self)
-
-
-class JobEstimate(models.Model):
-    _inherit = "job.estimate"
-
-    def action_open_client_letter_wizard(self):
-        return _client_letter_action(self)

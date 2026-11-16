@@ -12,7 +12,7 @@ letter can be printed as PDF, emailed, shared on WhatsApp or saved as a
 tracked letter record. Ships with 11 ready letter templates and lets users
 save their own.
     """,
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "category": "Sales/CRM",
     "author": "Saaskul",
     "website": "https://saaskul.com",
@@ -30,7 +30,6 @@ save their own.
         "account",
         "project",
         "mail",
-        "cost_estimate_customer_ld",
     ],
     "data": [
         "security/ir.model.access.csv",
