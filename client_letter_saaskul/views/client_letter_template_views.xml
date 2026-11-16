@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_client_letter_template_tree" model="ir.ui.view">
+        <field name="name">client.letter.template.tree</field>
+        <field name="model">client.letter.template</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_client_letter_template_form" model="ir.ui.view">
+        <field name="name">client.letter.template.form</field>
+        <field name="model">client.letter.template</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="subject_template"/>
+                    </group>
+                    <notebook>
+                        <page string="Letter Body">
+                            <field name="body_template" nolabel="1" widget="html"/>
+                        </page>
+                        <page string="Email Body">
+                            <field name="email_template" nolabel="1" widget="html"/>
+                        </page>
+                        <page string="WhatsApp">
+                            <field name="whatsapp_template" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_client_letter_templates" model="ir.actions.act_window">
+        <field name="name">Client Letter Templates</field>
+        <field name="res_model">client.letter.template</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_client_letter_templates"
+              name="Client Letter Templates"
+              parent="crm.crm_menu_config"
+              action="action_client_letter_templates"
+              sequence="120"/>
+</odoo>

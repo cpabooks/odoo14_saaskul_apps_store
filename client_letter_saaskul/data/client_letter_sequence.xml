@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="seq_client_letter_document" model="ir.sequence">
+        <field name="name">Document Letter</field>
+        <field name="code">client.letter.document</field>
+        <field name="prefix">Msg-</field>
+        <field name="padding">3</field>
+        <field name="number_increment">1</field>
+    </record>
+</odoo>

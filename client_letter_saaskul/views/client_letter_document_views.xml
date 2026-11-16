@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_client_letter_document_tree" model="ir.ui.view">
+        <field name="name">client.letter.document.tree</field>
+        <field name="model">client.letter.document</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="letter_date"/>
+                <field name="subject"/>
+                <field name="partner_id"/>
+                <field name="source_ref"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_client_letter_document_form" model="ir.ui.view">
+        <field name="name">client.letter.document.form</field>
+        <field name="model">client.letter.document</field>
+        <field name="arch" type="xml">
+            <form string="Documents / Letters">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="letter_date"/>
+                            <field name="template_id"/>
+                            <field name="source_ref"/>
+                            <field name="partner_id"/>
+                            <field name="partner_email"/>
+                        </group>
+                        <group>
+                            <field name="crm_number"/>
+                            <field name="quotation_number"/>
+                            <field name="invoice_number"/>
+                            <field name="estimation_number"/>
+                            <field name="client_lpo_number"/>
+                            <field name="project_name"/>
+                            <field name="attention_to"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="subject"/>
+                    </group>
+                    <group>
+                        <field name="customer_address"/>
+                    </group>
+                    <notebook>
+                        <page string="Letter">
+                            <field name="letter_body" widget="html" nolabel="1"/>
+                        </page>
+                        <page string="Email">
+                            <field name="email_body" widget="html" nolabel="1"/>
+                        </page>
+                        <page string="WhatsApp">
+                            <field name="whatsapp_message" nolabel="1"/>
+                        </page>
+                        <page string="Attachments">
+                            <field name="attachment_ids" widget="many2many_binary" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_client_letter_documents" model="ir.actions.act_window">
+        <field name="name">Documents / Letters</field>
+        <field name="res_model">client.letter.document</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_client_letter_documents_root"
+              name="Documents / Letters"
+              parent="crm.crm_menu_root"
+              sequence="80"/>
+
+    <menuitem id="menu_client_letter_documents"
+              name="Letters"
+              parent="menu_client_letter_documents_root"
+              action="action_client_letter_documents"
+              sequence="10"/>
+</odoo>

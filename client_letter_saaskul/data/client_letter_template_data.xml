@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="template_blank_letter" model="client.letter.template">
+        <field name="sequence">15</field>
+        <field name="name">Blank Letter</field>
+        <field name="code">blank_letter</field>
+        <field name="subject_template"></field>
+        <field name="body_template"></field>
+        <field name="email_template"></field>
+        <field name="whatsapp_template"></field>
+    </record>
+
+    <record id="template_project_initiation" model="client.letter.template">
+        <field name="sequence">10</field>
+        <field name="name">Project Initiation Letter</field>
+        <field name="code">project_initiation</field>
+        <field name="subject_template">Project Initiation – {{project_name}}</field>
+        <field name="body_template">Dear {{client_name}},
+
+We are pleased to confirm the initiation of the {{project_name}} as per the agreed scope and terms.
+
+We will commence Phase 1 – CRM &amp; Estimation implementation, with a planned duration of 1 month.
+
+Kindly share the required documents, formats, and contact persons to proceed.
+
+Best regards,
+{{company_name}}</field>
+        <field name="email_template">Subject: {{project_name}} Project Initiation
+
+Dear {{client_name}},
+
+We are pleased to confirm the initiation of the {{project_name}} as per the agreed scope and terms.
+
+We will commence Phase 1 – CRM &amp; Estimation implementation, with a planned duration of 1 month.
+
+Kindly share the required documents, formats, and contact persons to proceed.
+
+Best regards,
+{{company_name}}</field>
+        <field name="whatsapp_template">Hi {{client_name}}, project {{project_name}} initiated. Starting Phase 1 (CRM &amp; Estimation – 1 month). Please share formats &amp; contact person.</field>
+    </record>
+
+    <record id="template_format_request" model="client.letter.template">
+        <field name="sequence">20</field>
+        <field name="name">Format Request Letter</field>
+        <field name="code">format_request</field>
+        <field name="subject_template">Request for Formats &amp; Data – Phase 1</field>
+        <field name="body_template">Dear {{client_name}},
+
+For Phase 1 implementation, kindly share:
+
+- CRM / CPQ formats
+- Estimation Excel working sheets (mandatory)
+- Quotation formats
+- Any reporting formats
+
+Please note: Final format sketches must be shared before payment release, as system will be configured based on these.
+
+Best regards,
+{{company_name}}</field>
+        <field name="email_template">Dear {{client_name}},
+
+For Phase 1 implementation, kindly share:
+
+- CRM / CPQ formats
+- Estimation Excel working sheets (mandatory)
+- Quotation formats
+- Any reporting formats
+
+Please note: Final format sketches must be shared before payment release, as system will be configured based on these.
+
+Best regards,
+{{company_name}}</field>
+        <field name="whatsapp_template">Hi, pls share CRM/CPQ formats + Estimation Excel sheets (mandatory). System will be built based on these before payment.</field>
+    </record>
+
+    <record id="template_kickoff" model="client.letter.template">
+        <field name="sequence">30</field>
+        <field name="name">Kick-off Meeting Letter</field>
+        <field name="code">kickoff_meeting</field>
+        <field name="subject_template">Project Kick-off Meeting – {{project_name}}</field>
+        <field name="body_template">Dear {{client_name}},
+
+We would like to schedule the project kick-off meeting.
+
+Agenda:
+- Phase 1 scope
+- Formats &amp; workflow
+- Timeline
+- Responsibilities
+
+Kindly confirm your availability.
+
+Best regards,
+{{company_name}}</field>
+        <field name="email_template">Dear {{client_name}},
+
+We would like to schedule the project kick-off meeting.
+
+Agenda:
+- Phase 1 scope
+- Formats &amp; workflow
+- Timeline
+- Responsibilities
+
+Kindly confirm your availability.
+
+Best regards,
+{{company_name}}</field>
+        <field name="whatsapp_template">Hi, pls confirm time for project kick-off (scope + formats + timeline discussion).</field>
+    </record>
+
+    <record id="template_payment_request" model="client.letter.template">
+        <field name="sequence">40</field>
+        <field name="name">Payment Request Letter</field>
+        <field name="code">payment_request</field>
+        <field name="subject_template">Phase 1 Start Confirmation – {{project_name}}</field>
+        <field name="body_template">Dear {{client_name}},
+
+This is to confirm that Phase 1 will commence upon receipt of the initial agreed payment.
+
+Work will proceed based on milestone validation and approvals.
+
+Kindly confirm once payment is processed.
+
+Best regards,
+{{company_name}}</field>
+        <field name="email_template">Dear {{client_name}},
+
+This is to confirm that Phase 1 will commence upon receipt of the initial agreed payment.
+
+Work will proceed based on milestone validation and approvals.
+
+Kindly confirm once payment is processed.
+
+Best regards,
+{{company_name}}</field>
+        <field name="whatsapp_template">Hi, once initial payment done we will start Phase 1 immediately. Pls confirm.</field>
+    </record>
+
+    <record id="template_quotation_submission" model="client.letter.template">
+        <field name="sequence">50</field>
+        <field name="name">Quotation Submission Letter</field>
+        <field name="code">quotation_submission</field>
+        <field name="subject_template">Quotation Submission – {{quotation_number}}</field>
+        <field name="body_template">Dear {{client_name}},
+
+Please find our quotation {{quotation_number}} for {{project_name}}.
+
+Quotation amount: {{amount_text}}
+Payment terms: {{payment_terms}}
+
+Scope summary:
+{{source_scope}}
+
+Kindly review and confirm your approval.
+
+Best regards,
+{{company_name}}</field>
+        <field name="email_template">Dear {{client_name}},
+
+Please find our quotation {{quotation_number}} for {{project_name}}.
+
+Quotation amount: {{amount_text}}
+Payment terms: {{payment_terms}}
+
+Scope summary:
+{{source_scope}}
+
+Kindly review and confirm your approval.
+
+Best regards,
+{{company_name}}</field>
+        <field name="whatsapp_template">Hi {{client_name}}, quotation {{quotation_number}} for {{project_name}} shared. Amount {{amount_text}}. Pls review and confirm.</field>
+    </record>
+
+    <record id="template_estimation_submission" model="client.letter.template">
+        <field name="sequence">60</field>
+        <field name="name">Estimation Submission Letter</field>
+        <field name="code">estimation_submission</field>
+        <field name="subject_template">Estimation Submission – {{estimation_number}}</field>
+        <field name="body_template">Dear {{client_name}},
+
+Please find our estimation {{estimation_number}} for {{project_name}}.
+
+Estimated amount: {{amount_text}}
+
+Estimation highlights:
+{{assumptions}}
+
+Additional notes:
+{{source_scope}}
+
+Kindly review and advise approval to proceed further.
+
+Best regards,
+{{company_name}}</field>
+        <field name="email_template">Dear {{client_name}},
+
+Please find our estimation {{estimation_number}} for {{project_name}}.
+
+Estimated amount: {{amount_text}}
+
+Estimation highlights:
+{{assumptions}}
+
+Additional notes:
+{{source_scope}}
+
+Kindly review and advise approval to proceed further.
+
+Best regards,
+{{company_name}}</field>
+        <field name="whatsapp_template">Hi {{client_name}}, estimation {{estimation_number}} for {{project_name}} is ready. Total {{amount_text}}. Pls review and confirm.</field>
+    </record>
+
+    <record id="template_invoice_followup" model="client.letter.template">
+        <field name="sequence">70</field>
+        <field name="name">Invoice Follow-up Letter</field>
+        <field name="code">invoice_followup</field>
+        <field name="subject_template">Invoice Follow-up – {{invoice_number}}</field>
+        <field name="body_template">Dear {{client_name}},
+
+This is a follow-up regarding invoice {{invoice_number}} for {{project_name}}.
+
+Invoice amount: {{amount_text}}
+Outstanding amount: {{due_amount_text}}
+Payment status: {{payment_status}}
+
+Kindly update us on the payment schedule.
+
+Best regards,
+{{company_name}}</field>
+        <field name="email_template">Dear {{client_name}},
+
+This is a follow-up regarding invoice {{invoice_number}} for {{project_name}}.
+
+Invoice amount: {{amount_text}}
+Outstanding amount: {{due_amount_text}}
+Payment status: {{payment_status}}
+
+Kindly update us on the payment schedule.
+
+Best regards,
+{{company_name}}</field>
+        <field name="whatsapp_template">Hi {{client_name}}, gentle reminder for invoice {{invoice_number}}. Outstanding {{due_amount_text}}. Pls share payment update.</field>
+    </record>
+
+    <record id="template_phase_completion" model="client.letter.template">
+        <field name="sequence">80</field>
+        <field name="name">Phase Completion Letter</field>
+        <field name="code">phase_completion</field>
+        <field name="subject_template">Phase 1 Completion – {{project_name}}</field>
+        <field name="body_template">Dear {{client_name}},
+
+Phase 1 (CRM &amp; Estimation) has been completed as per scope.
+
+Kindly review and confirm. Based on your approval, we will proceed to next phases.
+
+Best regards,
+{{company_name}}</field>
+        <field name="email_template">Dear {{client_name}},
+
+Phase 1 (CRM &amp; Estimation) has been completed as per scope.
+
+Kindly review and confirm. Based on your approval, we will proceed to next phases.
+
+Best regards,
+{{company_name}}</field>
+        <field name="whatsapp_template">Hi, Phase 1 completed. Pls review and confirm so we can proceed next.</field>
+    </record>
+
+    <record id="template_scope_clarification" model="client.letter.template">
+        <field name="sequence">90</field>
+        <field name="name">Scope Clarification Letter</field>
+        <field name="code">scope_clarification</field>
+        <field name="subject_template">Scope Clarification – {{project_name}}</field>
+        <field name="body_template">Dear {{client_name}},
+
+Please review the following scope summary for {{project_name}}:
+
+{{source_scope}}
+
+Assumptions / exclusions:
+{{assumptions}}
+
+Kindly confirm so we can proceed without scope deviation.
+
+Best regards,
+{{company_name}}</field>
+        <field name="email_template">Dear {{client_name}},
+
+Please review the following scope summary for {{project_name}}:
+
+{{source_scope}}
+
+Assumptions / exclusions:
+{{assumptions}}
+
+Kindly confirm so we can proceed without scope deviation.
+
+Best regards,
+{{company_name}}</field>
+        <field name="whatsapp_template">Hi {{client_name}}, pls confirm scope summary for {{project_name}} to avoid deviation.</field>
+    </record>
+
+    <record id="template_approval_request" model="client.letter.template">
+        <field name="sequence">100</field>
+        <field name="name">Approval Request Letter</field>
+        <field name="code">approval_request</field>
+        <field name="subject_template">Format Confirmation &amp; Approval – Phase 1</field>
+        <field name="body_template">Dear {{client_name}},
+
+Kindly note that all system formats (CRM, Estimation, Quotation) will be developed strictly based on the formats provided by your team.
+
+We request you to share and confirm the final format sketches before proceeding further.
+
+Any changes after approval may impact timeline and scope.
+
+Best regards,
+{{company_name}}</field>
+        <field name="email_template">Dear {{client_name}},
+
+Kindly note that all system formats (CRM, Estimation, Quotation) will be developed strictly based on the formats provided by your team.
+
+We request you to share and confirm the final format sketches before proceeding further.
+
+Any changes after approval may impact timeline and scope.
+
+Best regards,
+{{company_name}}</field>
+        <field name="whatsapp_template">Hi, pls confirm final formats. System will be built exactly based on that.</field>
+    </record>
+</odoo>
