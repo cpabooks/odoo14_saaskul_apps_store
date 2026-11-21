@@ -1,0 +1,256 @@
+<!-- Construction Progress Invoice. apps.odoo.com keeps only whitelisted inline styles
+     (no background shorthand, gradients, flex, box-shadow): use background-color
+     and Bootstrap grid classes for layout. -->
+
+<!-- Hero -->
+<section class="oe_container">
+  <div style="font-family:Inter,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background-color:#18181B;border-radius:22px;padding:56px 24px 36px;text-align:center;color:#FFFFFF;">
+    <img src="icon.png" alt="Construction Progress Invoice" style="width:96px;height:96px;border-radius:24px;display:block;margin:0 auto 20px;"/>
+    <div style="display:inline-block;background-color:#27272A;border:1px solid #3F3F46;color:#FCD34D;padding:6px 16px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;">
+      Saaskul &middot; Odoo 14 &middot; $140
+    </div>
+    <h1 style="font-size:46px;line-height:1.1;font-weight:800;letter-spacing:-0.02em;margin:0 auto 16px;max-width:860px;color:#FFFFFF;">
+      Construction <span style="color:#FBBF24;">Progress Invoice</span>
+    </h1>
+    <p style="font-size:19px;line-height:1.6;color:#A1A1AA;max-width:740px;margin:0 auto 26px;">
+      Progress billing for construction, contracting, fit-out and MEP companies. Bill each invoice line by
+      Work Done %, keep Previous % and the contract value on the invoice, and print a Construction Invoice.
+      Odoo's own amounts, VAT and journal entries follow the work done.
+    </p>
+    <div style="margin:0 auto 24px;">
+      <a href="#cpi-features" style="display:inline-block;background-color:#D97706;color:#FFFFFF;padding:14px 28px;border-radius:12px;font-weight:800;font-size:15px;margin:5px;text-decoration:none;">See the features</a>
+      <a href="mailto:info.cpabooks@gmail.com?subject=Construction%20Progress%20Invoice" style="display:inline-block;background-color:#18181B;color:#FFFFFF;padding:13px 27px;border-radius:12px;font-weight:800;font-size:15px;margin:5px;text-decoration:none;border:1px solid #52525B;">Ask a Question</a>
+    </div>
+    <div style="margin:0 auto 34px;">
+      <span style="display:inline-block;background-color:#D97706;color:#FFFFFF;padding:7px 16px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:0.08em;margin:4px;">$140 ONE-TIME</span>
+      <span style="display:inline-block;background-color:#27272A;border:1px solid #3F3F46;color:#E4E4E7;padding:7px 14px;border-radius:999px;font-size:12px;font-weight:700;margin:4px;">Community</span>
+      <span style="display:inline-block;background-color:#27272A;border:1px solid #3F3F46;color:#E4E4E7;padding:7px 14px;border-radius:999px;font-size:12px;font-weight:700;margin:4px;">Enterprise</span>
+      <span style="display:inline-block;background-color:#27272A;border:1px solid #3F3F46;color:#E4E4E7;padding:7px 14px;border-radius:999px;font-size:12px;font-weight:700;margin:4px;">Only needs Accounting</span>
+      <span style="display:inline-block;background-color:#27272A;border:1px solid #3F3F46;color:#E4E4E7;padding:7px 14px;border-radius:999px;font-size:12px;font-weight:700;margin:4px;">Odoo 14.0</span>
+    </div>
+    <img src="banner.png" alt="Construction Progress Invoice banner" style="max-width:100%;border-radius:16px;display:block;margin:0 auto;border:1px solid #3F3F46;"/>
+    <div class="row" style="margin-top:30px;">
+      <div class="col-6 col-md-3" style="padding-top:12px;padding-bottom:12px;">
+        <div style="font-size:34px;font-weight:800;color:#FBBF24;">%</div>
+        <div style="font-size:13px;color:#A1A1AA;font-weight:600;">work done billed per line</div>
+      </div>
+      <div class="col-6 col-md-3" style="padding-top:12px;padding-bottom:12px;">
+        <div style="font-size:34px;font-weight:800;color:#FBBF24;">2</div>
+        <div style="font-size:13px;color:#A1A1AA;font-weight:600;">invoice kinds: Construction and Labour Supply</div>
+      </div>
+      <div class="col-6 col-md-3" style="padding-top:12px;padding-bottom:12px;">
+        <div style="font-size:34px;font-weight:800;color:#FBBF24;">1</div>
+        <div style="font-size:13px;color:#A1A1AA;font-weight:600;">Construction Invoice print</div>
+      </div>
+      <div class="col-6 col-md-3" style="padding-top:12px;padding-bottom:12px;">
+        <div style="font-size:34px;font-weight:800;color:#34D399;">0</div>
+        <div style="font-size:13px;color:#A1A1AA;font-weight:600;">gaps between invoice and journal entry</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Before / After -->
+<section class="oe_container">
+  <div style="font-family:Inter,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:56px 0 16px;">
+    <div style="text-align:center;margin-bottom:30px;">
+      <div style="font-size:12px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#D97706;margin-bottom:10px;">Why this app</div>
+      <h2 style="font-size:32px;font-weight:800;color:#18181B;margin:0 0 10px;">Progress bills without spreadsheets</h2>
+      <p style="font-size:16px;color:#71717A;max-width:680px;margin:0 auto;line-height:1.7;">
+        Contractors bill part of a contract each month. Standard Odoo invoices only know quantity and price,
+        so the progress certificate usually lives in Excel and the invoice is typed again by hand.
+      </p>
+    </div>
+    <div class="row">
+      <div class="col-md-6" style="margin-bottom:20px;">
+        <div class="h-100" style="background-color:#FFFFFF;border:1px solid #E4E4E7;border-radius:18px;padding:28px;">
+          <div style="font-size:12px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#A1A1AA;margin-bottom:16px;">Standard Odoo</div>
+          <p style="margin:0 0 8px;font-size:15px;color:#52525B;line-height:1.6;">&#10007;&nbsp; No Work Done % or Previous % on invoice lines</p>
+          <p style="margin:0 0 8px;font-size:15px;color:#52525B;line-height:1.6;">&#10007;&nbsp; Contract value is lost once a partial amount is invoiced</p>
+          <p style="margin:0 0 8px;font-size:15px;color:#52525B;line-height:1.6;">&#10007;&nbsp; Progress certificates kept in spreadsheets</p>
+          <p style="margin:0;font-size:15px;color:#52525B;line-height:1.6;">&#10007;&nbsp; No printed construction invoice for the client</p>
+        </div>
+      </div>
+      <div class="col-md-6" style="margin-bottom:20px;">
+        <div class="h-100" style="background-color:#FFFBEB;border:1px solid #FDE68A;border-radius:18px;padding:28px;">
+          <div style="font-size:12px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#B45309;margin-bottom:16px;">With Construction Progress Invoice</div>
+          <p style="margin:0 0 8px;font-size:15px;color:#18181B;line-height:1.6;"><span style="color:#D97706;font-weight:800;">&#10003;</span>&nbsp; Enter Work Done % and the line amount follows</p>
+          <p style="margin:0 0 8px;font-size:15px;color:#18181B;line-height:1.6;"><span style="color:#D97706;font-weight:800;">&#10003;</span>&nbsp; Contract Amount, Previous % and Gtee kept on every line</p>
+          <p style="margin:0 0 8px;font-size:15px;color:#18181B;line-height:1.6;"><span style="color:#D97706;font-weight:800;">&#10003;</span>&nbsp; VAT, receivable and journal entry match the invoice total</p>
+          <p style="margin:0;font-size:15px;color:#18181B;line-height:1.6;"><span style="color:#D97706;font-weight:800;">&#10003;</span>&nbsp; Construction Invoice PDF ready for the client</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="oe_container" id="cpi-features">
+  <div style="font-family:Inter,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:40px 0 20px;">
+    <div style="text-align:center;margin-bottom:30px;">
+      <div style="font-size:12px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#D97706;margin-bottom:10px;">Features</div>
+      <h2 style="font-size:32px;font-weight:800;color:#18181B;margin:0;">Built for contracting invoices</h2>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-lg-4" style="margin-bottom:16px;"><div class="h-100" style="background-color:#FFFFFF;border:1px solid #E4E4E7;border-radius:16px;padding:22px;">
+        <div style="display:inline-block;font-family:'JetBrains Mono',Consolas,monospace;font-size:12px;font-weight:700;color:#FFFFFF;background-color:#D97706;border-radius:8px;padding:6px 9px;margin-bottom:12px;">KIND</div>
+        <h3 style="font-size:17px;font-weight:800;color:#18181B;margin:0 0 6px;">Labour Supply or Construction</h3>
+        <p style="font-size:14px;color:#71717A;line-height:1.6;margin:0;">Choose the invoice kind at the top of the customer invoice. New manual invoices start as Construction; invoices from sales orders stay normal.</p>
+      </div></div>
+      <div class="col-md-6 col-lg-4" style="margin-bottom:16px;"><div class="h-100" style="background-color:#FFFFFF;border:1px solid #E4E4E7;border-radius:16px;padding:22px;">
+        <div style="display:inline-block;font-family:'JetBrains Mono',Consolas,monospace;font-size:12px;font-weight:700;color:#FFFFFF;background-color:#D97706;border-radius:8px;padding:6px 9px;margin-bottom:12px;">WORK %</div>
+        <h3 style="font-size:17px;font-weight:800;color:#18181B;margin:0 0 6px;">Work Done % per line</h3>
+        <p style="font-size:14px;color:#71717A;line-height:1.6;margin:0;">Type 30% and the line bills 30% of quantity x unit price. Taxes and the journal entry are calculated by Odoo on that amount.</p>
+      </div></div>
+      <div class="col-md-6 col-lg-4" style="margin-bottom:16px;"><div class="h-100" style="background-color:#FFFFFF;border:1px solid #E4E4E7;border-radius:16px;padding:22px;">
+        <div style="display:inline-block;font-family:'JetBrains Mono',Consolas,monospace;font-size:12px;font-weight:700;color:#FFFFFF;background-color:#D97706;border-radius:8px;padding:6px 9px;margin-bottom:12px;">PREV %</div>
+        <h3 style="font-size:17px;font-weight:800;color:#18181B;margin:0 0 6px;">Previous % and contract amount</h3>
+        <p style="font-size:14px;color:#71717A;line-height:1.6;margin:0;">Record what was billed before, see the full contract amount of each line and the contract value of the invoice.</p>
+      </div></div>
+      <div class="col-md-6 col-lg-4" style="margin-bottom:16px;"><div class="h-100" style="background-color:#FFFFFF;border:1px solid #E4E4E7;border-radius:16px;padding:22px;">
+        <div style="display:inline-block;font-family:'JetBrains Mono',Consolas,monospace;font-size:12px;font-weight:700;color:#18181B;background-color:#FCD34D;border-radius:8px;padding:6px 9px;margin-bottom:12px;">GTEE</div>
+        <h3 style="font-size:17px;font-weight:800;color:#18181B;margin:0 0 6px;">Guarantee flag</h3>
+        <p style="font-size:14px;color:#71717A;line-height:1.6;margin:0;">Mark lines covered by a guarantee. The mark is printed next to the line description.</p>
+      </div></div>
+      <div class="col-md-6 col-lg-4" style="margin-bottom:16px;"><div class="h-100" style="background-color:#FFFFFF;border:1px solid #E4E4E7;border-radius:16px;padding:22px;">
+        <div style="display:inline-block;font-family:'JetBrains Mono',Consolas,monospace;font-size:12px;font-weight:700;color:#FFFFFF;background-color:#18181B;border-radius:8px;padding:6px 9px;margin-bottom:12px;">PDF</div>
+        <h3 style="font-size:17px;font-weight:800;color:#18181B;margin:0 0 6px;">Construction Invoice print</h3>
+        <p style="font-size:14px;color:#71717A;line-height:1.6;margin:0;">Contract Amount, Previous %, Work Done %, amount, tax and totals on your company layout.</p>
+      </div></div>
+      <div class="col-md-6 col-lg-4" style="margin-bottom:16px;"><div class="h-100" style="background-color:#FFFFFF;border:1px solid #E4E4E7;border-radius:16px;padding:22px;">
+        <div style="display:inline-block;font-family:'JetBrains Mono',Consolas,monospace;font-size:12px;font-weight:700;color:#FFFFFF;background-color:#18181B;border-radius:8px;padding:6px 9px;margin-bottom:12px;">LOCK</div>
+        <h3 style="font-size:17px;font-weight:800;color:#18181B;margin:0 0 6px;">Safe after posting</h3>
+        <p style="font-size:14px;color:#71717A;line-height:1.6;margin:0;">Work Done % and the invoice kind are locked on posted invoices. Reset to draft to change them.</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Real print -->
+<section class="oe_container">
+  <div style="font-family:Inter,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background-color:#18181B;border-radius:22px;padding:40px 24px;margin:20px 0;color:#FFFFFF;">
+    <div class="row">
+      <div class="col-lg-5" style="padding:12px 18px;">
+        <div style="font-size:12px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#FCD34D;margin-bottom:10px;">The print</div>
+        <h2 style="font-size:30px;font-weight:800;color:#FFFFFF;margin:0 0 14px;">Construction Invoice PDF</h2>
+        <p style="font-size:15px;color:#D4D4D8;line-height:1.7;margin:0 0 12px;">Print it from the invoice: <b style="color:#FFFFFF;">Print &rsaquo; Construction Invoice (Work Done %)</b>.</p>
+        <p style="font-size:15px;color:#D4D4D8;line-height:1.7;margin:0 0 12px;">Example: a line worth 100,000 with 30% work done bills 30,000. With 5% VAT the line total is 31,500.</p>
+        <p style="font-size:15px;color:#D4D4D8;line-height:1.7;margin:0;">The standard Odoo invoice print still works and does not show the work done as a discount.</p>
+      </div>
+      <div class="col-lg-7" style="padding:12px 18px;">
+        <img src="invoice_print.png" alt="Construction Invoice PDF" style="max-width:100%;border-radius:12px;display:block;border:1px solid #3F3F46;"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How to use -->
+<section class="oe_container">
+  <div style="font-family:Inter,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:30px 0 20px;">
+    <div style="text-align:center;margin-bottom:28px;">
+      <div style="font-size:12px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#D97706;margin-bottom:10px;">How to use</div>
+      <h2 style="font-size:32px;font-weight:800;color:#18181B;margin:0;">A progress bill in four steps</h2>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-lg-3" style="margin-bottom:14px;"><div class="h-100" style="background-color:#FFFFFF;border:1px solid #E4E4E7;border-radius:16px;padding:20px;">
+        <div style="font-size:28px;font-weight:800;color:#D97706;margin-bottom:6px;">1</div>
+        <p style="font-size:14px;color:#52525B;line-height:1.6;margin:0;">Create a customer invoice and keep Construction Invoice selected.</p>
+      </div></div>
+      <div class="col-md-6 col-lg-3" style="margin-bottom:14px;"><div class="h-100" style="background-color:#FFFFFF;border:1px solid #E4E4E7;border-radius:16px;padding:20px;">
+        <div style="font-size:28px;font-weight:800;color:#D97706;margin-bottom:6px;">2</div>
+        <p style="font-size:14px;color:#52525B;line-height:1.6;margin:0;">Add each contract item with its full quantity and unit price.</p>
+      </div></div>
+      <div class="col-md-6 col-lg-3" style="margin-bottom:14px;"><div class="h-100" style="background-color:#FFFFFF;border:1px solid #E4E4E7;border-radius:16px;padding:20px;">
+        <div style="font-size:28px;font-weight:800;color:#D97706;margin-bottom:6px;">3</div>
+        <p style="font-size:14px;color:#52525B;line-height:1.6;margin:0;">Fill Previous % and this bill's Work Done %. Totals update at once.</p>
+      </div></div>
+      <div class="col-md-6 col-lg-3" style="margin-bottom:14px;"><div class="h-100" style="background-color:#FFFFFF;border:1px solid #E4E4E7;border-radius:16px;padding:20px;">
+        <div style="font-size:28px;font-weight:800;color:#D97706;margin-bottom:6px;">4</div>
+        <p style="font-size:14px;color:#52525B;line-height:1.6;margin:0;">Confirm and print the Construction Invoice.</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Requirements -->
+<section class="oe_container">
+  <div style="font-family:Inter,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background-color:#FAFAFA;border:1px solid #E4E4E7;border-radius:18px;padding:28px 24px;margin:20px 0;">
+    <div class="row">
+      <div class="col-md-6" style="padding:8px 12px;">
+        <div style="font-size:12px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#D97706;margin-bottom:8px;">Requirements</div>
+        <p style="margin:0;font-size:15px;color:#3F3F46;line-height:1.7;">Odoo <b>14.0</b> Community or Enterprise<br/>Required app: Invoicing / Accounting (account) only</p>
+      </div>
+      <div class="col-md-6" style="padding:8px 12px;">
+        <div style="font-size:12px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#D97706;margin-bottom:8px;">Technical name</div>
+        <p style="margin:0;font-family:'JetBrains Mono',Consolas,monospace;font-size:14px;color:#18181B;line-height:1.7;">construction_progress_invoice_saaskul<br/>License OPL-1 &middot; Author Saaskul</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="oe_container">
+  <div style="font-family:Inter,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:24px 0 8px;">
+    <div style="text-align:center;margin-bottom:24px;">
+      <div style="font-size:12px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#D97706;margin-bottom:10px;">FAQ</div>
+      <h2 style="font-size:28px;font-weight:800;color:#18181B;margin:0;">Short answers</h2>
+    </div>
+    <div class="row">
+      <div class="col-md-6" style="margin-bottom:16px;"><div style="background-color:#FFFFFF;border:1px solid #E4E4E7;border-radius:14px;padding:20px;">
+        <h3 style="font-size:16px;font-weight:800;color:#18181B;margin:0 0 8px;">Does the journal entry match the work done?</h3>
+        <p style="margin:0;font-size:14px;color:#71717A;line-height:1.6;">Yes. Work Done % is applied through Odoo's standard line calculation, so income, VAT and receivable all use the work-done amount.</p>
+      </div></div>
+      <div class="col-md-6" style="margin-bottom:16px;"><div style="background-color:#FFFFFF;border:1px solid #E4E4E7;border-radius:14px;padding:20px;">
+        <h3 style="font-size:16px;font-weight:800;color:#18181B;margin:0 0 8px;">Can I still give a discount?</h3>
+        <p style="margin:0;font-size:14px;color:#71717A;line-height:1.6;">On Labour Supply invoices, yes. On Construction invoices the discount column is replaced by Work Done %.</p>
+      </div></div>
+      <div class="col-md-6" style="margin-bottom:16px;"><div style="background-color:#FFFFFF;border:1px solid #E4E4E7;border-radius:14px;padding:20px;">
+        <h3 style="font-size:16px;font-weight:800;color:#18181B;margin:0 0 8px;">Does it need other apps?</h3>
+        <p style="margin:0;font-size:14px;color:#71717A;line-height:1.6;">No. It depends only on Odoo's Invoicing / Accounting module.</p>
+      </div></div>
+      <div class="col-md-6" style="margin-bottom:16px;"><div style="background-color:#FFFFFF;border:1px solid #E4E4E7;border-radius:14px;padding:20px;">
+        <h3 style="font-size:16px;font-weight:800;color:#18181B;margin:0 0 8px;">Is Previous % calculated automatically?</h3>
+        <p style="margin:0;font-size:14px;color:#71717A;line-height:1.6;">No. You enter it on each progress bill. It is shown on the invoice and the print for your client.</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Upgrade to any Odoo version -->
+<section class="oe_container">
+  <div style="font-family:Inter,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background-color:#FFFBEB;border:1px solid #FDE68A;border-radius:24px;padding:32px 26px;margin:30px 0 0;">
+    <div class="row" style="margin-left:0;margin-right:0;">
+      <div class="col-md-7" style="padding:6px 12px;">
+        <div style="font-size:12px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#B45309;margin-bottom:8px;">Pick your version</div>
+        <h2 style="font-size:30px;font-weight:800;color:#18181B;margin:0 0 10px;">Upgradeable to any Odoo version</h2>
+        <p style="font-size:15px;color:#52525B;line-height:1.7;margin:0 0 18px;">Construction Progress Invoice is on Odoo 14 today. Running Odoo 15, 16, 17, 18 or 19? We port it to your version. Message us on WhatsApp or email.</p>
+        <a href="https://wa.me/971562568128?text=Hello%20Saaskul%2C%20I%20need%20Construction%20Progress%20Invoice%20on%20another%20Odoo%20version." style="display:inline-block;background-color:#D97706;color:#FFFFFF;padding:13px 24px;border-radius:12px;font-weight:800;font-size:14px;margin:4px 6px 4px 0;text-decoration:none;">WhatsApp +971 56 256 8128</a>
+        <a href="mailto:info.cpabooks@gmail.com?subject=Construction%20Progress%20Invoice%20-%20Odoo%20version%20upgrade" style="display:inline-block;background-color:#FFFFFF;color:#B45309;padding:12px 23px;border-radius:12px;font-weight:800;font-size:14px;margin:4px 0;text-decoration:none;border:1px solid #FCD34D;">info.cpabooks@gmail.com</a>
+      </div>
+      <div class="col-md-5" style="padding:6px 12px;">
+        <div style="background-color:#FFFFFF;border:1px solid #E4E4E7;border-radius:16px;padding:12px;">
+          <div style="font-size:13px;font-weight:800;color:#18181B;padding:6px 10px 10px;border-bottom:1px solid #F4F4F5;">Odoo version</div>
+          <div style="font-size:14px;font-weight:800;color:#B45309;background-color:#FEF3C7;border-radius:10px;padding:9px 12px;margin-top:6px;">Odoo 14.0 <span style="float:right;font-size:12px;">Available now</span></div>
+          <div style="font-size:14px;color:#3F3F46;padding:9px 12px;">Odoo 15.0 <span style="float:right;font-size:12px;color:#A1A1AA;">On request</span></div>
+          <div style="font-size:14px;color:#3F3F46;padding:9px 12px;">Odoo 16.0 <span style="float:right;font-size:12px;color:#A1A1AA;">On request</span></div>
+          <div style="font-size:14px;color:#3F3F46;padding:9px 12px;">Odoo 17.0 <span style="float:right;font-size:12px;color:#A1A1AA;">On request</span></div>
+          <div style="font-size:14px;color:#3F3F46;padding:9px 12px;">Odoo 18.0 <span style="float:right;font-size:12px;color:#A1A1AA;">On request</span></div>
+          <div style="font-size:14px;color:#3F3F46;padding:9px 12px;">Odoo 19.0 <span style="float:right;font-size:12px;color:#A1A1AA;">On request</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="oe_container">
+  <div style="font-family:Inter,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;text-align:center;background-color:#18181B;border-radius:24px;padding:48px 24px;margin:20px 0 40px;color:#FFFFFF;">
+    <img src="icon.png" alt="Construction Progress Invoice" style="width:72px;height:72px;border-radius:18px;display:block;margin:0 auto 16px;"/>
+    <h2 style="font-size:32px;font-weight:800;color:#FFFFFF;margin:0 0 10px;">Bill the work that is done</h2>
+    <p style="font-size:16px;color:#A1A1AA;line-height:1.7;max-width:620px;margin:0 auto 22px;">
+      Questions before you buy, or help setting up your first progress bill? The Saaskul team replies on WhatsApp and email.
+    </p>
+    <a href="mailto:info.cpabooks@gmail.com?subject=Saaskul%20Construction%20Progress%20Invoice%20Support" style="display:inline-block;background-color:#D97706;color:#FFFFFF;padding:14px 28px;border-radius:12px;font-weight:800;font-size:15px;margin:5px;text-decoration:none;">info.cpabooks@gmail.com</a>
+    <div style="font-size:13px;color:#71717A;margin-top:18px;">Construction Progress Invoice &middot; Odoo 14 &middot; by Saaskul</div>
+  </div>
+</section>
