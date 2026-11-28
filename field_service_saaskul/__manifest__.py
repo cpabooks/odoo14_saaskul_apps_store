@@ -1,0 +1,110 @@
+# -*- coding: utf-8 -*-
+{
+    'name': "Complaint Registration Services",
+
+    'summary': """
+        Field service complaint registration (CRN): 9-stage workflow from
+        registration, site visit and quotation to job completion, invoice and
+        approval, with material issue/return notes, job costing and dashboards.
+        Works on Odoo Community and Enterprise.""",
+
+    'description': """
+        Complaint Registration Services turns project tasks into Complaint
+        Registration Numbers (CRNs). Every complaint follows a guided 9-stage
+        flow (Registered, Site Visited, Quotation Issued, Quotation Approved,
+        Work in Progress, Waiting Invoice, FOC Done, Invoiced, Approved) with a
+        numbered form, a stage checklist and a progress bar.
+
+        Store teams issue and return materials against a CRN with Material
+        Issue / Return Notes, and every CRN collects material, timesheet,
+        transport and other costs. A service dashboard, a processing cycle
+        view, chart dashboards and Job Completion Reports (internal and
+        customer copies) are included.
+    """,
+
+    'author': "Saaskul",
+    'website': "https://saaskul.com",
+    'live_test_url': 'https://saaskul.com/contactus?name=Live%20Preview%20-%20Complaint%20Registration%20Services',
+    'support': "info.cpabooks@gmail.com",
+    'category': 'Services/Field Service',
+    'version': '19.0.1.2.0',
+    'license': 'OPL-1',
+    'price': 99.00,
+    'currency': 'USD',
+    'images': ['static/description/banner.png'],
+
+    'depends': [
+        'base',
+        'project',
+        'hr_timesheet',
+        'sale_timesheet',
+        'sale_stock',
+        'stock',
+        'purchase',
+    ],
+
+    'data': [
+        'security/crn_security.xml',
+        'security/ir.model.access.csv',
+        'security/customer_part_access.xml',
+        'data/invoice_type_data.xml',
+        'data/project_project_data.xml',
+        'data/project_task_data.xml',
+        'views/crn_base_views.xml',
+        'views/report_project_task.xml',
+        'reports/worksheet_customer_report_templates.xml',
+        'views/complaint_detail_views.xml',
+        'views/project_project_views_inherit.xml',
+        'views/project_task_views.xml',
+        'views/crn_task_bifurcation_views.xml',
+        'views/fsm_task_form_statusbar_fix_views.xml',
+        'views/fsm_task_form_next_action_duplicate_fix.xml',
+        'views/fsm_action_navigation_views.xml',
+        'views/fsm_crn_form_shell_views.xml',
+        'views/fsm_workflow_ui_views.xml',
+        'views/fsm_workflow_stage_controls_views.xml',
+        'views/fsm_timesheet_employee_views.xml',
+        'views/fsm_crn_cost_views.xml',
+        'views/fsm_crn_create_views.xml',
+        'views/res_partner_views.xml',
+        'views/account_move_views.xml',
+        'views/customer_parts_views.xml',
+        'views/stock_issue_note_views.xml',
+        'views/issue_note_views.xml',
+        'views/stock_picking_delivery_views.xml',
+        'views/material_return_views.xml',
+        'views/timesheet_cost_views.xml',
+        'views/fsm_task_cancel_actions.xml',
+        'views/fsm_project_task.xml',
+        'views/crn_service_menus.xml',
+        'views/fsm_dashboard_views.xml',
+        'views/fsm_material_consumption_views.xml',
+        'views/fsm_store_views.xml',
+        'views/fsm_store_inventory_menus.xml',
+        'views/fsm_test_data_wizard_views.xml',
+        'wizard/fsm_stage0_close_wizard_views.xml',
+        'views/fsm_crn_ui_cleanup_views.xml',
+        'views/sale_order_views.xml',
+    ],
+    'pre_init_hook': 'pre_init_hook',
+    'post_init_hook': 'post_init_hook',
+    'assets': {
+        'web.assets_backend': [
+            'field_service_saaskul/static/src/css/crn_app_shell.css',
+            'field_service_saaskul/static/src/css/crn_service_dashboard.css',
+            'field_service_saaskul/static/src/css/crn_processing_cycle.css',
+            'field_service_saaskul/static/src/css/fsm_dashboard.css',
+            'field_service_saaskul/static/src/css/fsm_task_form.css',
+            'field_service_saaskul/static/src/css/crn_shell19.css',
+            'field_service_saaskul/static/src/xml/fsm19_templates.xml',
+            'field_service_saaskul/static/src/js/crn_shell19.js',
+            'field_service_saaskul/static/src/js/crn_actions19.js',
+            'field_service_saaskul/static/src/js/fsm_task_form19.js',
+        ],
+    },
+    'demo': [
+        'demo/demo.xml',
+    ],
+    'application': True,
+    'installable': True,
+}

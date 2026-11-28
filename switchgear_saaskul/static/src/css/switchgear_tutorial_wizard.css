@@ -1,0 +1,95 @@
+/* Interactive Tutorial Wizard — company-setup style split layout */
+.o_sg_tutorial_wizard .o_sg_tut_layout {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    min-height: 420px;
+}
+.o_sg_tutorial_wizard .o_sg_tut_left {
+    flex: 0 0 220px;
+    max-width: 240px;
+    position: sticky;
+    top: 8px;
+}
+.o_sg_tutorial_wizard .o_sg_tut_right {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+.o_sg_tut_progress {
+    background: #f4f7fb;
+    border: 1px solid #d9e2ec;
+    border-radius: 8px;
+    padding: 12px 10px;
+}
+.o_sg_tut_progress_title {
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #486581;
+    margin-bottom: 8px;
+    padding: 0 4px;
+}
+.o_sg_tut_progress ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.o_sg_tut_step {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    padding: 5px 6px;
+    border-radius: 4px;
+    font-size: 0.82rem;
+    line-height: 1.25;
+    color: #627d98;
+}
+.o_sg_tut_step.o_sg_tut_done {
+    color: #0f5132;
+}
+.o_sg_tut_step.o_sg_tut_current {
+    background: #dbeafe;
+    color: #1e3a8a;
+    font-weight: 700;
+}
+.o_sg_tut_mark {
+    flex: 0 0 1.1rem;
+    text-align: center;
+}
+.o_sg_tutorial_wizard .oe_title h1 {
+    font-size: 1rem;
+    color: #627d98;
+    margin-bottom: 0.2rem;
+}
+.o_sg_tutorial_wizard .oe_title h2 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: #102a43;
+    margin-bottom: 0.15rem;
+}
+.o_sg_tutorial_wizard .oe_title h3 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #829ab1;
+}
+.o_sg_tut_hint {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    white-space: normal;
+}
+.o_sg_tutorial_wizard .o_horizontal_separator {
+    font-weight: 700;
+    color: #0f5132;
+}
+@media (max-width: 992px) {
+    .o_sg_tutorial_wizard .o_sg_tut_layout {
+        flex-direction: column;
+    }
+    .o_sg_tutorial_wizard .o_sg_tut_left {
+        max-width: none;
+        width: 100%;
+        position: static;
+    }
+}

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+
+    <template id="report_qc_label_sw">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <t t-foreach="docs" t-as="o">
+                    <div style="page-break-before:always;">
+                        <div class="row">
+                            <div class="col-3">
+                                <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="width: 48px; height: 48px;" alt="Logo"/>
+                            </div>
+                            <div class="col-9">
+                                <strong t-field="o.company_id.partner_id.name"/>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <div style="border-bottom: 1px solid black;"/>
+                            <span style="font-size: 18px; font-weight: bold; color: red;">FINAL INSPECTION TAG</span>
+                            <div style="border-bottom: 1px solid black;"/>
+                        </div>
+                        <div style="margin-top: 8px; font-size: 12px;">
+                            <div class="row">
+                                <div class="col-6">
+                                    <strong>CUSTOMER: </strong>
+                                    <span t-field="o.partner_id"/>
+                                </div>
+                                <div class="col-6">
+                                    <strong>DATE: </strong>
+                                    <span t-field="o.control_date" t-options='{"widget": "date"}'/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <strong>PROJECT: </strong>
+                                    <span>__________________________</span>
+                                </div>
+                                <div class="col-6">
+                                    <strong>JOB NO: </strong>
+                                    <span t-field="o.project_id"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <strong>FINAL INSPECTION: </strong>
+                                    <span>______________</span>
+                                </div>
+                                <div class="col-6">
+                                    <strong>DWG NO: </strong>
+                                    <span>_________________________</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <strong>REF. NO.: </strong>
+                                    <span>___________________________</span>
+                                </div>
+                                <div class="col-6">
+                                    <strong>PANEL REF.: </strong>
+                                    <span>______________________</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <hr style="border: 1px solid black; width: 53%; margin-bottom: 0px; margin-left: 24%;" class="text-center"/>
+                            <span>Q.C. ENGINEER SIGNATURE</span>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="field_service_saaskul.FsmReadonlyHtml">
+        <div class="o_field_fsm_readonly_html">
+            <div t-if="html" class="cpabooks_fsm_readonly_html"><t t-out="html"/></div>
+        </div>
+    </t>
+
+    <t t-name="field_service_saaskul.CrnShell">
+        <aside t-if="shell.active" class="o_crn_services_sidebar d-print-none">
+            <div class="o_crn_app_sidebar">
+                <div class="o_crn_app_sidebar_title">Complaint Registration Management</div>
+                <ul class="list-group list-group-flush o_crn_app_sidebar_nav">
+                    <t t-foreach="blocks" t-as="block" t-key="block.section">
+                        <li t-attf-class="list-group-item o_crn_app_sidebar_section {{ block.sectionClass or '' }}" t-esc="block.section"/>
+                        <t t-foreach="block.items" t-as="item" t-key="item.key">
+                            <li t-attf-class="list-group-item {{ block.sectionClass === 'o_crn_section_home' ? 'o_crn_app_sidebar_item_main' : 'o_crn_app_sidebar_item_sub' }} {{ shell.activeKey === item.key ? 'active' : '' }}">
+                                <a href="#" t-att-data-nav-key="item.key" t-on-click.prevent.stop="() => this.open(item)" t-esc="item.label"/>
+                            </li>
+                        </t>
+                    </t>
+                </ul>
+            </div>
+        </aside>
+    </t>
+
+    <t t-name="field_service_saaskul.CrnServiceDashboard">
+        <div class="o_action o_crn_dashboard_main h-100 overflow-auto">
+            <div class="o_crn_dashboard_root">
+                <div class="o_crn_dash_header">
+                    <div class="o_crn_dash_header_row">
+                        <div>
+                            <h1 class="o_crn_dash_title" t-esc="state.data.title or 'Complaint Registration Management'"/>
+                            <p class="o_crn_dash_subtitle text-muted" t-esc="state.loading ? 'Loading dashboard...' : (state.data.subtitle or '')"/>
+                        </div>
+                        <button type="button" class="btn btn-sm o_crn_open_main_menu" title="Open apps menu" t-on-click="openMainMenu">
+                            <i class="fa fa-th"/> Main Menu
+                        </button>
+                    </div>
+                </div>
+                <div class="o_crn_dash_kpis row">
+                    <t t-foreach="state.data.kpis or []" t-as="kpi" t-key="kpi_index">
+                        <a href="#" class="o_crn_dash_kpi" t-on-click.prevent="() => this.open(kpi.action_xmlid, kpi.domain, kpi.label)">
+                            <div class="o_crn_dash_kpi_icon"><i t-attf-class="fa {{ kpi.icon or 'fa-circle' }}"/></div>
+                            <div class="o_crn_dash_kpi_value" t-esc="kpi.value"/>
+                            <div class="o_crn_dash_kpi_label" t-esc="kpi.label"/>
+                        </a>
+                    </t>
+                </div>
+                <div class="o_crn_dash_workflow row">
+                    <t t-foreach="state.data.workflow or []" t-as="section" t-key="section_index">
+                        <div t-attf-class="o_crn_dash_section o_crn_theme_{{ section.theme or 'intake' }}">
+                            <h3 class="o_crn_dash_section_title" t-esc="section.title"/>
+                            <div class="o_crn_dash_section_list">
+                                <t t-foreach="section.items or []" t-as="item" t-key="item_index">
+                                    <a href="#" t-attf-class="o_crn_dash_row o_crn_status_{{ item.status or 'pending' }}"
+                                       t-on-click.prevent="() => this.open(item.action_xmlid, item.domain, item.label)">
+                                        <span class="o_crn_dash_row_label" t-esc="item.label"/>
+                                        <span class="o_crn_dash_row_badge" t-esc="item.count"/>
+                                    </a>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="field_service_saaskul.CrnProcessingCycle">
+        <div class="o_action o_crn_processing_cycle_main h-100 overflow-auto">
+            <div class="o_crn_processing_cycle_root">
+                <div class="o_crn_cycle_header text-center mb-3">
+                    <h2>CRN Processing Cycle</h2>
+                    <p class="text-muted mb-0">
+                        Click any step to open CRNs at that stage. Flow runs clockwise from registration through approval.
+                    </p>
+                </div>
+                <div class="o_crn_cycle_viewport">
+                    <div class="o_crn_cycle_stage">
+                        <div class="o_crn_cycle_center">
+                            <div class="o_crn_cycle_center_title">CRN</div>
+                            <div class="o_crn_cycle_center_sub">Full Process</div>
+                        </div>
+                        <div class="o_crn_cycle_ring" t-attf-style="--crn-cycle-total: {{ steps.length }};">
+                            <t t-foreach="steps" t-as="step" t-key="step.step">
+                                <a href="#" t-attf-class="o_crn_cycle_node o_crn_cycle_theme_{{ step.theme }}"
+                                   t-att-data-step="step.step" t-att-title="step.label"
+                                   t-attf-style="--crn-angle: {{ step.angle }}deg;"
+                                   t-on-click.prevent="() => this.open(step)">
+                                    <span class="o_crn_cycle_step" t-esc="step.step"/>
+                                    <span class="o_crn_cycle_label" t-esc="step.label"/>
+                                </a>
+                            </t>
+                        </div>
+                        <svg class="o_crn_cycle_arrow_ring" viewBox="0 0 520 520" aria-hidden="true">
+                            <circle cx="260" cy="260" r="210" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2" stroke-dasharray="8 10"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="o_crn_cycle_legend row justify-content-center mt-4">
+                    <div class="col-auto"><span class="o_crn_cycle_legend_dot o_crn_cycle_theme_intake"/> Registration</div>
+                    <div class="col-auto"><span class="o_crn_cycle_legend_dot o_crn_cycle_theme_quotation"/> Quotation</div>
+                    <div class="col-auto"><span class="o_crn_cycle_legend_dot o_crn_cycle_theme_execution"/> Execution</div>
+                    <div class="col-auto"><span class="o_crn_cycle_legend_dot o_crn_cycle_theme_billing"/> Billing</div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="field_service_saaskul.FsmServiceDashboard">
+        <div class="o_action fsd_root h-100 overflow-auto">
+            <div class="fsd_shell">
+                <section class="fsd_hero">
+                    <div>
+                        <div class="fsd_eyebrow">Field Service</div>
+                        <h1 class="fsd_title">Service Monitoring Dashboard</h1>
+                        <p class="fsd_subtitle">Monitor open CRNs, service cost, technician effort, and operational flow across UAE field service jobs.</p>
+                    </div>
+                    <div class="fsd_hero_note">Live CRN, timesheet, and material signals</div>
+                </section>
+                <section class="fsd_filter_card">
+                    <div class="fsd_filter_head">
+                        <div>
+                            <h2>Filters</h2>
+                            <p>Use a period window and company scope for dashboard monitoring.</p>
+                        </div>
+                        <div class="fsd_filter_actions">
+                            <button type="button" class="btn fsd_button fsd_apply_filters" t-on-click="apply">Apply</button>
+                            <button type="button" class="btn fsd_button fsd_button_secondary fsd_reset_filters" t-on-click="reset">Reset</button>
+                        </div>
+                    </div>
+                    <div class="fsd_filter_grid">
+                        <div class="fsd_filter_item">
+                            <label for="fsd_period">Period</label>
+                            <select id="fsd_period" class="fsd_select" t-model="state.period">
+                                <option value="30">Last 30 Days</option>
+                                <option value="90">Last 90 Days</option>
+                                <option value="365">Last 365 Days</option>
+                                <option value="all">All Time</option>
+                            </select>
+                        </div>
+                        <div class="fsd_filter_item">
+                            <label for="fsd_company">Company</label>
+                            <select id="fsd_company" class="fsd_select" t-model="state.company_id">
+                                <t t-foreach="(state.data and state.data.companies) or []" t-as="company" t-key="company.id">
+                                    <option t-att-value="company.id" t-esc="company.name"/>
+                                </t>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+                <section class="fsd_kpi_grid" id="fsd_kpi_grid">
+                    <t t-foreach="(state.data and state.data.kpis) or []" t-as="card" t-key="card_index">
+                        <article t-attf-class="fsd_kpi_card fsd_tone_{{ card.tone or 'sand' }}" t-on-click="() => this.openTasks(card.domain, card.label)">
+                            <div class="fsd_kpi_label" t-esc="card.label"/>
+                            <div class="fsd_kpi_value" t-esc="formatValue(card.value, card.is_monetary)"/>
+                            <div class="fsd_kpi_subtitle" t-esc="card.subtitle or ''"/>
+                        </article>
+                    </t>
+                </section>
+                <section class="fsd_chart_grid">
+                    <article class="fsd_card">
+                        <div class="fsd_card_head"><h2>Stage Pipeline</h2><p>Click a bar to drill down into filtered CRNs.</p></div>
+                        <div class="fsd_chart_wrap"><canvas t-ref="stage"/></div>
+                    </article>
+                    <article class="fsd_card">
+                        <div class="fsd_card_head"><h2>Complaint Mix</h2><p>Pie view by complaint type.</p></div>
+                        <div class="fsd_chart_wrap"><canvas t-ref="complaint"/></div>
+                    </article>
+                </section>
+                <section class="fsd_chart_grid fsd_chart_grid_secondary">
+                    <article class="fsd_card fsd_card_wide">
+                        <div class="fsd_card_head"><h2>Created vs Closed Trend</h2><p>Six-month monitoring line.</p></div>
+                        <div class="fsd_chart_wrap"><canvas t-ref="trend"/></div>
+                    </article>
+                    <article class="fsd_card">
+                        <div class="fsd_card_head"><h2>Engineer Cost Load</h2><p>Top timesheet cost contributors.</p></div>
+                        <div class="fsd_chart_wrap"><canvas t-ref="team"/></div>
+                    </article>
+                </section>
+                <article class="fsd_card">
+                    <div class="fsd_card_head"><h2>Priority Spotlight</h2><p>Highest-age active CRNs with live cost markers.</p></div>
+                    <div class="fsd_spotlight_grid" id="fsd_spotlight_grid">
+                        <t t-foreach="(state.data and state.data.spotlights) or []" t-as="task" t-key="task.id">
+                            <article class="fsd_spotlight_card" t-on-click="() => this.openTask(task)">
+                                <div class="fsd_spotlight_crn" t-esc="task.crn or '-'"/>
+                                <h3 t-esc="task.title or '-'"/>
+                                <div class="fsd_spotlight_meta" t-esc="task.customer or '-'"/>
+                                <div class="fsd_spotlight_meta"><t t-esc="task.stage or '-'"/> • Age <t t-esc="task.age_days or 0"/> days</div>
+                                <div class="fsd_spotlight_costs">
+                                    <span>Material <t t-esc="formatValue(task.material_cost_total, true)"/></span>
+                                    <span>Timesheet <t t-esc="formatValue(task.timesheet_cost_total, true)"/></span>
+                                </div>
+                            </article>
+                        </t>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </t>
+</templates>

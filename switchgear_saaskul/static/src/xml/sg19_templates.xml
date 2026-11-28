@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="switchgear_saaskul.SgShell">
+        <aside t-if="shell.active" class="o_switchgear_services_sidebar d-print-none">
+            <div class="o_switchgear_app_sidebar">
+                <div class="o_switchgear_app_sidebar_title">Switchgear</div>
+                <ul class="list-group list-group-flush o_switchgear_app_sidebar_nav">
+                    <t t-foreach="blocks" t-as="block" t-key="block.section">
+                        <li t-attf-class="list-group-item o_switchgear_app_sidebar_section {{ block.sectionClass or '' }}" t-esc="block.section"/>
+                        <t t-foreach="block.items" t-as="item" t-key="item.key">
+                            <li t-attf-class="list-group-item {{ block.sectionClass === 'o_switchgear_section_home' ? 'o_switchgear_app_sidebar_item_main' : 'o_switchgear_app_sidebar_item_sub' }} {{ shell.activeKey === item.key ? 'active' : '' }}">
+                                <a href="#" t-att-data-nav-key="item.key" t-on-click.prevent.stop="() => this.open(item)" t-esc="item.label"/>
+                            </li>
+                        </t>
+                    </t>
+                </ul>
+            </div>
+        </aside>
+    </t>
+
+    <t t-name="switchgear_saaskul.SgDashboard">
+        <div class="o_action o_switchgear_dashboard_main h-100 overflow-auto">
+            <div class="o_switchgear_dashboard_root">
+                <div class="o_sg_dash_header">
+                    <div class="o_sg_dash_header_row">
+                        <div>
+                            <h1 class="o_sg_dash_title" t-esc="state.data.title or 'Switchgear Dashboard'"/>
+                            <p class="o_sg_dash_subtitle text-muted" t-esc="state.data.subtitle or ''"/>
+                        </div>
+                        <button type="button" class="btn btn-sm o_sg_open_main_menu" title="Open apps menu" t-on-click="openMainMenu">
+                            <i class="fa fa-th"/> Main Menu
+                        </button>
+                    </div>
+                </div>
+                <div class="o_sg_dash_kpis row">
+                    <t t-foreach="state.data.kpis or []" t-as="kpi" t-key="kpi_index">
+                        <a href="#" class="o_sg_dash_kpi" t-on-click.prevent="() => this.open(kpi.action_xmlid)">
+                            <div class="o_sg_dash_kpi_icon"><i t-attf-class="fa {{ kpi.icon or 'fa-circle' }}"/></div>
+                            <div class="o_sg_dash_kpi_value" t-esc="kpi.value"/>
+                            <div class="o_sg_dash_kpi_label" t-esc="kpi.label"/>
+                        </a>
+                    </t>
+                </div>
+                <div class="o_sg_dash_workflow row">
+                    <t t-foreach="state.data.workflow or []" t-as="section" t-key="section_index">
+                        <div t-attf-class="o_sg_dash_section o_sg_theme_{{ section.theme or 'customer' }}">
+                            <h3 class="o_sg_dash_section_title" t-esc="section.title"/>
+                            <div class="o_sg_dash_section_list">
+                                <t t-foreach="section.items or []" t-as="item" t-key="item_index">
+                                    <a href="#" t-attf-class="o_sg_dash_row o_sg_status_{{ item.status or 'pending' }}"
+                                       t-on-click.prevent="() => this.open(item.action_xmlid)">
+                                        <span class="o_sg_dash_row_label" t-esc="item.label"/>
+                                        <span class="o_sg_dash_row_badge" t-esc="item.count"/>
+                                    </a>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="switchgear_saaskul.SgProcessingCycle">
+        <div class="o_action o_sg_processing_cycle_root h-100 overflow-auto">
+            <div class="o_sg_cycle_header text-center mb-3">
+                <h2>Switchgear processing cycle</h2>
+                <p class="text-muted mb-0">
+                    Click any step to open that screen. Flow runs clockwise from CRM enquiry through accounting.
+                </p>
+            </div>
+            <div class="o_sg_cycle_viewport">
+                <div class="o_sg_cycle_stage">
+                    <div class="o_sg_cycle_center">
+                        <div class="o_sg_cycle_center_title">Switchgear</div>
+                        <div class="o_sg_cycle_center_sub">Full Process</div>
+                    </div>
+                    <div class="o_sg_cycle_ring" t-attf-style="--sg-cycle-total: {{ steps.length }};">
+                        <t t-foreach="steps" t-as="step" t-key="step.step">
+                            <a href="#" t-attf-class="o_sg_cycle_node o_sg_cycle_theme_{{ step.theme }}" t-att-title="step.label"
+                               t-attf-style="--sg-angle: {{ step.angle }}deg;" t-on-click.prevent="() => this.open(step)">
+                                <span class="o_sg_cycle_step" t-esc="step.step"/>
+                                <span class="o_sg_cycle_label" t-esc="step.label"/>
+                            </a>
+                        </t>
+                    </div>
+                    <svg class="o_sg_cycle_arrow_ring" viewBox="0 0 520 520" aria-hidden="true">
+                        <defs>
+                            <marker id="sg_cycle_arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                                <polygon points="0 0, 8 4, 0 8" fill="rgba(255,255,255,0.35)"/>
+                            </marker>
+                        </defs>
+                        <circle cx="260" cy="260" r="210" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2" stroke-dasharray="8 10"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="o_sg_cycle_legend row justify-content-center mt-4">
+                <div class="col-auto"><span class="o_sg_cycle_legend_dot o_sg_cycle_theme_customer"/> Customer</div>
+                <div class="col-auto"><span class="o_sg_cycle_legend_dot o_sg_cycle_theme_engineering"/> Engineering</div>
+                <div class="col-auto"><span class="o_sg_cycle_legend_dot o_sg_cycle_theme_purchase"/> Purchase / Store</div>
+                <div class="col-auto"><span class="o_sg_cycle_legend_dot o_sg_cycle_theme_accounting"/> Accounting</div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="switchgear_saaskul.SgFlowchartHome">
+        <div class="o_action o_switchgear_flowchart_root h-100 overflow-auto">
+            <div class="o_switchgear_home_header">
+                <h2>Switchgear workflow</h2>
+                <p class="text-muted mb-0">
+                    Use the left sidebar to open each step. Sections follow your process:
+                    customer, engineering, purchase/store, and accounting.
+                </p>
+            </div>
+            <div class="row o_switchgear_home_cards mt16">
+                <div class="col-md-6 col-lg-3 mb16">
+                    <a href="#" class="o_switchgear_home_card o_switchgear_home_card_customer" t-on-click.prevent="() => this.open(\'enquiry\')">
+                        <div class="o_switchgear_home_card_title">Customer / Client</div>
+                        <div class="o_switchgear_home_card_hint">CRM, quotations, client LPO</div>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-3 mb16">
+                    <a href="#" class="o_switchgear_home_card o_switchgear_home_card_engineering" t-on-click.prevent="() => this.open(\'design\')">
+                        <div class="o_switchgear_home_card_title">Engineering &amp; Production</div>
+                        <div class="o_switchgear_home_card_hint">Design, BOM, manuf. order, purchase req., quality</div>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-3 mb16">
+                    <a href="#" class="o_switchgear_home_card o_switchgear_home_card_purchase" t-on-click.prevent="() => this.open(\'stock_check\')">
+                        <div class="o_switchgear_home_card_title">Purchase / Store</div>
+                        <div class="o_switchgear_home_card_hint">Stock, LPO, GRN, delivery</div>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-3 mb16">
+                    <a href="#" class="o_switchgear_home_card o_switchgear_home_card_accounting" t-on-click.prevent="() => this.open(\'tax_invoice\')">
+                        <div class="o_switchgear_home_card_title">Accounting</div>
+                        <div class="o_switchgear_home_card_hint">Invoices, receipts, bills, payments</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="switchgear_saaskul.SgTutorialProgressHtml">
+        <div class="o_field_sg_tutorial_progress_html"><t t-if="html" t-out="html"/></div>
+    </t>
+</templates>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="fire_alarm_saaskul.FaffDashboard">
+        <div class="o_faff_dashboard_root o_action h-100 overflow-auto">
+            <div class="o_faff_dash_header">
+                <div class="o_faff_dash_header_row">
+                    <div>
+                        <h1 class="o_faff_dash_title" t-esc="state.data.title or 'FAFF Dashboard'"/>
+                        <p class="o_faff_dash_subtitle text-muted" t-esc="state.data.subtitle or ''"/>
+                    </div>
+                </div>
+            </div>
+            <div class="o_faff_dash_kpis">
+                <t t-foreach="state.data.kpis or []" t-as="kpi" t-key="kpi_index">
+                    <a href="#" class="o_faff_dash_kpi" t-on-click.prevent="() => this.open(kpi.action_xmlid)">
+                        <div class="o_faff_dash_kpi_icon"><i t-attf-class="fa {{ kpi.icon or 'fa-circle' }}"/></div>
+                        <div class="o_faff_dash_kpi_value" t-esc="kpi.value"/>
+                        <div class="o_faff_dash_kpi_label" t-esc="kpi.label"/>
+                    </a>
+                </t>
+            </div>
+            <div class="o_faff_dash_workflow">
+                <t t-foreach="state.data.workflow or []" t-as="section" t-key="section_index">
+                    <div t-attf-class="o_faff_dash_section o_faff_theme_{{ section.theme or 'customer' }}">
+                        <h3 class="o_faff_dash_section_title" t-esc="section.title"/>
+                        <div class="o_faff_dash_section_list">
+                            <t t-foreach="section.items or []" t-as="item" t-key="item_index">
+                                <a href="#" t-attf-class="o_faff_dash_row o_faff_status_{{ item.status or 'pending' }}"
+                                   t-on-click.prevent="() => this.open(item.action_xmlid)">
+                                    <span class="o_faff_dash_row_label" t-esc="item.label"/>
+                                    <span class="o_faff_dash_row_badge" t-esc="item.count"/>
+                                </a>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="fire_alarm_saaskul.FaffWizardProgressHtml">
+        <div class="o_field_faff_wiz_progress_html">
+            <div t-if="html" class="o_faff_wiz_progress_wrap"><t t-out="html"/></div>
+        </div>
+    </t>
+
+    <t t-name="fire_alarm_saaskul.FaffShell">
+        <t t-if="shell.active">
+            <aside id="o_faff_shell_sidebar" class="o_faff_services_sidebar d-print-none"
+                   t-att-aria-hidden="shell.drawerOpen ? 'false' : 'true'">
+                <div class="o_faff_sidebar_header">
+                    <div class="o_faff_sidebar_logo"><i class="fa fa-fire"/></div>
+                    <strong>FAFF</strong>
+                    <button type="button" class="o_faff_sidebar_close" aria-label="Close menu"
+                            t-on-click.prevent.stop="closeDrawer"><i class="fa fa-times"/></button>
+                </div>
+                <div class="o_faff_sidebar_nav">
+                    <t t-foreach="groups" t-as="group" t-key="group.key">
+                        <details class="o_faff_sidebar_group" t-att-open="state.open[group_index] ? 'open' : undefined">
+                            <summary t-on-click="(ev) => this.toggleGroup(group_index, ev)">
+                                <span><i t-attf-class="fa {{ group.icon }}"/></span>
+                                <strong t-esc="group.title"/>
+                                <i class="fa fa-angle-down"/>
+                            </summary>
+                            <nav class="o_faff_sidebar_group_items">
+                                <t t-foreach="group.items" t-as="item" t-key="item.xmlid">
+                                    <a href="#" t-attf-class="o_faff_sidebar_item {{ state.activeXmlid === item.xmlid ? 'active' : '' }}"
+                                       t-att-data-menu-xmlid="item.xmlid"
+                                       t-on-click.prevent="() => this.openItem(item)">
+                                        <i class="fa fa-circle-o"/><span t-esc="item.label"/>
+                                    </a>
+                                </t>
+                            </nav>
+                        </details>
+                    </t>
+                </div>
+            </aside>
+            <div id="o_faff_sidebar_backdrop" class="o_faff_sidebar_backdrop" aria-hidden="true"
+                 t-on-click="closeDrawer"/>
+        </t>
+    </t>
+
+    <t t-name="fire_alarm_saaskul.NavBarFaff" t-inherit="web.NavBar" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('o_navbar_breadcrumbs')]" position="before">
+            <t t-if="faffShell.active">
+                <button id="o_faff_sidebar_toggle" type="button" class="btn btn-link o_faff_sidebar_toggle"
+                        title="FAFF menu" aria-label="Open FAFF menu"
+                        t-att-aria-expanded="faffShell.drawerOpen ? 'true' : 'false'"
+                        t-on-click.prevent.stop="onFaffDrawerToggle"><i class="fa fa-bars"/></button>
+                <div class="o_cpa_faff_navbar_theme cpa-faff-theme-toggle" role="group" aria-label="FAFF theme">
+                    <button type="button" t-attf-class="cpa-faff-theme-btn {{ faffShell.theme === 'dark' ? 'active' : '' }}"
+                            t-on-click.prevent.stop="() => this.onFaffTheme('dark')"><i class="fa fa-moon-o"/> Dark</button>
+                    <button type="button" t-attf-class="cpa-faff-theme-btn {{ faffShell.theme !== 'dark' ? 'active' : '' }}"
+                            t-on-click.prevent.stop="() => this.onFaffTheme('default')"><i class="fa fa-sun-o"/> Default</button>
+                </div>
+            </t>
+        </xpath>
+    </t>
+</templates>

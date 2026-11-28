@@ -1,0 +1,268 @@
+/* Tally-style CAFM screens — green header, mint body, compact boxed fields */
+
+.o_cafm_tally_form .o_form_sheet_bg,
+.o_cafm_tally_form .o_form_sheet {
+    background: #dce8c8 !important;
+    border: 1px solid #1a4d2e;
+    max-width: 100% !important;
+    padding: 0 !important;
+}
+
+.o_cafm_tally_form .o_form_statusbar {
+    display: none;
+}
+
+.o_cafm_tally_header {
+    background: #1a4d2e;
+    color: #fff;
+    padding: 6px 12px;
+    font-weight: 700;
+    border-bottom: 2px solid #0f2f1c;
+}
+
+.o_cafm_tally_header .o_cafm_tally_subtitle {
+    float: right;
+    font-weight: 600;
+}
+
+.o_cafm_tally_title_block {
+    display: inline-block;
+    background: #b84a62;
+    color: #fff;
+    padding: 2px 10px;
+    margin: 8px 0 8px 12px;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.o_cafm_tally_form .o_group .o_form_label {
+    font-weight: 600;
+    color: #1a2e1a;
+    min-width: 130px;
+}
+
+.o_cafm_tally_form .o_input,
+.o_cafm_tally_form .o_field_widget input,
+.o_cafm_tally_form .o_field_widget textarea,
+.o_cafm_tally_form .o_field_widget select {
+    background: #fff !important;
+    border: 1px solid #1a4d2e !important;
+    border-radius: 0 !important;
+    min-height: 24px;
+}
+
+.o_cafm_tally_form .o_group {
+    margin: 0 8px 4px !important;
+    padding: 4px;
+    background: rgba(255, 255, 255, 0.35);
+    border: 1px solid #8fb08f;
+}
+
+.o_cafm_tally_panel {
+    background: #c8dcb0;
+    border-left: 2px solid #1a4d2e;
+    min-height: 320px;
+}
+
+.o_cafm_tally_panel_title {
+    background: #1a4d2e;
+    color: #fff;
+    padding: 4px 8px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.o_cafm_tally_side_list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.o_cafm_tally_side_list li {
+    padding: 3px 8px;
+    border-bottom: 1px solid #8fb08f;
+    cursor: default;
+}
+
+.o_cafm_tally_side_list li.active {
+    background: #7a7a7a;
+    color: #fff;
+}
+
+.o_cafm_tally_tree thead,
+.o_cafm_tally_tree .o_list_table thead {
+    background: #1a4d2e !important;
+    color: #fff !important;
+}
+
+.o_cafm_tally_tree thead th,
+.o_cafm_tally_tree .o_list_table thead th {
+    background: #1a4d2e !important;
+    color: #fff !important;
+    font-weight: 700;
+    border-color: #0f2f1c !important;
+}
+
+.o_cafm_tally_tree tbody tr,
+.o_cafm_tally_tree .o_list_table tbody tr {
+    background: #eaf3dc !important;
+}
+
+.o_cafm_tally_tree tbody tr:nth-child(even),
+.o_cafm_tally_tree .o_list_table tbody tr:nth-child(even) {
+    background: #dce8c8 !important;
+}
+
+.o_cafm_tally_tree tbody tr.o_data_row.o_selected_row,
+.o_cafm_tally_tree .o_list_table tbody tr.o_data_row.o_selected_row {
+    background: #7a7a7a !important;
+    color: #fff !important;
+}
+
+.o_cafm_tally_tree .o_list_view,
+.o_cafm_tally_tree .o_content {
+    background: #dce8c8 !important;
+}
+
+.o_cafm_tally_report_bar {
+    background: #c8dcb0;
+    border: 1px solid #1a4d2e;
+    padding: 6px 10px;
+    margin-bottom: 4px;
+}
+
+.o_cafm_tally_report_bar .o_cafm_date_range {
+    float: right;
+    font-weight: 700;
+}
+
+.o_cafm_tally_status_pending {
+    background: #b84a62;
+    color: #fff;
+    padding: 1px 8px;
+    display: inline-block;
+}
+
+.o_cafm_tally_action_manager .o_content {
+    background: #dce8c8 !important;
+}
+
+.o_cafm_tally_form .o_form_view .oe_button_box {
+    margin: 4px 8px 0;
+}
+
+/* Tally-style partitions for group headers (summary / bridge rows).
+   Odoo group rows use <th> for the name + trailing span and <td> for aggregates —
+   style BOTH so the brown/pink fills the whole row (no dark gaps). */
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header {
+    border-top: 1px solid #1a4d2e !important;
+    border-bottom: 1px solid #1a4d2e !important;
+}
+
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header > th,
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header > td {
+    border-top: 1px solid #1a4d2e !important;
+    border-bottom: 1px solid #1a4d2e !important;
+}
+
+/* Level 0 (Year / top bridge): green — distinct from month pink; full row */
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="0"],
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header:not([data-group-level]) {
+    background: #9ccc65 !important;
+    background-color: #9ccc65 !important;
+    color: #1b2e0a !important;
+    font-size: 15px !important;
+    text-transform: uppercase;
+    font-weight: 800 !important;
+}
+
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="0"] > th,
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="0"] > td,
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header:not([data-group-level]) > th,
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header:not([data-group-level]) > td {
+    background: #9ccc65 !important;
+    background-color: #9ccc65 !important;
+    color: #1b2e0a !important;
+}
+
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="0"]:hover,
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header:not([data-group-level]):hover,
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="0"]:hover > th,
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="0"]:hover > td,
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header:not([data-group-level]):hover > th,
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header:not([data-group-level]):hover > td {
+    background: #8bc34a !important;
+    background-color: #8bc34a !important;
+}
+
+/* Level 1 (Month / mid bridge): pink across every cell */
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="1"] {
+    background: #dfbbb4 !important;
+    background-color: #dfbbb4 !important;
+    color: #000000 !important;
+    font-size: 12.5px !important;
+    font-weight: 700 !important;
+}
+
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="1"] > th,
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="1"] > td {
+    background: #dfbbb4 !important;
+    background-color: #dfbbb4 !important;
+    color: #000000 !important;
+}
+
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="1"]:hover,
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="1"]:hover > th,
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="1"]:hover > td {
+    background: #d8aca3 !important;
+    background-color: #d8aca3 !important;
+}
+
+/* Deeper bridges (level 2+): same pink family, still full-row fill */
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="2"],
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="3"] {
+    background: #d4a59c !important;
+    background-color: #d4a59c !important;
+    color: #000000 !important;
+    font-weight: 700 !important;
+}
+
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="2"] > th,
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="2"] > td,
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="3"] > th,
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="3"] > td {
+    background: #d4a59c !important;
+    background-color: #d4a59c !important;
+    color: #000000 !important;
+}
+
+/* Aggregate amount cells are td.o_list_number — keep same bridge fill as the row */
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="0"] > td.o_list_number,
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header:not([data-group-level]) > td.o_list_number {
+    background: #9ccc65 !important;
+    background-color: #9ccc65 !important;
+    color: #1b2e0a !important;
+}
+
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="1"] > td.o_list_number {
+    background: #dfbbb4 !important;
+    background-color: #dfbbb4 !important;
+    color: #000000 !important;
+}
+
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="2"] > td.o_list_number,
+.o_cafm_tally_tree .o_list_table tbody tr.o_group_header[data-group-level="3"] > td.o_list_number {
+    background: #d4a59c !important;
+    background-color: #d4a59c !important;
+    color: #000000 !important;
+}
+
+/* Make problem descriptions text smaller to save space */
+.o_cafm_tally_tree .o_list_table th[data-name="problem_description"],
+.o_cafm_tally_tree .o_list_table td.o_data_cell[name="problem_description"] {
+    font-size: 11.5px !important;
+    max-width: 250px;
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+

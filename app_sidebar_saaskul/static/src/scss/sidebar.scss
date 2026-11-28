@@ -1,0 +1,181 @@
+// Sidebar layout only applies when the backend web client mounted it
+// (body.o_ccs_active) and the user did not switch back to the default menu.
+$ccs-width: 232px;
+
+.o_ccs_sidebar {
+    display: flex;
+    position: fixed;
+    z-index: 1030;
+    top: var(--o-navbar-height, 46px);
+    left: 0;
+    bottom: 0;
+    width: $ccs-width;
+    flex-direction: column;
+    background: #0f172a;
+    color: #e2e8f0;
+    box-shadow: 4px 0 18px rgba(15, 23, 42, 0.28);
+    font-size: 13px;
+}
+// An app with its own left shell (e.g. FAFF, CAFM: aside.*_services_sidebar) is open:
+// the App Sidebar steps aside so the two menus never overlap.
+body:has(aside[class*="_services_sidebar"]) .o_ccs_sidebar {
+    display: none !important;
+}
+
+body.o_ccs_active:not(.o_ccs_show_default_menu):not(:has(aside[class*="_services_sidebar"])) {
+    .o_action_manager {
+        margin-left: $ccs-width;
+    }
+    .o_main_navbar .o_menu_brand,
+    .o_main_navbar .o_menu_sections {
+        display: none !important;
+    }
+}
+body.o_ccs_show_default_menu .o_ccs_sidebar {
+    display: none;
+}
+body:not(.o_ccs_active) .o_ccs_nav_btn {
+    display: none !important;
+}
+
+.o_main_navbar > a.o_ccs_nav_btn {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    align-self: stretch;
+    padding: 0 12px;
+    color: #fff !important;
+    font-size: 13px;
+    font-weight: 600;
+    background: rgba(0, 0, 0, 0.18);
+    text-decoration: none !important;
+    &:hover {
+        background: rgba(0, 0, 0, 0.32);
+        color: #fff !important;
+    }
+}
+
+.o_ccs_head {
+    padding: 12px 14px 8px;
+    font-weight: 700;
+    color: #f8fafc;
+}
+.o_ccs_search_wrap {
+    padding: 0 12px 10px;
+}
+.o_ccs_search {
+    width: 100%;
+    border: 0;
+    border-radius: 8px;
+    padding: 7px 10px;
+    background: #1e293b;
+    color: #f1f5f9;
+    outline: none;
+}
+.o_ccs_apps {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 4px 8px 16px;
+}
+.o_ccs_app {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    margin-bottom: 2px;
+    border-radius: 10px;
+    color: #cbd5e1 !important;
+    text-decoration: none !important;
+}
+.o_ccs_app:hover,
+.o_ccs_app.active {
+    background: #2563eb;
+    color: #fff !important;
+}
+.o_ccs_icon {
+    flex: 0 0 28px;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.o_ccs_letter {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 12px;
+}
+.o_ccs_label {
+    flex: 1 1 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.o_ccs_caret {
+    flex: 0 0 auto;
+    font-size: 10px;
+    opacity: 0.7;
+    padding: 4px;
+}
+.o_ccs_subs,
+.o_ccs_subs2 {
+    display: none;
+    padding: 2px 0 8px 10px;
+}
+.o_ccs_group.o_ccs_open > .o_ccs_subs,
+.o_ccs_sub_group.o_ccs_open > .o_ccs_subs2 {
+    display: block;
+}
+.o_ccs_sub,
+.o_ccs_leaf,
+.o_ccs_sub_toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    margin-bottom: 1px;
+    border-radius: 8px;
+    color: #94a3b8 !important;
+    text-decoration: none !important;
+    font-size: 12px;
+}
+.o_ccs_sub:hover,
+.o_ccs_leaf:hover,
+.o_ccs_sub_toggle:hover,
+.o_ccs_sub.active,
+.o_ccs_leaf.active {
+    background: #1e293b;
+    color: #f8fafc !important;
+}
+.o_ccs_twisty {
+    width: 12px;
+    font-size: 11px;
+}
+.o_ccs_sub_group.o_ccs_open > .o_ccs_sub_toggle .o_ccs_twisty {
+    transform: rotate(90deg);
+}
+
+// Phones: keep the standard Odoo mobile menu.
+@media (max-width: 767.98px) {
+    .o_ccs_sidebar,
+    .o_main_navbar > a.o_ccs_nav_btn {
+        display: none !important;
+    }
+    body.o_ccs_active:not(.o_ccs_show_default_menu) {
+        .o_action_manager {
+            margin-left: 0;
+        }
+        .o_main_navbar .o_menu_brand,
+        .o_main_navbar .o_menu_sections {
+            display: flex !important;
+        }
+    }
+}

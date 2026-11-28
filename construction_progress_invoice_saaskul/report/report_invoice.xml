@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_cpi_invoice" model="ir.actions.report">
+        <field name="name">Construction Invoice (Work Done %)</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">construction_progress_invoice_saaskul.report_cpi_invoice</field>
+        <field name="report_file">construction_progress_invoice_saaskul.report_cpi_invoice</field>
+        <field name="print_report_name">'Construction Invoice - %s' % (object.name or '')</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Standard invoice print: Work Done % is kept in the discount field, so do not
+         show it as a discount on construction invoices. -->
+    <template id="report_invoice_document_cpi" inherit_id="account.report_invoice_document">
+        <xpath expr="//t[@t-set='display_discount']" position="attributes">
+            <attribute name="t-value">any(l.discount for l in o.invoice_line_ids) and o.cpi_invoice_kind != 'construction'</attribute>
+        </xpath>
+    </template>
+
+    <template id="report_cpi_invoice_document">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)"/>
+            <t t-set="address">
+                <address t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                <div t-if="o.partner_id.vat" class="mt-3">
+                    <t t-if="o.company_id.country_id.vat_label" t-esc="o.company_id.country_id.vat_label"/>
+                    <t t-else="">Tax ID</t>: <span t-field="o.partner_id.vat"/>
+                </div>
+            </t>
+            <div class="page">
+                <h2>
+                    <span t-if="o.move_type == 'out_refund'">Credit Note</span>
+                    <span t-elif="o.cpi_invoice_kind == 'construction'">Construction Invoice</span>
+                    <span t-else="">Invoice</span>
+                    <span t-if="o.name != '/'" t-field="o.name"/>
+                    <span t-if="o.state == 'draft'"> (Draft)</span>
+                </h2>
+
+                <div class="row mt-4 mb-4">
+                    <div class="col-auto mw-100 mb-2 me-4" t-if="o.invoice_date">
+                        <strong>Invoice Date:</strong>
+                        <p class="m-0" t-field="o.invoice_date"/>
+                    </div>
+                    <div class="col-auto mw-100 mb-2 me-4" t-if="o.invoice_date_due and o.move_type == 'out_invoice'">
+                        <strong>Due Date:</strong>
+                        <p class="m-0" t-field="o.invoice_date_due"/>
+                    </div>
+                    <div class="col-auto mw-100 mb-2 me-4" t-if="o.invoice_origin">
+                        <strong>Source:</strong>
+                        <p class="m-0" t-field="o.invoice_origin"/>
+                    </div>
+                    <div class="col-auto mw-100 mb-2 me-4" t-if="o.ref">
+                        <strong>Reference:</strong>
+                        <p class="m-0" t-field="o.ref"/>
+                    </div>
+                </div>
+
+                <t t-set="is_construction" t-value="o.cpi_invoice_kind == 'construction'"/>
+                <t t-set="display_taxes" t-value="any(l.tax_ids for l in o.invoice_line_ids)"/>
+                <t t-set="lines" t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)"/>
+                <table class="table table-sm o_main_table" name="cpi_invoice_line_table">
+                    <thead>
+                        <tr>
+                            <th class="text-start">#</th>
+                            <th class="text-start">Description</th>
+                            <th class="text-end">Qty</th>
+                            <th class="text-end">Unit Price</th>
+                            <th class="text-end" t-if="is_construction">Contract Amount</th>
+                            <th class="text-end" t-if="is_construction">Previous %</th>
+                            <th class="text-end" t-if="is_construction">Work Done %</th>
+                            <th class="text-end" t-if="not is_construction and any(l.discount for l in lines)">Disc.%</th>
+                            <th class="text-end">Amount</th>
+                            <th class="text-end" t-if="display_taxes">Tax</th>
+                            <th class="text-end" t-if="display_taxes">Amount incl. Tax</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="counter" t-value="0"/>
+                        <t t-foreach="lines" t-as="line">
+                            <tr t-if="line.display_type == 'product'">
+                                <t t-set="counter" t-value="counter + 1"/>
+                                <td><span t-esc="counter"/></td>
+                                <td>
+                                    <span t-field="line.name" t-options="{'widget': 'text'}"/>
+                                    <span t-if="is_construction and line.cpi_guaranteed" class="badge rounded-pill text-bg-secondary">Gtee</span>
+                                </td>
+                                <td class="text-end">
+                                    <span t-field="line.quantity"/>
+                                    <span t-field="line.product_uom_id" groups="uom.group_uom"/>
+                                </td>
+                                <td class="text-end"><span class="text-nowrap" t-field="line.price_unit"/></td>
+                                <td class="text-end" t-if="is_construction">
+                                    <span class="text-nowrap" t-field="line.cpi_contract_amount"/>
+                                </td>
+                                <td class="text-end" t-if="is_construction">
+                                    <span t-esc="'%.2f' % (line.cpi_previous_pct or 0.0)"/>%
+                                </td>
+                                <td class="text-end" t-if="is_construction">
+                                    <span t-esc="'%.2f' % (line.cpi_work_done_pct or 0.0)"/>%
+                                </td>
+                                <td class="text-end" t-if="not is_construction and any(l.discount for l in lines)">
+                                    <span t-field="line.discount"/>
+                                </td>
+                                <td class="text-end"><span class="text-nowrap" t-field="line.price_subtotal"/></td>
+                                <td class="text-end" t-if="display_taxes">
+                                    <span class="text-nowrap" t-esc="line.price_total - line.price_subtotal"
+                                          t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                </td>
+                                <td class="text-end" t-if="display_taxes"><span class="text-nowrap" t-field="line.price_total"/></td>
+                            </tr>
+                            <tr t-if="line.display_type in ('line_section', 'line_subsection')" class="bg-200 fw-bold o_line_section">
+                                <td colspan="99"><span t-field="line.name" t-options="{'widget': 'text'}"/></td>
+                            </tr>
+                            <tr t-if="line.display_type == 'line_note'" class="fst-italic o_line_note">
+                                <td colspan="99"><span t-field="line.name" t-options="{'widget': 'text'}"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+                <div class="clearfix">
+                    <div class="row">
+                        <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
+                            <table class="o_total_table table table-sm table-borderless" style="page-break-inside: avoid;">
+                                <tr t-if="is_construction">
+                                    <td>Contract Value</td>
+                                    <td class="text-end"><span class="text-nowrap" t-field="o.cpi_contract_total"/></td>
+                                </tr>
+                                <t t-if="o.tax_totals" t-call="account.document_tax_totals">
+                                    <t t-set="tax_totals" t-value="o.tax_totals"/>
+                                    <t t-set="currency" t-value="o.currency_id"/>
+                                </t>
+                                <tr t-if="o.state == 'posted' and o.payment_state != 'not_paid'" class="border-black">
+                                    <td><strong>Amount Due</strong></td>
+                                    <td class="text-end"><span class="text-nowrap" t-field="o.amount_residual"/></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <p t-if="o.move_type in ('out_invoice', 'in_refund') and o.payment_reference" name="payment_communication">
+                    Please use the following communication for your payment: <b><span t-field="o.payment_reference"/></b>
+                </p>
+                <p t-if="o.invoice_payment_term_id" name="payment_term">
+                    <span t-field="o.invoice_payment_term_id.note"/>
+                </p>
+                <p t-if="o.narration" name="comment">
+                    <span t-field="o.narration"/>
+                </p>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_cpi_invoice">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.partner_id.lang"/>
+                <t t-call="construction_progress_invoice_saaskul.report_cpi_invoice_document" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

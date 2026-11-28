@@ -1,0 +1,191 @@
+/* AMC Invoice Register — X View revenue schedule grid */
+
+.o_cafm_x_view_action .o_content {
+    height: 100%;
+    overflow: auto;
+    padding: 12px 16px 24px;
+}
+
+.o_cafm_x_view_action {
+    background: #f4f7f6;
+}
+
+.o_cafm_x_view_root {
+    max-width: 100%;
+}
+
+.o_cafm_x_toolbar {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.o_cafm_x_title {
+    color: #0f3d22;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.o_cafm_x_panels {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0;
+    overflow-x: auto;
+}
+
+.o_cafm_x_schedule_panel {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.o_cafm_x_amount_panel {
+    flex: 0 0 auto;
+    margin-left: -1px;
+}
+
+.o_cafm_x_table {
+    border-collapse: collapse;
+    font-size: 11px;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.o_cafm_x_table th,
+.o_cafm_x_table td {
+    border: 1px solid #94a3b8;
+    padding: 3px 5px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.o_cafm_x_table thead th {
+    background: #0f4c5c;
+    color: #fef08a;
+    font-weight: 700;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.o_cafm_x_amount_table thead th.o_cafm_x_amount_title {
+    background: #0f4c5c;
+    color: #fff;
+    font-size: 12px;
+}
+
+.o_cafm_x_schedule_table tbody tr:nth-child(even) {
+    background: #ecfdf5;
+}
+
+.o_cafm_x_schedule_table tbody tr:nth-child(odd) {
+    background: #fff;
+}
+
+.o_cafm_x_desc {
+    max-width: 220px;
+    overflow: hidden;
+    text-align: left !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.o_cafm_x_month_col {
+    min-width: 34px;
+    width: 34px;
+}
+
+.o_cafm_x_cell {
+    min-width: 34px;
+    width: 34px;
+}
+
+.o_cafm_x_billed {
+    background: #22c55e !important;
+    color: #052e16;
+}
+
+.o_cafm_x_unbilled {
+    background: #ef4444 !important;
+    color: #fff;
+}
+
+.o_cafm_x_mark {
+    font-weight: 800;
+    line-height: 1;
+}
+
+.o_cafm_x_amount_cell {
+    background: #fff7ed;
+    color: #0f172a;
+    font-weight: 700;
+    min-width: 72px;
+    text-align: right !important;
+}
+
+.o_cafm_x_amount_empty {
+    background: #f8fafc;
+}
+
+.o_cafm_x_empty_msg {
+    color: #64748b;
+    font-style: italic;
+    padding: 18px !important;
+    text-align: center !important;
+}
+
+.o_cafm_x_legend {
+    display: flex;
+    gap: 16px;
+    margin-top: 10px;
+}
+
+.o_cafm_x_legend_item {
+    align-items: center;
+    border-radius: 4px;
+    display: inline-flex;
+    font-size: 12px;
+    font-weight: 600;
+    gap: 6px;
+    padding: 4px 10px;
+}
+
+.o_cafm_x_legend_item.o_cafm_x_billed {
+    background: #22c55e;
+    color: #052e16;
+}
+
+.o_cafm_x_legend_item.o_cafm_x_unbilled {
+    background: #ef4444;
+    color: #fff;
+}
+
+body.o_cafm_dark_shell .o_cafm_x_view_action {
+    background: #070d13;
+}
+
+body.o_cafm_dark_shell .o_cafm_x_title {
+    color: #86efac;
+}
+
+body.o_cafm_dark_shell .o_cafm_x_schedule_table tbody tr:nth-child(even) {
+    background: #0f172a;
+}
+
+body.o_cafm_dark_shell .o_cafm_x_schedule_table tbody tr:nth-child(odd) {
+    background: #111827;
+}
+
+body.o_cafm_dark_shell .o_cafm_x_table th,
+body.o_cafm_dark_shell .o_cafm_x_table td {
+    border-color: rgba(148, 163, 184, 0.35);
+    color: #e8eef6;
+}
+
+body.o_cafm_dark_shell .o_cafm_x_amount_cell {
+    background: #1e293b;
+    color: #f8fafc;
+}

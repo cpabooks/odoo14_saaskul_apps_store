@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="action_saaskul_cafm_dashboard" model="ir.actions.client">
+            <field name="name">CPAi CAFM Dashboard</field>
+            <field name="tag">saaskul_cafm_dashboard</field>
+        </record>
+
+        <menuitem id="menu_cafm_dashboard_folder"
+                  name="Dashboard"
+                  parent="menu_saaskul_cafm_root"
+                  sequence="5"/>
+
+        <menuitem id="menu_saaskul_cafm_dashboard"
+                  name="Operations Dashboard"
+                  parent="menu_cafm_dashboard_folder"
+                  action="action_saaskul_cafm_dashboard"
+                  sequence="1"/>
+
+        <record id="menu_saaskul_cafm_root" model="ir.ui.menu">
+            <field name="action" ref="action_saaskul_cafm_dashboard"/>
+        </record>
+    </data>
+
+</odoo>

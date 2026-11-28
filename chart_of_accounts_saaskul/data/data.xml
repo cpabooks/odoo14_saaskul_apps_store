@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo noupdate="1">
+    <function model="res.config.settings" name="_cpabooks_safe_call" eval="['visa.product', 'action_create_default_visa_product']"/>
+    <function model="res.config.settings" name="_cpabooks_safe_call" eval="['visa.product', 'action_attach_existing_vehicle_product']"/>
+    <function model="res.config.settings" name="_cpabooks_safe_call" eval="['visa.product', 'action_attach_existing_visa_analytic_acc']"/>
+    <function model="res.config.settings" name="_cpabooks_safe_call" eval="['res.partner', 'action_cpabooks_restore_partner_accounts']"/>
+</odoo>

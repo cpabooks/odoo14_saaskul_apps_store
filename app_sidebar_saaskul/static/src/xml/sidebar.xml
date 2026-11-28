@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="app_sidebar_saaskul.NavBarButton" t-inherit="web.NavBar" t-inherit-mode="extension">
+        <xpath expr="//t[@t-call='web.NavBar.AppsMenu']" position="after">
+            <a href="#" class="o_ccs_nav_btn" title="Show default community menu bar"
+               t-on-click="onCcsDefaultMenu">Default menu</a>
+        </xpath>
+    </t>
+
+    <t t-name="app_sidebar_saaskul.SubMenus">
+        <t t-foreach="items" t-as="child" t-key="child.id">
+            <div t-if="child.childrenTree and child.childrenTree.length"
+                 t-attf-class="o_ccs_sub_group {{ isOpen(child) ? 'o_ccs_open' : '' }}">
+                <a href="#" class="o_ccs_sub_toggle" t-att-title="child.name" t-att-data-menu="child.id"
+                   t-on-click.prevent="() => this.toggleGroup(child)">
+                    <span class="o_ccs_twisty fa fa-caret-right"/>
+                    <span class="o_ccs_label" t-esc="child.name"/>
+                </a>
+                <div class="o_ccs_subs2">
+                    <t t-call="app_sidebar_saaskul.SubMenus">
+                        <t t-set="items" t-value="child.childrenTree"/>
+                        <t t-set="cls" t-value="'o_ccs_leaf'"/>
+                    </t>
+                </div>
+            </div>
+            <a t-else="" href="#" t-att-title="child.name" t-att-data-menu="child.id"
+               t-attf-class="{{ cls }} {{ state.activeMenu === child.id ? 'active' : '' }}"
+               t-on-click.prevent="() => this.openMenu(child)">
+                <span class="o_ccs_label" t-esc="child.name"/>
+            </a>
+        </t>
+    </t>
+
+    <t t-name="app_sidebar_saaskul.AppSidebar">
+        <aside t-if="enabled" class="o_ccs_sidebar d-print-none" role="navigation" t-att-data-ccs-apps="apps.length">
+            <div class="o_ccs_head">Apps</div>
+            <div class="o_ccs_search_wrap">
+                <input type="search" class="o_ccs_search" placeholder="Search apps" t-model="state.query"/>
+            </div>
+            <nav class="o_ccs_apps">
+                <t t-foreach="apps" t-as="app" t-key="app.id">
+                    <div t-attf-class="o_ccs_group {{ isOpen(app) ? 'o_ccs_open' : '' }}" t-att-data-menu-id="app.id">
+                        <a href="#" t-attf-class="o_ccs_app {{ state.currentApp === app.id ? 'active' : '' }}"
+                           t-att-title="app.name" t-att-data-menu-id="app.id"
+                           t-on-click.prevent="() => this.openApp(app)">
+                            <span class="o_ccs_icon">
+                                <span class="o_ccs_letter" t-att-style="letterStyle(app)" t-esc="letter(app)"/>
+                            </span>
+                            <span class="o_ccs_label" t-esc="app.name"/>
+                            <span t-if="app.childrenTree.length"
+                                  t-attf-class="o_ccs_caret fa {{ isOpen(app) ? 'fa-chevron-down' : 'fa-chevron-right' }}"
+                                  t-on-click.prevent="(ev) => this.toggle(app, ev)"/>
+                        </a>
+                        <div t-if="app.childrenTree.length" class="o_ccs_subs">
+                            <t t-call="app_sidebar_saaskul.SubMenus">
+                                <t t-set="items" t-value="app.childrenTree"/>
+                                <t t-set="cls" t-value="'o_ccs_sub'"/>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+            </nav>
+        </aside>
+    </t>
+
+</templates>

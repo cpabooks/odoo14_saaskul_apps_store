@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="project_view_form_inherit_from_industry_sale" model="ir.ui.view">
+        <field name="name">project.view.form.inherit.from.industry.sale</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='settings']" position="inside">
+                <group string="Complaint Registration (CRN)" name="crn_settings">
+                    <field name="is_fsm" help="Manage the tasks of this project as Complaint Registration Numbers (CRNs)."/>
+                    <field name="allow_quotations" invisible="not is_fsm" help="Create new quotations directly from CRNs."/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

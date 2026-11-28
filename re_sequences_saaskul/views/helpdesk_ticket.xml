@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<record id="helpdesk_ticket_view_form_extend_seq" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.form.extend</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+
+<!--            <field name="name" position="before">-->
+<!--                <h1><field name="sequence_no" readonly="1" force_save="1"/></h1>-->
+<!--            </field>-->
+
+              <xpath expr="//div[@name='oe_main_subject']" position="before">
+                 <div name="sequence">
+                        <h1><field name="sequence_no" readonly="1" force_save="1"/></h1>
+                    </div>
+            </xpath>
+
+
+
+        </field>
+    </record>
+
+      <record id="helpdesk_tickets_view_tree_extend_seq" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.form.extend</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr='//field[@name="display_name"]' position="before">
+                <field name="sequence_no"/>
+            </xpath>
+
+
+        </field>
+    </record>
+</odoo>

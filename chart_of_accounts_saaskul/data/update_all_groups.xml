@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Current company grouping is the default applied on module update. -->
+        <function model="account.account" name="action_cpa_update_all_groups"/>
+    </data>
+</odoo>

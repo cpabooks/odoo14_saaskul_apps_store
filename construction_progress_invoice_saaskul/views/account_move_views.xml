@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_form_cpi" model="ir.ui.view">
+        <field name="name">account.move.form.construction_progress_invoice_saaskul</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@id='header_left_group']" position="inside">
+                <field name="cpi_invoice_kind" widget="radio" options="{'horizontal': true}"
+                       readonly="state != 'draft'"
+                       invisible="move_type not in ('out_invoice', 'out_refund')"/>
+            </xpath>
+
+            <xpath expr="//field[@name='invoice_line_ids']/list/field[@name='price_unit']" position="after">
+                <field name="cpi_contract_amount"
+                       column_invisible="parent.cpi_invoice_kind != 'construction'"/>
+                <field name="cpi_previous_pct"
+                       column_invisible="parent.cpi_invoice_kind != 'construction'"/>
+                <field name="cpi_work_done_pct"
+                       column_invisible="parent.cpi_invoice_kind != 'construction'"/>
+                <field name="cpi_guaranteed" optional="show"
+                       column_invisible="parent.cpi_invoice_kind != 'construction'"/>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/list/field[@name='discount']" position="attributes">
+                <attribute name="column_invisible">parent.cpi_invoice_kind == 'construction'</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='invoice_line_ids']/form//field[@name='discount']" position="after">
+                <field name="cpi_previous_pct"
+                       invisible="parent.cpi_invoice_kind != 'construction'"/>
+                <field name="cpi_work_done_pct"
+                       invisible="parent.cpi_invoice_kind != 'construction'"/>
+                <field name="cpi_guaranteed"
+                       invisible="parent.cpi_invoice_kind != 'construction'"/>
+            </xpath>
+
+            <!-- Journal items tab: keep the extra line values when the invoice is saved. -->
+            <xpath expr="//field[@name='line_ids']/list/field[@name='name']" position="after">
+                <field name="cpi_previous_pct" column_invisible="1"/>
+                <field name="cpi_guaranteed" column_invisible="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name='tax_totals']" position="before">
+                <field name="cpi_contract_total" colspan="2"
+                       invisible="cpi_invoice_kind != 'construction'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_out_invoice_tree_cpi" model="ir.ui.view">
+        <field name="name">account.out.invoice.list.construction_progress_invoice_saaskul</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_out_invoice_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_date']" position="before">
+                <field name="cpi_invoice_kind" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_invoice_filter_cpi" model="ir.ui.view">
+        <field name="name">account.invoice.select.construction_progress_invoice_saaskul</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='draft']" position="before">
+                <filter name="cpi_construction" string="Construction Invoices"
+                        domain="[('cpi_invoice_kind', '=', 'construction')]"/>
+                <filter name="cpi_labour" string="Labour Supply Invoices"
+                        domain="[('cpi_invoice_kind', '=', 'labour'), ('move_type', 'in', ('out_invoice', 'out_refund'))]"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

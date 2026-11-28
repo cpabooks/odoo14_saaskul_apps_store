@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--
+            An older task form inherit declared next_action twice: one invisible="1"
+            before visited_by and one visible. The hidden field makes the client send a blank next_action
+            on save, so stage falls back to 4. QTN APPVD instead of staying on 5. WIP (FOC).
+        -->
+        <function model="ir.ui.view" name="cpabooks_unlink_views_by_xmlid">
+            <value eval="['view_fsm_project_task_form_remove_duplicate_next_action']"/>
+        </function>
+    </data>
+</odoo>

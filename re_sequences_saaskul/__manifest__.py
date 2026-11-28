@@ -1,0 +1,61 @@
+## -*- coding: utf-8 -*-
+{
+    'name': 'Sequence Manager - Document Numbering',
+
+    'summary': 'Manage and re-sequence document numbers across Odoo applications',
+
+    'description': """
+Re-Sequences
+======================
+Manage and re-sequence document numbers across Accounting, Sales,
+Purchase, Inventory, Project and CRM in Odoo 19.
+    """,
+
+    'author': 'Saaskul',
+    'website': 'https://saaskul.com',
+    'live_test_url': 'https://saaskul.com/contactus?name=Live%20Preview%20-%20Sequence%20Manager',
+    'support': 'info.cpabooks@gmail.com',
+
+    'category': 'Productivity',
+    'version': '19.0.1.63',
+    'license': 'OPL-1',
+    'price': 14.50,
+    'currency': 'USD',
+
+    'images': [
+        'static/description/banner.png',
+    ],
+
+    'depends': [
+        'base',
+        'account',
+        'sale',
+        'purchase',
+        'stock',
+        'project',
+        'crm',
+    ],
+
+    'data': [
+        'views/views.xml',
+        'views/templates.xml',
+        'views/sequence_menu.xml',
+        'views/account_move.xml',
+        'views/sale_order.xml',
+        'views/purchase_order.xml',
+        'views/stock_picking.xml',
+        'views/set_company_prefix_vew.xml',
+        'security/security.xml',
+        'security/ir.model.access.csv',
+        'data/create_sequences.xml',
+    ],
+
+    'demo': [
+        'demo/demo.xml',
+    ],
+
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}
+

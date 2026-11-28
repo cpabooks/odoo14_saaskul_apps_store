@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_switchgear_configuration"
+              name="Configuration"
+              parent="menu_flowchart_kanban_root"
+              sequence="99"
+              groups="base.group_system"/>
+
+    <menuitem id="menu_switchgear_configuration_settings"
+              name="Switchgear Configuration"
+              parent="menu_switchgear_configuration"
+              action="action_switchgear_configuration"
+              sequence="1"/>
+</odoo>

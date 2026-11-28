@@ -1,0 +1,195 @@
+/* FAFF Process Wizard — simple white Odoo-style (one job → finish) */
+
+.modal .o_form_view.o_faff_process_wizard {
+    min-width: 0;
+}
+
+.o_technical_modal .modal-dialog,
+.modal:has(.o_faff_process_wizard) .modal-dialog {
+    max-width: 96vw;
+    width: 96vw;
+}
+
+.o_faff_process_wizard .o_form_sheet {
+    max-width: none !important;
+    width: auto;
+}
+
+.o_faff_wiz_wide {
+    display: block;
+    width: 100%;
+    min-width: 0;
+}
+
+.o_faff_process_wizard .o_faff_wiz_list,
+.o_faff_process_wizard .o_list_view {
+    overflow-x: auto;
+    width: 100%;
+}
+
+.o_faff_process_wizard .o_list_view table {
+    table-layout: auto !important;
+    width: max-content;
+    min-width: 100%;
+}
+
+.o_faff_process_wizard .o_list_view th,
+.o_faff_process_wizard .o_list_view td {
+    white-space: nowrap;
+    padding: 4px 8px;
+}
+
+.o_faff_process_wizard .o_list_view th {
+    font-size: 12px;
+}
+
+.o_field_faff_wiz_progress_html {
+    display: block;
+}
+
+.o_faff_process_wizard .o_faff_wiz_layout {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    min-height: 420px;
+}
+
+.o_faff_process_wizard .o_faff_wiz_left {
+    flex: 0 0 220px;
+    max-width: 240px;
+    position: sticky;
+    top: 8px;
+}
+
+.o_faff_process_wizard .o_faff_wiz_right {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.o_faff_wiz_progress {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 12px 10px;
+}
+
+.o_faff_wiz_progress_title {
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #64748b;
+    margin-bottom: 8px;
+    padding: 0 4px;
+}
+
+.o_faff_wiz_progress ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.o_faff_wiz_step {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    padding: 5px 6px;
+    border-radius: 4px;
+    font-size: 0.82rem;
+    line-height: 1.25;
+    color: #64748b;
+}
+
+.o_faff_wiz_step.o_faff_wiz_done {
+    color: #166534;
+}
+
+.o_faff_wiz_step.o_faff_wiz_current {
+    background: #eff6ff;
+    color: #1e3a8a;
+    font-weight: 700;
+}
+
+.o_faff_wiz_mark {
+    flex: 0 0 1.1rem;
+    text-align: center;
+}
+
+.o_faff_process_wizard .oe_title h1 {
+    font-size: 0.95rem;
+    color: #64748b;
+    margin-bottom: 0.15rem;
+}
+
+.o_faff_process_wizard .oe_title h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.2rem;
+}
+
+.o_faff_process_wizard .oe_title h3 {
+    font-size: 0.9rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.o_faff_wiz_hint {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    white-space: normal;
+}
+
+/* Keep wizard white even when FAFF Dark shell is on */
+body.o_faff_dark_shell .o_form_view.o_faff_process_wizard,
+body.o_faff_dark_shell .o_form_view.o_faff_process_wizard .o_form_sheet_bg,
+body.o_faff_dark_shell .o_form_view.o_faff_process_wizard .o_form_sheet,
+body.o_faff_dark_shell .o_form_view.o_faff_process_wizard .o_content {
+    background: #ffffff !important;
+    color: #212529 !important;
+}
+
+body.o_faff_dark_shell .o_form_view.o_faff_process_wizard .o_form_sheet {
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+}
+
+body.o_faff_dark_shell .o_form_view.o_faff_process_wizard label,
+body.o_faff_dark_shell .o_form_view.o_faff_process_wizard .o_form_label,
+body.o_faff_dark_shell .o_form_view.o_faff_process_wizard .o_horizontal_separator,
+body.o_faff_dark_shell .o_form_view.o_faff_process_wizard .oe_title h2,
+body.o_faff_dark_shell .o_form_view.o_faff_process_wizard .oe_title h1,
+body.o_faff_dark_shell .o_form_view.o_faff_process_wizard .oe_title h3,
+body.o_faff_dark_shell .o_form_view.o_faff_process_wizard .o_field_widget,
+body.o_faff_dark_shell .o_form_view.o_faff_process_wizard span,
+body.o_faff_dark_shell .o_form_view.o_faff_process_wizard p {
+    color: #212529 !important;
+}
+
+body.o_faff_dark_shell .o_form_view.o_faff_process_wizard .text-muted,
+body.o_faff_dark_shell .o_form_view.o_faff_process_wizard .o_faff_wiz_hint {
+    color: #64748b !important;
+}
+
+body.o_faff_dark_shell .o_form_view.o_faff_process_wizard table,
+body.o_faff_dark_shell .o_form_view.o_faff_process_wizard .o_list_view,
+body.o_faff_dark_shell .o_form_view.o_faff_process_wizard .table {
+    background: #ffffff !important;
+    color: #212529 !important;
+}
+
+body.o_faff_dark_shell .o_form_view.o_faff_process_wizard .o_form_statusbar,
+body.o_faff_dark_shell .o_form_view.o_faff_process_wizard footer {
+    background: #f8fafc !important;
+}
+
+@media (max-width: 992px) {
+    .o_faff_process_wizard .o_faff_wiz_layout {
+        flex-direction: column;
+    }
+    .o_faff_process_wizard .o_faff_wiz_left {
+        max-width: none;
+        width: 100%;
+        position: static;
+    }
+}

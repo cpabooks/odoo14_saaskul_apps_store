@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <function model="res.config.settings" name="_cpabooks_safe_call" eval="['res.company', '_cpabooks_initialize_coa_code_digits']"/>
+</odoo>

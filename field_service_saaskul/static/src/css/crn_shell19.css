@@ -1,0 +1,29 @@
+/* Odoo 19: CRN app shell is a fixed left sidebar next to the action manager. */
+.o_crn_services_sidebar {
+    position: fixed;
+    z-index: 250;
+    top: var(--o-navbar-height, 46px);
+    left: 0;
+    bottom: 0;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+body.o_crn_app_shell .o_action_manager {
+    margin-left: 300px;
+}
+.o_form_view .cpabooks_fsm_nav_bubble_red {
+    animation: cpabooks_fsm_nav_bubble_red 0.65s ease-in-out 4;
+    border-radius: 8px;
+}
+body.o_cpabooks_fsm_form_active .o_form_button_create {
+    display: none !important;
+}
+@media (max-width: 767.98px) {
+    .o_crn_services_sidebar {
+        display: none;
+    }
+    body.o_crn_app_shell .o_action_manager {
+        margin-left: 0;
+    }
+}

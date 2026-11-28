@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_client_letter_wizard_form" model="ir.ui.view">
+        <field name="name">client.letter.wizard.form</field>
+        <field name="model">client.letter.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Client Letter">
+                <header>
+                    <button name="action_regenerate" type="object" string="Generate" class="btn-primary"/>
+                    <button name="action_save_to_chatter" type="object" string="Save Letter"/>
+                    <button name="action_save_as_template" type="object" string="Save as Template"/>
+                    <button name="action_print_pdf" type="object" string="Print PDF"/>
+                    <button name="action_send_email" type="object" string="Send Email"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="source_ref"/>
+                            <field name="template_id"/>
+                            <field name="use_source_defaults"/>
+                            <field name="company_id"/>
+                            <field name="partner_id"/>
+                            <field name="partner_email"/>
+                        </group>
+                        <group>
+                            <field name="letter_date"/>
+                            <field name="crm_number"/>
+                            <field name="quotation_number"/>
+                            <field name="invoice_number"/>
+                            <field name="estimation_number"/>
+                            <field name="client_lpo_number"/>
+                            <field name="project_name"/>
+                            <field name="client_name"/>
+                            <field name="attention_to"/>
+                            <field name="company_name"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="amount_text"/>
+                            <field name="due_amount_text"/>
+                            <field name="payment_terms"/>
+                            <field name="payment_status"/>
+                            <field name="next_action"/>
+                        </group>
+                        <group>
+                            <field name="source_name" readonly="1"/>
+                            <field name="source_model" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="subject"/>
+                    </group>
+                    <group>
+                        <field name="customer_address"/>
+                    </group>
+                    <group>
+                        <field name="save_template_name"/>
+                    </group>
+                    <notebook>
+                        <page string="Letter">
+                            <field name="letter_body" nolabel="1" widget="html"/>
+                        </page>
+                        <page string="Email">
+                            <field name="email_body" nolabel="1" widget="html"/>
+                        </page>
+                        <page string="WhatsApp">
+                            <field name="whatsapp_message" nolabel="1"/>
+                        </page>
+                        <page string="Attachments">
+                            <field name="attachment_ids" widget="many2many_binary" nolabel="1"/>
+                        </page>
+                        <page string="Smart Data">
+                            <field name="source_scope"/>
+                            <field name="assumptions"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button string="Close" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,181 @@
+/* Progress Status popup — checklist UI (aligned with FSM complaint workflow) */
+
+.o_cpabooks_progress_wizard .o_form_sheet {
+    max-width: 100%;
+    padding: 12px 16px;
+}
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_sidebar_inner {
+    width: 100%;
+    max-height: 72vh;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_sidebar_title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 4px;
+}
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_sidebar_sub {
+    font-size: 11px;
+    color: #6b7280;
+    margin-bottom: 8px;
+    line-height: 1.35;
+}
+
+.o_cpabooks_progress_wizard .o_cpabooks_progress_summary {
+    font-size: 12px;
+    color: #374151;
+    margin-bottom: 12px;
+    padding: 8px 10px;
+    background: #f3f4f6;
+    border-radius: 6px;
+}
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_stage_accordion {
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    border-width: 2px;
+}
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_stage_folded .cpabooks_fsm_stage_body {
+    display: none;
+}
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_stage_accordion[open] .cpabooks_fsm_stage_body {
+    display: block;
+}
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_stage_current {
+    box-shadow: 0 0 0 1px rgba(41, 128, 185, 0.25);
+}
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_stage_head {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 10px 6px;
+    font-size: 13px;
+    font-weight: 800;
+    background: transparent !important;
+    border: none;
+    border-bottom: 2px solid currentColor;
+}
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_stage_head::-webkit-details-marker {
+    display: none;
+}
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_stage_head_title {
+    flex: 1;
+    padding-right: 6px;
+    line-height: 1.25;
+}
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_stage_head_status {
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.06);
+    white-space: nowrap;
+}
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_side_orange { border-color: #e67e22; }
+.o_cpabooks_progress_wizard .cpabooks_fsm_side_green { border-color: #27ae60; }
+.o_cpabooks_progress_wizard .cpabooks_fsm_side_blue { border-color: #2980b9; }
+.o_cpabooks_progress_wizard .cpabooks_fsm_side_purple { border-color: #8e44ad; }
+.o_cpabooks_progress_wizard .cpabooks_fsm_side_teal { border-color: #16a085; }
+.o_cpabooks_progress_wizard .cpabooks_fsm_side_yellow { border-color: #d4ac0d; }
+.o_cpabooks_progress_wizard .cpabooks_fsm_side_pink { border-color: #e84393; }
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_side_orange .cpabooks_fsm_stage_head { color: #e67e22; border-bottom-color: #e67e22; }
+.o_cpabooks_progress_wizard .cpabooks_fsm_side_green .cpabooks_fsm_stage_head { color: #27ae60; border-bottom-color: #27ae60; }
+.o_cpabooks_progress_wizard .cpabooks_fsm_side_blue .cpabooks_fsm_stage_head { color: #2980b9; border-bottom-color: #2980b9; }
+.o_cpabooks_progress_wizard .cpabooks_fsm_side_purple .cpabooks_fsm_stage_head { color: #8e44ad; border-bottom-color: #8e44ad; }
+.o_cpabooks_progress_wizard .cpabooks_fsm_side_teal .cpabooks_fsm_stage_head { color: #16a085; border-bottom-color: #16a085; }
+.o_cpabooks_progress_wizard .cpabooks_fsm_side_yellow .cpabooks_fsm_stage_head { color: #b7950b; border-bottom-color: #b7950b; }
+.o_cpabooks_progress_wizard .cpabooks_fsm_side_pink .cpabooks_fsm_stage_head { color: #e84393; border-bottom-color: #e84393; }
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_stage_body {
+    padding: 8px 10px 6px;
+    background: #fafafa;
+}
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_block_title {
+    font-size: 10px;
+    font-weight: 700;
+    color: #4b5563;
+    margin: 6px 0 4px;
+    font-style: italic;
+}
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_check_list {
+    list-style: none;
+    margin: 0 0 4px 0;
+    padding: 0;
+}
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_stage_done .cpabooks_fsm_stage_head_status {
+    background: rgba(22, 163, 74, 0.15);
+    color: #15803d;
+}
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_stage_next {
+    box-shadow: 0 0 0 1px rgba(100, 116, 139, 0.2);
+}
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_stage_next .cpabooks_fsm_stage_head_status {
+    background: rgba(100, 116, 139, 0.12);
+    color: #475569;
+}
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_check_item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 11px;
+    line-height: 1.35;
+    margin-bottom: 4px;
+    color: #374151;
+}
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_check_icon {
+    flex-shrink: 0;
+    width: 14px;
+    margin-top: 1px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_check_done .cpabooks_fsm_check_icon {
+    color: #16a34a;
+}
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_check_done .cpabooks_fsm_check_label {
+    color: #166534;
+}
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_check_pending .cpabooks_fsm_check_icon {
+    color: #9ca3af;
+}
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_check_done .fa {
+    color: #16a34a;
+}
+
+.o_cpabooks_progress_wizard .cpabooks_fsm_check_pending .fa {
+    color: #9ca3af;
+}
+
+.o_form_view header .o_cpabooks_progress_status_btn {
+    margin-left: 4px;
+}

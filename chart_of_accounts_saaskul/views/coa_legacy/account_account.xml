@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_account_form_inherit" model="ir.ui.view">
+            <field name="name">account.account.form.inherit</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form"/>
+            <field name="arch" type="xml">
+
+
+                <!--                <xpath expr="//div[@class='oe_title']" position="inside">-->
+                <!--                        <field name="group_id" string="Select Group" placeholder="Group" invisible="not get_previous"/>-->
+                <!--                    &lt;!&ndash;                    <label for="group_id" invisible="not get_previous"/>&ndash;&gt;-->
+                <!--                </xpath>-->
+
+
+                <xpath expr="//field[@name='group_id']" position="attributes">
+                    <attribute name="string">Select Group</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='group_id']" position="after">
+                    <field name="qid" invisible="1"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_account_tree_inherit" model="ir.ui.view">
+            <field name="name">account.account.tree.inherit</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_list"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='reconcile']" position="attributes">
+                    <attribute name="optional">0</attribute>
+                </xpath>
+                <xpath expr="//field[@name='group_id']" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </xpath>
+                <xpath expr="//field[@name='currency_id']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="account.action_account_form" model="ir.actions.act_window">
+            <field name="domain">[('company_id', 'in', allowed_company_ids)]</field>
+        </record>
+
+
+    </data>
+</odoo>

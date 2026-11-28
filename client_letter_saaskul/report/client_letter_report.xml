@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_client_letter_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page" style="margin-left:-8px; padding-right:18px;">
+                        <div t-if="not doc.is_blank_template and doc.attention_to" style="margin-bottom:10px; text-align:left;">
+                            <div style="font-weight:700;">Attention to:</div>
+                            <div t-esc="doc.attention_to"/>
+                        </div>
+                        <div t-if="not doc.is_blank_template" style="text-align:left; margin-bottom:12px;">
+                            <t t-set="partner" t-value="doc.partner_id.commercial_partner_id if doc.partner_id else False"/>
+                            <div t-if="doc.client_name or partner" style="font-weight:700;" t-esc="doc.client_name or (partner.name if partner else '')"/>
+                            <div t-if="partner and partner.street" t-esc="partner.street"/>
+                            <div t-if="partner and partner.street2" t-esc="partner.street2"/>
+                            <div t-if="partner and partner.zip">P.O.Box: <span t-esc="partner.zip"/></div>
+                            <div t-if="partner and partner.city" t-esc="partner.city"/>
+                            <div t-if="partner and partner.state_id" t-esc="partner.state_id.name"/>
+                            <div t-if="partner and partner.country_id" t-esc="partner.country_id.name"/>
+                            <div t-if="(partner and partner.phone) or doc.customer_phone">Phone: <span t-esc="partner.phone if partner and partner.phone else doc.customer_phone"/></div>
+                            <div t-if="(partner and partner.email) or doc.customer_email">Email: <span t-esc="partner.email if partner and partner.email else doc.customer_email"/></div>
+                            <div t-if="(partner and partner.website) or doc.customer_website">Website: <span t-esc="partner.website if partner and partner.website else doc.customer_website"/></div>
+                        </div>
+                        <h3 style="font-weight:700; margin-top:0; margin-bottom:12px;">
+                            Subject: <span t-esc="doc.subject"/>
+                        </h3>
+                        <p t-if="not doc.is_blank_template and (doc.crm_number or doc.quotation_number or doc.invoice_number or doc.estimation_number or doc.client_lpo_number or doc.letter_date)"><strong>Ref:</strong></p>
+                        <p t-if="not doc.is_blank_template and (doc.crm_number or doc.quotation_number or doc.invoice_number or doc.estimation_number or doc.client_lpo_number or doc.letter_date)">
+                            <t t-if="doc.crm_number">CRM No.: <span t-esc="doc.crm_number"/><br/></t>
+                            <t t-if="doc.quotation_number">Quotation No.: <span t-esc="doc.quotation_number"/><br/></t>
+                            <t t-if="doc.invoice_number">Invoice No.: <span t-esc="doc.invoice_number"/><br/></t>
+                            <t t-if="doc.estimation_number">Estimation Ref.: <span t-esc="doc.estimation_number"/><br/></t>
+                            <t t-if="doc.client_lpo_number">Client LPO/PO No.: <span t-esc="doc.client_lpo_number"/><br/></t>
+                            <t t-if="doc.letter_date">Date: <span t-esc="doc.letter_date"/></t>
+                        </p>
+                        <div t-field="doc.letter_body"/>
+                        <div t-if="not doc.is_blank_template" style="margin-top:20px; text-align:left;">
+                            <div style="position:relative; width:260px; height:130px; margin-top:20px;">
+                                <img t-if="doc.company_stamp or doc.user_stamp or ('stamp' in doc.company_id._fields and doc.company_id.stamp)"
+                                     t-att-src="image_data_uri(doc.company_stamp or (doc.company_id.stamp if 'stamp' in doc.company_id._fields else False) or doc.user_stamp)"
+                                     style="position:absolute; left:105px; top:25px; width:115px; opacity:0.45; z-index:1; border:none; box-shadow:none; filter:none; transform:rotate(-8deg);"/>
+                                <img t-if="doc.user_signature"
+                                     t-att-src="image_data_uri(doc.user_signature)"
+                                     style="position:absolute; left:0; top:5px; width:220px; z-index:2; background:transparent !important; border:none; box-shadow:none; mix-blend-mode:multiply; filter:none; transform:rotate(-4deg); transform-origin:left center;"/>
+                            </div>
+                            <div>Best regards,</div>
+                            <div style="font-weight:700; margin-top:4px;">
+                                <span t-esc="doc.company_name or 'CPABOOKS INFO. TECH. MIDDLE EAST'"/>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_client_letter" model="ir.actions.report">
+        <field name="name">Client Letter</field>
+        <field name="model">client.letter.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">client_letter_saaskul.report_client_letter_document</field>
+        <field name="report_file">client_letter_saaskul.report_client_letter_document</field>
+        <field name="print_report_name">'Client Letter - %s' % (object.subject or 'Draft')</field>
+    </record>
+</odoo>

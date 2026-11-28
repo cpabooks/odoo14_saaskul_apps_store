@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="set_company_prefix_wizard_form" model="ir.ui.view">
+            <field name="name">Set Company Prefix Wizard Form</field>
+            <field name="model">set.company.prefix</field>
+            <field name="arch" type="xml">
+                <form string="Reset Company Prefix">
+                    <sheet>
+                        <group>
+                            <field name="name" invisible="1"/>
+                            <field name="prefix" string="Company Prefix" placeholder="e.g. KCS, CPA"/>
+                            <field name="sequence_granularity" widget="radio"/>
+                            <field name="sequence_year_digits" widget="radio"/>
+                            <field name="sequence_number_digits" widget="radio"/>
+                        </group>
+                        <group>
+                            <field name="sequence_format_preview" nolabel="1" colspan="2" widget="html"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button type="object" name="set_prefix" string="Set" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="set_company_prefix_wizard" model="ir.actions.act_window">
+            <field name="name">Reset Company Prefix</field>
+            <field name="res_model">set.company.prefix</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_product_template_id_coa" model="ir.ui.view">
+            <field name="name">view.product.template.form.coa</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='general_information']/group/group[1]" position="inside">
+                    <field name="coa_code"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

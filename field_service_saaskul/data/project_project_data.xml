@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- enable_fsm_for_all_projects runs once from hooks.py -->
+</odoo>

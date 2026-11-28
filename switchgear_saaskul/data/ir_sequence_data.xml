@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Sequences for BOM -->
+        <record id="seq_mrp_bom" model="ir.sequence">
+            <field name="name">Bills of Materials</field>
+            <field name="code">mrp.bom</field>
+            <field name="prefix">BOM</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_switchgear_crm_enquiry" model="ir.sequence">
+            <field name="name">Switchgear Enquiry</field>
+            <field name="code">switchgear.crm.enquiry</field>
+            <field name="prefix">ENQ/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_switchgear_estimate" model="ir.sequence">
+            <field name="name">Switchgear Job Estimate</field>
+            <field name="code">switchgear.estimate</field>
+            <field name="prefix">EST/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_switchgear_quality_check" model="ir.sequence">
+            <field name="name">Switchgear Quality Check</field>
+            <field name="code">switchgear.quality.check</field>
+            <field name="prefix">QC/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_switchgear_purchase_requisition" model="ir.sequence">
+            <field name="name">Switchgear Purchase Requisition</field>
+            <field name="code">switchgear.purchase.requisition</field>
+            <field name="prefix">PR/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Remove the "Manage Databases" link under the login card. -->
+    <template id="login_layout_hide_manager" inherit_id="web.login_layout" name="Hide Manage Databases link">
+        <xpath expr="//a[@href='/web/database/manager']" position="replace"/>
+    </template>
+
+    <!-- Keep the database name read-only and remove the "Select" database button. -->
+    <template id="login_hide_selector" inherit_id="web.login" name="Hide Select Database button">
+        <xpath expr="//a[@href='/web/database/selector']" position="replace"/>
+    </template>
+</odoo>

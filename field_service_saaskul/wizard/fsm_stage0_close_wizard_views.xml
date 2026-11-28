@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_cpabooks_fsm_stage0_close_wizard_form" model="ir.ui.view">
+            <field name="name">cpabooks.fsm.stage0.close.wizard.form</field>
+            <field name="model">cpabooks.fsm.stage0.close.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Close Registration Stage">
+                    <group>
+                        <field name="task_id" invisible="1"/>
+                        <field name="pending_count" invisible="1"/>
+                        <div class="alert alert-warning" role="alert">
+                            <strong>Close this stage?</strong>
+                            <p>Registration will be marked 100% complete even if some fields are still empty.</p>
+                        </div>
+                        <field name="pending_html" nolabel="1" readonly="1"/>
+                    </group>
+                    <footer>
+                        <button name="action_confirm_close_stage"
+                                string="Confirm and Close Stage"
+                                type="object"
+                                class="btn-primary"/>
+                        <button name="action_cancel"
+                                string="Cancel"
+                                type="object"
+                                class="btn-secondary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

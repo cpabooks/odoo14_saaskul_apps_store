@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="sequence_form_extend" model="ir.ui.view">
+
+        <field name="name">sequence.form.extend</field>
+
+        <field name="model">ir.sequence</field>
+
+        <field name="inherit_id" ref="base.sequence_view"/>
+
+        <field name="arch" type="xml">
+
+            <xpath expr="//sheet" position="before">
+                <div class="alert alert-warning text-center" role="alert"
+                     invisible="not sequence_for or not saaskul_sequence_locked">
+                    This document sequence is <strong>locked</strong>. Uncheck <strong>Locked</strong> or use
+                    <strong>Unlock</strong> on the Re-Sequences list to edit prefix / numbering.
+                </div>
+            </xpath>
+
+            <field name="implementation" position="after">
+                <field name="sequence_for"
+                       readonly="saaskul_sequence_locked and sequence_for"/>
+                <field name="sequence_pattern"
+                       readonly="saaskul_sequence_locked and sequence_for"/>
+                <field name="saaskul_year_digits"
+                       readonly="saaskul_sequence_locked and sequence_for"/>
+                <field name="saaskul_sequence_locked"
+                       invisible="not sequence_for"/>
+                <field name="saaskul_start_new_sequence"
+                       invisible="not sequence_for" readonly="saaskul_sequence_locked and sequence_for"/>
+                <field name="sequence_pattern_example" readonly="1"/>
+                <field name="sequence_for_journals" invisible="1"/>
+            </field>
+
+            <field name="name" position="attributes">
+                <attribute name="readonly">sequence_for and saaskul_sequence_locked</attribute>
+            </field>
+            <field name="implementation" position="attributes">
+                <attribute name="readonly">sequence_for and saaskul_sequence_locked</attribute>
+            </field>
+            <field name="code" position="attributes">
+                <attribute name="readonly">sequence_for and saaskul_sequence_locked</attribute>
+            </field>
+            <field name="active" position="attributes">
+                <attribute name="readonly">sequence_for and saaskul_sequence_locked</attribute>
+            </field>
+            <field name="company_id" position="attributes">
+                <attribute name="readonly">sequence_for and saaskul_sequence_locked</attribute>
+            </field>
+
+            <field name="prefix" position="attributes">
+                <attribute name="readonly">sequence_for and saaskul_sequence_locked</attribute>
+            </field>
+            <field name="suffix" position="attributes">
+                <attribute name="readonly">sequence_for and saaskul_sequence_locked</attribute>
+            </field>
+            <field name="use_date_range" position="attributes">
+                <attribute name="readonly">sequence_for and saaskul_sequence_locked</attribute>
+            </field>
+            <field name="padding" position="attributes">
+                <attribute name="readonly">sequence_for and saaskul_sequence_locked</attribute>
+            </field>
+            <field name="number_increment" position="attributes">
+                <attribute name="readonly">sequence_for and saaskul_sequence_locked</attribute>
+            </field>
+            <field name="number_next_actual" position="attributes">
+                <attribute name="readonly">sequence_for and saaskul_sequence_locked</attribute>
+                <attribute name="invisible">use_date_range</attribute>
+            </field>
+            <field name="date_range_ids" position="attributes">
+                <attribute name="readonly">sequence_for and saaskul_sequence_locked</attribute>
+                <attribute name="invisible">not use_date_range</attribute>
+            </field>
+
+        </field>
+
+    </record>
+
+    <record id="sequence_tree_extend" model="ir.ui.view">
+
+        <field name="name">sequence.tree.extend</field>
+
+        <field name="model">ir.sequence</field>
+
+        <field name="inherit_id" ref="base.sequence_view_tree"/>
+
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='name']" position="attributes">
+
+                <attribute name="column_invisible">1</attribute>
+
+            </xpath>
+
+            <xpath expr="/list" position="inside">
+
+                <header>
+
+                    <button name="action_saaskul_toggle_lock"
+                            string="Lock / Unlock"
+                            type="object"
+                            class="btn-secondary o_saaskul_lock_toggle_btn"
+                            groups="base.group_system"/>
+
+                    <button name="set_prefix"
+
+                            string="Reset Company Prefix"
+
+                            class="oe_highlight o_saaskul_reset_prefix_btn"
+
+                            type="object"
+
+                            groups="base.group_system"/>
+
+                </header>
+
+            </xpath>
+
+            <field name="code" position="before">
+
+                <field name="name"/>
+
+                <field name="saaskul_sequence_locked" string="Locked"/>
+
+                <field name="sequence_for"/>
+
+                <field name="sequence_pattern"/>
+
+                <field name="sequence_pattern_example" string="Pattern Example" optional="show"/>
+
+                <field name="sequence_for_journals" column_invisible="1"/>
+
+            </field>
+
+        </field>
+
+    </record>
+
+
+
+    <record id="ir_sequence_form_extend" model="ir.actions.act_window">
+
+        <field name="name">Re-Sequences</field>
+
+        <field name="type">ir.actions.act_window</field>
+
+        <field name="res_model">ir.sequence</field>
+
+        <field name="view_id" ref="sequence_tree_extend"/>
+
+        <field name="context">{'active_test': False, 'saaskul_resequence_list': True}</field>
+
+        <field name="domain">
+
+            [('sequence_for', '!=', False), '|', ('company_id', '=', False), ('company_id', 'in', allowed_company_ids)]
+
+        </field>
+
+    </record>
+
+
+
+    <menuitem id="menu_custom_sequence" name="Re-Sequences" parent="base.menu_users" sequence="5"
+
+              action="ir_sequence_form_extend"/>
+
+</odoo>
+

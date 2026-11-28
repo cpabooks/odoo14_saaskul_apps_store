@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_cafm_contract_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family: Arial, Helvetica, sans-serif; font-size: 11px; color: #111;">
+                        <style type="text/css">
+                            .cafm-sheet-table {
+                                width: 100%;
+                                border-collapse: collapse;
+                                table-layout: fixed;
+                                margin-bottom: 14px;
+                            }
+                            .cafm-sheet-table th,
+                            .cafm-sheet-table td {
+                                border: 1px solid #333;
+                                padding: 5px 6px;
+                                vertical-align: top;
+                                word-wrap: break-word;
+                            }
+                            .cafm-sheet-table th {
+                                background: #f2f2f2;
+                                font-weight: 700;
+                                width: 16%;
+                            }
+                            .cafm-sheet-table td {
+                                width: 34%;
+                            }
+                            .cafm-sched-table {
+                                width: 100%;
+                                border-collapse: collapse;
+                                table-layout: fixed;
+                                margin-bottom: 14px;
+                            }
+                            .cafm-sched-table th,
+                            .cafm-sched-table td {
+                                border: 1px solid #333;
+                                padding: 5px 6px;
+                                vertical-align: middle;
+                            }
+                            .cafm-sched-table thead th {
+                                background: #f2f2f2;
+                                font-weight: 700;
+                                text-align: center;
+                            }
+                            .cafm-sched-table .num {
+                                text-align: right;
+                                white-space: nowrap;
+                            }
+                            .cafm-sched-table .ctr {
+                                text-align: center;
+                            }
+                        </style>
+
+                        <h2 style="margin: 0 0 10px 0;">AMC Contract Sheet</h2>
+
+                        <!-- Unified header grid (2 label/value pairs per row) -->
+                        <table class="cafm-sheet-table">
+                            <tbody>
+                                <tr>
+                                    <th>Contract No</th>
+                                    <td><span t-field="doc.name"/></td>
+                                    <th>Status</th>
+                                    <td><span t-field="doc.contract_status"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Client</th>
+                                    <td><span t-field="doc.client_id"/></td>
+                                    <th>Client Group</th>
+                                    <td><span t-field="doc.customer_group_id"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Client contact person</th>
+                                    <td><span t-field="doc.contact_person_id"/></td>
+                                    <th>Client contact number</th>
+                                    <td><span t-field="doc.contact_no"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Client manager</th>
+                                    <td><span t-field="doc.client_manager_id"/></td>
+                                    <th>UBS No.</th>
+                                    <td><span t-field="doc.ubs_no"/></td>
+                                </tr>
+                                <tr>
+                                    <th>GFS supervisor</th>
+                                    <td><span t-field="doc.gfs_supervisor_id"/></td>
+                                    <th>GFS admin</th>
+                                    <td><span t-field="doc.gfs_admin_id"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Project</th>
+                                    <td><span t-field="doc.project_id"/></td>
+                                    <th>Location</th>
+                                    <td>
+                                        <t t-if="doc.location"><span t-field="doc.location"/></t>
+                                        <t t-if="not doc.location and doc.project_location_id"><span t-field="doc.project_location_id"/></t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Contract Date</th>
+                                    <td><span t-field="doc.contract_date"/></td>
+                                    <th>Expiry</th>
+                                    <td><span t-field="doc.contract_expiry"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Renewal Date</th>
+                                    <td><span t-field="doc.renewal_date"/></td>
+                                    <th>Period</th>
+                                    <td><span t-field="doc.contract_period_years"/> year(s)</td>
+                                </tr>
+                                <tr>
+                                    <th>Frequency</th>
+                                    <td><span t-field="doc.invoice_frequency"/></td>
+                                    <th>Contract Status</th>
+                                    <td>
+                                        <span t-field="doc.live_status"/>
+                                        <t t-if="doc.contract_check_status">
+                                            / <span t-field="doc.contract_check_status"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Total Value</th>
+                                    <td><span t-field="doc.total_contract_value"/></td>
+                                    <th>Invoice Value</th>
+                                    <td><span t-field="doc.invoicing_value"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Yearly Value</th>
+                                    <td><span t-field="doc.yearly_contract_amount"/></td>
+                                    <th>Monthly Revenue</th>
+                                    <td><span t-field="doc.monthly_revenue"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Flats</th>
+                                    <td><span t-field="doc.number_of_flats"/></td>
+                                    <th>SQFT</th>
+                                    <td><span t-field="doc.sqft_qty"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3 style="margin: 12px 0 6px 0;">Invoice Schedule</h3>
+                        <!-- Unified schedule: fixed columns, no empty gap -->
+                        <table class="cafm-sched-table">
+                            <colgroup>
+                                <col style="width: 12%;"/>
+                                <col style="width: 22%;"/>
+                                <col style="width: 12%;"/>
+                                <col style="width: 12%;"/>
+                                <col style="width: 12%;"/>
+                                <col style="width: 16%;"/>
+                                <col style="width: 14%;"/>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>Stagger</th>
+                                    <th>Period</th>
+                                    <th>Date From</th>
+                                    <th>Date To</th>
+                                    <th>Invoice Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-if="doc.schedule_line_ids">
+                                    <tr t-foreach="doc.schedule_line_ids" t-as="line">
+                                        <td class="ctr"><span t-field="line.name"/></td>
+                                        <td><span t-field="line.period_label"/></td>
+                                        <td class="ctr"><span t-field="line.date_from"/></td>
+                                        <td class="ctr"><span t-field="line.date_to"/></td>
+                                        <td class="ctr"><span t-field="line.invoice_date"/></td>
+                                        <td class="num"><span t-field="line.amount"/></td>
+                                        <td class="ctr"><span t-field="line.state"/></td>
+                                    </tr>
+                                </t>
+                                <t t-else="">
+                                    <tr>
+                                        <td colspan="7" class="ctr" style="padding: 10px; color: #666;">
+                                            No invoice schedule lines.
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr t-if="doc.schedule_line_ids">
+                                    <td colspan="5" style="text-align: right; font-weight: 700;">Total</td>
+                                    <td class="num" style="font-weight: 700;">
+                                        <span t-field="doc.schedule_total"/>
+                                    </td>
+                                    <td/>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div t-if="doc.notes">
+                            <h3 style="margin: 12px 0 6px 0;">Notes</h3>
+                            <p style="white-space: pre-wrap; margin: 0;"><span t-field="doc.notes"/></p>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

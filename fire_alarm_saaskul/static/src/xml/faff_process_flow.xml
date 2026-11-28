@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="fire_alarm_saaskul.FaffProcessFlow">
+        <div class="o_faff_flow_root o_action h-100 overflow-auto">
+            <div class="o_faff_flow_header">
+                <div>
+                    <div class="o_faff_flow_kicker">Fire Alarm &amp; Fire Fighting Company</div>
+                    <h1>FAFF Process Flow</h1>
+                    <p class="o_faff_flow_sub">
+                        One job → one wizard → start to finish. Click a step to open that screen.
+                    </p>
+                </div>
+                <div class="o_faff_flow_badges">
+                    <div class="o_faff_flow_badge">New Module: <b>fire_alarm_saaskul</b></div>
+                    <div class="o_faff_flow_badge">Menu Name: <b>FAFF</b></div>
+                    <a href="#" class="o_faff_flow_start btn btn-primary" t-on-click.prevent="startJob">
+                        <i class="fa fa-play"/> Start New FAFF Job
+                    </a>
+                </div>
+            </div>
+            <div class="o_faff_flow_board">
+                <t t-foreach="rows" t-as="row" t-key="row_index">
+                    <div class="o_faff_flow_row">
+                        <t t-foreach="row" t-as="step" t-key="step.n">
+                            <div t-if="step_index" class="o_faff_flow_arrow"><i class="fa fa-arrow-right"/></div>
+                            <a href="#" class="o_faff_flow_card" t-att-data-xmlid="step.xmlid"
+                               t-attf-style="--faff-step: {{ step.color }};"
+                               t-on-click.prevent="() => this.open(step.xmlid)">
+                                <div class="o_faff_flow_card_top">
+                                    <span class="o_faff_flow_icon"><i t-attf-class="fa {{ step.icon }}"/></span>
+                                    <span class="o_faff_flow_num" t-esc="step.n"/>
+                                </div>
+                                <div class="o_faff_flow_card_title" t-esc="step.title"/>
+                                <ul>
+                                    <t t-foreach="step.tasks" t-as="task" t-key="task_index"><li t-esc="task"/></t>
+                                </ul>
+                                <div class="o_faff_flow_sys">System: <t t-esc="step.system"/></div>
+                            </a>
+                        </t>
+                    </div>
+                    <div t-if="row_index &lt; rows.length - 1" class="o_faff_flow_down"><i class="fa fa-arrow-down"/></div>
+                </t>
+            </div>
+            <p class="o_faff_flow_hint text-muted">
+                Job types (example): Fire Alarm System, Fire Fighting System, Fire Alarm + Fire Fighting, AMC / Maintenance.
+            </p>
+        </div>
+    </t>
+</templates>

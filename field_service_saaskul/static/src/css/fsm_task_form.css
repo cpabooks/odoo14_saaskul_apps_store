@@ -1,0 +1,1828 @@
+/* FSM CRN form — mockup-aligned layout (functionality unchanged) */
+
+.o_form_view .cpabooks_fsm_task_sheet {
+    background: #f4f6f8;
+}
+
+.o_form_view .cpabooks_fsm_quotation_status {
+    font-size: 13px;
+    font-weight: 600;
+    color: #2980b9;
+    margin: 0 0 10px;
+}
+
+.o_form_view .cpabooks_fsm_quotation_approved {
+    font-size: 13px;
+    font-weight: 700;
+    color: #16a085;
+    margin: 0 0 10px;
+}
+
+.o_form_view .cpabooks_fsm_stage_title_cost_summary .o_form_label,
+.o_form_view .cpabooks_fsm_stage_sep_title.cpabooks_fsm_stage_title_cost_summary .o_form_label {
+    color: #c2185b !important;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.o_form_view .cpabooks_fsm_stage7_approval_status {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0 0 12px;
+}
+
+.o_form_view .o_field_widget[name="fsm_stage7_approval_status"].cpabooks_fsm_stage7_tone_waiting span,
+.o_form_view .o_field_widget[name="fsm_stage7_approval_status"].cpabooks_fsm_stage7_tone_waiting input {
+    color: #d68910;
+    font-weight: 600;
+}
+
+.o_form_view .o_field_widget[name="fsm_stage7_approval_status"].cpabooks_fsm_stage7_tone_approved span,
+.o_form_view .o_field_widget[name="fsm_stage7_approval_status"].cpabooks_fsm_stage7_tone_approved input {
+    color: #16a085;
+    font-weight: 700;
+}
+
+.o_form_view .o_field_widget[name="fsm_stage7_approval_status"].cpabooks_fsm_stage7_tone_rejected span,
+.o_form_view .o_field_widget[name="fsm_stage7_approval_status"].cpabooks_fsm_stage7_tone_rejected input {
+    color: #c0392b;
+    font-weight: 700;
+}
+
+.o_form_view .cpabooks_crn_form_caption {
+    width: 100%;
+    margin: 0 0 8px;
+    padding: 0;
+    clear: both;
+    order: -20;
+}
+
+.o_form_view .cpabooks_fsm_form_with_sidebar .cpabooks_crn_form_caption {
+    width: calc(100% - 340px);
+    max-width: calc(100% - 340px);
+    float: left;
+    clear: left;
+    box-sizing: border-box;
+}
+
+.o_form_view .cpabooks_crn_form_caption_title {
+    margin: 0 0 2px;
+    padding: 0;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: #1d4ed8;
+    line-height: 1.2;
+}
+
+.o_form_view .cpabooks_crn_form_caption_sub {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    letter-spacing: 0.2px;
+}
+
+.o_form_view .cpabooks_fsm_form_with_sidebar {
+    position: relative;
+    padding-right: 340px;
+    min-height: 520px;
+    box-sizing: border-box;
+}
+
+.o_form_view .cpabooks_fsm_form_with_sidebar .cpabooks_fsm_overview_fields {
+    width: 100%;
+    max-width: 100%;
+    float: left;
+    clear: left;
+    box-sizing: border-box;
+}
+
+.o_form_view .cpabooks_fsm_title {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .o_group .o_td_label label {
+    color: #374151;
+    font-weight: 600;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview {
+    width: 100%;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 6px 10px;
+    margin-bottom: 8px;
+}
+
+/* Stage field groups — text-only stage titles, no filled panels */
+.o_form_view .cpabooks_fsm_overview .o_group.cpabooks_fsm_stage_box,
+.o_form_view .cpabooks_fsm_overview_fields > .o_group.cpabooks_fsm_stage_box {
+    border: none;
+    background: transparent !important;
+    border-radius: 0;
+    padding: 0 0 8px;
+    margin-bottom: 6px;
+    width: 100%;
+    max-width: 100%;
+    display: block;
+    float: none;
+    overflow: visible;
+}
+
+.o_form_view .cpabooks_fsm_overview .o_group.cpabooks_fsm_overview_fields {
+    width: 100%;
+    max-width: 100%;
+}
+
+.o_form_view .cpabooks_fsm_stage_sep_title {
+    width: 100%;
+    margin: 12px 0 8px;
+    padding: 0 0 2px;
+    border: none;
+    background: transparent !important;
+    overflow: visible;
+    min-height: 28px;
+}
+
+.o_form_view .cpabooks_fsm_stage_sep_title.o_horizontal_separator,
+.o_form_view .cpabooks_fsm_stage_box .o_horizontal_separator.cpabooks_fsm_stage_sep_title {
+    overflow: visible;
+    min-height: 28px;
+    height: auto;
+}
+
+.o_form_view .cpabooks_fsm_stage_sep_title .o_form_label {
+    font-weight: 800;
+    font-size: 17px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    line-height: 1.45;
+    width: 100%;
+    display: block;
+    padding: 0 0 2px;
+    margin: 0;
+    background: transparent !important;
+    overflow: visible;
+    white-space: normal;
+}
+
+.o_form_view .cpabooks_fsm_stage_sep_title.cpabooks_fsm_stage_title_orange,
+.o_form_view .cpabooks_fsm_stage_title_orange .o_form_label,
+.o_form_view .cpabooks_fsm_stage_box_orange .cpabooks_fsm_stage_sep_title .o_form_label {
+    color: #e67e22 !important;
+}
+
+.o_form_view .cpabooks_fsm_stage_sep_title.cpabooks_fsm_stage_title_green,
+.o_form_view .cpabooks_fsm_stage_title_green .o_form_label,
+.o_form_view .cpabooks_fsm_stage_box_green .cpabooks_fsm_stage_sep_title .o_form_label {
+    color: #27ae60 !important;
+}
+
+.o_form_view .cpabooks_fsm_stage_sep_title.cpabooks_fsm_stage_title_blue,
+.o_form_view .cpabooks_fsm_stage_title_blue .o_form_label,
+.o_form_view .cpabooks_fsm_stage_box_blue .cpabooks_fsm_stage_sep_title .o_form_label {
+    color: #2980b9 !important;
+}
+
+.o_form_view .cpabooks_fsm_stage_sep_title.cpabooks_fsm_stage_title_purple,
+.o_form_view .cpabooks_fsm_stage_title_purple .o_form_label,
+.o_form_view .cpabooks_fsm_stage_box_purple .cpabooks_fsm_stage_sep_title .o_form_label {
+    color: #8e44ad !important;
+}
+
+.o_form_view .cpabooks_fsm_stage_sep_title.cpabooks_fsm_stage_title_teal,
+.o_form_view .cpabooks_fsm_stage_title_teal .o_form_label,
+.o_form_view .cpabooks_fsm_stage_box_teal .cpabooks_fsm_stage_sep_title .o_form_label {
+    color: #16a085 !important;
+}
+
+.o_form_view .cpabooks_fsm_stage_sep_title.cpabooks_fsm_stage_title_yellow,
+.o_form_view .cpabooks_fsm_stage_title_yellow .o_form_label,
+.o_form_view .cpabooks_fsm_stage_box_yellow .cpabooks_fsm_stage_sep_title .o_form_label {
+    color: #b7950b !important;
+}
+
+.o_form_view .cpabooks_fsm_stage_sep_title.cpabooks_fsm_stage_title_pink,
+.o_form_view .cpabooks_fsm_stage_title_pink .o_form_label,
+.o_form_view .cpabooks_fsm_stage_box_pink .cpabooks_fsm_stage_sep_title .o_form_label {
+    color: #e84393 !important;
+}
+
+.o_form_view .cpabooks_fsm_stage_sep_trailing .o_form_label {
+    color: #6b7280;
+    font-weight: 600;
+    font-size: 11px;
+}
+
+/* Field values use normal form colors; only stage titles are colored */
+.o_form_view .cpabooks_fsm_stage_box .o_field_widget span,
+.o_form_view .cpabooks_fsm_stage_box .o_field_widget input,
+.o_form_view .cpabooks_fsm_stage_box .o_field_widget textarea,
+.o_form_view .cpabooks_fsm_stage_box .o_field_widget a {
+    color: inherit;
+    font-weight: normal;
+}
+
+.o_form_view .cpabooks_fsm_stage_box .o_field_widget.cpabooks_fsm_field_locked span,
+.o_form_view .cpabooks_fsm_stage_box .o_field_widget.cpabooks_fsm_field_locked input,
+.o_form_view .cpabooks_fsm_stage_box .o_field_widget.cpabooks_fsm_field_locked textarea {
+    color: #6b7280 !important;
+    font-weight: 500;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .o_td_label {
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .o_td_label label {
+    margin-bottom: 0;
+    padding-left: 0;
+    line-height: 1.25;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .o_group tr,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .o_group tbody tr {
+    height: auto;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .o_group td {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    vertical-align: middle;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview_fields > table,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview_fields .o_group > table {
+    width: 100%;
+    table-layout: auto;
+}
+
+/* Stage title rows: auto table layout so long STAGE n — … labels are not clipped. */
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview_fields .cpabooks_fsm_stage_box > table {
+    table-layout: auto;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_stage_box tr:has(.cpabooks_fsm_stage_sep_title) td,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_stage_box tr:has(.o_horizontal_separator) td {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 100% !important;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_stage_box tr:has(.cpabooks_fsm_stage_sep_title) .o_td_label,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_stage_box tr:has(.cpabooks_fsm_stage_sep_title) .o_form_label {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 100% !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    white-space: normal !important;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview_fields .o_field_widget {
+    display: inline-block;
+    width: 100%;
+    max-width: 100%;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_cost_line {
+    margin-top: 2px;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_cost_total_grand {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 2px solid #d1d5db;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_cost_total_grand label {
+    font-weight: 700;
+    color: #111827;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview > .o_group {
+    width: 100%;
+    max-width: 100%;
+    display: block;
+    float: none;
+    vertical-align: top;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .o_td_label {
+    min-width: 200px;
+    width: 32%;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .o_td_field {
+    width: 68%;
+    max-width: calc(100% - 220px);
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget:not(.o_stat_info) input,
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget textarea,
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget .o_input_dropdown,
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.o_field_many2one .o_input {
+    background-color: #fff;
+    border-color: #d1d5db;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget[name="site_visit"] textarea,
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget[name="closing_remarks"] textarea {
+    min-height: 22px !important;
+    height: 22px !important;
+    line-height: 20px !important;
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    resize: none;
+    overflow: hidden;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget[name="site_visit"],
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget[name="closing_remarks"] {
+    position: relative;
+    top: -2px;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .o_notebook {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 4px 8px 8px;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .o_notebook .nav-tabs .nav-link.active {
+    background: #eef2ff;
+    color: #1e3a8a;
+    border-color: #c7d2fe;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .o_notebook .nav-tabs .nav-link {
+    color: #4b5563;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet label[for="task_group_id"],
+.o_form_view .cpabooks_fsm_task_sheet label[for="scope_id"],
+.o_form_view .cpabooks_fsm_task_sheet label[for="scope_group_id"],
+.o_form_view .cpabooks_fsm_task_sheet label[for="activity_category_id"],
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget[name="task_group_id"],
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget[name="scope_id"],
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget[name="scope_group_id"],
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget[name="activity_category_id"] {
+    display: none !important;
+}
+
+/* Stage + progress (replaces chevron bar) */
+.o_form_view .cpabooks_fsm_meta_row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 24px;
+    width: 100%;
+    margin: 0 0 8px 0;
+    padding: 8px 12px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    clear: both;
+}
+
+.o_form_view .cpabooks_fsm_meta_row .o_field_widget {
+    margin-bottom: 0;
+}
+
+.o_form_view .cpabooks_fsm_meta_row .o_field_widget[name="fsm_stage_progress"] {
+    min-width: 180px;
+    flex: 1 1 200px;
+}
+
+.o_form_view .cpabooks_fsm_meta_row .o_field_widget[name="stage"] {
+    min-width: 160px;
+}
+
+.o_form_view .cpabooks_fsm_form_with_sidebar .cpabooks_fsm_next_prominent,
+.o_form_view .cpabooks_fsm_form_with_sidebar .cpabooks_fsm_pending_banner_wrap {
+    width: calc(100% - 340px);
+    max-width: calc(100% - 340px);
+    float: left;
+    clear: left;
+    box-sizing: border-box;
+}
+
+/* Smart buttons — keep fully visible left of the workflow panel */
+.o_form_view .cpabooks_fsm_form_with_sidebar div[name='cpabooks_fsm_document_button_box'] {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    max-width: 100%;
+    float: left;
+    clear: left;
+    box-sizing: border-box;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet div[name='cpabooks_fsm_document_button_box'] .oe_stat_button {
+    min-width: 72px;
+    min-height: 48px;
+    padding: 4px 8px 6px;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet div[name='cpabooks_fsm_document_button_box'] .oe_stat_button .o_stat_info {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet div[name='cpabooks_fsm_document_button_box'] .oe_stat_button .o_stat_value,
+.o_form_view .cpabooks_fsm_task_sheet div[name='cpabooks_fsm_document_button_box'] .oe_stat_button .o_stat_text {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    overflow: visible;
+    white-space: nowrap;
+    max-width: none;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet div[name='cpabooks_fsm_document_button_box'] .oe_stat_button .o_stat_text {
+    font-size: 11px;
+    font-weight: 600;
+    color: #6b7280 !important;
+    margin-top: 2px;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet div[name='cpabooks_fsm_document_button_box'] .oe_stat_button > .o_stat_text {
+    display: block !important;
+    font-size: 11px;
+    font-weight: 600;
+    color: #6b7280 !important;
+    margin-top: 2px;
+    text-align: center;
+}
+
+.o_form_view.o_dark .cpabooks_fsm_task_sheet div[name='cpabooks_fsm_document_button_box'] .oe_stat_button .o_stat_text,
+.o_form_view .o_dark .cpabooks_fsm_task_sheet div[name='cpabooks_fsm_document_button_box'] .oe_stat_button .o_stat_text,
+body.o_dark .o_form_view .cpabooks_fsm_task_sheet div[name='cpabooks_fsm_document_button_box'] .oe_stat_button .o_stat_text,
+body.o_dark .o_form_view .cpabooks_fsm_task_sheet div[name='cpabooks_fsm_document_button_box'] .oe_stat_button > .o_stat_text {
+    color: #d1d5db !important;
+}
+
+.o_form_view .cpabooks_fsm_next_prominent {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    width: 100%;
+    margin: 0 0 12px 0;
+    padding: 10px 14px;
+    background: #ecfdf5;
+    border: 1px solid #6ee7b7;
+    border-radius: 8px;
+    clear: both;
+}
+
+.o_form_view .cpabooks_fsm_ribbon_row {
+    display: flex;
+    align-items: center;
+    gap: 10px 12px;
+    width: 100%;
+    min-width: 0;
+}
+
+.o_form_view .cpabooks_fsm_ribbon_row_main {
+    flex-wrap: nowrap;
+}
+
+.o_form_view .cpabooks_fsm_ribbon_row_hint {
+    padding-left: 2px;
+}
+
+.o_form_view .cpabooks_fsm_next_prominent .cpabooks_fsm_btn_next_main {
+    font-weight: 700;
+    padding: 6px 22px;
+    letter-spacing: 0.5px;
+    flex: 0 0 auto;
+    height: 32px;
+    line-height: 18px;
+}
+
+.o_form_view .cpabooks_fsm_ribbon_progress_label {
+    flex: 0 0 auto;
+    font-size: 13px;
+    font-weight: 700;
+    color: #374151;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+.o_form_view .cpabooks_fsm_ribbon_progress_wrap {
+    flex: 1 1 auto;
+    min-width: 140px;
+    display: flex;
+    align-items: center;
+}
+
+.o_form_view .cpabooks_fsm_ribbon_progress_wrap .o_field_widget[name="fsm_stage_progress"] {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.o_form_view .cpabooks_fsm_next_prominent .cpabooks_fsm_btn_what_to_do {
+    font-weight: 700;
+    padding: 6px 14px;
+    letter-spacing: 0.35px;
+    flex: 0 0 auto;
+    height: 32px;
+    line-height: 18px;
+    border-color: #6d28d9;
+    color: #ffffff;
+    background: #7c3aed;
+}
+
+.o_form_view .cpabooks_fsm_next_prominent .cpabooks_fsm_btn_what_to_do:hover,
+.o_form_view .cpabooks_fsm_next_prominent .cpabooks_fsm_btn_what_to_do:focus {
+    background: #6d28d9;
+    border-color: #5b21b6;
+    color: #ffffff;
+}
+
+.o_form_view .cpabooks_fsm_ribbon_pending_list {
+    flex: 0 0 auto;
+    color: #dc2626;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+    text-transform: lowercase;
+    width: auto;
+    margin-bottom: 0;
+}
+
+.o_form_view .cpabooks_fsm_ribbon_pending_list.o_field_widget,
+.o_form_view .cpabooks_fsm_ribbon_pending_list .o_field_widget {
+    width: auto;
+    margin-bottom: 0;
+}
+
+.o_form_view .cpabooks_fsm_ribbon_pending_list input,
+.o_form_view .cpabooks_fsm_ribbon_pending_list span {
+    border: none !important;
+    background: transparent !important;
+    color: #dc2626 !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    padding: 0 !important;
+    width: auto !important;
+    min-width: 0 !important;
+    box-shadow: none !important;
+}
+
+.o_form_view .cpabooks_fsm_ribbon_next_pending {
+    color: #dc2626;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.35;
+    white-space: normal;
+    word-break: break-word;
+}
+
+.o_form_view .cpabooks_fsm_overview_fields tr.cpabooks_fsm_field_row_pending .o_td_field {
+    box-shadow: inset 0 0 0 2px #dc2626;
+    border-radius: 4px;
+}
+
+.o_form_view .cpabooks_fsm_field_pending_tag {
+    color: #dc2626;
+    font-weight: 700;
+    font-size: 12px;
+    margin-left: 4px;
+    white-space: nowrap;
+}
+
+.o_form_view .cpabooks_fsm_next_prominent .cpabooks_fsm_btn_close_stage {
+    font-weight: 700;
+    padding: 8px 20px;
+    letter-spacing: 0.3px;
+    flex: 0 0 auto;
+    border-color: #f59e0b;
+    color: #b45309;
+    background: #fffbeb;
+}
+
+.o_form_view .cpabooks_fsm_stage0_close_pending {
+    margin: 8px 0 0 18px;
+    padding: 0;
+}
+
+.o_form_view .cpabooks_fsm_stage0_close_pending li {
+    margin-bottom: 4px;
+}
+
+.o_form_view .cpabooks_fsm_next_prominent .cpabooks_fsm_pending_serials {
+    flex: 0 0 auto;
+    margin-bottom: 0;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: #fff7ed;
+    border: 1px solid #fdba74;
+}
+
+.o_form_view .cpabooks_fsm_next_prominent .cpabooks_fsm_pending_serials .o_field_char,
+.o_form_view .cpabooks_fsm_next_prominent .cpabooks_fsm_pending_serials span {
+    color: #c2410c !important;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+@keyframes cpabooks_fsm_nav_bubble_red {
+    0%, 100% {
+        background-color: rgba(239, 68, 68, 0.14);
+        outline: 2px solid rgba(239, 68, 68, 0.55);
+        outline-offset: -2px;
+    }
+    50% {
+        background-color: rgba(239, 68, 68, 0.32);
+        outline: 3px solid rgba(239, 68, 68, 0.9);
+        outline-offset: -2px;
+    }
+}
+
+.o_form_view .cpabooks_fsm_overview_fields tr.cpabooks_fsm_nav_bubble_red {
+    animation: cpabooks_fsm_nav_bubble_red 0.65s ease-in-out 4;
+    border-radius: 5px;
+}
+
+.o_form_view .cpabooks_fsm_overview_fields tr.cpabooks_fsm_nav_bubble_red .o_td_label label {
+    color: #ef4444 !important;
+    font-weight: 800 !important;
+}
+
+.o_form_view .cpabooks_fsm_overview_fields tr.cpabooks_fsm_nav_bubble_red .o_td_field,
+.o_form_view .cpabooks_fsm_overview_fields tr.cpabooks_fsm_nav_bubble_red .o_field_widget {
+    background-color: rgba(239, 68, 68, 0.08);
+}
+
+@keyframes cpabooks_fsm_nav_blink_red {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+        background-color: transparent;
+    }
+    25%, 75% {
+        box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.65);
+        background-color: #fef2f2;
+    }
+    50% {
+        box-shadow: 0 0 0 6px rgba(220, 38, 38, 0.4);
+        background-color: #fee2e2;
+    }
+}
+
+.o_form_view .cpabooks_fsm_overview tr.cpabooks_fsm_nav_blink_red,
+.o_form_view .cpabooks_fsm_overview .o_inner_group.cpabooks_fsm_nav_blink_red,
+.o_form_view .cpabooks_fsm_overview tr.cpabooks_fsm_nav_blink_red .o_td_label label,
+.o_form_view .cpabooks_fsm_overview tr.cpabooks_fsm_nav_blink_red .o_field_widget {
+    animation: cpabooks_fsm_nav_blink_red 0.55s ease-in-out 5;
+}
+
+.o_form_view .cpabooks_fsm_overview tr.cpabooks_fsm_nav_blink_red .o_td_label label {
+    color: #dc2626 !important;
+    font-weight: 800 !important;
+}
+
+@keyframes cpabooks_fsm_nav_blink {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+        background-color: transparent;
+    }
+    25%, 75% {
+        box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.55);
+        background-color: #fffbeb;
+    }
+    50% {
+        box-shadow: 0 0 0 5px rgba(245, 158, 11, 0.35);
+        background-color: #fef3c7;
+    }
+}
+
+.o_form_view .cpabooks_fsm_stage_box.cpabooks_fsm_nav_blink {
+    border-radius: 6px;
+    animation: cpabooks_fsm_nav_blink 0.55s ease-in-out 3;
+}
+
+.o_form_view .cpabooks_fsm_next_prominent .cpabooks_fsm_pending_serials.cpabooks_fsm_nav_blink {
+    animation: cpabooks_fsm_nav_blink 0.55s ease-in-out 3;
+}
+
+.o_form_view .cpabooks_fsm_overview tr.cpabooks_fsm_nav_blink,
+.o_form_view .cpabooks_fsm_overview .o_inner_group.cpabooks_fsm_nav_blink {
+    animation: cpabooks_fsm_nav_blink 0.55s ease-in-out 3;
+}
+
+.o_form_view .cpabooks_fsm_next_prominent .o_field_widget[name="fsm_stage_progress"] {
+    flex: 1 1 auto;
+    min-width: 120px;
+    max-width: none;
+    margin-bottom: 0;
+}
+
+.cpabooks_fsm_guide_ray_svg {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+}
+
+.cpabooks_fsm_guide_ray_line {
+    stroke: #dc2626;
+    stroke-width: 3;
+    stroke-dasharray: 10 8;
+    animation: cpabooks_fsm_guide_ray_dash 0.55s linear infinite;
+    filter: drop-shadow(0 0 4px rgba(220, 38, 38, 0.65));
+}
+
+@keyframes cpabooks_fsm_guide_ray_dash {
+    to {
+        stroke-dashoffset: -36;
+    }
+}
+
+.cpabooks_fsm_guide_ray_head {
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    color: #dc2626;
+    font-size: 28px;
+    text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95), 0 0 10px rgba(220, 38, 38, 0.55);
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.25));
+    z-index: 1061;
+}
+
+.cpabooks_fsm_pointer_ghost_red {
+    color: #dc2626;
+    text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95), 0 0 10px rgba(220, 38, 38, 0.55);
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.25));
+}
+
+.cpabooks_fsm_what_to_do_dialog {
+    max-height: 65vh;
+    overflow: auto;
+    padding: 0;
+}
+
+.cpabooks_fsm_what_to_do_dialog .cpabooks_fsm_what_to_do_panel {
+    background: #fffbeb;
+    border: 1px solid #f59e0b;
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+.cpabooks_fsm_what_to_do_dialog .cpabooks_fsm_pending_banner_lead {
+    font-size: 13px;
+    font-weight: 700;
+    color: #b91c1c;
+    margin-bottom: 10px;
+}
+
+.cpabooks_fsm_what_to_do_dialog .cpabooks_fsm_pending_banner_body {
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+.cpabooks_fsm_what_to_do_dialog .cpabooks_fsm_pending_stage strong {
+    display: block;
+    margin-bottom: 6px;
+    color: #92400e;
+    font-size: 12px;
+}
+
+.cpabooks_fsm_what_to_do_dialog .cpabooks_fsm_pending_stage ul {
+    margin: 0 0 10px;
+    padding-left: 18px;
+}
+
+.cpabooks_fsm_what_to_do_dialog .cpabooks_fsm_pending_stage li {
+    margin-bottom: 4px;
+    color: #b91c1c;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.cpabooks_fsm_pointer_trail_layer {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2005;
+    overflow: visible;
+}
+
+.cpabooks_fsm_pointer_ghost {
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    font-size: 24px;
+    color: #059669;
+    text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95), 0 0 10px rgba(5, 150, 105, 0.55);
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.25));
+}
+
+.o_form_view .cpabooks_fsm_next_prominent .cpabooks_fsm_top_progress_wide .o_progressbar {
+    height: 32px;
+    width: 100%;
+    min-width: 0;
+    border-radius: 8px;
+    background: #d1fae5;
+    border: 1px solid #6ee7b7;
+    overflow: hidden;
+}
+
+.o_form_view .cpabooks_fsm_next_prominent .cpabooks_fsm_top_progress .o_progressbar {
+    height: 32px;
+    width: 100%;
+    min-width: 0;
+    border-radius: 8px;
+    background: #d1fae5;
+    border: 1px solid #6ee7b7;
+    overflow: hidden;
+}
+
+.o_form_view .cpabooks_fsm_next_prominent .cpabooks_fsm_top_progress_wide .o_progressbar .o_progressbar_value,
+.o_form_view .cpabooks_fsm_next_prominent .cpabooks_fsm_top_progress .o_progressbar .o_progressbar_value {
+    height: 100%;
+    border-radius: 7px;
+    background: linear-gradient(90deg, #059669 0%, #10b981 100%);
+    line-height: 32px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.o_form_view .cpabooks_fsm_stage_banner_inline {
+    margin-bottom: 6px;
+}
+
+.o_form_view .cpabooks_fsm_sep_roman .o_form_label {
+    color: #27ae60;
+    font-weight: 700;
+    font-style: italic;
+}
+
+/* Field values colored by workflow stage (matches right sidebar) */
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_val_orange,
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_val_orange .o_field_char,
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_val_orange span:not(.badge),
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_val_orange a {
+    color: #c05621 !important;
+    font-weight: 600;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_val_green,
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_val_green .o_field_char,
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_val_green span:not(.badge),
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_val_green a {
+    color: #1e8449 !important;
+    font-weight: 600;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_val_blue,
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_val_blue .o_field_char,
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_val_blue span:not(.badge),
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_val_blue a {
+    color: #1f618d !important;
+    font-weight: 600;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_val_purple,
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_val_purple span:not(.badge) {
+    color: #7d3c98 !important;
+    font-weight: 600;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_val_teal,
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_val_teal span:not(.badge),
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_val_teal a {
+    color: #117a65 !important;
+    font-weight: 600;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_val_yellow,
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_val_yellow span:not(.badge),
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_val_yellow a {
+    color: #9a7d0a !important;
+    font-weight: 600;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_val_pink,
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_val_pink textarea,
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_val_pink span:not(.badge) {
+    color: #c2185b !important;
+    font-weight: 600;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_field_locked.cpabooks_fsm_val_orange span,
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_field_locked.cpabooks_fsm_val_green span,
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_field_locked.cpabooks_fsm_val_blue span,
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_field_locked.cpabooks_fsm_val_teal span,
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_field_locked.cpabooks_fsm_val_yellow span,
+.o_form_view .cpabooks_fsm_task_sheet .o_field_widget.cpabooks_fsm_field_locked.cpabooks_fsm_val_pink span {
+    color: #6b7280 !important;
+    font-weight: 500;
+}
+
+/* Top chevron progress bar (legacy, hidden) */
+.o_form_view .cpabooks_fsm_progress_row {
+    width: 100%;
+    margin: 0 0 8px 0;
+    clear: both;
+}
+
+.o_form_view .cpabooks_fsm_chevron_track {
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+    gap: 0;
+    padding: 2px 0;
+}
+
+.o_form_view .cpabooks_fsm_chevron {
+    flex: 1 1 0;
+    min-width: 108px;
+    position: relative;
+    padding-left: 14px;
+}
+
+.o_form_view .cpabooks_fsm_chevron_not_first {
+    margin-left: -10px;
+}
+
+.o_form_view .cpabooks_fsm_progress_wrap {
+    position: relative;
+    width: 100%;
+    margin-bottom: 4px;
+}
+
+.o_form_view .cpabooks_fsm_next_slot {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 6px;
+    z-index: 5;
+}
+
+.o_form_view .cpabooks_fsm_next_slot .cpabooks_fsm_btn_next {
+    white-space: nowrap;
+    font-weight: 700;
+    padding: 6px 16px;
+}
+
+.o_form_view .cpabooks_fsm_inline_next {
+    display: inline-block;
+    width: auto;
+    min-width: 72px;
+    margin: 2px 0 4px;
+    padding: 4px 14px;
+    font-weight: 700;
+}
+
+.o_form_view .cpabooks_fsm_chevron > div {
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%, 12px 50%);
+    padding: 10px 18px 10px 20px;
+    min-height: 52px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid transparent;
+    box-sizing: border-box;
+}
+
+.o_form_view .cpabooks_fsm_chevron_last > div {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 12px 50%);
+    padding-right: 14px;
+}
+
+.o_form_view .cpabooks_fsm_chev_label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: #fff;
+    line-height: 1.2;
+}
+
+.o_form_view .cpabooks_fsm_chev_status {
+    display: block;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.92);
+    margin-top: 2px;
+}
+
+/* Stage colors — fill, border, and label text match per stage */
+.o_form_view .cpabooks_fsm_chev_orange > div {
+    background: #e67e22;
+    border-color: #e67e22;
+}
+.o_form_view .cpabooks_fsm_chev_green > div {
+    background: #27ae60;
+    border-color: #27ae60;
+}
+.o_form_view .cpabooks_fsm_chev_blue > div {
+    background: #2980b9;
+    border-color: #2980b9;
+}
+.o_form_view .cpabooks_fsm_chev_purple > div {
+    background: #8e44ad;
+    border-color: #8e44ad;
+}
+.o_form_view .cpabooks_fsm_chev_teal > div {
+    background: #16a085;
+    border-color: #16a085;
+}
+.o_form_view .cpabooks_fsm_chev_yellow > div {
+    background: #d4ac0d;
+    border-color: #d4ac0d;
+}
+.o_form_view .cpabooks_fsm_chev_pink > div {
+    background: #e84393;
+    border-color: #e84393;
+}
+
+.o_form_view .cpabooks_fsm_chev_orange .cpabooks_fsm_chev_label,
+.o_form_view .cpabooks_fsm_chev_orange .cpabooks_fsm_chev_status,
+.o_form_view .cpabooks_fsm_chev_green .cpabooks_fsm_chev_label,
+.o_form_view .cpabooks_fsm_chev_green .cpabooks_fsm_chev_status,
+.o_form_view .cpabooks_fsm_chev_blue .cpabooks_fsm_chev_label,
+.o_form_view .cpabooks_fsm_chev_blue .cpabooks_fsm_chev_status,
+.o_form_view .cpabooks_fsm_chev_purple .cpabooks_fsm_chev_label,
+.o_form_view .cpabooks_fsm_chev_purple .cpabooks_fsm_chev_status,
+.o_form_view .cpabooks_fsm_chev_teal .cpabooks_fsm_chev_label,
+.o_form_view .cpabooks_fsm_chev_teal .cpabooks_fsm_chev_status,
+.o_form_view .cpabooks_fsm_chev_pink .cpabooks_fsm_chev_label,
+.o_form_view .cpabooks_fsm_chev_pink .cpabooks_fsm_chev_status {
+    color: #fff;
+}
+
+.o_form_view .cpabooks_fsm_chev_yellow .cpabooks_fsm_chev_label,
+.o_form_view .cpabooks_fsm_chev_yellow .cpabooks_fsm_chev_status {
+    color: #3d2e00;
+}
+
+.o_form_view .cpabooks_fsm_chev_done > div {
+    opacity: 0.92;
+}
+
+.o_form_view .cpabooks_fsm_chev_pending > div {
+    background: #fff !important;
+    opacity: 1;
+}
+
+.o_form_view .cpabooks_fsm_chev_pending.cpabooks_fsm_chev_orange .cpabooks_fsm_chev_label,
+.o_form_view .cpabooks_fsm_chev_pending.cpabooks_fsm_chev_orange .cpabooks_fsm_chev_status {
+    color: #e67e22;
+}
+.o_form_view .cpabooks_fsm_chev_pending.cpabooks_fsm_chev_green .cpabooks_fsm_chev_label,
+.o_form_view .cpabooks_fsm_chev_pending.cpabooks_fsm_chev_green .cpabooks_fsm_chev_status {
+    color: #27ae60;
+}
+.o_form_view .cpabooks_fsm_chev_pending.cpabooks_fsm_chev_blue .cpabooks_fsm_chev_label,
+.o_form_view .cpabooks_fsm_chev_pending.cpabooks_fsm_chev_blue .cpabooks_fsm_chev_status {
+    color: #2980b9;
+}
+.o_form_view .cpabooks_fsm_chev_pending.cpabooks_fsm_chev_purple .cpabooks_fsm_chev_label,
+.o_form_view .cpabooks_fsm_chev_pending.cpabooks_fsm_chev_purple .cpabooks_fsm_chev_status {
+    color: #8e44ad;
+}
+.o_form_view .cpabooks_fsm_chev_pending.cpabooks_fsm_chev_teal .cpabooks_fsm_chev_label,
+.o_form_view .cpabooks_fsm_chev_pending.cpabooks_fsm_chev_teal .cpabooks_fsm_chev_status {
+    color: #16a085;
+}
+.o_form_view .cpabooks_fsm_chev_pending.cpabooks_fsm_chev_yellow .cpabooks_fsm_chev_label,
+.o_form_view .cpabooks_fsm_chev_pending.cpabooks_fsm_chev_yellow .cpabooks_fsm_chev_status {
+    color: #9a7b0a;
+}
+.o_form_view .cpabooks_fsm_chev_pending.cpabooks_fsm_chev_pink .cpabooks_fsm_chev_label,
+.o_form_view .cpabooks_fsm_chev_pending.cpabooks_fsm_chev_pink .cpabooks_fsm_chev_status {
+    color: #e84393;
+}
+
+.o_form_view .cpabooks_fsm_chev_current {
+    z-index: 3;
+}
+
+.o_form_view .cpabooks_fsm_chev_current > div {
+    box-shadow: 0 0 0 2px rgba(31, 41, 55, 0.35);
+    opacity: 1;
+}
+
+/* Stage banner above main fields */
+.o_form_view .cpabooks_fsm_stage_banner_row {
+    width: 100%;
+    margin-bottom: 6px;
+    clear: both;
+}
+
+.o_form_view .cpabooks_fsm_stage_banner,
+.o_form_view .cpabooks_fsm_stage_banner_text_only {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0;
+    padding: 0;
+    margin: 0 0 6px;
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+}
+
+.o_form_view .cpabooks_fsm_banner_orange,
+.o_form_view .cpabooks_fsm_banner_orange span {
+    color: #e67e22 !important;
+}
+.o_form_view .cpabooks_fsm_banner_green,
+.o_form_view .cpabooks_fsm_banner_green span {
+    color: #27ae60 !important;
+}
+.o_form_view .cpabooks_fsm_banner_blue,
+.o_form_view .cpabooks_fsm_banner_blue span {
+    color: #2980b9 !important;
+}
+.o_form_view .cpabooks_fsm_banner_purple,
+.o_form_view .cpabooks_fsm_banner_purple span {
+    color: #8e44ad !important;
+}
+.o_form_view .cpabooks_fsm_banner_teal,
+.o_form_view .cpabooks_fsm_banner_teal span {
+    color: #16a085 !important;
+}
+.o_form_view .cpabooks_fsm_banner_yellow,
+.o_form_view .cpabooks_fsm_banner_yellow span {
+    color: #b7950b !important;
+}
+.o_form_view .cpabooks_fsm_banner_pink,
+.o_form_view .cpabooks_fsm_banner_pink span {
+    color: #e84393 !important;
+}
+
+/* Locked (completed) stage panels */
+.o_form_view .cpabooks_fsm_stage_panel.cpabooks_fsm_stage_locked {
+    opacity: 0.88;
+}
+
+.o_form_view .cpabooks_fsm_stage_panel.cpabooks_fsm_stage_locked .o_field_widget input,
+.o_form_view .cpabooks_fsm_stage_panel.cpabooks_fsm_stage_locked .o_field_widget textarea,
+.o_form_view .cpabooks_fsm_stage_panel.cpabooks_fsm_stage_locked .o_field_widget select,
+.o_form_view .cpabooks_fsm_stage_panel.cpabooks_fsm_stage_locked .o_input_dropdown {
+    background-color: #f3f4f6 !important;
+    border-color: #d1d5db !important;
+    color: #6b7280 !important;
+}
+
+.o_form_view .cpabooks_fsm_full_edit_mode .cpabooks_fsm_stage_panel.cpabooks_fsm_stage_locked {
+    opacity: 1;
+}
+
+.o_form_view .o_cp_buttons .cpabooks_fsm_btn_full_edit,
+.o_control_panel .o_cp_buttons .o_cpabooks_fsm_full_edit_btn,
+.o_control_panel .o_cp_buttons .cpabooks_fsm_btn_full_edit {
+    margin-left: 0;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* EDIT on top, FULL EDIT directly underneath (Create stays to the right). */
+.o_control_panel .o_cp_buttons .o_cpabooks_fsm_edit_stack,
+.o_form_view .o_cp_buttons .o_cpabooks_fsm_edit_stack {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+
+.o_control_panel .o_cp_buttons .o_cpabooks_fsm_edit_stack .o_form_button_edit,
+.o_control_panel .o_cp_buttons .o_cpabooks_fsm_edit_stack .o_cpabooks_fsm_full_edit_btn {
+    width: 100%;
+}
+
+.o_form_view .cpabooks_fsm_header_full_edit {
+    margin-left: 8px;
+    font-weight: 700;
+}
+
+.o_form_view .o_field_widget.cpabooks_fsm_field_locked input,
+.o_form_view .o_field_widget.cpabooks_fsm_field_locked textarea,
+.o_form_view .o_field_widget.cpabooks_fsm_field_locked select,
+.o_form_view .o_field_widget.cpabooks_fsm_field_locked .o_input_dropdown {
+    background-color: #f3f4f6 !important;
+    border-color: #d1d5db !important;
+    color: #6b7280 !important;
+}
+
+/* Right workflow sidebar — top set dynamically in JS below NEXT ribbon */
+.o_form_view .cpabooks_fsm_sidebar {
+    position: absolute;
+    top: 220px;
+    right: 0;
+    width: 320px;
+    max-height: calc(100vh - 320px);
+    overflow-y: auto;
+    overflow-x: visible;
+    z-index: 2;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+    padding: 10px 10px 12px;
+}
+
+.o_form_view .cpabooks_fsm_sidebar .o_field_widget {
+    width: 100%;
+}
+
+.o_form_view .cpabooks_fsm_sidebar .o_field_cpabooks_fsm_html {
+    display: block;
+    white-space: normal;
+}
+
+.o_form_view .cpabooks_fsm_sidebar_title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 4px;
+}
+
+.o_form_view .cpabooks_fsm_sidebar_sub {
+    font-size: 11px;
+    color: #6b7280;
+    margin-bottom: 10px;
+    line-height: 1.35;
+}
+
+.o_form_view .cpabooks_fsm_stage_accordion {
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    overflow: hidden;
+}
+
+.o_form_view .cpabooks_fsm_stage_head {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 8px 10px 6px;
+    font-size: 13px;
+    font-weight: 800;
+    background: transparent !important;
+    border: none;
+    border-bottom: 2px solid currentColor;
+}
+
+.o_form_view .cpabooks_fsm_stage_head::-webkit-details-marker {
+    display: none;
+}
+
+.o_form_view .cpabooks_fsm_stage_head_title {
+    flex: 1 1 100%;
+    padding-right: 0;
+    line-height: 1.3;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+.o_form_view .cpabooks_fsm_stage_head_status {
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.25);
+    white-space: nowrap;
+}
+
+.o_form_view .cpabooks_fsm_side_orange .cpabooks_fsm_stage_head {
+    color: #e67e22;
+    border-bottom-color: #e67e22;
+}
+.o_form_view .cpabooks_fsm_side_green .cpabooks_fsm_stage_head {
+    color: #27ae60;
+    border-bottom-color: #27ae60;
+}
+.o_form_view .cpabooks_fsm_side_blue .cpabooks_fsm_stage_head {
+    color: #2980b9;
+    border-bottom-color: #2980b9;
+}
+.o_form_view .cpabooks_fsm_side_purple .cpabooks_fsm_stage_head {
+    color: #8e44ad;
+    border-bottom-color: #8e44ad;
+}
+.o_form_view .cpabooks_fsm_side_teal .cpabooks_fsm_stage_head {
+    color: #16a085;
+    border-bottom-color: #16a085;
+}
+.o_form_view .cpabooks_fsm_side_yellow .cpabooks_fsm_stage_head {
+    color: #b7950b;
+    border-bottom-color: #b7950b;
+}
+.o_form_view .cpabooks_fsm_side_pink .cpabooks_fsm_stage_head {
+    color: #e84393;
+    border-bottom-color: #e84393;
+}
+
+.o_form_view .cpabooks_fsm_side_orange .cpabooks_fsm_stage_head_title {
+    color: #e67e22 !important;
+}
+.o_form_view .cpabooks_fsm_side_green .cpabooks_fsm_stage_head_title {
+    color: #27ae60 !important;
+}
+.o_form_view .cpabooks_fsm_side_blue .cpabooks_fsm_stage_head_title {
+    color: #2980b9 !important;
+}
+.o_form_view .cpabooks_fsm_side_purple .cpabooks_fsm_stage_head_title {
+    color: #8e44ad !important;
+}
+.o_form_view .cpabooks_fsm_side_teal .cpabooks_fsm_stage_head_title {
+    color: #16a085 !important;
+}
+.o_form_view .cpabooks_fsm_side_yellow .cpabooks_fsm_stage_head_title {
+    color: #b7950b !important;
+}
+.o_form_view .cpabooks_fsm_side_pink .cpabooks_fsm_stage_head_title {
+    color: #e84393 !important;
+}
+
+.o_form_view .cpabooks_fsm_side_orange .cpabooks_fsm_stage_head_status,
+.o_form_view .cpabooks_fsm_side_green .cpabooks_fsm_stage_head_status,
+.o_form_view .cpabooks_fsm_side_blue .cpabooks_fsm_stage_head_status,
+.o_form_view .cpabooks_fsm_side_purple .cpabooks_fsm_stage_head_status,
+.o_form_view .cpabooks_fsm_side_teal .cpabooks_fsm_stage_head_status,
+.o_form_view .cpabooks_fsm_side_yellow .cpabooks_fsm_stage_head_status,
+.o_form_view .cpabooks_fsm_side_pink .cpabooks_fsm_stage_head_status {
+    background: rgba(0, 0, 0, 0.06);
+    color: inherit;
+}
+
+.o_form_view .cpabooks_fsm_stage_accordion {
+    border-width: 2px;
+}
+.o_form_view .cpabooks_fsm_side_orange { border-color: #e67e22; }
+.o_form_view .cpabooks_fsm_side_green { border-color: #27ae60; }
+.o_form_view .cpabooks_fsm_side_blue { border-color: #2980b9; }
+.o_form_view .cpabooks_fsm_side_purple { border-color: #8e44ad; }
+.o_form_view .cpabooks_fsm_side_teal { border-color: #16a085; }
+.o_form_view .cpabooks_fsm_side_yellow { border-color: #d4ac0d; }
+.o_form_view .cpabooks_fsm_side_pink { border-color: #e84393; }
+
+.o_form_view .cpabooks_fsm_stage_done .cpabooks_fsm_stage_head_status {
+    background: rgba(255, 255, 255, 0.35);
+}
+
+.o_form_view .cpabooks_fsm_stage_pending {
+    opacity: 0.92;
+}
+
+.o_form_view .cpabooks_fsm_stage_body {
+    padding: 8px 10px 6px;
+    background: #fafafa;
+}
+
+.o_form_view .cpabooks_fsm_block_title {
+    font-size: 10px;
+    font-weight: 700;
+    color: #4b5563;
+    margin: 6px 0 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+}
+
+.o_form_view .cpabooks_fsm_block_roman {
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: 0.1px;
+}
+
+.o_form_view .cpabooks_fsm_block_orange { color: #c2410c; }
+.o_form_view .cpabooks_fsm_block_green { color: #15803d; }
+.o_form_view .cpabooks_fsm_block_blue { color: #1d4ed8; }
+.o_form_view .cpabooks_fsm_block_purple { color: #7e22ce; }
+.o_form_view .cpabooks_fsm_block_teal { color: #0f766e; }
+.o_form_view .cpabooks_fsm_block_yellow { color: #a16207; }
+.o_form_view .cpabooks_fsm_block_pink { color: #be185d; }
+
+.o_form_view .cpabooks_fsm_check_numbered span {
+    color: #1d4ed8;
+    font-weight: 600;
+}
+
+.o_form_view .cpabooks_fsm_check_workflow span {
+    color: #374151;
+}
+
+.o_form_view .cpabooks_fsm_check_option span {
+    color: #7c3aed;
+    font-weight: 600;
+}
+
+.o_form_view .cpabooks_fsm_check_list {
+    list-style: none;
+    margin: 0 0 4px 0;
+    padding: 0;
+}
+
+.o_form_view .cpabooks_fsm_check_item {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    font-size: 11px;
+    line-height: 1.35;
+    margin-bottom: 4px;
+    color: #374151;
+}
+
+.o_form_view .cpabooks_fsm_check_item .fa {
+    margin-top: 1px;
+    flex-shrink: 0;
+}
+
+.o_form_view .cpabooks_fsm_check_done .fa {
+    color: #16a34a;
+}
+
+.o_form_view .cpabooks_fsm_check_pending .fa {
+    color: #9ca3af;
+}
+
+.o_form_view .cpabooks_fsm_pending_banner_wrap {
+    position: relative;
+    margin: 8px 0 12px;
+    padding: 10px 32px 10px 12px;
+    background: #fffbeb;
+    border: 1px solid #f59e0b;
+    border-radius: 8px;
+    overflow: visible;
+}
+
+.o_form_view .cpabooks_fsm_pending_close {
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    z-index: 5;
+    min-width: 24px;
+    height: 24px;
+    border: none;
+    background: #fffbeb;
+    font-size: 18px;
+    line-height: 22px;
+    color: #92400e;
+    padding: 0;
+    cursor: pointer;
+    box-shadow: 0 0 0 1px #f59e0b;
+    border-radius: 4px;
+}
+
+.o_form_view .cpabooks_fsm_pending_banner_body {
+    max-height: 220px;
+    overflow-y: auto;
+    font-size: 11px;
+    color: #78350f;
+}
+
+.o_form_view .cpabooks_fsm_pending_banner_body .cpabooks_fsm_pending_stage {
+    margin-top: 6px;
+}
+
+.o_form_view .cpabooks_fsm_pending_banner_body .cpabooks_fsm_pending_stage ul {
+    margin: 4px 0 0;
+    padding-left: 16px;
+}
+
+.o_form_view .cpabooks_fsm_pending_empty {
+    margin: 0;
+    font-size: 11px;
+    color: #78350f;
+}
+
+.o_form_view .cpabooks_fsm_pending_banner_title {
+    font-size: 13px;
+    font-weight: 800;
+    color: #92400e;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.o_form_view .cpabooks_fsm_pending_banner_lead {
+    font-size: 12px;
+    font-weight: 600;
+    color: #78350f;
+    margin-bottom: 8px;
+}
+
+.o_form_view .cpabooks_fsm_pending_accordion {
+    margin-top: 8px;
+    border: 1px solid #f59e0b;
+    border-radius: 6px;
+    background: #fffbeb;
+}
+
+.o_form_view .cpabooks_fsm_pending_accordion_title {
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 800;
+    color: #92400e;
+    padding: 8px 10px;
+    list-style: none;
+    text-transform: uppercase;
+}
+
+.o_form_view .cpabooks_fsm_pending_accordion_body {
+    padding: 0 10px 8px;
+    font-size: 10px;
+    color: #78350f;
+}
+
+.o_form_view .cpabooks_fsm_pending_stage {
+    margin-top: 6px;
+}
+
+.o_form_view .cpabooks_fsm_pending_stage ul {
+    margin: 4px 0 0;
+    padding-left: 16px;
+}
+
+.o_form_view .cpabooks_fsm_nav_hint .o_field_widget {
+    font-size: 11px;
+    font-weight: 600;
+    color: #2563eb;
+    margin-top: 8px;
+    line-height: 1.35;
+}
+
+.o_form_view .cpabooks_fsm_nav_panel.d-none {
+    display: none !important;
+}
+
+.o_form_view .cpabooks_fsm_invoice_status {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0 0 8px;
+}
+
+.o_form_view .o_field_widget[name="fsm_invoice_progress_status"].cpabooks_fsm_invoice_tone_in_progress span,
+.o_form_view .o_field_widget[name="fsm_invoice_progress_status"].cpabooks_fsm_invoice_tone_in_progress input {
+    color: #2980b9;
+}
+
+.o_form_view .o_field_widget[name="fsm_invoice_progress_status"].cpabooks_fsm_invoice_tone_draft span,
+.o_form_view .o_field_widget[name="fsm_invoice_progress_status"].cpabooks_fsm_invoice_tone_draft input {
+    color: #d68910;
+}
+
+.o_form_view .o_field_widget[name="fsm_invoice_progress_status"].cpabooks_fsm_invoice_tone_issued span,
+.o_form_view .o_field_widget[name="fsm_invoice_progress_status"].cpabooks_fsm_invoice_tone_issued input {
+    color: #16a085;
+    font-weight: 700;
+}
+
+.o_form_view .cpabooks_fsm_invoice_number {
+    font-size: 13px;
+    font-weight: 700;
+    margin: 0 0 10px;
+}
+
+/* TMC Internal timesheet list — taller rows, employee + description on same baseline */
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_timesheet_lines tbody tr.o_data_row {
+    min-height: 44px;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_timesheet_lines tbody td.o_data_cell {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    vertical-align: middle !important;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_timesheet_lines tbody td.o_data_cell .o_field_widget {
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: nowrap;
+    min-height: 32px;
+    margin: 0 !important;
+    line-height: 1.35 !important;
+    white-space: normal !important;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_timesheet_lines tbody td.o_data_cell[name="employee_id"] .o_field_many2one_avatar,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_timesheet_lines tbody td.o_data_cell[name="employee_id"] .o_field_many2one {
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: nowrap;
+    gap: 4px;
+    width: 100%;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_timesheet_lines tbody td.o_data_cell[name="employee_id"] .oe_avatar,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_timesheet_lines tbody td.o_data_cell[name="employee_id"] img.oe_avatar {
+    flex-shrink: 0;
+    margin: 0 6px 0 0 !important;
+    align-self: center;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_timesheet_lines tbody td.o_data_cell[name="employee_id"] .o_external_button {
+    position: static !important;
+    display: inline-flex !important;
+    align-items: center;
+    align-self: center;
+    margin: 0 0 0 4px !important;
+    vertical-align: middle;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_timesheet_lines tbody td.o_data_cell[name="name"] .o_input,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_timesheet_lines tbody td.o_data_cell .o_input {
+    min-height: 30px;
+    line-height: 28px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+/* Left CRN overview only — red stage headers; field lines keep neutral colors. */
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_stage_sep_title .o_form_label,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_stage_title_orange .o_form_label,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_stage_title_green .o_form_label,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_stage_title_blue .o_form_label,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_stage_title_purple .o_form_label,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_stage_title_teal .o_form_label,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_stage_title_yellow .o_form_label,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_stage_title_pink .o_form_label,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_stage_box_orange .cpabooks_fsm_stage_sep_title .o_form_label,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_stage_box_green .cpabooks_fsm_stage_sep_title .o_form_label,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_stage_box_blue .cpabooks_fsm_stage_sep_title .o_form_label,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_stage_box_purple .cpabooks_fsm_stage_sep_title .o_form_label,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_stage_box_teal .cpabooks_fsm_stage_sep_title .o_form_label,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_stage_box_yellow .cpabooks_fsm_stage_sep_title .o_form_label,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_stage_box_pink .cpabooks_fsm_stage_sep_title .o_form_label {
+    color: #ef4444 !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    text-align: center !important;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    width: 100% !important;
+    display: block !important;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_stage_box tr:has(.cpabooks_fsm_stage_sep_title) {
+    display: block;
+    width: 100%;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_stage_box tr:has(.cpabooks_fsm_stage_sep_title) > td {
+    display: block;
+    width: 100% !important;
+    max-width: none !important;
+    text-align: center;
+    padding-top: 4px;
+    padding-bottom: 8px;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_stage_box tr:has(.cpabooks_fsm_stage_sep_title) .o_td_label {
+    width: 100% !important;
+    max-width: none !important;
+    text-align: center !important;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields > .o_group.cpabooks_fsm_stage_box {
+    border: 1px solid #4b5563;
+    background: #111827 !important;
+    border-radius: 8px;
+    padding: 12px 16px 14px;
+    margin-bottom: 14px;
+    overflow: visible;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields {
+    overflow: visible;
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_td_label label,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget span,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget input,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget textarea,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget select,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget a,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget .o_external_button,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_quotation_approved,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_quotation_status,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_invoice_status,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_invoice_number,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_stage7_approval_status,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget[name="fsm_invoice_progress_status"] span,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget[name="fsm_invoice_progress_status"] input,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget[name="fsm_stage7_approval_status"] span,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget[name="fsm_stage7_approval_status"] input,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget.cpabooks_fsm_field_locked span,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget.cpabooks_fsm_field_locked input,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget.cpabooks_fsm_field_locked textarea,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget[name="fsm_invoice_progress_status"].cpabooks_fsm_invoice_tone_in_progress span,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget[name="fsm_invoice_progress_status"].cpabooks_fsm_invoice_tone_draft span,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget[name="fsm_invoice_progress_status"].cpabooks_fsm_invoice_tone_issued span,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget[name="fsm_stage7_approval_status"].cpabooks_fsm_stage7_tone_waiting span,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget[name="fsm_stage7_approval_status"].cpabooks_fsm_stage7_tone_approved span,
+.o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget[name="fsm_stage7_approval_status"].cpabooks_fsm_stage7_tone_rejected span {
+    color: #4b5563 !important;
+    font-weight: 500 !important;
+}
+
+.o_form_view .o_dark .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_td_label label,
+.o_form_view .o_dark .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget span,
+.o_form_view .o_dark .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget input,
+.o_form_view .o_dark .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget textarea,
+.o_form_view .o_dark .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget a,
+.o_form_view .o_dark .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_quotation_approved,
+.o_form_view .o_dark .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_stage7_approval_status,
+.o_form_view .o_dark .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget[name="fsm_stage7_approval_status"] span,
+.o_form_view .o_dark .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget[name="fsm_invoice_progress_status"] span,
+body.o_dark .o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_td_label label,
+body.o_dark .o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget span,
+body.o_dark .o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget input,
+body.o_dark .o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget textarea,
+body.o_dark .o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget a,
+body.o_dark .o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_quotation_approved,
+body.o_dark .o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget[name="fsm_stage7_approval_status"] span,
+body.o_dark .o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .o_field_widget[name="fsm_invoice_progress_status"] span {
+    color: #d1d5db !important;
+}
+
+.o_form_view .o_dark .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_stage_sep_title .o_form_label,
+body.o_dark .o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview .cpabooks_fsm_overview_fields .cpabooks_fsm_stage_sep_title .o_form_label {
+    color: #ef4444 !important;
+}
+
+@media (max-width: 1200px) {
+    .o_form_view .cpabooks_fsm_form_with_sidebar {
+        padding-right: 0;
+        padding-bottom: 0;
+    }
+
+    .o_form_view .cpabooks_fsm_form_with_sidebar .cpabooks_fsm_overview_fields {
+        width: 100%;
+        max-width: 100%;
+        float: none;
+    }
+
+    .o_form_view .cpabooks_fsm_sidebar {
+        position: static;
+        width: 100%;
+        max-height: none;
+        margin-top: 12px;
+    }
+
+    .o_form_view .cpabooks_fsm_task_sheet .cpabooks_fsm_overview > .o_group {
+        width: 100%;
+        display: block;
+    }
+
+    .o_form_view .cpabooks_fsm_chevron {
+        min-width: 96px;
+    }
+}
+
+/* All CRNs list: Complaint Details column width = CRN No (~21 chars) */
+.o_list_view th[data-name="complaint_details_short"] {
+    width: 21ch !important;
+    max-width: 21ch !important;
+    min-width: 21ch !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.o_list_view td.o_crn_complaint_details_list {
+    width: 21ch !important;
+    max-width: 21ch !important;
+    min-width: 21ch !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap !important;
+}

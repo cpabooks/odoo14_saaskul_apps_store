@@ -1,0 +1,4 @@
+<odoo>
+<record id="dashboard_kanban" model="ir.ui.view"><field name="name">recipe.dashboard.kanban</field><field name="model">saaskul.recipe</field><field name="arch" type="xml"><kanban><templates><t t-name="card" class="flex-row"><aside class="o_kanban_aside_full me-2"><field name="image_1920" widget="image" options="{'img_class': 'object-fit-cover w-100 h-100'}" alt="Menu Image"/></aside><main><field name="name" class="fw-bold fs-5"/><div>Sell: <field name="selling_price"/></div><div>Standard cost: <field name="standard_cost"/></div><div>Potential: <field name="potential_cost_pct"/>%</div></main></t></templates></kanban></field></record>
+<record id="action_dashboard" model="ir.actions.act_window"><field name="name">Recipe Book Dashboard</field><field name="res_model">saaskul.recipe</field><field name="view_mode">kanban,list,form</field></record>
+</odoo>
