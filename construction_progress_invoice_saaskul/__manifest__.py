@@ -28,7 +28,7 @@ contractor billing, labour supply invoice, subcontractor invoice.
     'live_test_url': 'https://saaskul.com/contactus?name=Live%20Preview%20-%20Construction%20Progress%20Invoice',
     'support': 'info.cpabooks@gmail.com',
     'license': 'OPL-1',
-    'price': 140.00,
+    'price': 20.00,
     'currency': 'USD',
     'images': [
         'static/description/banner.png',

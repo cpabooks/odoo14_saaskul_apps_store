@@ -29,7 +29,7 @@ Depends only on Accounting (account). No other custom module is required.
     'live_test_url': 'https://saaskul.com/contactus?name=Live%20Preview%20-%20Financial%20Statements%20Report',
     'support': 'info.cpabooks@gmail.com',
     'license': 'OPL-1',
-    'price': 400.00,
+    'price': 10.00,
     'currency': 'USD',
     'images': [
         'static/description/banner_screenshot.jpg',

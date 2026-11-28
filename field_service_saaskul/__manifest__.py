@@ -29,7 +29,7 @@
     'category': 'Services/Field Service',
     'version': '19.0.1.2.0',
     'license': 'OPL-1',
-    'price': 99.00,
+    'price': 20.00,
     'currency': 'USD',
     'images': ['static/description/banner.png'],
 

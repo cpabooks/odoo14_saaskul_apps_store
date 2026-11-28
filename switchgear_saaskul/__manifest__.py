@@ -79,6 +79,6 @@ estimate to BOM to MO, QC final inspection tag, dashboard, tutorial wizard and d
     'auto_install': False,
     'post_init_hook': 'post_init_hook',
     'license': 'OPL-1',
-    'price': 300.00,
+    'price': 30.00,
     'currency': 'USD',
 }

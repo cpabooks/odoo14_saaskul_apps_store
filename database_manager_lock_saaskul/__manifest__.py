@@ -26,7 +26,7 @@ database security, lock database manager.
     'live_test_url': 'https://saaskul.com/contactus?name=Live%20Preview%20-%20Database%20Manager%20Lock',
     'support': 'info.cpabooks@gmail.com',
     'license': 'OPL-1',
-    'price': 12.00,
+    'price': 10.00,
     'currency': 'USD',
     'images': [
         'static/description/banner.png',

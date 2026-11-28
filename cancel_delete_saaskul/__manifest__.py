@@ -17,7 +17,7 @@ Reverse and Confirm / Post. Works on Odoo 19 Community and Enterprise.
     'category': 'Extra Tools',
     'version': '19.0.1.0.0',
     'license': 'OPL-1',
-    'price': 9.00,
+    'price': 10.00,
     'currency': 'USD',
     'images': [
         'static/description/banner.png',
